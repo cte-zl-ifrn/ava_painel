@@ -1,11 +1,8 @@
 #!/bin/bash
 source functions
 
-
-if [[ `docker container ls | grep sead_{$SERVICE_NAME}_1` ]]; then 
+if [[ `docker container ls | grep {$COMPOSE_PROJECT_NAME}_{$SERVICE_NAME}_1` ]]; then 
   ./$SERVICE_NAME/exec ./manage.sh $@
 else
   ./$SERVICE_NAME/run ./manage.sh $@
 fi
-
-
