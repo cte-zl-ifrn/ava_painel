@@ -93,7 +93,7 @@ TEMPLATES = [
     },
 ]
 TABBED_ADMIN_USE_JQUERY_UI = True
-GTAG_UI = env("GTAG_UI", None)
+GTAG_ID = env("GTAG_ID", None)
 
 
 # Database
