@@ -10,7 +10,7 @@ import requests
 
 # Create your views here.
 def index(request):
-    campus = Campus.objects.filter(active=True)
+    campus = Campus.objects.filter(homepage=True)
     return render(request, 'avaportal/index.html', {'campus': campus})
 
 

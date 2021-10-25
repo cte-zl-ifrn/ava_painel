@@ -14,7 +14,8 @@ class Campus(Model):
     descricao = CharField('Descrição', max_length=255)
     url = URLField('URL', max_length=255)
     thumbnail = ImageField('Thumbnail', max_length=255)
-    active = BooleanField('Ativo')
+    active = BooleanField('Ativo?')
+    homepage = BooleanField('Listar na página principal?', default=True)
 
     class Meta:
         verbose_name = "Campus"
