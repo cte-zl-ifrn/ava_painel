@@ -26,6 +26,8 @@ cd bin
 # ./avaportal/debug
 ```
 
+> Para agendar o backup pode ser utilizado o script `$AP_HOME/bin/backup/all.sh`. Ele irá requerer a instalação e configuração do rclone e do sentry-cli.
+
 O serviço estará disponível em http://localhost:8080/ e será parecido com o que se vê abaixo:
 
 ![Alt text](screenshot.png?raw=true "Screenshot")
