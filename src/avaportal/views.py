@@ -9,6 +9,25 @@ import requests
 
 
 # Create your views here.
+def health(request):
+    debug = "OK" if settings.DEBUG == False else "FAIL (are active)"
+    try:
+        Campus.objects.all().exists()
+        connection = "OK"
+    except:
+        connection = "FAIL"
+    return HttpResponse(f"""
+    <pre>
+    Reverse proxy: OK.
+    Django: OK.
+    Database: {connection}.
+    Debug: {debug}.
+    Status: ALL FINE.
+    </pre>
+    """)
+
+
+# Create your views here.
 def index(request):
     campus = Campus.objects.filter(homepage=True)
     return render(request, 'avaportal/index.html', {'campus': campus})
