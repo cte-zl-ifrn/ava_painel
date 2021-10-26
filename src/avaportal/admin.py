@@ -4,7 +4,7 @@ from .models import Campus, Solicitacao
 
 @register(Campus)
 class CampusAdmin(ModelAdmin):
-    list_display = ['sigla', 'descricao', 'descricao', 'active']
+    list_display = ['sigla', 'descricao', 'active', 'homepage']
     search_fields = ['sigla', 'descricao', 'suap_id', 'url']
     list_filter = ['active', 'homepage']
 
