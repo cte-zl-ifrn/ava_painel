@@ -21,7 +21,7 @@ services:
       - "../volumes/pgdata:/var/lib/postgresql/data"
 
   avaportal:
-    image: 'ifrn/avaportal:1.0.5'
+    image: 'ifrn/avaportal:1.0.7'
     restart: always
     ports:
       - "7001:8000"
@@ -29,6 +29,7 @@ services:
       - ../confs/enabled/db.env
       - ../confs/enabled/avaportal.env
     volumes:
+      - '/Users/kelson/devel/ifrn/suap-ead/lib_suap_ead:/apps/lib_suap_ead'
       - '../src:/apps/app'
       - "../volumes/media:/var/media"
       - "../volumes/static:/var/static"

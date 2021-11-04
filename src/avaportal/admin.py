@@ -2,11 +2,18 @@
 from django.contrib.admin import register, ModelAdmin, TabularInline
 from .models import Campus, Solicitacao
 
+
+class SolicitacaoInline(TabularInline):
+    model = Solicitacao
+    extra = 0
+
+
 @register(Campus)
 class CampusAdmin(ModelAdmin):
     list_display = ['sigla', 'descricao', 'active', 'homepage']
     search_fields = ['sigla', 'descricao', 'suap_id', 'url']
     list_filter = ['active', 'homepage']
+    inlines = [SolicitacaoInline]
 
 
 @register(Solicitacao)
@@ -16,4 +23,4 @@ class SolicitacaoAdmin(ModelAdmin):
     autocomplete_fields = ['campus']
     date_hierarchy = 'timestamp'
     list_filter = ['status', 'status_code', 'campus']
-
+    ordering = ('-timestamp',)

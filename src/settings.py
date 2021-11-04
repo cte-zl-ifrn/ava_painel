@@ -107,6 +107,7 @@ DATABASES = {
         'PASSWORD': env('POSTGRES_PASSWORD', 'ava_pass'),
     }
 }
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 
 # Localization
@@ -177,7 +178,7 @@ SESSION_SERIALIZER = env("DJANGO_SESSION_SERIALIZER", 'django.contrib.sessions.s
 # Auth and Security... some another points impact on security, take care!
 SECRET_KEY = env("DJANGO_SECRET_KEY", 'changeme')
 AUTH_PASSWORD_VALIDATORS = []
-AUTHENTICATION_BACKENDS = ('suap_ead.backends.SuapOAuth2',)
+AUTHENTICATION_BACKENDS = ('suap_ead.auth.oauth2.SuapOAuth2',)
 SOCIAL_AUTH_SUAP_KEY = env('SOCIAL_AUTH_SUAP_KEY', 'changeme')
 SOCIAL_AUTH_SUAP_SECRET = env('SOCIAL_AUTH_SUAP_SECRET', 'changeme')
 LOGIN_URL = env('DJANGO_LOGIN_URL', '/oauth/login/suap/')

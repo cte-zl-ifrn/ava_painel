@@ -1,8 +1,7 @@
 #!/bin/sh
-
-./manage.sh runserver 0.0.0.0:8000
+./manage.py runserver 0.0.0.0:8000
 #if [[ "True" = "$DJANGO_DEBUG" ]]; then
-#    ./manage.sh runserver 0.0.0.0:8000
+#    ./manage.py runserver 0.0.0.0:8000
 #else
 #    gunicorn \
 #        wsgi:application \

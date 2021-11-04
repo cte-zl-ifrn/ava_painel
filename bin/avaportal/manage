@@ -2,7 +2,7 @@
 source functions
 
 if [[ `docker container ls | grep {$COMPOSE_PROJECT_NAME}_{$SERVICE_NAME}_1` ]]; then 
-  ./$SERVICE_NAME/exec ./manage.sh $@
+  ./$SERVICE_NAME/exec ./manage.py $@
 else
-  ./$SERVICE_NAME/run ./manage.sh $@
+  ./$SERVICE_NAME/run ./manage.py $@
 fi
