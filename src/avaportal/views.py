@@ -74,8 +74,11 @@ def sync_up(request):
         return raise_error(request, {"error": f"O campus '{filter['sigla']}' existe, mas está inativo.", "code": 412 }, 412)
 
     try:
-       url = f"{campus.url}/auth/suap/sync_up.php"
-       r = requests.post(url, data=request.body, headers={"Content-Type":"application/json", "Authentication": f"Token {campus.token}"})
+        r = requests.post(
+            f"{campus.url}/auth/suap/sync_up.php", 
+            data={"jsonstring": request.body}, 
+            headers={"Authentication": f"Token {campus.token}"}
+        )
     except Exception as e:
         return raise_error(request, {"error": f"Erro na integração. {e}", "code": 400}, 400)
 
@@ -89,6 +92,7 @@ def sync_up(request):
     solicitacao.resposta_header = r.headers
     solicitacao.status = Solicitacao.Status.SUCESSO
     solicitacao.status_code = r.status_code
+    solicitacao.campus = campus
     solicitacao.save()
  
     return HttpResponse(r.text)
