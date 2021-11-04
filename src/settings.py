@@ -3,7 +3,6 @@ from sc4py.env import env, env_as_bool, env_as_int, env_as_list
 import logging.config
 
 
-
 BASE_DIR = Path(__file__).resolve().parent
 
 
@@ -12,6 +11,7 @@ DEBUG = env_as_bool("DJANGO_DEBUG", False)
 
 # Get loglevel from env
 LOGLEVEL = env('DJANGO_LOGLEVEL', 'DEBUG').upper()
+
 
 logging.config.dictConfig({
     'version': 1,
@@ -35,9 +35,10 @@ logging.config.dictConfig({
     },
 })
 
+
 # Apps
 MY_APPS = env_as_list('MY_APPS', 'avaportal,suap_ead')
-THIRD_APPS = env_as_list('THIRD_APPS', 'social_django,tabbed_admin,markdownx')
+THIRD_APPS = env_as_list('THIRD_APPS', 'social_django,tabbed_admin,markdownx,django_extensions')
 DJANGO_APPS = env_as_list('DJANGO_APPS', 'django.contrib.admin,'
                                          'django.contrib.auth,'
                                          'django.contrib.contenttypes,'
@@ -60,6 +61,7 @@ MIDDLEWARE = [
     'social_django.middleware.SocialAuthExceptionMiddleware', # <-
 ]
 
+
 # Routing
 WSGI_APPLICATION = env('DJANGO_WSGI_APPLICATION', 'wsgi.application')
 ALLOWED_HOSTS = env_as_list('DJANGO_ALLOWED_HOSTS', '*' if DEBUG else '')
@@ -72,6 +74,7 @@ MEDIA_URL = env('DJANGO_MEDIA_URL', '/media/')
 MEDIA_ROOT = env('DJANGO_MEDIA_ROOT', '/var/media')
 MARKDOWNX_URLS_PATH = env('MARKDOWNX_URLS_PATH', '/markdownx/markdownify/')
 MARKDOWNX_UPLOAD_URLS_PATH = env('MARKDOWNX_UPLOAD_URLS_PATH', '/markdownx/upload/')
+
 
 # Template engine
 TEMPLATES = [
@@ -120,7 +123,7 @@ USE_TZ = env_as_bool('DJANGO_USE_TZ', True)
 
 # Development
 if DEBUG:
-    INSTALLED_APPS = INSTALLED_APPS + env_as_list('DEV_APPS', 'debug_toolbar,django_extensions' if DEBUG else '')
+    INSTALLED_APPS = INSTALLED_APPS + env_as_list('DEV_APPS', 'debug_toolbar' if DEBUG else '')
     DEBUG_TOOLBAR_CONFIG = {
         'SHOW_TOOLBAR_CALLBACK': lambda request: request.get_host() in ['localhost', '127.0.0.1'],
     }
@@ -136,6 +139,7 @@ if DEBUG:
 #     'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',],
 # }
 
+
 # # Email
 # EMAIL_BACKEND = env("DJANGO_EMAIL_BACKEND", 'django.core.mail.backends.smtp.EmailBackend')
 # EMAIL_HOST = env("DJANGO_EMAIL_HOST", 'localhost')
@@ -149,6 +153,7 @@ if DEBUG:
 # EMAIL_SSL_CERTFILE = env("DJANGO_EMAIL_SSL_CERTFILE", None)
 # EMAIL_SSL_KEYFILE = env("DJANGO_EMAIL_SSL_KEYFILE", None)
 # EMAIL_TIMEOUT = env_as_int("DJANGO_EMAIL_TIMEOUT", None)
+
 
 # Session
 SESSION_KEY = env("DJANGO_SESSION_KEY", 'sead_avaportal')
