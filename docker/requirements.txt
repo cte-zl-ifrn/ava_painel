@@ -6,7 +6,7 @@ suap-ead==0.1.14
 
 # REST
 django-rest-swagger==2.2.0
-PyYAML==5.3.1
+PyYAML==5.4
 
 # Auth
 django-python3-ldap==0.12.1
