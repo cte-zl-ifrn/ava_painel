@@ -38,7 +38,7 @@ logging.config.dictConfig({
 
 # Apps
 MY_APPS = env_as_list('MY_APPS', 'avaportal,suap_ead')
-THIRD_APPS = env_as_list('THIRD_APPS', 'social_django,tabbed_admin,markdownx,django_extensions')
+THIRD_APPS = env_as_list('THIRD_APPS', 'markdownx,django_extensions')
 DJANGO_APPS = env_as_list('DJANGO_APPS', 'django.contrib.admin,'
                                          'django.contrib.auth,'
                                          'django.contrib.contenttypes,'
@@ -58,7 +58,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'social_django.middleware.SocialAuthExceptionMiddleware', # <-
 ]
 
 
@@ -88,8 +87,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends', # <-
-                'social_django.context_processors.login_redirect', # <-
                 'avaportal.context_processors.gtag', # <-
             ]
         },
@@ -183,12 +180,18 @@ SESSION_SERIALIZER = env("DJANGO_SESSION_SERIALIZER", 'django.contrib.sessions.s
 # Auth and Security... some another points impact on security, take care!
 SECRET_KEY = env("DJANGO_SECRET_KEY", 'changeme')
 AUTH_PASSWORD_VALIDATORS = []
-AUTHENTICATION_BACKENDS = ('suap_ead.auth.oauth2.SuapOAuth2',)
-SOCIAL_AUTH_SUAP_KEY = env('SOCIAL_AUTH_SUAP_KEY', 'changeme')
-SOCIAL_AUTH_SUAP_SECRET = env('SOCIAL_AUTH_SUAP_SECRET', 'changeme')
-LOGIN_URL = env('DJANGO_LOGIN_URL', '/oauth/login/suap/')
-LOGIN_REDIRECT_URL = env('DJANGO_LOGIN_REDIRECT_URL', '/admin/')
-# LOGOUT_REDIRECT_URL = env("DJANGO_LOGOUT_REDIRECT_URL", LOGIN_REDIRECT_URL)
-AUTH_USER_MODEL = env('DJANGO_AUTH_USER_MODEL', 'auth.User')
-SUAP_EAD_KEY = env('SUAP_EAD_KEY', 'changeme')
+LOGIN_URL = env('DJANGO_LOGIN_URL', 'login/')
+LOGIN_REDIRECT_URL = env('DJANGO_LOGIN_REDIRECT_URL', '/')
+LOGOUT_REDIRECT_URL = env("DJANGO_LOGOUT_REDIRECT_URL", LOGIN_REDIRECT_URL)
+AUTH_USER_MODEL = env('DJANGO_AUTH_USER_MODEL', 'avaportal.Usuario')
 GO_TO_HTTPS = env_as_bool('GO_TO_HTTPS', False)
+
+OAUTH = {
+    'REDIRECT_URI': env('SUAP_REDIRECT_URI', 'http://localhost:7002/authenticate/'),
+    'CLIENTE_ID': env('SUAP_CLIENTE_ID', 'changeme'),
+    'CLIENT_SECRET': env('SUAP_CLIENT_SECRET', 'changeme'),
+    'AUTHORIZE_URL': env('SUAP_AUTHORIZE_URL', 'https://suap.ifrn.edu.br/o/authorize/'),
+    'ACCESS_TOKEN_URL': env('SUAP_ACCESS_TOKEN_URL', 'https://suap.ifrn.edu.br/o/token/'),
+    'USER_DATA_URL': env('SUAP_USER_DATA_URL', 'https://suap.ifrn.edu.br/api/eu/'),
+    'METHOD': env('SUAP_METHOD', 'POST')
+}
