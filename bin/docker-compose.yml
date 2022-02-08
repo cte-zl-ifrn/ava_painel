@@ -2,15 +2,15 @@ version: '3.7'
 
 services:
 
-  proxy:
-    image: nginx:1.19.2-alpine
-    restart: always
-    ports:
-      - "${NGINX_EXTERNAL_PORT}:80"
-    volumes:
-      - "../confs/enabled/proxy:/etc/nginx/conf.d"
-      - "../volumes/static:/var/static"
-      - "../volumes/media:/var/media"
+  # proxy:
+  #   image: nginx:1.19.2-alpine
+  #   restart: always
+  #   ports:
+  #     - "${NGINX_EXTERNAL_PORT}:80"
+  #   volumes:
+  #     - "../confs/enabled/proxy:/etc/nginx/conf.d"
+  #     - "../volumes/static:/var/static"
+  #     - "../volumes/media:/var/media"
 
   db:
     image: postgres:14.1-alpine
@@ -29,7 +29,6 @@ services:
       - ../confs/enabled/db.env
       - ../confs/enabled/app.env
     volumes:
-      - '/Users/kelson/devel/ifrn/suap-ead/lib_suap_ead:/apps/lib_suap_ead'
       - '../src:/apps/app'
       - "../volumes/media:/var/media"
       - "../volumes/static:/var/static"
