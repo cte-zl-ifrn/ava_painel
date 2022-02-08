@@ -131,7 +131,7 @@ class Turma(Model):
     periodo_ano = CharField(_('período de oferta (ano)'), max_length=255)
     periodo_mes = CharField(_('período de oferta (mês)'), max_length=255)
     periodo_curso = CharField(_('período do curso'), max_length=255)
-    turno = IntegerField(_('turno'), choices=Turno, max_length=255)
+    turno = IntegerField(_('turno'), choices=Turno)
     active = BooleanField(_('ativo?'))
 
     class Meta:
