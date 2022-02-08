@@ -4,7 +4,6 @@
 
 ```bash
 # Baixe o projeto
-mkdir -p /var/dockers
 git clone git@github.com:suap-ead/avaportal.git $AP_HOME
 
 # Copie e edite as variáveis de ambiente
@@ -16,11 +15,11 @@ cp -r confs/examples confs/enabled
 # Instala o sistema
 cd bin
 ./backs
-./avaportal/migrate
-./avaportal/manage createsuperuser
+./app/migrate
+./app/manage createsuperuser
 
 # Sobe o serviço
-./avaportal/up
+./app/up
 
 # Se fores fazer um debug
 # ./avaportal/debug
