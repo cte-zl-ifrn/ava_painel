@@ -37,7 +37,7 @@ logging.config.dictConfig({
 
 
 # Apps
-MY_APPS = env_as_list('MY_APPS', 'avaportal,suap_ead')
+MY_APPS = env_as_list('MY_APPS', 'avaportal')
 THIRD_APPS = env_as_list('THIRD_APPS', 'markdownx,django_extensions')
 DJANGO_APPS = env_as_list('DJANGO_APPS', 'django.contrib.admin,'
                                          'django.contrib.auth,'
