@@ -1,11 +1,11 @@
-FROM python:3.10
+FROM python:3.10.2-slim-bullseye
 
 ENV PYTHONUNBUFFERED 1
 
 ADD requirements.txt . 
 
 RUN pip install --upgrade pip 
-RUN pip install --use-feature=2020-resolver -r /requirements.txt
+RUN pip install -r /requirements.txt
 
 ADD startup.sh .
 
