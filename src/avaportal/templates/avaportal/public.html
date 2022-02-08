@@ -1,0 +1,244 @@
+{% load static %}
+<html lang="pt-br">
+<head>
+  <title>Moodle</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="keywords" content="Ambiente, Virtual, Aprendizagem, IFRN, AVA" />
+  <meta name="description" content="Ambientes Virtuais Aprendizagem IFRN" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/8b41a163ea.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="{% static '/css/style.css' %}">
+
+</head>
+<body>
+  <!-- Primeira Coluna de menus -->
+  <section>
+    <nav class="background navbar  navbar-expand-lg navbar-light bg-success">
+      <a class="navbar-brand" href="#"><img class="img-logo" alt="100%x280" src="{% static '/img/ifrnLogo.svg' %}"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto"></ul>
+        <button class="btn btn-success enter-color my-2 my-sm-0" type="submit">ENTRAR</button>
+      </div>
+    </nav>
+  </section>
+
+  <!-- Segunda Coluna de menus -->
+  <section>
+    <nav class="navbar navbar-expand-lg navbar-light ">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active"><a class="nav-link" href="#">Todos <span class="sr-only">(current)</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Destaques</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Gestão</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Administração</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Qualidade de Vida</a></li>
+
+        </ul>
+
+      </div>
+      <div class="input-group rounded">
+        <div class="search-box"><i class="fa fa-search search-box__icon"></i>
+          <input type="text" id="searchbar" onkeyup="search()" class="search-box__input" placeholder="Pesquisar" />
+        </div>
+      </div>
+    </nav>
+  </section>
+
+  <!-- Primeira Coluna de cards -->
+  <section>
+    <div class="container-fluid col-md-12 bg-secondary">
+      <div class="row">
+        <div class="col-6">
+          <a href="">
+            <h6 class="mt-3 text-light">DESTAQUES <i class="fa fa-arrow-right"></i></h6>
+          </a>
+        </div>
+        <div class="moveLeft loop--nav">
+        <a class="btn btn-secondary mb-3 mr-1 prev" href="#prev"><i class="fa fa-arrow-left"></i> </a>
+        </div>
+        <div class="container-indicators">
+          <div class="indicator active" data-index=0></div>
+          <div class="indicator" data-index=1></div>
+          <div class="indicator" data-index=2></div>
+        </div>
+        <div class="col-12">
+          <div id="couser" class="owl-carousel loop " data-interval="0">
+              {% include 'avaportal/partials/cards-carousel.html' %}
+          </div>
+        </div>
+        <div class="moveRight loop--nav">
+          <a class="btn btn-secondary mb-3 mr-1 next" href="#next">
+            <i class="fa fa-arrow-right"></i> 
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Segunda Coluna de cards -->
+  <section>
+    <div class="container col-md-12 ">
+      <div class="row">
+        <div class="col-6">
+          <a href="">
+            <h6 class="mt-3 text-secondary">GESTÃO 
+              <i class="fa fa-arrow-right"></i>
+            </h6>
+          </a>
+        </div>
+        <div class="moveLeft loop--nav2">
+        <a class="btn btn-secondary mb-3 mr-1 prev2" href="#prev">
+            <i class="fa fa-arrow-left"></i> 
+        </a>
+        </div>
+        <div class="container-indicators">
+          <div class="indicator2 active" data-index=0></div>
+          <div class="indicator2" data-index=1></div>
+          <div class="indicator2" data-index=2></div>
+        </div>       
+          <div class="col-12 teste4">
+            <div id="couser" class="owl-carousel loop2 " data-interval="0">
+                {% include 'avaportal/partials/cards-gestao.html' %}
+            </div>
+          </div>
+          <div class="moveRight loop--nav2">
+            <a class="btn btn-secondary mb-3 mr-1 next2" href="#next"><i class="fa fa-arrow-right"></i></a>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <!-- Footer -->
+    <footer class="page-footer font-small footer">
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3 text-light">
+        Instituto Federal de Educação, ciência e Tecnologia do Rio Grande do Norte ©2021. Todos os direitos reservados.
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+  </section>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="{% static '/js/carousels.js' %}"></script>
+  <script src="{% static '/js/search.js' %}"></script>
+  <script>
+    // Primeiro Carousel
+  $('.loop--nav').find('.next').click(() => {
+    var item = $('.owl-carousel .owl-stage-outer .owl-stage .owl-item.active');
+    console.log("Item: "+item);
+    var index = item.index() -4;
+    console.log("Index: "+index);
+    
+    if(index == 6){
+      $('.indicator').removeClass('active');
+      $('.indicator:nth-child(2)').addClass('active');
+    }else if(index == 11){
+      $('.indicator').removeClass('active');
+      $('.indicator:nth-child(3)').addClass('active');
+    }else if(index == 16){
+      $('.indicator').removeClass('active');
+      $('.indicator:nth-child(4)').addClass('active');
+    }else if(index == 21){
+      $('.indicator').removeClass('active');
+      $('.indicator:nth-child(5)').addClass('active');
+    }else if(index == 1){
+      $('.indicator').removeClass('active');
+      $('.indicator:nth-child(1)').addClass('active');
+    }
+
+  });
+
+  $('.loop--nav').find('.prev').click(() => {
+    var item = $(' .owl-carousel .owl-stage-outer .owl-stage .owl-item.active');
+    console.log("Item: "+item);
+    var index = item.index() -4;
+    console.log("Index: "+index);
+    
+    if(index == 1 || index == 5){
+      $('.indicator').removeClass('active');
+      $('.indicator:nth-child(1)').addClass('active');
+    }else if(index == 6 || index == 10){
+      $('.indicator').removeClass('active');
+      $('.indicator:nth-child(2)').addClass('active');
+    }else if(index == 11 || index == 15){
+      $('.indicator').removeClass('active');
+      $('.indicator:nth-child(3)').addClass('active');
+    }else if(index == 16 || index == 20){
+      $('.indicator').removeClass('active');
+      $('.indicator:nth-child(4)').addClass('active');
+    }
+
+  });
+
+
+  // Segundo carousel
+
+  $('.loop--nav2').find('.next2').click(() => {
+    var item = $('.teste4 .owl-carousel .owl-stage-outer .owl-stage .owl-item.active');
+    console.log("Item: "+item);
+    var index = item.index() -4;
+    console.log("Index: "+index);
+    
+    if(index == 6){
+      $('.indicator2').removeClass('active');
+      $('.indicator2:nth-child(2)').addClass('active');
+    }else if(index == 11){
+      $('.indicator2').removeClass('active');
+      $('.indicator2:nth-child(3)').addClass('active');
+    }else if(index == 16){
+      $('.indicator2').removeClass('active');
+      $('.indicator2:nth-child(4)').addClass('active');
+    }else if(index == 21){
+      $('.indicator2').removeClass('active');
+      $('.indicator2:nth-child(5)').addClass('active');
+    }else if(index == 1){
+      $('.indicator2').removeClass('active');
+      $('.indicator2:nth-child(1)').addClass('active');
+    }
+
+  });
+
+  $('.loop--nav2').find('.prev2').click(() => {
+    var item = $('.owl-carousel .owl-stage-outer .owl-stage .owl-item.active');
+    console.log("Item: "+item);
+    var index = item.index() -4;
+    console.log("Index: "+index);
+    
+    if(index == 1 || index == 5){
+      $('.indicator2').removeClass('active');
+      $('.indicator:nth-child(1)').addClass('active');
+    }else if(index == 6 || index == 10){
+      $('.indicator2').removeClass('active');
+      $('.indicator2:nth-child(2)').addClass('active');
+    }else if(index == 11 || index == 15){
+      $('.indicator2').removeClass('active');
+      $('.indicator2:nth-child(3)').addClass('active');
+    }else if(index == 16 || index == 20){
+      $('.indicator2').removeClass('active');
+      $('.indicator2:nth-child(4)').addClass('active');
+    }
+
+  });
+
+</script>
+</body>
+</html>

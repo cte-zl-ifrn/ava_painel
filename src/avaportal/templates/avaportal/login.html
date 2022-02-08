@@ -1,0 +1,94 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <title>Login</title>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="Ambiente, Virtual, Aprendizagem, IFRN, AVA" />
+    <meta name="description" content="Ambientes Virtuais Aprendizagem IFRN" />    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+    <link rel="stylesheet" href="{% static '/css/login.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 col-lg-10">
+                    <div class="wrap d-md-flex">
+                        <div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
+                            <div class="text w-100">
+                                <div class="row display-on">
+                                    <div class="col-md-12"><img class="img-logo" alt="Logo do IFRN" width="100%" height="280" src="{% static '/img/ifrnMarca.svg' %}" /></div>
+                                    <div class="col-md-5"><hr class="hr-withe-finn"/></div>
+                                    <div class="col-md-1">ou</div>
+                                    <div class="col-md-5"><hr class="hr-withe-finn" /></div>
+                                    <div class="col-md-12 pt-3"><a href="{{ suap_url }}" class="btn btn-success button-personalizado"><img class="img-suap" alt="Logo do SUAP" width="88" height="22" src="{% static '/img/suap.svg' %}" /> Fazer login com SUAP</a></div>
+                                    <div class="col-md-12 pt-3"><button class="btn btn-success button-personalizado"><i class="fab fa-google icone-personalizado" aria-hidden="true"></i> Fazer login com Google</button></div>
+                                    <div class="col-md-12 pt-3"><button class="btn btn-success button-personalizado"><i class="fab fa-facebook icone-personalizado" aria-hidden="true"></i> Fazer login com Facebook</button></div>
+                                    <div class="col-md-12 pt-3"><button class="btn btn-success button-personalizado"><i class="fab fa-microsoft icone-personalizado" aria-hidden="true"></i>  Fazer login com Mirosoft</button></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="login-wrap p-4 p-lg-5">
+                            <div class="text-left"><div class="w-100"><h3 class="mb-4 font-weight-bold" style="color: #183515;">ACADÊMICO</h3></div></div>
+                            <form action="#" class="signin-form">
+                                <div class="form-group mb-3">
+                                    <div class="label-float"><input type="text" placeholder="teste" /><label>Matrícula</label></div>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <div class="label-float"><input type="password" placeholder="teste" /><label>Senha</label></div>
+                                </div>
+                                <div class="form-group d-md-flex margin-bottom-0"><button type="submit" class="form-control btn btn-primary submit px-3 font-weight-bold">ACESSAR O MOODLE</button></div>
+                                <div class="form-group margin-bottom-0">
+                                    <div class="label-float text-center"><a href="#" class="text-green">esqueceu sua senha?</a></div>
+                                </div>
+                                    
+                                <div class="row display-off ">
+                                    <div class="col-md-12"><img class="img-logo" alt="100%x280" src="{% static '/img/ifrnMarca.svg' %}" /></div>
+                                    <div class=" col-5 col-md-5 "><hr class="hr-withe-finn" /></div>
+                                    <div class="col-1 col-md-1">ou</div>
+                                    <div class="col-5 col-md-5 "><hr class="hr-withe-finn" /></div>
+                                    <div class=" col-md-12 pt-3"><a href="{{ suap_url }}" class="btn btn-success button-personalizado"><img class="img-suap" alt="100%x280" src="{% static '/img/suapMobile.svg'%}" /> Fazer login com SUAP</a></div>
+                                    <div class=" col-md-12 pt-3"><button class="btn btn-success button-personalizado"><i class="fab fa-google icone-personalizado" aria-hidden="true"></i> Fazer login com Google</button></div>
+                                    <div class=" col-md-12 pt-3"><button class="btn btn-success button-personalizado"><i class="fab fa-facebook icone-personalizado" aria-hidden="true"></i> Fazer login com Facebook</button></div>
+                                    <div class=" col-md-12 pt-3"><button class="btn btn-success button-personalizado"><i class="fab fa-microsoft icone-personalizado" aria-hidden="true"></i>  Fazer login com Mirosoft</button></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script>
+var screensize = document.documentElement.clientWidth;
+if (screensize >=340 && screensize <= 640) {
+   $(".display-on").hide();
+   $(".display-off").show();
+}else{
+    $(".display-on").show();
+   $(".display-off").hide();
+}
+
+
+$(window).on('resize', function(){
+var screensize = document.documentElement.clientWidth;
+if (screensize >=340 && screensize <= 640) {
+   $(".display-on").hide();$(".display-off").show();
+}else{
+    $(".display-on").show();$(".display-off").hide();}
+});
+
+</script>
+
+</body>
+
+</html>

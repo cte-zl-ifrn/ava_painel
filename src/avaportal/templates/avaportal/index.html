@@ -1,136 +1,192 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-    {% if gtag_id %}
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id={{gtag_id}}"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', '{{gtag_id}}');
-</script>
-    {% endif %}
+  <title>Ambientes Virtuais de Aprendizagem do IFRN</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="keywords" content="Ambiente, Virtual, Aprendizagem, IFRN, AVA" />
+  <meta name="description" content="Ambientes Virtuais Aprendizagem IFRN" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ambiente Virtual de Aprendizagem - AVA / IFRN</title>
-
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/favicon/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon/favicon-16x16.png' %}">
-    <link rel="manifest" href="{% static 'img/favicon/site.webmanifest' %}">
-    <link rel="mask-icon" href="{% static 'img/favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Favicon -->
-
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <style>
-/*
-        .navbar-nav .nav-item > .nav-link { color: #eee; }
-        .navbar.navbar-expand-lg.navbar-light.bg-light.mb-5 { background: #1571c4 !important; }
-        .navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover { color: #fff; background: #0e7bdd;}
-*/
-        .card-img-top {opacity: 90%;}
-        .card-img-top:hover {opacity: 100%;}
-    </style>
-    <!-- Bootstrap -->
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <script src="https://kit.fontawesome.com/8b41a163ea.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="{% static '/css/style.css' %}" />
 </head>
-
-
 <body>
-    <!-- Cabeçalho da Página -->
-    <header class="p-5">
-        <div class="container text-center">
-		<a href="https://portal.ifrn.edu.br" target="_blank"><img src="{% static 'img/logo_ifrn.png' %}" alt="Logo IFRN"></a>
-        </div>
-    </header>
-    <!-- Cabeçalho da Página -->
+  <!-- Primeira Coluna de menus -->
+  <section>
+    <nav class="background navbar  navbar-expand-lg navbar-light bg-success">
+      <a class="navbar-brand" href="#"><img class="img-logo" alt="Logo do IFRN" src="{% static '/img/ifrnLogo.svg' %}" /></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <!-- Barra de Navegação -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://portal.ifrn.edu.br/" target="_blank">Portal IFRN</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://suap.ifrn.edu.br/" target="_blank">SUAP</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Campi</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            {% for campi in campus %}
-                            <a class="dropdown-item" href="{{campi.url}}">{{campi.descricao}}</a>
-                            {% endfor %}
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto"></ul>
+        {% if user.is_authenticated %}
+        <img class="img-fluid rounded-circle" alt="100%x280" style="max-width: 3%" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" data-holder-rendered="true">
+        {% else %}
+        <a href="{% url 'admin:login' %}" class="btn btn-success enter-color my-2 my-sm-0" type="submit">ENTRAR</a>
+        {% endif %}
+      </div>
     </nav>
-    <!-- Barra de Navegação -->
-    
-    <!-- Aviso -->
-    <div class="container mb-5">
-        Quer ter acesso via aplicativo móvel? Veja como em nossa <a href="https://ead.ifrn.edu.br/portal/utilizando-o-moodle-via-aplicativo/" target="_blank">página de tira-dúvidas</a>. 
-    </div>
-    <!-- Aviso -->
+  </section>
 
-    <!-- Cards -->
-    <div class="container mb-5">
-        <!-- <p class="card-text">Use o qrCode para configurar o app do Moodle para celulares e tablets.</p> -->
-        <!-- Iteração das Linhas -->
+  <!-- Segunda Coluna de menus -->
+  <section>
+    <nav class="navbar navbar-expand-lg navbar-light ">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          {% for categoria in categorias %}
+            <li class="nav-item {% if categoria.current %}active{% endif %}">
+              <a class="nav-link" href="{{ categoria.url }}">{{ categoria.titulo }}{% if categoria.current %}<span class="sr-only">(current)</span>{% endif %}</a>
+            </li>
+          {% endfor %}
+        </ul>
+
+      </div>
+      <div class="input-group rounded">
+        <div class="search-box"><i class="fa fa-search search-box__icon"></i>
+          <input type="text" id="searchbar" onkeyup="search()" class="search-box__input" placeholder="Pesquisar" />
+        </div>
+      </div>
+    </nav>
+  </section>
+
+  {% if user.is_authenticated %}
+  <!-- Primeira Coluna de cards -->
+  <section>
+    <div class="container-fluid col-md-12 bg-secondary">
+      <div class="row">
+        <div class="col-12">
+            <h5 class="mt-3 text-light">CONTINUE APRENDENDO</h5>
+        </div>
+        <div class="col-6">
+          <a href="">
+            <h6 class="mt-3 text-light">DESTAQUES 
+              <i class="fa fa-arrow-right"></i>
+            </h6>
+          </a>
+        </div>
+        <div class="moveLeft loop--nav">
+        <a class="btn btn-secondary mb-3 mr-1 prev" href="#prev">
+            <i class="fa fa-arrow-left"></i> 
+        </a>
+        </div>
+		<div class="col-6">
+			<div class="container-indicators">
+				<div class="indicator active" data-index=0></div>
+				<div class="indicator" data-index=1></div>
+				<div class="indicator" data-index=2></div>
+			</div>
+		</div>
+        <div class="col-12">
+          <div id="couser" class="owl-carousel loop " data-interval="0">
+            {% include 'avaportal/partials/cards-meus-cursos.html' %}
+          </div>
+        </div>
+        <div class="moveRight loop--nav">
+          <a class="btn btn-secondary mb-3 mr-1 next" href="#next">
+            <i class="fa fa-arrow-right"></i> 
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% else %}
+    <!-- Primeira Coluna de cards -->
+    <section>
+      <div class="container-fluid col-md-12 bg-secondary">
         <div class="row">
-            <!-- Iteração das Colunas -->
-            {% for campi in campus %}
-            <div class="col-md-3">
-                <div class="card mb-3">
-                    <a href="{{campi.url}}"><img src="{{campi.thumbnail.url}}" class="card-img-top" alt="Foto do campus {{campi.descricao}}"></a>
-                    <div class="card-body">
-                        <h5 class="card-title">{{campi.descricao}}</h5>
-                        <a href="{{campi.url}}" class="btn btn-primary">Acessar Moodle</a>
-                        <img src="/media/qrcode_{{campi.sigla|lower}}.png" width="70" />
-                    </div>
-                </div>
+          <div class="col-6">
+            <a href="">
+              <h6 class="mt-3 text-light">DESTAQUES <i class="fa fa-arrow-right"></i></h6>
+            </a>
+          </div>
+          <div class="moveLeft loop--nav">
+          <a class="btn btn-secondary mb-3 mr-1 prev" href="#prev"><i class="fa fa-arrow-left"></i> </a>
+          </div>
+          <div class="container-indicators">
+            <div class="indicator active" data-index=0></div>
+            <div class="indicator" data-index=1></div>
+            <div class="indicator" data-index=2></div>
+          </div>
+          <div class="col-12">
+            <div id="couser" class="owl-carousel loop " data-interval="0">
+                {% include 'avaportal/partials/cards-carousel.html' %}
             </div>
-            {% endfor %}
+          </div>
+          <div class="moveRight loop--nav">
+            <a class="btn btn-secondary mb-3 mr-1 next" href="#next">
+              <i class="fa fa-arrow-right"></i> 
+            </a>
+          </div>
         </div>
+      </div>
+    </section>
+  {% endif %}
+
+  <!-- Segunda Coluna de cards -->
+  <section>
+    <div class="container col-md-12 ">
+      <div class="row">
+        <div class="col-6">
+          <a href="">
+            <h6 class="mt-3 text-secondary">GESTÃO 
+              <i class="fa fa-arrow-right"></i>
+            </h6>
+          </a>
+        </div>
+        <div class="moveLeft loop--nav2">
+        <a class="btn btn-secondary mb-3 mr-1 prev2" href="#prev">
+            <i class="fa fa-arrow-left"></i> 
+        </a>
+        </div>
+        <div class="container-indicators">
+          <div class="indicator2 active" data-index=0></div>
+          <div class="indicator2" data-index=1></div>
+          <div class="indicator2" data-index=2></div>
+        </div>
+          <div class="col-12 teste4">
+            <div id="couser" class="owl-carousel loop2 " data-interval="0">
+              {% include 'avaportal/partials/cards-gestao.html' %}
+            </div>
+          </div>
+          <div class="moveRight loop--nav2">
+            <a class="btn btn-secondary mb-3 mr-1 next2" href="#next">
+              <i class="fa fa-arrow-right"></i> 
+            </a>
+          </div>
+      </div>
     </div>
-    <!-- Cards -->
+  </section>
 
-    <!-- Rodapé da Página -->
-    <footer class="py-5 text-muted bg-light">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-9">
-                    <p>Todos os direitos reservados</p>
-                </div>
-                <div class="col-md-3">
-			<a href="https://portal.ifrn.edu.br/tec-da-informacao" target="_blank"><img src="{% static 'img/logo_digti.png' %}" alt="Logo DIGTI" width="75"></a>
-                </div>
-            </div>
-        </div>
+  <section>
+    <!-- Footer -->
+    <footer class="page-footer font-small footer">
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3 text-light">
+        Instituto Federal de Educação, ciência e Tecnologia do Rio Grande do Norte ©2021. Todos os direitos reservados.
+      </div>
+      <!-- Copyright -->
     </footer>
-    <!-- Rodapé da Página -->
-
-    <!-- jQuery + JS do Bootstrap -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <!-- jQuery + JS do Bootstrap -->
+    <!-- Footer -->
+  </section>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="{% static '/js/carousels.js' %}"></script>
+  <script src="{% static '/js/search.js' %}"></script>
+  <script src="{% static '/js/app.js' %}&v={% now "D M Y H T " %} "></script>
 </body>
-
 </html>
