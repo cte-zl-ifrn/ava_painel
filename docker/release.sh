@@ -33,7 +33,7 @@ VERSION=$2
 
 build_image() {
   printf "\n\nBUILD local version $FULL_IMAGE_NAME:latest\n"
-  docker build -t $FULL_IMAGE_NAME:$VERSION --force-rm .
+  docker build --progress=plain -t $FULL_IMAGE_NAME:$VERSION --force-rm .
 }
 
 push_to_docker_hub() {
