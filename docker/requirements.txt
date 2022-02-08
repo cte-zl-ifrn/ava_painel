@@ -4,7 +4,8 @@ django==4.0.2
 django-better-choices==1.17
 
 # My
-suap-ead==0.1.14
+sc4py==0.1.4
+sc4net==0.1.2
 
 # REST
 django-rest-swagger==2.2.0
