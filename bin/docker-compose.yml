@@ -13,18 +13,18 @@ services:
       - "../volumes/media:/var/media"
 
   db:
-    image: postgres:12.4-alpine
+    image: postgres:14.1-alpine
     restart: always
     env_file:
       - ../confs/enabled/db.env
     volumes:
       - "../volumes/pgdata:/var/lib/postgresql/data"
 
-  avaportal:
-    image: 'ifrn/avaportal:1.0.7'
+  app:
+    image: 'ifrn/avaportal:1.0.8'
     restart: always
     ports:
-      - "7001:8000"
+      - "7002:8000"
     env_file:
       - ../confs/enabled/db.env
       - ../confs/enabled/avaportal.env
