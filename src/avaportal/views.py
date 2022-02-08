@@ -1,12 +1,57 @@
 import json
+import requests
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, get_object_or_404
+from django.contrib import auth
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import Campus, Solicitacao
-import requests
+# from django.contrib.auth.decorators import login_required
+from .models import Usuario, Campus, Polo, Solicitacao
 
+
+def login(request):
+    OAUTH = settings.OAUTH
+    return redirect(f"{OAUTH['AUTHORIZE_URL']}?response_type=code&client_id={OAUTH['CLIENTE_ID']}&redirect_uri={OAUTH['REDIRECT_URI']}")
+
+
+def authenticate(request):
+    OAUTH = settings.OAUTH
+    assert 'code' in request.GET, _("O código de autenticação não foi informado.")
+    
+    access_token_request_data = dict(
+        grant_type='authorization_code',
+        code=request.GET.get('code'),
+        redirect_uri=OAUTH['REDIRECT_URI'],
+        client_id=OAUTH['CLIENTE_ID'],
+        client_secret=OAUTH['CLIENT_SECRET']
+    )
+    request_data = json.loads(requests.post(OAUTH['ACCESS_TOKEN_URL'], data=access_token_request_data, verify=False).text)
+    headers = {'Authorization': 'Bearer {}'.format(request_data.get('access_token')), 'x-api-key': OAUTH['CLIENT_SECRET']}
+    http_method = requests.post if OAUTH['METHOD'] == 'POST' else requests.get
+    http_method = requests.get
+    response_data = json.loads( http_method(OAUTH['USER_DATA_URL'], data={'scope': request_data.get('scope')}, headers=headers).text )
+    
+    username = response_data['identificacao']
+    user = Usuario.objects.filter(username=username).first()
+    if user is None:
+        is_superuser = Usuario.objects.count() == 0
+        user = Usuario.objects.create(
+            username=username,
+            nome=response_data.get('nome'),
+            email=response_data.get('email'),
+            email_escolar=response_data.get('email_google_classroom'),
+            email_academico=response_data.get('email_academico'),
+            email_pessoal=response_data.get('email_secundario'),
+            campus=Campus.objects.filter(sigla=response_data.get('campus')).first(),
+            polo=Polo.objects.filter(suap_id=response_data.get('polo')).first(),
+            tipo=Usuario.Tipo.get_by_length(len(username)),
+            # status=response_data.get('status'),
+            is_superuser=is_superuser,
+            is_staff=is_superuser,
+        )
+    auth.login(request, user)
+    return redirect('/')
 
 # Create your views here.
 def health(request):

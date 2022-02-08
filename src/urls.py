@@ -3,18 +3,22 @@ from django.contrib import admin
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
-from avaportal.views import index, sync_up, health
+from avaportal.views import login, authenticate, health, index, raise_error, sync_up
+
 
 urlpatterns = [
+    path('login/', login),
+    path('authenticate/', authenticate),
     path('health/', health),
-    path('oauth/', include('social_django.urls', namespace='social')),
-    path('admin/login/', RedirectView.as_view(url='/oauth/login/suap/')),
-    path('admin/', admin.site.urls),
+    path('raise_error/', raise_error),
     path('api/moodle_suap/', sync_up),
     path('ava/barramento/api/moodle_suap/', sync_up), 
+    path('admin/login/', RedirectView.as_view(url='/login/')),
+    path('admin/', admin.site.urls),
     path('', index),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
     static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 if settings.DEBUG:
     import debug_toolbar
