@@ -10,9 +10,41 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Usuario, Campus, Polo, Solicitacao
 
 
+def health(request):
+    debug = "OK" if settings.DEBUG == False else "FAIL (are active)"
+    try:
+        Campus.objects.all().exists()
+        connection = "OK"
+    except:
+        connection = "FAIL"
+    return HttpResponse(f"""
+    <pre>
+    Reverse proxy: OK.
+    Django: OK.
+    Database: {connection}.
+    Debug: {debug}.
+    Status: ALL FINE.
+    </pre>
+    """)
+
+
+def raise_error(request, error, code):
+    solicitacao = Solicitacao()
+    solicitacao.requisicao_header = request.META
+    solicitacao.requisicao_invalida = request.body.decode('utf-8')
+    solicitacao.resposta = error
+    solicitacao.status = Solicitacao.Status.FALHA
+    solicitacao.status_code = code
+    solicitacao.save()
+    response = JsonResponse(error)
+    response.status_code=code
+    return response
+
+
 def login(request):
     OAUTH = settings.OAUTH
-    return redirect(f"{OAUTH['AUTHORIZE_URL']}?response_type=code&client_id={OAUTH['CLIENTE_ID']}&redirect_uri={OAUTH['REDIRECT_URI']}")
+    suap_url = f"{OAUTH['AUTHORIZE_URL']}?response_type=code&client_id={OAUTH['CLIENTE_ID']}&redirect_uri={OAUTH['REDIRECT_URI']}"
+    return render(request, template_name="avaportal/login.html", context={'suap_url': suap_url})
 
 
 def authenticate(request):
@@ -53,42 +85,19 @@ def authenticate(request):
     auth.login(request, user)
     return redirect('/')
 
-# Create your views here.
-def health(request):
-    debug = "OK" if settings.DEBUG == False else "FAIL (are active)"
-    try:
-        Campus.objects.all().exists()
-        connection = "OK"
-    except:
-        connection = "FAIL"
-    return HttpResponse(f"""
-    <pre>
-    Reverse proxy: OK.
-    Django: OK.
-    Database: {connection}.
-    Debug: {debug}.
-    Status: ALL FINE.
-    </pre>
-    """)
 
-
-# Create your views here.
 def index(request):
-    campus = Campus.objects.filter(homepage=True)
-    return render(request, 'avaportal/index.html', {'campus': campus})
+    # campus = Campus.objects.filter(homepage=True)
+    categorias = [
+        {"titulo": "Todos", "url": "#todos", "current": True},
+        {"titulo": "Meus cursos", "url": "#Meus_cursos", "current": False},
+        {"titulo": "Destaques", "url": "#Destaques", "current": False},
+        {"titulo": "Gestão", "url": "#Gestão", "current": False},
+        {"titulo": "Administração", "url": "#Administração", "current": False},
+        {"titulo": "Qualidade de vida", "url": "#qualidade", "current": False}
+    ]
+    return render(request, 'avaportal/index.html', context={'categorias': categorias})
 
-
-def raise_error(request, error, code):
-    solicitacao = Solicitacao()
-    solicitacao.requisicao_header = request.META
-    solicitacao.requisicao_invalida = request.body.decode('utf-8')
-    solicitacao.resposta = error
-    solicitacao.status = Solicitacao.Status.FALHA
-    solicitacao.status_code = code
-    solicitacao.save()
-    response = JsonResponse(error)
-    response.status_code=code
-    return response
 
 @csrf_exempt
 def sync_up(request):
