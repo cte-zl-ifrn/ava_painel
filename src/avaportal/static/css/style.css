@@ -291,76 +291,61 @@ i.fa.fa-arrow-left {
     margin-top: 11px;
 }
 
+
 /*
 *
 * Responsividade
 *
 *********************************/
 
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 480px)
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: portrait) {
 
+/* @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
     .input-group {
         width: 33%;
     }
     .search-box.active .search-box__icon {
         transform: translateX(-110px);
-    }   
+    }
 }
 
-@media 
-  (min-device-width: 540px) 
-  and (max-device-width: 720px) {
+@media (min-device-width: 540px) and (max-device-width: 720px) {
     .input-group {
         width: 30%;
     }
     .search-box.active .search-box__icon {
         transform: translateX(-150px);
-    }   
+    }
 }
 
-@media 
-  (min-device-width: 800px) 
-  and (max-device-width: 1280px) {
+@media (min-device-width: 800px) and (max-device-width: 1280px) {
     .input-group {
         width: 16%;
     }
     .search-box.active .search-box__icon {
         transform: translateX(-170px);
-    }   
+    }
 }
 
-
-@media 
-  (min-device-width: 1024px) 
-  and (max-device-width: 1280px) {
+@media (min-device-width: 1024px) and (max-device-width: 1280px) {
     .input-group {
         width: 21%;
     }
     .search-box.active .search-box__icon {
         transform: translateX(-207px);
-    }   
+    }
 }
 
-@media 
-  (min-device-width: 1280px) 
-  and (max-device-width: 1480px) {
+@media (min-device-width: 1280px) and (max-device-width: 1480px) {
     .input-group {
         width: 21%;
     }
     .search-box.active .search-box__icon {
         transform: translateX(-260px);
-    }   
-}
+    }
+} */
 
-@media screen 
-  and (device-width: 360px) 
-  and (device-height: 640px) 
-  and (-webkit-device-pixel-ratio: 3) {
-
+@media only screen and (min-device-width: 320px) and (max-device-height: 812px) and (-webkit-min-device-pixel-ratio: 1),
+screen and (max-width: 812px) {
     .card {
         width: 14rem;
     }
@@ -371,6 +356,9 @@ i.fa.fa-arrow-left {
         display: none;
     }
     .btn-secondary {
+        display: none;
+    }
+    .container-indicators {
         display: none;
     }
 }

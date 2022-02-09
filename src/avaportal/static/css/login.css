@@ -11372,15 +11372,10 @@ button.form-control.btn.btn-primary.submit.px-3.font-weight-bold {
 }
 
 
-/* .display-on {
-    display: show;
-}
+/* ----------- Galaxy S3 ----------- */
 
-.display-off {
-    display: none;
-} */
 
-@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
+/* @media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 2) {
     .ftco-section {
         padding: 0em 0 !important;
     }
@@ -11419,10 +11414,149 @@ button.form-control.btn.btn-primary.submit.px-3.font-weight-bold {
     .col-1 {
         padding-left: 7px;
     }
-    /* .display-on {
-        display: none !important;
+} */
+
+
+/* @media only screen and (min-device-width: 320px) and (max-device-width: 640px) and (-webkit-min-device-pixel-ratio: 1),
+screen and (max-width: 640px) */
+
+
+/* ----------- Galaxy S3, S4, S5, S6, S8, S9+ and Note 3 ----------- */
+
+
+/* Colocar min-height: calc(100vh - 1rem) no container, cards etc */
+
+
+/* ----------- Iphone 4, 4S, 5S, 5C, 5SE, 6+, 7+, 8+ AND Iphone X----------- */
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 812px) and (-webkit-min-device-pixel-ratio: 1),
+screen and (max-width: 812px) {
+    .ftco-section {
+        padding: 0em 0 !important;
     }
-    .display-off {
-        display: show !important;
-    } */
+    .text-wrap {
+        height: 125px;
+    }
+    .button-personalizado {
+        border: 1px solid gray;
+    }
+    .btn-success {
+        color: black;
+    }
+    .hr-withe-finn {
+        border-top: 2px solid gray;
+    }
+    .img-suap {
+        width: 6%;
+        margin-right: 10px;
+        color: black;
+    }
+    .img-logo {
+        margin-top: -735px;
+        margin-left: 50px;
+    }
+    .login-wrap {
+        height: 630px !important;
+        margin-top: 0px;
+    }
+    .font-weight-bold {
+        margin-bottom: 0.00rem !important;
+    }
+    .margin-bottom-0 {
+        margin-bottom: 0rem;
+        height: 40px;
+    }
+    .col-1 {
+        padding-left: 7px;
+    }
 }
+
+
+/* ----------- Galaxy S6 ----------- */
+
+
+/* @media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 4) {
+    .ftco-section {
+        padding: 0em 0 !important;
+    }
+    .text-wrap {
+        height: 125px;
+    }
+    .button-personalizado {
+        border: 1px solid gray;
+    }
+    .btn-success {
+        color: black;
+    }
+    .hr-withe-finn {
+        border-top: 2px solid gray;
+    }
+    .img-suap {
+        width: 6%;
+        margin-right: 10px;
+        color: black;
+    }
+    .img-logo {
+        margin-top: -735px;
+        margin-left: 50px;
+    }
+    .login-wrap {
+        height: 630px !important;
+        margin-top: 0px;
+    }
+    .font-weight-bold {
+        margin-bottom: 0.00rem !important;
+    }
+    .margin-bottom-0 {
+        margin-bottom: 0rem;
+        height: 40px;
+    }
+    .col-1 {
+        padding-left: 7px;
+    }
+} */
+
+
+/* ----------- Galaxy S8 ----------- */
+
+
+/* @media screen and (device-width: 360px) and (device-height: 740px) and (-webkit-device-pixel-ratio: 4) {
+    .ftco-section {
+        padding: 0em 0 !important;
+    }
+    .text-wrap {
+        height: 125px;
+    }
+    .button-personalizado {
+        border: 1px solid gray;
+    }
+    .btn-success {
+        color: black;
+    }
+    .hr-withe-finn {
+        border-top: 2px solid gray;
+    }
+    .img-suap {
+        width: 6%;
+        margin-right: 10px;
+        color: black;
+    }
+    .img-logo {
+        margin-top: -735px;
+        margin-left: 50px;
+    }
+    .login-wrap {
+        height: 630px !important;
+        margin-top: 0px;
+    }
+    .font-weight-bold {
+        margin-bottom: 0.00rem !important;
+    }
+    .margin-bottom-0 {
+        margin-bottom: 0rem;
+        height: 40px;
+    }
+    .col-1 {
+        padding-left: 7px;
+    }
+} */
