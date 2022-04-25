@@ -2,10 +2,10 @@
 
 ```bash
 # Baixe o projeto
-git clone git@github.com:suap-ead/avaportal.git avaportal
+git clone git@github.com:cte-zl-ifrn/portal__ava.git portal__ava 
 
 # Copie e edite as variáveis de ambiente
-cd avaportal
+cd portal__ava
 cp -r confs/examples confs/enabled
 # vim confs/enabled/db.env
 # vim confs/enabled/avaportal.env

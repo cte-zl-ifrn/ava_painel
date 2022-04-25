@@ -4,9 +4,10 @@ from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 from avaportal.views import login, authenticate, health, index, raise_error, sync_up
-
+import social_django
 
 urlpatterns = [
+    path('', include('social_django.urls', namespace='social')),
     path('login/', login),
     path('authenticate/', authenticate),
     path('health/', health),

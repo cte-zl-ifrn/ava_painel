@@ -28,6 +28,10 @@ logging.config.dictConfig({
         },
     },
     'loggers': {
+        'parso': {
+            'level': 'WARNING',
+            'handlers': ['console',],
+        },
         '': {
             'level': LOGLEVEL,
             'handlers': ['console',],
@@ -37,14 +41,14 @@ logging.config.dictConfig({
 
 
 # Apps
-MY_APPS = env_as_list('MY_APPS', 'avaportal')
-THIRD_APPS = env_as_list('THIRD_APPS', 'markdownx,django_extensions')
-DJANGO_APPS = env_as_list('DJANGO_APPS', 'django.contrib.admin,'
-                                         'django.contrib.auth,'
-                                         'django.contrib.contenttypes,'
-                                         'django.contrib.sessions,'
-                                         'django.contrib.messages,'
-                                         'django.contrib.staticfiles')
+MY_APPS = env_as_list('MY_APPS', ['avaportal'])
+THIRD_APPS = env_as_list('THIRD_APPS', ['markdownx', 'django_extensions', 'social_django'] )
+DJANGO_APPS = env_as_list('DJANGO_APPS', ['django.contrib.admin',
+                                         'django.contrib.auth',
+                                         'django.contrib.contenttypes',
+                                         'django.contrib.sessions',
+                                         'django.contrib.messages',
+                                         'django.contrib.staticfiles'])
 INSTALLED_APPS = MY_APPS + THIRD_APPS + DJANGO_APPS
 
 
@@ -195,3 +199,15 @@ OAUTH = {
     'USER_DATA_URL': env('SUAP_USER_DATA_URL', 'https://suap.ifrn.edu.br/api/eu/'),
     'METHOD': env('SUAP_METHOD', 'POST')
 }
+
+AUTHENTICATION_BACKENDS = (
+    'avaportal.backends.SuapOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    # 'django.contrib.auth.backends.ModelBackend',
+)
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+SOCIAL_AUTH_SUAP_KEY = env('SUAP_CLIENTE_ID', 'INSERT_PROVIDED_KEY_HERE')
+SOCIAL_AUTH_SUAP_SECRET = env('SUAP_CLIENT_SECRET', 'INSERT_PROVIDED_SECRET_HERE')
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY='1081019512070-1ucaim9s7dv5sienmq7s778uk9k53l81.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET='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'

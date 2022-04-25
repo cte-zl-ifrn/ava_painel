@@ -4,5 +4,5 @@ source functions
 
 echo_info "Copy requirements..."
 for f in ../apps/*; do
-  cp ../conf/requirements/* $f
+  cp ../conf/examples/* $f
 done

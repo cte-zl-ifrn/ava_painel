@@ -48,12 +48,12 @@ clone_repository() {
 }
 
 
-clone_repositories() {
-  echo_info "Cloning repositories"
+# clone_repositories() {
+#   echo_info "Cloning repositories"
 
-  # clone_repository git@github.com:suap-ead/lib_suap_ead.git $SEAD_HOME/libs/suap_ead
-  clone_repository git@github.com:suap-ead/docker_base.git $SEAD_HOME/dockers/base
-  clone_repository git@github.com:suap-ead/app_id.git $SEAD_HOME/apps/id
-  clone_repository git@github.com:suap-ead/app_dashboard.git $SEAD_HOME/apps/dashboard
-  clone_repository git@github.com:suap-ead/ege_preinscricao.git $SEAD_HOME/apps/pre_matricula
-}
+#   # clone_repository git@github.com:suap-ead/lib_suap_ead.git $SEAD_HOME/libs/suap_ead
+#   clone_repository git@github.com:suap-ead/docker_base.git $SEAD_HOME/dockers/base
+#   clone_repository git@github.com:suap-ead/app_id.git $SEAD_HOME/apps/id
+#   clone_repository git@github.com:suap-ead/app_dashboard.git $SEAD_HOME/apps/dashboard
+#   clone_repository git@github.com:suap-ead/ege_preinscricao.git $SEAD_HOME/apps/pre_matricula
+# }
