@@ -1,6 +1,0 @@
-#!/bin/bash
-source functions
-echo_info "Status dos serviços"
-cat <<- _EOF_
-$(docker ps -a)
-_EOF_

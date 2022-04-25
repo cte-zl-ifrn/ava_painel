@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+source _/functions
+
+_/$SERVICE_NAME/exec nginx -s reload

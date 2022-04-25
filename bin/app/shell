@@ -1,5 +1,0 @@
-#!/bin/bash
-source functions
-
-./$SERVICE_NAME/exec sh
-

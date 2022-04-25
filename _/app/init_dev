@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+source _/functions
+
+_/$SERVICE_NAME/migrate
+_/$SERVICE_NAME/manage init_dev
+

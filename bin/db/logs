@@ -1,4 +1,0 @@
-#!/bin/bash
-source functions
-
-docker-compose logs -f $@ $SERVICE_NAME

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+source _/functions
+
+
+echo_info "Copy requirements..."
+for f in ._/apps/*; do
+  cp ._/conf/examples/* $f
+done

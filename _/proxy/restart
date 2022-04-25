@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+source _/functions
+
+_/$SERVICE_NAME/down
+_/$SERVICE_NAME/up -d

@@ -1,4 +1,0 @@
-#!/bin/bash
-source functions
-
-docker-compose down --remove-orphans $@

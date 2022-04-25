@@ -1,4 +1,0 @@
-#!/bin/bash
-source functions
-
-docker-compose up $@ $SERVICE_NAME

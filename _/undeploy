@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+source _/functions
+
+echo_info "Reset confs"
+rm -rf ./confs/enabled
+cp -r ./confs/examples ./confs/enabled
+
+echo_info "Stop the world"
+_/down
+
+echo_info "Reset volumes"
+sudo rm -rf volumes

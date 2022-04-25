@@ -1,8 +1,0 @@
-#!/bin/bash
-source functions
-
-
-echo_info "Copy requirements..."
-for f in ../apps/*; do
-  cp ../conf/examples/* $f
-done

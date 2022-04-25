@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+source _/functions
+
+
+if [[ $# -eq 0 ]]; then
+  branch='master'
+else
+  branch=$1
+fi
+
+for app in ._/apps/*; do
+  echo_info "Changing branch of $app to $branch..."
+  cd "$pwd/$app" && \
+    git fetch
+  git checkout $branch && \
+    git pull origin $branch
+  echo
+done
+
+cd $pwd
+for lib in ._/libs/*; do
+  echo_info "Changing branch of $lib to $branch..."
+  cd "$pwd/$lib" && \
+    git fetch
+  git checkout $branch && \
+    git pull origin $branch
+  echo
+done
+
+cd "$pwd/._/dockers/base" && \
+    git fetch
+    git checkout $branch && \
+    git pull origin $branch
+echo
+
