@@ -41,16 +41,25 @@ logging.config.dictConfig({
 
 
 # Apps
-MY_APPS = env_as_list('MY_APPS', ['avaportal'])
-THIRD_APPS = env_as_list('THIRD_APPS', ['markdownx', 'django_extensions', 'social_django'] )
-DJANGO_APPS = env_as_list('DJANGO_APPS', ['django.contrib.admin',
-                                         'django.contrib.auth',
-                                         'django.contrib.contenttypes',
-                                         'django.contrib.sessions',
-                                         'django.contrib.messages',
-                                         'django.contrib.staticfiles'])
+MY_APPS = env_as_list('MY_APPS', [
+    'avaportal',
+])
+THIRD_APPS = env_as_list('THIRD_APPS', [
+    'markdownx',
+    'django_extensions',
+    'social_django',
+    'adminlte3',
+    'adminlte3_admin',
+])
+DJANGO_APPS = env_as_list('DJANGO_APPS', [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles'
+])
 INSTALLED_APPS = MY_APPS + THIRD_APPS + DJANGO_APPS
-
 
 # Middleware
 MIDDLEWARE = [
@@ -91,7 +100,15 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'avaportal.context_processors.gtag', # <-
+                'avaportal.context_processors.gtag',
+
+                'adminlte3.context_processors.layout_settings',
+                'adminlte3.context_processors.top_menu',
+                'adminlte3.context_processors.user',
+                'adminlte3.context_processors.sidebar_menu',
+                'adminlte3_admin.context_processors.sidebar_menu',
+                'adminlte3.context_processors.messages',
+                'adminlte3.context_processors.notifications',                
             ]
         },
     },
@@ -191,7 +208,7 @@ AUTH_USER_MODEL = env('DJANGO_AUTH_USER_MODEL', 'avaportal.Usuario')
 GO_TO_HTTPS = env_as_bool('GO_TO_HTTPS', False)
 
 OAUTH = {
-    'REDIRECT_URI': env('SUAP_REDIRECT_URI', 'http://localhost:7002/authenticate/'),
+    'REDIRECT_URI': env('SUAP_REDIRECT_URI', 'http://localhost:8000/authenticate/'),
     'CLIENTE_ID': env('SUAP_CLIENTE_ID', 'changeme'),
     'CLIENT_SECRET': env('SUAP_CLIENT_SECRET', 'changeme'),
     'AUTHORIZE_URL': env('SUAP_AUTHORIZE_URL', 'https://suap.ifrn.edu.br/o/authorize/'),
@@ -202,7 +219,7 @@ OAUTH = {
 
 AUTHENTICATION_BACKENDS = (
     'avaportal.backends.SuapOAuth2',
-    'social_core.backends.google.GoogleOAuth2',
+    # 'social_core.backends.google.GoogleOAuth2',
     # 'django.contrib.auth.backends.ModelBackend',
 )
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
