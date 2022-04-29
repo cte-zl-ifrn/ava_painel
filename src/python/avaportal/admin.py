@@ -1,3 +1,4 @@
+from dataclasses import field
 from encodings import search_function
 from tabnanny import verbose
 from django.utils.translation import gettext as _
@@ -61,9 +62,16 @@ class CursoAdmin(ModelAdmin):
 
 @register(Turma)
 class TurmaAdmin(ModelAdmin):
-    list_display = ('codigo', 'suap_id', 'campus', 'curso', 'periodo_ano', 'periodo_mes', 'periodo_curso', 'turno', 'active')
-    list_filter = ('active', 'turno', 'periodo_ano', 'periodo_mes', 'periodo_curso', 'campus', 'curso')
-    search_fields = ('codigo', 'suap_id', 'campus', 'curso', 'periodo_ano', 'periodo_mes', 'periodo_curso', 'turno', 'active')
+    list_display = ('codigo', 'campus', 'periodo', 'semestre', 'curso', 'sigla')
+    list_filter = ('turno', 'periodo', 'campus', 'semestre', 'curso')
+    search_fields = ('codigo', 'sigla')
+
+
+@register(Diario)
+class DiarioAdmin(ModelAdmin):
+    list_display = ('codigo', 'situacao', 'descricao', 'turma', 'componente')
+    list_filter = ('situacao',)
+    search_fields =  ('codigo', 'suap_id', 'descricao', 'descricao_historico', 'sigla')
 
 
 @register(Solicitacao)
@@ -76,20 +84,18 @@ class SolicitacaoAdmin(ModelAdmin):
     ordering = ('-timestamp',)
 
 
-@register(Diario)
-class DiarioAdmin(ModelAdmin):
-    list_display = ('codigo', 'suap_id', 'situacao', 'descricao', 'sigla', 'turma')
-    list_filter = ('situacao',)
-    search_fields =  ('codigo', 'suap_id', 'descricao', 'descricao_historico', 'sigla')
-
-
 @register(Usuario)
 class UsuarioAdmin(ModelAdmin):
-    list_display = (
-        'username', 'nome', 'email'
-    )
-    list_filter = ('polo__nome', 'campus__sigla')
-    
+    list_display = ('username', 'nome', 'email', 'email_secundario', 'tipo', 'auth')
+    list_filter = ('tipo', 'polo__nome', 'campus__sigla')
+    fieldsets = [
+        (None, {"fields": ['username', 'tipo'],}),
+        (_('Aluno'), {"fields": ['campus', 'polo'],}),
+        (_('Emails'), {"fields": ['email', 'email_escolar', 'email_academico', 'email_secundario'],}),
+        (_('Auth'), {"fields": ['is_active', 'is_superuser', 'groups'],}),
+        (_('Dates'), {"fields": ['date_joined', 'first_login', 'last_login'],}),
+    ]
+
     @display
     def auth(self, obj):        
         result = ""
