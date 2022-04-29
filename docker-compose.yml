@@ -18,18 +18,41 @@ services:
     env_file:
       - ./confs/enabled/db.env
     volumes:
-      - "./volumes/pgdata:/var/lib/postgresql/data"
+      - "./volumes/db_data:/var/lib/postgresql/data"
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+  cache:
+    image: redis:7.0.0
+    restart: always
+    env_file:
+      - ./confs/enabled/cache.env
+    volumes:
+      - "./volumes/cache_data:/data"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]      
+      interval: 3s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
 
   app:
-    image: 'ifrn/avaportal:1.0.11'
+    image: 'ifrn/avaportal:1.0.12'
     build: .
     restart: always
     ports:
-      - "7002:8000"
+      - '8000:8000'
     env_file:
       - ./confs/enabled/db.env
       - ./confs/enabled/app.env
+      - ./confs/enabled/cache.env
     volumes:
       - './src/python:/apps/app'
-      - "./volumes/media:/var/media"
-      - "./volumes/static:/var/static"
+      - './volumes/app_media:/var/media'
+      - './volumes/app_static:/var/static'

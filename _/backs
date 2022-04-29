@@ -3,3 +3,4 @@ source _/functions
 
 # _/proxy/restart
 _/db/restart
+_/cache/restart
