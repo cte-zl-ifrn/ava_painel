@@ -44,7 +44,8 @@ def raise_error(request, error, code):
 def login(request):
     OAUTH = settings.OAUTH
     suap_url = f"{OAUTH['AUTHORIZE_URL']}?response_type=code&client_id={OAUTH['CLIENTE_ID']}&redirect_uri={OAUTH['REDIRECT_URI']}"
-    return render(request, template_name="avaportal/login.html", context={'suap_url': suap_url})
+    # return render(request, template_name="avaportal/login.html", context={'suap_url': suap_url})
+    return redirect(suap_url)
 
 
 def authenticate(request):
@@ -74,7 +75,7 @@ def authenticate(request):
             email=response_data.get('email'),
             email_escolar=response_data.get('email_google_classroom'),
             email_academico=response_data.get('email_academico'),
-            email_pessoal=response_data.get('email_secundario'),
+            email_secundario=response_data.get('email_secundario'),
             campus=Campus.objects.filter(sigla=response_data.get('campus')).first(),
             polo=Polo.objects.filter(suap_id=response_data.get('polo')).first(),
             tipo=Usuario.Tipo.get_by_length(len(username)),
