@@ -102,13 +102,12 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'avaportal.context_processors.gtag',
 
-                'adminlte3.context_processors.layout_settings',
-                'adminlte3.context_processors.top_menu',
-                'adminlte3.context_processors.user',
-                'adminlte3.context_processors.sidebar_menu',
+                'avaportal.context_processors.layout_settings',
+                'avaportal.context_processors.top_menu',
+                'avaportal.context_processors.user',
                 'adminlte3_admin.context_processors.sidebar_menu',
-                'adminlte3.context_processors.messages',
-                'adminlte3.context_processors.notifications',                
+                'avaportal.context_processors.messages',
+                'avaportal.context_processors.notifications',                
             ]
         },
     },

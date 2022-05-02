@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.contrib import auth
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 # from django.contrib.auth.decorators import login_required
 from .models import Usuario, Campus, Polo, Solicitacao
@@ -152,3 +152,19 @@ def sync_up(request):
  
     return HttpResponse(r.text)
 
+
+
+def dashboard(request: HttpRequest) -> HttpResponse:
+    return render(request, "avaportal/dashboard.html", context={'page_title': 'Dashboard v1'})
+
+
+def contacts(request: HttpRequest) -> HttpResponse:
+    return render(request, "avaportal/contacts.html")
+
+
+def register(request: HttpRequest) -> HttpResponse:
+    return render(request, "avaportal/register.html")
+
+
+def term_of_use(request: HttpRequest) -> HttpResponse:
+    return render(request, "avaportal/term_of_use.html")

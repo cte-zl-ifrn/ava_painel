@@ -1,0 +1,40 @@
+{% extends "registration/login.html" %}
+
+{% load i18n static %}
+
+{% block extra_styles %}
+<style>
+    body {height: auto;}
+    .content-wrapper {min-height: 358px;  margin-left: 0 !important; }
+    .main-header { margin-left: 0 !important; }
+</style>
+{% endblock extra_styles %}
+
+{% block body_classes %}sidebar-mini layout-fixed layout-navbar-fixed{% endblock body_classes %}
+
+<!-- Navbar -->
+{% block navbar %}
+    <h1><a href="{% url layout_home_url_name %}">{{ layout_site_name }}</a></h1>
+{% endblock navbar %}
+<!-- /.navbar -->
+
+
+{% block content_wrapper %}
+    <div class="content-wrapper">
+        <div class="content-header">
+            <h2>Termos de uso</h2>
+            <h3>Sutbítulo</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Odio aenean sed adipiscing diam donec adipiscing tristique risus. In pellentesque massa placerat duis ultricies lacus sed turpis tincidunt. Morbi quis commodo odio aenean sed adipiscing diam donec. Nunc sed velit dignissim sodales ut eu sem. Pellentesque habitant morbi tristique senectus et netus et malesuada fames. Nunc lobortis mattis aliquam faucibus purus in massa tempor. Odio morbi quis commodo odio aenean sed adipiscing diam. Et netus et malesuada fames. Elit at imperdiet dui accumsan. Feugiat nibh sed pulvinar proin gravida hendrerit lectus a. Purus semper eget duis at tellus at. Ornare suspendisse sed nisi lacus sed viverra tellus. Diam maecenas sed enim ut sem viverra aliquet. Hendrerit gravida rutrum quisque non tellus orci ac. Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin. Tempus egestas sed sed risus. Et ultrices neque ornare aenean euismod elementum nisi quis. At elementum eu facilisis sed odio morbi quis commodo.</p>
+            <p>Ut placerat orci nulla pellentesque dignissim enim sit amet venenatis. Eu lobortis elementum nibh tellus molestie nunc non blandit massa. Praesent semper feugiat nibh sed pulvinar. Quam id leo in vitae turpis massa sed elementum. Neque convallis a cras semper auctor neque vitae tempus. Leo a diam sollicitudin tempor id. Sed arcu non odio euismod lacinia at quis. Consectetur adipiscing elit ut aliquam purus sit amet luctus venenatis. Eu turpis egestas pretium aenean. Suscipit tellus mauris a diam maecenas sed enim ut. Nibh tellus molestie nunc non blandit massa enim nec dui. Aliquet nec ullamcorper sit amet risus.</p>
+            <p>Ac placerat vestibulum lectus mauris ultrices eros in cursus turpis. Purus semper eget duis at tellus at urna. Adipiscing elit ut aliquam purus sit amet. Enim neque volutpat ac tincidunt vitae. Consectetur libero id faucibus nisl tincidunt eget nullam non nisi. Blandit volutpat maecenas volutpat blandit aliquam etiam. Et tortor consequat id porta nibh. Elementum tempus egestas sed sed risus pretium quam vulputate. Pellentesque pulvinar pellentesque habitant morbi. Eget aliquet nibh praesent tristique magna.</p>
+            <p>Felis imperdiet proin fermentum leo vel. Feugiat sed lectus vestibulum mattis ullamcorper velit sed. Turpis egestas integer eget aliquet nibh praesent tristique magna sit. In fermentum posuere urna nec tincidunt praesent semper. Aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi. Facilisis magna etiam tempor orci eu lobortis elementum nibh tellus. Risus quis varius quam quisque id diam. Odio pellentesque diam volutpat commodo. Vel facilisis volutpat est velit egestas dui id. Egestas purus viverra accumsan in nisl nisi scelerisque eu. Odio facilisis mauris sit amet massa vitae tortor.</p>
+            <p>Consequat id porta nibh venenatis cras sed felis eget. Est lorem ipsum dolor sit amet. Sed vulputate odio ut enim blandit volutpat maecenas volutpat blandit. Adipiscing tristique risus nec feugiat. Morbi blandit cursus risus at ultrices mi. Nulla facilisi nullam vehicula ipsum a arcu cursus. Massa id neque aliquam vestibulum morbi blandit. Lacus luctus accumsan tortor posuere ac. Tristique risus nec feugiat in. Malesuada proin libero nunc consequat interdum varius. Cursus mattis molestie a iaculis at. Vitae suscipit tellus mauris a diam maecenas. Sagittis id consectetur purus ut faucibus pulvinar elementum integer enim. Purus non enim praesent elementum facilisis leo vel. Odio eu feugiat pretium nibh ipsum. Duis ut diam quam nulla porttitor. Tristique senectus et netus et malesuada fames ac. Libero volutpat sed cras ornare arcu. Et magnis dis parturient montes nascetur ridiculus.</p>
+            <h3>Sutbítulo</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Odio aenean sed adipiscing diam donec adipiscing tristique risus. In pellentesque massa placerat duis ultricies lacus sed turpis tincidunt. Morbi quis commodo odio aenean sed adipiscing diam donec. Nunc sed velit dignissim sodales ut eu sem. Pellentesque habitant morbi tristique senectus et netus et malesuada fames. Nunc lobortis mattis aliquam faucibus purus in massa tempor. Odio morbi quis commodo odio aenean sed adipiscing diam. Et netus et malesuada fames. Elit at imperdiet dui accumsan. Feugiat nibh sed pulvinar proin gravida hendrerit lectus a. Purus semper eget duis at tellus at. Ornare suspendisse sed nisi lacus sed viverra tellus. Diam maecenas sed enim ut sem viverra aliquet. Hendrerit gravida rutrum quisque non tellus orci ac. Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin. Tempus egestas sed sed risus. Et ultrices neque ornare aenean euismod elementum nisi quis. At elementum eu facilisis sed odio morbi quis commodo.</p>
+            <p>Ut placerat orci nulla pellentesque dignissim enim sit amet venenatis. Eu lobortis elementum nibh tellus molestie nunc non blandit massa. Praesent semper feugiat nibh sed pulvinar. Quam id leo in vitae turpis massa sed elementum. Neque convallis a cras semper auctor neque vitae tempus. Leo a diam sollicitudin tempor id. Sed arcu non odio euismod lacinia at quis. Consectetur adipiscing elit ut aliquam purus sit amet luctus venenatis. Eu turpis egestas pretium aenean. Suscipit tellus mauris a diam maecenas sed enim ut. Nibh tellus molestie nunc non blandit massa enim nec dui. Aliquet nec ullamcorper sit amet risus.</p>
+            <div>
+                <a href="{% url layout_home_url_name %}">Voltar para a home</a>
+            </div>
+        </div>
+    </div>
+{% endblock content_wrapper %}
