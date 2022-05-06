@@ -66,27 +66,45 @@ services:
       db:
         condition: service_started
 
-  zl01:
-    # image: moodlehq/moodle-php-apache:8.1-bullseye # not for production
-    image: moodlehq/moodle-php-apache:7.4-bullseye
-    restart: always
-    ports:
-      - '8001:80'
-    env_file:
-      - ./confs/enabled/db.env
-      - ./confs/enabled/cache.env
-    volumes:
-      # Sources
-      - './src/php/moodle311:/var/www/html/zl'
+  # fake:
+  #   image: 'ifrn/avaportal:1.0.12'
+  #   build: .
+  #   restart: always
+  #   ports:
+  #     - '8000:8000'
+  #   env_file:
+  #     - ./confs/enabled/db.env
+  #     - ./confs/enabled/cache.env
+  #     - ./confs/enabled/fake.env
+  #   volumes:
+  #     - './src/python:/apps/app'
+  #     - './volumes/fake_media:/var/media'
+  #     - './volumes/app_static:/var/static'
+  #   depends_on:
+  #     db:
+  #       condition: service_started
 
-      # Settings
-      - './src/php/moodle-config/config.php:/var/www/html/zl/config.php'
+  # zl01:
+  #   # image: moodlehq/moodle-php-apache:8.1-bullseye # not for production
+  #   image: moodlehq/moodle-php-apache:7.4-bullseye
+  #   restart: always
+  #   ports:
+  #     - '8001:80'
+  #   env_file:
+  #     - ./confs/enabled/db.env
+  #     - ./confs/enabled/cache.env
+  #   volumes:
+  #     # Sources
+  #     - './src/php/moodle311:/var/www/html/zl'
 
-      # Plugins
-      - './src/php/moodle-customfield_file:/var/www/html/zl/customfield/field/file'
+  #     # Settings
+  #     - './src/php/moodle-config/config.php:/var/www/html/zl/config.php'
 
-      # Data
-      - './volumes/moodledata_zl:/var/moodledata'
-    depends_on:
-      db:
-        condition: service_started
+  #     # Plugins
+  #     - './src/php/moodle-customfield_file:/var/www/html/zl/customfield/field/file'
+
+  #     # Data
+  #     - './volumes/moodledata_zl:/var/moodledata'
+  #   depends_on:
+  #     db:
+  #       condition: service_started

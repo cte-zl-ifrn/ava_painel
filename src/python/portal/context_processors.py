@@ -8,26 +8,27 @@ from django.urls import reverse
 
 def layout_settings(request: HttpRequest) -> dict:
     return {
-        "site_title": "Portal AVA",
-        "layout_home_url_name": "avaportal:dashboard",
-        "layout_register_url_name": "avaportal:register",
-        "layout_term_of_use_url_name": "avaportal:term_of_use",
-        "layout_site_name": "Portal AVA",
-        "layout_has_navbar_search": True,
-        "layout_has_fullscreen_toggler": True,
-        "layout_has_customizer": True,
+        "site_title": "Portal",
+        "layout_home_url_name": "portal:dashboard",
+        "layout_register_url_name": "portal:register",
+        "layout_term_of_use_url_name": "portal:term_of_use",
+        "layout_site_name": "Portal",
+        # "layout_has_navbar_search": True,
+        # "layout_has_fullscreen_toggler": True,
+        # "layout_has_customizer": True,
         "layout_has_auth_remembering": True,
         "layout_auto_page_title": request.path.lower().replace("/", " ").lstrip().title(),
     }
 
 
 def top_menu(request: HttpRequest) -> dict:
+    staff_menus = [{"label": _("Admin"), "url": reverse('admin:index'), },] if request.user.is_staff else []
+        
     return {
         "layout_navbar_top_menu":
         [
-            {"label": _("Início"), "url": reverse('avaportal:dashboard'), },
-            {"label": _("Admin"), "url": reverse('admin:index'), },
-        ]
+            {"label": _("Início"), "url": reverse('portal:dashboard'), },
+        ] + staff_menus
     }
 
 
@@ -113,6 +114,7 @@ def sidebar_menu(request: HttpRequest) -> dict:
 
 
 def messages(request: HttpRequest) -> dict:
+    return {}
     return {
         "layout_navbar_message_bar":
             {
@@ -149,6 +151,7 @@ def messages(request: HttpRequest) -> dict:
 
 
 def notifications(request: HttpRequest) -> dict:
+    return {}
     return {
         "layout_navbar_notifications_bar":
             {

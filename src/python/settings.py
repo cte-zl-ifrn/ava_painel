@@ -42,12 +42,13 @@ logging.config.dictConfig({
 
 # Apps
 MY_APPS = env_as_list('MY_APPS', [
-    'avaportal',
+    'portal',
+    'health',
+    'suapfake',
 ])
 THIRD_APPS = env_as_list('THIRD_APPS', [
     'markdownx',
     'django_extensions',
-    'social_django',
     'adminlte3',
     'adminlte3_admin',
 ])
@@ -57,13 +58,14 @@ DJANGO_APPS = env_as_list('DJANGO_APPS', [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles'
+    'django.contrib.staticfiles',
+    'a4',
 ])
 INSTALLED_APPS = MY_APPS + THIRD_APPS + DJANGO_APPS
 
 # Middleware
 MIDDLEWARE = [
-    'avaportal.middleware.GoToHTTPSMiddleware', # <-
+    'portal.middleware.GoToHTTPSMiddleware', # <-
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -100,14 +102,14 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'avaportal.context_processors.gtag',
+                'portal.context_processors.gtag',
 
-                'avaportal.context_processors.layout_settings',
-                'avaportal.context_processors.top_menu',
-                'avaportal.context_processors.user',
+                'portal.context_processors.layout_settings',
+                'portal.context_processors.top_menu',
+                'portal.context_processors.user',
                 'adminlte3_admin.context_processors.sidebar_menu',
-                'avaportal.context_processors.messages',
-                'avaportal.context_processors.notifications',                
+                'portal.context_processors.messages',
+                'portal.context_processors.notifications',                
             ]
         },
     },
@@ -173,7 +175,7 @@ if DEBUG:
 
 
 # Session
-SESSION_KEY = env("DJANGO_SESSION_KEY", 'sead_avaportal')
+SESSION_KEY = env("DJANGO_SESSION_KEY", 'ead_portal')
 SESSION_COOKIE_NAME = env("DJANGO_SESSION_COOKIE_NAME", '%s_sessionid' % SESSION_KEY)
 SESSION_COOKIE_AGE = env_as_int('DJANGO_SESSION_COOKIE_AGE', 1209600)
 SESSION_COOKIE_DOMAIN = env('DJANGO_SESSION_COOKIE_DOMAIN', None)
@@ -203,27 +205,18 @@ AUTH_PASSWORD_VALIDATORS = []
 LOGIN_URL = env('DJANGO_LOGIN_URL', 'login/')
 LOGIN_REDIRECT_URL = env('DJANGO_LOGIN_REDIRECT_URL', '/')
 LOGOUT_REDIRECT_URL = env("DJANGO_LOGOUT_REDIRECT_URL", LOGIN_REDIRECT_URL)
-AUTH_USER_MODEL = env('DJANGO_AUTH_USER_MODEL', 'avaportal.Usuario')
+AUTH_USER_MODEL = env('DJANGO_AUTH_USER_MODEL', 'a4.Usuario')
 GO_TO_HTTPS = env_as_bool('GO_TO_HTTPS', False)
 
 OAUTH = {
     'REDIRECT_URI': env('SUAP_REDIRECT_URI', 'http://localhost:8000/authenticate/'),
-    'CLIENTE_ID': env('SUAP_CLIENTE_ID', 'changeme'),
-    'CLIENT_SECRET': env('SUAP_CLIENT_SECRET', 'changeme'),
-    'AUTHORIZE_URL': env('SUAP_AUTHORIZE_URL', 'https://suap.ifrn.edu.br/o/authorize/'),
-    'ACCESS_TOKEN_URL': env('SUAP_ACCESS_TOKEN_URL', 'https://suap.ifrn.edu.br/o/token/'),
-    'USER_DATA_URL': env('SUAP_USER_DATA_URL', 'https://suap.ifrn.edu.br/api/eu/'),
-    'METHOD': env('SUAP_METHOD', 'POST')
+    'CLIENTE_ID': env('SUAP_CLIENTE_ID', 'change me on confs/enabled/app.env'),
+    'CLIENT_SECRET': env('SUAP_CLIENT_SECRET', 'change me on confs/enabled/app.env'),
+    'BASE_URL': env('SUAP_BASE_URL', 'https://suap.ifrn.edu.br'),
+    'VERIFY_SSL': env('SUAP_VERIFY_SSL', False),
 }
 
 AUTHENTICATION_BACKENDS = (
-    'avaportal.backends.SuapOAuth2',
-    # 'social_core.backends.google.GoogleOAuth2',
-    # 'django.contrib.auth.backends.ModelBackend',
+    # 'a4.backends.SuapOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
 )
-SOCIAL_AUTH_URL_NAMESPACE = 'social'
-SOCIAL_AUTH_SUAP_KEY = env('SUAP_CLIENTE_ID', 'INSERT_PROVIDED_KEY_HERE')
-SOCIAL_AUTH_SUAP_SECRET = env('SUAP_CLIENT_SECRET', 'INSERT_PROVIDED_SECRET_HERE')
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY='1081019512070-1ucaim9s7dv5sienmq7s778uk9k53l81.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET='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'
