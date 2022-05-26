@@ -1,591 +1,254 @@
-{% extends "adminlte3/layouts/base.html" %}
-{% load static i18n %}
+{% load static %}
 
-{% block content %}
-  <!-- container-fluid -->
-  <div class="container-fluid">
-    <!-- Small boxes (Stat box) -->
-    <div class="row">
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-info">
-          <div class="inner">
-            <h3>150</h3>
+<!doctype html>
+<html lang="en-US">
+	<head>
 
-            <p>New Orders</p>
-          </div>
-          <div class="icon">
-            <i class="ion ion-bag"></i>
-          </div>
-          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-      </div>
-      <!-- ./col -->
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-success">
-          <div class="inner">
-            <h3>53<sup style="font-size: 20px">%</sup></h3>
+		<meta charset="utf-8">
+		<meta http-equiv="IFRN" content="IE=edge">
+		<title>IFRN - Portal</title>
+		<!-- Mobile Metas -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta property="og:url" content="//getbootstrap.com/docs/5.0/forms/select/">
 
-            <p>Bounce Rate</p>
-          </div>
-          <div class="icon">
-            <i class="ion ion-stats-bars"></i>
-          </div>
-          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-      </div>
-      <!-- ./col -->
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-warning">
-          <div class="inner">
-            <h3>44</h3>
+        <!-- Favicon -->
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+        <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+        <link rel="mask-icon" href="{% static 'favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="theme-color" content="#ffffff">
 
-            <p>User Registrations</p>
-          </div>
-          <div class="icon">
-            <i class="ion ion-person-add"></i>
-          </div>
-          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-      </div>
-      <!-- ./col -->
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-danger">
-          <div class="inner">
-            <h3>65</h3>
+        <!-- Google Fonts  -->
+		<link href='//fonts.googleapis.com/css?family=Roboto:400,700,500' rel='stylesheet' type='text/css'> <!-- Body font -->
+		<link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'> <!-- Navbar font -->
 
-            <p>Unique Visitors</p>
-          </div>
-          <div class="icon">
-            <i class="ion ion-pie-graph"></i>
-          </div>
-          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-      </div>
-      <!-- ./col -->
-    </div>
-    <!-- /.row -->
-    <!-- Main row -->
-    <div class="row">
-      <!-- Left col -->
-      <section class="col-lg-7 connectedSortable">
-        <!-- Custom tabs (Charts with tabs)-->
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">
-              <i class="fas fa-chart-pie mr-1"></i>
-              Sales
-            </h3>
-            <div class="card-tools">
-              <ul class="nav nav-pills ml-auto">
-                <li class="nav-item">
-                  <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                </li>
-              </ul>
-            </div>
-          </div><!-- /.card-header -->
-          <div class="card-body">
-            <div class="tab-content p-0">
-              <!-- Morris chart - Sales -->
-              <div class="chart tab-pane active" id="revenue-chart"
-                  style="position: relative; height: 300px;">
-                  <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
-              </div>
-              <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
-              </div>
-            </div>
-          </div><!-- /.card-body -->
-        </div>
-        <!-- /.card -->
+		<!-- Libs and Plugins CSS -->
+		<link rel="stylesheet" href="{% static 'inc/bootstrap/css/bootstrap.min.css' %}">
+		<link rel="stylesheet" href="{% static 'inc/animations/css/animate.min.css' %}">
+		<link rel="stylesheet" href="{% static 'inc/font-awesome/css/font-awesome.min.css' %}"> <!-- Font Icons -->
+		<link rel="stylesheet" href="{% static 'inc/owl-carousel/css/owl.carousel.css' %}">
+		<link rel="stylesheet" href="{% static 'inc/owl-carousel/css/owl.theme.css' %}">
 
-        <!-- DIRECT CHAT -->
-        <div class="card direct-chat direct-chat-primary">
-          <div class="card-header">
-            <h3 class="card-title">Direct Chat</h3>
+		<!-- Theme CSS -->
+        <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="{% static 'css/mobile.css' %}">
 
-            <div class="card-tools">
-              <span title="3 New Messages" class="badge badge-primary">3</span>
-              <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-              <button type="button" class="btn btn-tool" title="Contacts" data-widget="chat-pane-toggle">
-                <i class="fas fa-comments"></i>
-              </button>
-              <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body">
-            <!-- Conversations are loaded here -->
-            <div class="direct-chat-messages">
-              <!-- Message. Default to the left -->
-              <div class="direct-chat-msg">
-                <div class="direct-chat-infos clearfix">
-                  <span class="direct-chat-name float-left">Alexander Pierce</span>
-                  <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
-                </div>
-                <!-- /.direct-chat-infos -->
-                <img class="direct-chat-img" src="{% static '/adminlte3/img/user1-128x128.jpg' %}" alt="message user image" />
-                <!-- /.direct-chat-img -->
-                <div class="direct-chat-text">
-                  Is this template really for free? That's unbelievable!
-                </div>
-                <!-- /.direct-chat-text -->
-              </div>
-              <!-- /.direct-chat-msg -->
+		<!-- Skin CSS -->
+		<link rel="stylesheet" href="{% static 'css/skin/cool-gray.css' %}">
 
-              <!-- Message to the right -->
-              <div class="direct-chat-msg right">
-                <div class="direct-chat-infos clearfix">
-                  <span class="direct-chat-name float-right">Sarah Bullock</span>
-                  <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
-                </div>
-                <!-- /.direct-chat-infos -->
-                <img class="direct-chat-img" src="{% static '/adminlte3/img/user3-128x128.jpg' %}" alt="message user image" />
-                <!-- /.direct-chat-img -->
-                <div class="direct-chat-text">
-                  You better believe it!
-                </div>
-                <!-- /.direct-chat-text -->
-              </div>
-              <!-- /.direct-chat-msg -->
+	</head>
 
-              <!-- Message. Default to the left -->
-              <div class="direct-chat-msg">
-                <div class="direct-chat-infos clearfix">
-                  <span class="direct-chat-name float-left">Alexander Pierce</span>
-                  <span class="direct-chat-timestamp float-right">23 Jan 5:37 pm</span>
-                </div>
-                <!-- /.direct-chat-infos -->
-                <img class="direct-chat-img" src="{% static '/adminlte3/img/user1-128x128.jpg' %}" alt="message user image">
-                <!-- /.direct-chat-img -->
-                <div class="direct-chat-text">
-                  Working with AdminLTE on a great new app! Wanna join?
-                </div>
-                <!-- /.direct-chat-text -->
-              </div>
-              <!-- /.direct-chat-msg -->
+    <body data-spy="scroll" data-target="#main-navbar">
+        <div class="page-loader"></div>  <!-- Display loading image while page loads -->
+    	<div class="body">
+        
+            <!--========== BEGIN HEADER ==========-->
+            <header id="header" class="header-main">
 
-              <!-- Message to the right -->
-              <div class="direct-chat-msg right">
-                <div class="direct-chat-infos clearfix">
-                  <span class="direct-chat-name float-right">Sarah Bullock</span>
-                  <span class="direct-chat-timestamp float-left">23 Jan 6:10 pm</span>
-                </div>
-                <!-- /.direct-chat-infos -->
-                <img class="direct-chat-img" src="{% static '/adminlte3/img/user3-128x128.jpg' %}" alt="message user image">
-                <!-- /.direct-chat-img -->
-                <div class="direct-chat-text">
-                  I would love to.
-                </div>
-                <!-- /.direct-chat-text -->
-              </div>
-              <!-- /.direct-chat-msg -->
+                <!-- Begin Navbar -->
+                <nav id="main-navbar" class="navbar navbar-default navbar-fixed-top" role="navigation"> <!-- Classes: navbar-default, navbar-inverse, navbar-fixed-top, navbar-fixed-bottom, navbar-transparent. Note: If you use non-transparent navbar, set "height: 98px;" to #header -->
 
-            </div>
-            <!--/.direct-chat-messages-->
+                  <div class="container">
 
-            <!-- Contacts are loaded here -->
-            <div class="direct-chat-contacts">
-              <ul class="contacts-list">
-                <li>
-                  <a href="#">
-                    <img class="contacts-list-img" src="{% static '/adminlte3/img/user1-128x128.jpg' %}" alt="User Avatar">
-
-                    <div class="contacts-list-info">
-                      <span class="contacts-list-name">
-                        Count Dracula
-                        <small class="contacts-list-date float-right">2/28/2015</small>
-                      </span>
-                      <span class="contacts-list-msg">How have you been? I was...</span>
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand page-scroll" href="index.html">Portal AVA</a>
                     </div>
-                    <!-- /.contacts-list-info -->
-                  </a>
-                </li>
-                <!-- End Contact Item -->
-                <li>
-                  <a href="#">
-                    <img class="contacts-list-img" src="{% static '/adminlte3/img/user7-128x128.jpg' %}" alt="User Avatar">
 
-                    <div class="contacts-list-info">
-                      <span class="contacts-list-name">
-                        Sarah Doe
-                        <small class="contacts-list-date float-right">2/23/2015</small>
-                      </span>
-                      <span class="contacts-list-msg">I will be waiting for...</span>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="menu-principal nav navbar-nav navbar-center">
+                            <li><a class="page-scroll area_aluno" href="body">ÁREA DO ALUNO</a></li>  
+                            <li><a class="page-scroll barra">|</a></li> 
+                            <li><a class="page-scroll" href="https://ead.ifrn.edu.br">EAD</a></li>                        
+                            <li><a class="page-scroll" href="https://ifrn.edu.br">IFRN</a></li>
+                            <li><a class="page-scroll" href="https://suap.ifrn.edu.br">SUAP</a></li>
+                            <li><a class="page-scroll" href="{% url 'admin:index' %}">ADMIN</a></li>
+                            <li><a class="page-scroll" href="#portfolio-section">SAIR</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a class="page-scroll ph-name" href="#services-section">Joao da Silva</a></li>
+                            <li><a class="page-scroll ph-email" href="#services-section">joaodasilva@email.com</a></li>
+                            <li><i class="ph-user-circle user"></i></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                  </div><!-- /.container -->
+                </nav>
+                <!-- End Navbar -->
+                
+
+            </header>
+            <!-- ========= END HEADER =========-->
+                        
+          <!-- Begin cta -->
+          <section id="cta-section">
+          <div class="col-md-8 col-sm-12" >
+                <section class="bg-secondary">
+                    <div class="bg-section-title">
+                        <div class="bg-title">
+                            <p class="titulo-curso">MINHAS DISCIPLINAS</p>
+                        </div>
+                            <div class="bg-img"><i class="ph-question"></i></div>
+                        <div class="bg-descricao">
+                            <p class="descricao-curso">Clique nas disciplinas abaixo para saber mais detalhes.</p>
+                        </div>
+                        <div class="linha-horizontal"></div>
+                    </div> 
+                    <div class="grid-container">
+                        <div class="grid-item">
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>TODAS DISCIPLINAS</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        </div>
+                        <div class="grid-item">
+                        <select class="form-select andamento" aria-label="Default select example">
+                            <option selected>EM ANDAMENTO</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        </div>
+                        <div class="grid-item">
+                            <div class="periodos">
+                                <button type="button" class="btn btn-secondary">2022.1</button>
+                                <button type="button" class="btn btn-light">2021.2</button>
+                                <button type="button" class="btn btn-light">2021.1</button>
+                                <button type="button" class="btn btn-light">2020.2</button>
+                            </div>                   
+                        </div>
+                    </div>  
+
+                    <!-- Cards -->
+
+                    <div class="grid-container card">
+                        <div class="grid-item cards"> 
+                            <div class="card">
+                                <div class="icon_categoria">
+                                    <p class="categoria_card">INST</p>
+                                </div>
+                                   <img class="img-fluid" alt="100%x280" src="//images.unsplash.com/photo-1532771098148-525cefe10c23?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjMyMDc0fQ&amp;s=3f317c1f7a16116dec454fbc267dd8e4">
+                                <div class="progress bg-dark rounded-0">
+                                    <div class="progress-bar bg-success " role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="porcentagem"><p class="valor_porcentagem">70%</p></div>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-turma">2020.1.15046.1E.POS.0345</p>
+                                    <h5 class="card-title">Criatividade nas escola públicas</h5>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="flex">
+                                        <button type="button" class="btn btn-primary">ACESSAR</button>
+                                    <div class="flex-auto"></div>
+                                    <button type="button" class="btn btn-secondary">DETALHES</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <!-- /.contacts-list-info -->
-                  </a>
-                </li>
-                <!-- End Contact Item -->
-                <li>
-                  <a href="#">
-                    <img class="contacts-list-img" src="{% static '/adminlte3/img/user3-128x128.jpg' %}" alt="User Avatar">
+                    <!-- End Cards --> 
+                 </section>
+            </div>
+            <div class="col-md-4 col-sm-12 ">
+                <aside class="bg-secondary h-100">
+                    <div class="bg-lateral-section-title">
+                        <div class="bg-lateral-title">
+                            <p class="detalhe-curso-lateral">DETALHES</p>
+                        </div>
+                            <div class="bg-img-lateral"><i class="ph-question"></i></div>
+                        <div class="bg-descricao-lateral">
+                            <p class="descricao-curso-lateral">Mais detalhes sobre a disciplinas abaixo.</p>
+                        </div>
+                        <div class="linha-horizontal-lateral"></div>
+                    </div> 
+                    <!-- Cards destaque -->
 
-                    <div class="contacts-list-info">
-                      <span class="contacts-list-name">
-                        Nadia Jolie
-                        <small class="contacts-list-date float-right">2/20/2015</small>
-                      </span>
-                      <span class="contacts-list-msg">I'll call you back at...</span>
+                    <div class="grid-container card-destaque">
+                        <div class="grid-item cards-destaque"> 
+                            <div class="card-destaque">
+                                <div class="barra_categoria">
+                                    <p class="categoria_card-destaque">INSTITUCIONAL</p>
+                                </div>
+                                   <img class="img-fluid-destaque" alt="100%x280" src="//images.unsplash.com/photo-1532771098148-525cefe10c23?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjMyMDc0fQ&amp;s=3f317c1f7a16116dec454fbc267dd8e4">
+                                <div class="card-body">
+                                    <p class="card-turma">2020.1.15046.1E.POS.0345</p>
+                                    <h5 class="card-title">Criatividade nas escola públicas</h5>
+                                </div>
+                                <div class="card-footer-destaque">
+                                    <div class="flex">
+                                        <button type="button" class="btn btn-primary btn-destaque">Acessar o Curso</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <!-- /.contacts-list-info -->
-                  </a>
-                </li>
-                <!-- End Contact Item -->
-                <li>
-                  <a href="#">
-                    <img class="contacts-list-img" src="{% static '/adminlte3/img/user5-128x128.jpg' %}" alt="User Avatar">
+                    <!-- End Cards destaque --> 
 
-                    <div class="contacts-list-info">
-                      <span class="contacts-list-name">
-                        Nora S. Vans
-                        <small class="contacts-list-date float-right">2/10/2015</small>
-                      </span>
-                      <span class="contacts-list-msg">Where is your new...</span>
+                    <!-- Eventos do Curso-->
+                    <div class="bg-lateral-section-evento">
+                        <div class="bg-lateral-evento">
+                            <p class="evento">EVENTOS DO CURSO</p>
+                        </div>
+                        <div class="linha-horizontal-lateral-evento"></div>
+                        CALENDAR
                     </div>
-                    <!-- /.contacts-list-info -->
-                  </a>
-                </li>
-                <!-- End Contact Item -->
-                <li>
-                  <a href="#">
-                    <img class="contacts-list-img" src="{% static '/adminlte3/img/user6-128x128.jpg' %}" alt="User Avatar">
+                    <!-- End Eventos do Curso-->
 
-                    <div class="contacts-list-info">
-                      <span class="contacts-list-name">
-                        John K.
-                        <small class="contacts-list-date float-right">1/27/2015</small>
-                      </span>
-                      <span class="contacts-list-msg">Can I take a look at...</span>
+                    <!-- Últimos Informativos-->
+                    <div class="bg-lateral-section-informativo">
+                        <div class="bg-lateral-informativo">
+                            <p class="informativo">Últimos Informativos</p>
+                        </div>
+                        <div class="linha-horizontal-lateral-informativo"></div>
                     </div>
-                    <!-- /.contacts-list-info -->
-                  </a>
-                </li>
-                <!-- End Contact Item -->
-                <li>
-                  <a href="#">
-                    <img class="contacts-list-img" src="{% static '/adminlte3/img/user8-128x128.jpg' %}" alt="User Avatar">
-
-                    <div class="contacts-list-info">
-                      <span class="contacts-list-name">
-                        Kenneth M.
-                        <small class="contacts-list-date float-right">1/4/2015</small>
-                      </span>
-                      <span class="contacts-list-msg">Never mind I found...</span>
+                    <!-- End Últimos Informativos-->
+                </aside>
+            </div>  
+          </section>
+          <!-- End cta -->        
+            <!-- Begin footer -->
+            <footer class="text-off-white">
+                
+                <div class="footer">
+                    <div class="container text-center wow fadeIn" data-wow-delay="0.4s">
+                        <p class="copyright">Instituto Federal de Educação, ciência e Tecnologia do Rio Grande do Norte &copy; 2022. Todos os direitos reservados.</p>
                     </div>
-                    <!-- /.contacts-list-info -->
-                  </a>
-                </li>
-                <!-- End Contact Item -->
-              </ul>
-              <!-- /.contacts-list -->
-            </div>
-            <!-- /.direct-chat-pane -->
-          </div>
-          <!-- /.card-body -->
-          <div class="card-footer">
-            <form action="#" method="post">
-              <div class="input-group">
-                <input type="text" name="message" placeholder="Type Message ..." class="form-control">
-                <span class="input-group-append">
-                  <button type="button" class="btn btn-primary">Send</button>
-                </span>
-              </div>
-            </form>
-          </div>
-          <!-- /.card-footer-->
-        </div>
-        <!--/.direct-chat -->
+                </div>
 
-        <!-- TO DO List -->
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">
-              <i class="ion ion-clipboard mr-1"></i>
-              To Do List
-            </h3>
+            </footer>
+            <!-- End footer -->
 
-            <div class="card-tools">
-              <ul class="pagination pagination-sm">
-                <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
-                <li class="page-item"><a href="#" class="page-link">1</a></li>
-                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                <li class="page-item"><a href="#" class="page-link">3</a></li>
-                <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
-              </ul>
-            </div>
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body">
-            <ul class="todo-list" data-widget="todo-list">
-              <li>
-                <!-- drag handle -->
-                <span class="handle">
-                  <i class="fas fa-ellipsis-v"></i>
-                  <i class="fas fa-ellipsis-v"></i>
-                </span>
-                <!-- checkbox -->
-                <div  class="icheck-primary d-inline ml-2">
-                  <input type="checkbox" value="" name="todo1" id="todoCheck1">
-                  <label for="todoCheck1"></label>
-                </div>
-                <!-- todo text -->
-                <span class="text">Design a nice theme</span>
-                <!-- Emphasis label -->
-                <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
-                <!-- General tools such as edit or delete-->
-                <div class="tools">
-                  <i class="fas fa-edit"></i>
-                  <i class="fas fa-trash-o"></i>
-                </div>
-              </li>
-              <li>
-                <span class="handle">
-                  <i class="fas fa-ellipsis-v"></i>
-                  <i class="fas fa-ellipsis-v"></i>
-                </span>
-                <div  class="icheck-primary d-inline ml-2">
-                  <input type="checkbox" value="" name="todo2" id="todoCheck2" checked>
-                  <label for="todoCheck2"></label>
-                </div>
-                <span class="text">Make the theme responsive</span>
-                <small class="badge badge-info"><i class="far fa-clock"></i> 4 hours</small>
-                <div class="tools">
-                  <i class="fas fa-edit"></i>
-                  <i class="fas fa-trash-o"></i>
-                </div>
-              </li>
-              <li>
-                <span class="handle">
-                  <i class="fas fa-ellipsis-v"></i>
-                  <i class="fas fa-ellipsis-v"></i>
-                </span>
-                <div  class="icheck-primary d-inline ml-2">
-                  <input type="checkbox" value="" name="todo3" id="todoCheck3">
-                  <label for="todoCheck3"></label>
-                </div>
-                <span class="text">Let theme shine like a star</span>
-                <small class="badge badge-warning"><i class="far fa-clock"></i> 1 day</small>
-                <div class="tools">
-                  <i class="fas fa-edit"></i>
-                  <i class="fas fa-trash-o"></i>
-                </div>
-              </li>
-              <li>
-                <span class="handle">
-                  <i class="fas fa-ellipsis-v"></i>
-                  <i class="fas fa-ellipsis-v"></i>
-                </span>
-                <div  class="icheck-primary d-inline ml-2">
-                  <input type="checkbox" value="" name="todo4" id="todoCheck4">
-                  <label for="todoCheck4"></label>
-                </div>
-                <span class="text">Let theme shine like a star</span>
-                <small class="badge badge-success"><i class="far fa-clock"></i> 3 days</small>
-                <div class="tools">
-                  <i class="fas fa-edit"></i>
-                  <i class="fas fa-trash-o"></i>
-                </div>
-              </li>
-              <li>
-                <span class="handle">
-                  <i class="fas fa-ellipsis-v"></i>
-                  <i class="fas fa-ellipsis-v"></i>
-                </span>
-                <div  class="icheck-primary d-inline ml-2">
-                  <input type="checkbox" value="" name="todo5" id="todoCheck5">
-                  <label for="todoCheck5"></label>
-                </div>
-                <span class="text">Check your messages and notifications</span>
-                <small class="badge badge-primary"><i class="far fa-clock"></i> 1 week</small>
-                <div class="tools">
-                  <i class="fas fa-edit"></i>
-                  <i class="fas fa-trash-o"></i>
-                </div>
-              </li>
-              <li>
-                <span class="handle">
-                  <i class="fas fa-ellipsis-v"></i>
-                  <i class="fas fa-ellipsis-v"></i>
-                </span>
-                <div  class="icheck-primary d-inline ml-2">
-                  <input type="checkbox" value="" name="todo6" id="todoCheck6">
-                  <label for="todoCheck6"></label>
-                </div>
-                <span class="text">Let theme shine like a star</span>
-                <small class="badge badge-secondary"><i class="far fa-clock"></i> 1 month</small>
-                <div class="tools">
-                  <i class="fas fa-edit"></i>
-                  <i class="fas fa-trash-o"></i>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <!-- /.card-body -->
-          <div class="card-footer clearfix">
-            <button type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add item</button>
-          </div>
-        </div>
-        <!-- /.card -->
-      </section>
-      <!-- /.Left col -->
-      <!-- right col (We are only adding the ID to make the widgets sortable)-->
-      <section class="col-lg-5 connectedSortable">
+            <a href="#" class="scrolltotop"><i class="fa fa-arrow-up"></i></a> <!-- Scroll to top button -->
+                                              
+        </div><!-- body ends -->
+        
+        <!-- Plugins JS -->
+        <script src="//unpkg.com/phosphor-icons"></script>
+		<script src="{% static 'inc/jquery/jquery-1.11.1.min.js' %}"></script>
+		<script src="{% static 'inc/bootstrap/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'inc/owl-carousel/js/owl.carousel.min.js' %}"></script>
+		<script src="{% static 'inc/stellar/js/jquery.stellar.min.js' %}"></script>
+		<script src="{% static 'inc/animations/js/wow.min.js' %}"></script>
+        <script src="{% static 'inc/waypoints.min.js' %}"></script>
+		<script src="{% static 'inc/isotope.pkgd.min.js' %}"></script>
+		<script src="{% static 'inc/classie.js' %}"></script>
+		<script src="{% static 'inc/jquery.easing.min.js' %}"></script>
+		<script src="{% static 'inc/jquery.counterup.min.js' %}"></script>
+		<!--<script src="{% static 'inc/smoothscroll.js"></script>-->
 
-        <!-- Map card -->
-        <div class="card bg-gradient-primary">
-          <div class="card-header border-0">
-            <h3 class="card-title">
-              <i class="fas fa-map-marker-alt mr-1"></i>
-              Visitors
-            </h3>
-            <!-- card tools -->
-            <div class="card-tools">
-              <button type="button" class="btn btn-primary btn-sm daterange" title="Date range">
-                <i class="far fa-calendar-alt"></i>
-              </button>
-              <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-            </div>
-            <!-- /.card-tools -->
-          </div>
-          <div class="card-body">
-            <div id="world-map" style="height: 250px; width: 100%;"></div>
-          </div>
-          <!-- /.card-body-->
-          <div class="card-footer bg-transparent">
-            <div class="row">
-              <div class="col-4 text-center">
-                <div id="sparkline-1"></div>
-                <div class="text-white">Visitors</div>
-              </div>
-              <!-- ./col -->
-              <div class="col-4 text-center">
-                <div id="sparkline-2"></div>
-                <div class="text-white">Online</div>
-              </div>
-              <!-- ./col -->
-              <div class="col-4 text-center">
-                <div id="sparkline-3"></div>
-                <div class="text-white">Sales</div>
-              </div>
-              <!-- ./col -->
-            </div>
-            <!-- /.row -->
-          </div>
-        </div>
-        <!-- /.card -->
+		<!-- Theme JS -->
+		<script src="{% static 'js/theme.js' %}"></script>
 
-        <!-- solid sales graph -->
-        <div class="card bg-gradient-info">
-          <div class="card-header border-0">
-            <h3 class="card-title">
-              <i class="fas fa-th mr-1"></i>
-              Sales Graph
-            </h3>
-
-            <div class="card-tools">
-              <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-              <button type="button" class="btn bg-info btn-sm" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-          </div>
-          <div class="card-body">
-            <canvas class="chart" id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-          </div>
-          <!-- /.card-body -->
-          <div class="card-footer bg-transparent">
-            <div class="row">
-              <div class="col-4 text-center">
-                <input type="text" class="knob" data-readonly="true" value="20" data-width="60" data-height="60"
-                      data-fgColor="#39CCCC">
-
-                <div class="text-white">Mail-Orders</div>
-              </div>
-              <!-- ./col -->
-              <div class="col-4 text-center">
-                <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60"
-                      data-fgColor="#39CCCC">
-
-                <div class="text-white">Online</div>
-              </div>
-              <!-- ./col -->
-              <div class="col-4 text-center">
-                <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60"
-                      data-fgColor="#39CCCC">
-
-                <div class="text-white">In-Store</div>
-              </div>
-              <!-- ./col -->
-            </div>
-            <!-- /.row -->
-          </div>
-          <!-- /.card-footer -->
-        </div>
-        <!-- /.card -->
-
-        <!-- Calendar -->
-        <div class="card bg-gradient-success">
-          <div class="card-header border-0">
-
-            <h3 class="card-title">
-              <i class="far fa-calendar-alt"></i>
-              Calendar
-            </h3>
-            <!-- tools card -->
-            <div class="card-tools">
-              <!-- button with a dropdown -->
-              <div class="btn-group">
-                <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
-                  <i class="fas fa-bars"></i>
-                </button>
-                <div class="dropdown-menu" role="menu">
-                  <a href="#" class="dropdown-item">Add new event</a>
-                  <a href="#" class="dropdown-item">Clear events</a>
-                  <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item">View calendar</a>
-                </div>
-              </div>
-              <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-              </button>
-              <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-            <!-- /. tools -->
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body pt-0">
-            <!--The calendar -->
-            <div id="calendar" style="width: 100%"></div>
-          </div>
-          <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
-      </section>
-      <!-- right col -->
-    </div>
-    <!-- /.row (main row) -->
-  </div>
-  <!-- /.container-fluid -->
-{% endblock content %}
-
-{% block extra_bottom_scripts %}
-  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-  <script src="{% static '/adminlte3/js/pages/dashboard.js' %}"></script>
-{% endblock extra_bottom_scripts %}
+    </body> 
+                    
+</html>
