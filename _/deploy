@@ -12,6 +12,7 @@ _/backs
 
 echo ""; echo_info "... id"
 _/app/migrate
+_/fake/migrate
 
 echo ""; echo_info "Reiniciando o mundo novamente"
 _/restart

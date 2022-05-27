@@ -1,0 +1,396 @@
+{% extends "admin/suapfake/diario/base.html" %}
+{% block content %}
+            <div id="breadcrumbs"><a href="/">Início</a><a href="/edu/meus_diarios/">Meus Diários (1)</a><a
+                    href="/edu/meu_diario/6962/1/">6962 - FIC.0007 - Planilha Eletrônica - Fundamental [30 h/30 Aulas] -
+                    Etapa 1</a></div>
+            <div class="title-container">
+                <h2>6962 - FIC.0007 - Planilha Eletrônica - Fundamental [30 h/30 Aulas] - Etapa 1</h2>
+                <div class="object-status"></div>
+                <div class="action-bar-container">
+                    <ul class="action-bar">
+                        <li><a class="btn success popup" href="#">Solicitar ETEP</a></li>
+                        <li><a class="btn success" href="#">Enviar Mensagem</a></li>
+                        <li><a class="btn primary popup" href="#">Configurar Ambiente Virtual</a></li>
+                        <li><a class="btn" href="#">Exportar para XLS</a></li>
+                        <li class="has-child"><a class="btn" href="#">Imprimir</a>
+                            <ul>
+                                <li><a href="#">Relação de Alunos</a></li>
+                                <li><a href="#">Boletim de Notas</a></li>
+                                <li><a href="#">Diário (Etapa 1)</a></li>
+                                <li><a href="#">Diário (Etapa Final)</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="box ">
+                <h3>Dados do Diário</h3>
+                <div>
+                    <dl class="definition-list flex">
+                        <div class="list-item flex-basis-100">
+                            <dt>Professores</dt>
+                            <dd>
+                                <p>Kelson da Costa Medeiros (Principal)</p>
+                            </dd>
+                        </div>
+                        <div class="list-item flex-basis-100">
+                            <dt>Curso</dt>
+                            <dd>010101 - FIC+ Operador de Computadores [PRONATEC]</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Turma</dt>
+                            <dd>20122.1.010101.1E</dd>
+                        </div>
+                        <div class="list-item">
+                            <dt>Turno</dt>
+                            <dd>EaD</dd>
+                        </div>
+                        <div class="list-item flex-basis-50">
+                            <dt>Aulas Ministradas</dt>
+                            <dd>30 de 30 aulas</dd>
+                        </div>
+                        <div class="list-item flex-basis-50">
+                            <dt>C.H. Cumprida (%)</dt>
+                            <dd><div class="progress"><p>100%</p></div></dd>
+                        </div>
+                    </dl>
+                    <span id="etapas"></span>
+                    <h4>Etapas</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Etapa</th>
+                                <th>Período do Calendário</th>
+                                <th>Período da Posse</th>
+                                <th>Entregue</th>
+                                <th>Quantidade de Aulas Ministradas</th>
+                                <th>Configuração de Avaliação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><a class="popup" href="#">18/01/2022 a 19/08/2022</a></td>
+                                <td>18/01/2016 a 19/08/2016</td>
+                                <td><span class="status status-success">Sim</span></td>
+                                <td>30</td>
+                                <td>Média Aritmética (A1 - 100 | AF - 100)</td>
+                            </tr>
+                            <tr>
+                                <td>Final</td>
+                                <td><a class="popup" href="#">20/08/2022 a 22/08/2022</a></td>
+                                <td>20/08/2016 a 22/08/2016</td>
+                                <td><span class="status status-success">Sim</span></td>
+                                <td>-</td>
+                                <td>Média Aritmética (AF - 100)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="search-and-filters">
+                <div class="filter">
+                    <label>Alternar Etapa para:</label>
+                    <select>
+                        <option selected value="1">Etapa 1</option>
+                        <option value="5">Etapa Final</option>
+                    </select>
+                </div>
+            </div>
+            <span id="etapa"></span>
+            <div class="box ">
+                <h3>Etapa 1</h3>
+                <div>
+                    <ul class="action-bar">
+                        <li><a class="btn popup" href="#">Solicitar relançamento da etapa 1</a></li>
+                    </ul>
+                    <div class="tab-container ajax-rendered" data-title="Registro de aulas" data-counter="9" data-tab="aulas">
+                        <h4>Aulas da Etapa 1</h4>
+                        <div class="checkbox">
+                            <input id="input_ocultar" type="checkbox">
+                            <label for="input_ocultar" style="width: auto; margin: 0"><span class="negrito" style="padding-left: 5px">Inverter ordenação</span></label>
+                        </div>
+                        <table id="table_registro_aula">
+                            <thead>
+                                <tr>
+                                    <th class="no-print">Ações</th>
+                                    <th>Qtd.</th>
+                                    <th>Data</th>
+                                    <th>Conteúdo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="no-print"></td>
+                                    <td class="text-center">2</td>
+                                    <td>08/06/2016</td>
+                                    <td>Revisão da prova final</td>
+                                </tr>
+                                <tr>
+                                    <td class="no-print"></td>
+                                    <td class="text-center">2</td>
+                                    <td>06/06/2016</td>
+                                    <td>Prova final</td>
+                                </tr>
+                                <tr>
+                                    <td class="no-print"></td>
+                                    <td class="text-center">4</td>
+                                    <td>01/06/2016</td>
+                                    <td>Manipulação de dados externos</td>
+                                </tr>
+                                <tr>
+                                    <td class="no-print"></td>
+                                    <td class="text-center">4</td>
+                                    <td>25/05/2016</td>
+                                    <td>Atividades extras com gráficos. Trabalho colaborativo com Google Planilhas</td>
+                                </tr>
+                                <tr>
+                                    <td class="no-print"></td>
+                                    <td class="text-center">4</td>
+                                    <td>18/05/2016</td>
+                                    <td>Revisão da atividade 01.<br>Gráficos e tabelas dinâmicas</td>
+                                </tr>
+                                <tr>
+                                    <td class="no-print"></td>
+                                    <td class="text-center">2</td>
+                                    <td>11/05/2016</td>
+                                    <td>Atividade avaliativa em classe 1</td>
+                                </tr>
+                                <tr>
+                                    <td class="no-print"></td>
+                                    <td class="text-center">4</td>
+                                    <td>04/05/2016</td>
+                                    <td>Manipulando dados</td>
+                                </tr>
+                                <tr>
+                                    <td class="no-print"></td>
+                                    <td class="text-center">4</td>
+                                    <td>27/04/2016</td>
+                                    <td>Formatação</td>
+                                </tr>
+                                <tr>
+                                    <td class="no-print"></td>
+                                    <td class="text-center">4</td>
+                                    <td>20/04/2016</td>
+                                    <td>Introdução Excel</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="calendarios-container">
+                            <div class="calendario">
+                                <table class="calendario-dias">
+                                    <caption>Abril</caption>
+                                    <thead>
+                                        <tr>
+                                            <th id="calendario-domingo">Dom</th>
+                                            <th id="calendario-segunda">Seg</th>
+                                            <th id="calendario-terca">Ter</th>
+                                            <th id="calendario-quarta">Qua</th>
+                                            <th id="calendario-quinta">Qui</th>
+                                            <th id="calendario-sexta">Sex</th>
+                                            <th id="calendario-sabado">Sab</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="" title="" headers="calendario-domingo"><span>&nbsp;</span></td>
+                                            <td class="" title="" headers="calendario-segunda"><span>&nbsp;</span></td>
+                                            <td class="" title="" headers="calendario-terca"><span>&nbsp;</span></td>
+                                            <td class="" title="" headers="calendario-quarta"><span>&nbsp;</span></td>
+                                            <td class="" title="" headers="calendario-quinta"><span>&nbsp;</span></td>
+                                            <td class="" title="" headers="calendario-sexta"><span>1</span></td>
+                                            <td class="fds" title="" headers="calendario-sabado"><span>2</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fds" title="" headers="calendario-domingo"><span>3</span></td>
+                                            <td class="" title="" headers="calendario-segunda"><span>4</span></td>
+                                            <td class="" title="" headers="calendario-terca"><span>5</span></td>
+                                            <td class="" title="" headers="calendario-quarta"><span>6</span></td>
+                                            <td class="" title="" headers="calendario-quinta"><span>7</span></td>
+                                            <td class="" title="" headers="calendario-sexta"><span>8</span></td>
+                                            <td class="fds" title="" headers="calendario-sabado"><span>9</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fds" title="" headers="calendario-domingo"><span>10</span></td>
+                                            <td class="" title="" headers="calendario-segunda"><span>11</span></td>
+                                            <td class="" title="" headers="calendario-terca"><span>12</span></td>
+                                            <td class="" title="" headers="calendario-quarta"><span>13</span></td>
+                                            <td class="" title="" headers="calendario-quinta"><span>14</span></td>
+                                            <td class="" title="" headers="calendario-sexta"><span>15</span></td>
+                                            <td class="fds" title="" headers="calendario-sabado"><span>16</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fds" title="" headers="calendario-domingo"><span>17</span></td>
+                                            <td class="" title="" headers="calendario-segunda"><span>18</span></td>
+                                            <td class="" title="" headers="calendario-terca"><span>19</span></td>
+                                            <td class="success" title="Introdução Excel"><span>20</span></td>
+                                            <td class="" title="" headers="calendario-quinta"><span>21</span></td>
+                                            <td class="" title="" headers="calendario-sexta"><span>22</span></td>
+                                            <td class="fds" title="" headers="calendario-sabado"><span>23</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fds" title="" headers="calendario-domingo"><span>24</span></td>
+                                            <td class="" title="" headers="calendario-segunda"><span>25</span></td>
+                                            <td class="" title="" headers="calendario-terca"><span>26</span></td>
+                                            <td class="success" title="Formatação" headers="calendario-quarta"><span>27</span></td>
+                                            <td class="" title="" headers="calendario-quinta"><span>28</span></td>
+                                            <td class="" title="" headers="calendario-sexta"><span>29</span></td>
+                                            <td class="fds" title="" headers="calendario-sabado"><span>30</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <ul class="calendario-referencia">
+                                    <li class="success">Dia 20: Introdução Excel</li>
+                                    <li class="success">Dia 27: Formatação</li>
+                                </ul>
+                            </div>
+                            <div class="calendario">
+                                <table class="calendario-dias">
+                                    <caption>Maio</caption>
+                                    <thead>
+                                        <tr>
+                                            <th id="calendario-domingo">Dom</th>
+                                            <th id="calendario-segunda">Seg</th>
+                                            <th id="calendario-terca">Ter</th>
+                                            <th id="calendario-quarta">Qua</th>
+                                            <th id="calendario-quinta">Qui</th>
+                                            <th id="calendario-sexta">Sex</th>
+                                            <th id="calendario-sabado">Sab</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="fds" title="" headers="calendario-domingo"><span>1</span></td>
+                                            <td class="" title="" headers="calendario-segunda"><span>2</span></td>
+                                            <td class="" title="" headers="calendario-terca"><span>3</span></td>
+                                            <td class="success" title="Manipulando dados." headers="calendario-quarta"><span>4</span></td>
+                                            <td class="" title="" headers="calendario-quinta"><span>5</span></td>
+                                            <td class="" title="" headers="calendario-sexta"><span>6</span></td>
+                                            <td class="fds" title="" headers="calendario-sabado"><span>7</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fds" title="" headers="calendario-domingo"><span>8</span></td>
+                                            <td class="" title="" headers="calendario-segunda"><span>9</span></td>
+                                            <td class="" title="" headers="calendario-terca"><span>10</span></td>
+                                            <td class="success" title="Atividade avaliativa em classe 1" headers="calendario-quarta"><span>11</span></td>
+                                            <td class="" title="" headers="calendario-quinta"><span>12</span></td>
+                                            <td class="" title="" headers="calendario-sexta"><span>13</span></td>
+                                            <td class="fds" title="" headers="calendario-sabado"><span>14</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fds" title="" headers="calendario-domingo"><span>15</span></td>
+                                            <td class="" title="" headers="calendario-segunda"><span>16</span></td>
+                                            <td class="" title="" headers="calendario-terca"><span>17</span></td>
+                                            <td class="success" title="Revisão da atividade 01" headers="calendario-quarta"><span>18</span></td>
+                                            <td class="" title="" headers="calendario-quinta"><span>19</span></td>
+                                            <td class="" title="" headers="calendario-sexta"><span>20</span></td>
+                                            <td class="fds" title="" headers="calendario-sabado"><span>21</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fds" title="" headers="calendario-domingo"><span>22</span></td>
+                                            <td class="" title="" headers="calendario-segunda"><span>23</span></td>
+                                            <td class="" title="" headers="calendario-terca"><span>24</span></td>
+                                            <td class="success" title="Atividades extras com gráficos" headers="calendario-quarta"><span>25</span></td>
+                                            <td class="" title="" headers="calendario-quinta"><span>26</span></td>
+                                            <td class="" title="" headers="calendario-sexta"><span>27</span></td>
+                                            <td class="fds" title="" headers="calendario-sabado"><span>28</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fds" title="" headers="calendario-domingo"><span>29</span></td>
+                                            <td class="" title="" headers="calendario-segunda"><span>30</span></td>
+                                            <td class="" title="" headers="calendario-terca"><span>31</span></td>
+                                            <td class="" title="" headers="calendario-quarta"><span>&nbsp;</span></td>
+                                            <td class="" title="" headers="calendario-quinta"><span>&nbsp;</span></td>
+                                            <td class="" title="" headers="calendario-sexta"><span>&nbsp;</span></td>
+                                            <td class="" title="" headers="calendario-sabado"><span>&nbsp;</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <ul class="calendario-referencia">
+                                    <li class="success">Dia 4: Manipulando dados. (4 aulas)</li>
+                                    <li class="success">Dia 11: Atividade avaliativa em classe 1 (2 aulas)</li>
+                                    <li class="success">Dia 18: Revisão da atividade 01.</li>
+                                    <li class="success">Dia 25: Atividades extras com gráficos.</li>
+                                </ul>
+                            </div>
+                            <div class="calendario">
+                                <table class="calendario-dias">
+                                    <caption>Junho</caption>
+                                    <thead>
+                                        <tr>
+                                            <th id="calendario-domingo">Dom</th>
+                                            <th id="calendario-segunda">Seg</th>
+                                            <th id="calendario-terca">Ter</th>
+                                            <th id="calendario-quarta">Qua</th>
+                                            <th id="calendario-quinta">Qui</th>
+                                            <th id="calendario-sexta">Sex</th>
+                                            <th id="calendario-sabado">Sab</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="" title="" headers="calendario-domingo"><span>&nbsp;</span></td>
+                                            <td class="" title="" headers="calendario-segunda"><span>&nbsp;</span></td>
+                                            <td class="" title="" headers="calendario-terca"><span>&nbsp;</span></td>
+                                            <td class="success" title="Manipulação de dados externos." headers="calendario-quarta"><span>1</span></td>
+                                            <td class="" title="" headers="calendario-quinta"><span>2</span></td>
+                                            <td class="" title="" headers="calendario-sexta"><span>3</span></td>
+                                            <td class="fds" title="" headers="calendario-sabado"><span>4</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fds" title="" headers="calendario-domingo"><span>5</span></td>
+                                            <td class="success" title="Prova final." headers="calendario-segunda"><span>6</span></td>
+                                            <td class="" title="" headers="calendario-terca"><span>7</span></td>
+                                            <td class="success" title="Revisão da prova final." headers="calendario-quarta"><span>8</span></td>
+                                            <td class="" title="" headers="calendario-quinta"><span>9</span></td>
+                                            <td class="" title="" headers="calendario-sexta"><span>10</span></td>
+                                            <td class="fds" title="" headers="calendario-sabado"><span>11</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fds" title="" headers="calendario-domingo"><span>12</span></td>
+                                            <td class="" title="" headers="calendario-segunda"><span>13</span></td>
+                                            <td class="" title="" headers="calendario-terca"><span>14</span></td>
+                                            <td class="" title="" headers="calendario-quarta"><span>15</span></td>
+                                            <td class="" title="" headers="calendario-quinta"><span>16</span></td>
+                                            <td class="" title="" headers="calendario-sexta"><span>17</span></td>
+                                            <td class="fds" title="" headers="calendario-sabado"><span>18</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fds" title="" headers="calendario-domingo"><span>19</span></td>
+                                            <td class="" title="" headers="calendario-segunda"><span>20</span></td>
+                                            <td class="" title="" headers="calendario-terca"><span>21</span></td>
+                                            <td class="" title="" headers="calendario-quarta"><span>22</span></td>
+                                            <td class="" title="" headers="calendario-quinta"><span>23</span></td>
+                                            <td class="" title="" headers="calendario-sexta"><span>24</span></td>
+                                            <td class="fds" title="" headers="calendario-sabado"><span>25</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fds" title="" headers="calendario-domingo"><span>26</span></td>
+                                            <td class="" title="" headers="calendario-segunda"><span>27</span></td>
+                                            <td class="" title="" headers="calendario-terca"><span>28</span></td>
+                                            <td class="" title="" headers="calendario-quarta"><span>29</span></td>
+                                            <td class="" title="" headers="calendario-quinta"><span>30</span></td>
+                                            <td class="" title="" headers="calendario-sexta"><span>&nbsp;</span></td>
+                                            <td class="" title="" headers="calendario-sabado"><span>&nbsp;</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <ul class="calendario-referencia">
+                                    <li class="success">Dia 1: Manipulação de dados externos. (4 aulas)</li>
+                                    <li class="success">Dia 6: Prova final. (2 aulas)</li>
+                                    <li class="success">Dia 8: Revisão da prova final. (2 aulas)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-container ajax-rendered" data-title="Registro de Faltas" data-tab="faltas"></div>
+                    <div class="tab-container ajax-rendered" data-title="Registro de Notas/Conceitos" data-counter="20" data-tab="notas"></div>
+                    <div class="tab-container ajax-rendered" data-title="Materiais de Aula" data-counter="5" data-tab="materiais"></div>
+                    <div class="tab-container ajax-rendered" data-title="Fórum de Discussão" data-counter="0" data-tab="forum"></div>
+                    <div class="tab-container ajax-rendered" data-title="Trabalhos" data-counter="0" data-tab="trabalhos"></div>
+                    <div class="tab-container ajax-rendered" data-title="Observações" data-tab="ocorrencias"></div>
+                    <div class="tab-container ajax-rendered" data-title="Estatísticas" data-tab="estatisticas"></div>
+                </div>
+            </div>
+        </main>
+{% endblock content %}

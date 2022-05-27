@@ -25,8 +25,20 @@ services:
       - ./confs/enabled/db.env
     volumes:
       - "./volumes/db_data:/var/lib/postgresql/data"
-    ports:
-      - 5432:5432
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+  dbfake:
+    image: postgres:14.2-alpine
+    restart: always
+    env_file:
+      - ./confs/enabled/dbfake.env
+    volumes:
+      - "./volumes/dbfake_data:/var/lib/postgresql/data"
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 3s
@@ -59,30 +71,30 @@ services:
       - ./confs/enabled/app.env
       - ./confs/enabled/cache.env
     volumes:
-      - './src/python:/apps/app'
+      - './src/python/portal:/apps/app'
       - './volumes/app_media:/var/media'
       - './volumes/app_static:/var/static'
     depends_on:
       db:
-        condition: service_started
+        condition: service_healthy
 
-  # fake:
-  #   image: 'ifrn/avaportal:1.0.12'
-  #   build: .
-  #   restart: always
-  #   ports:
-  #     - '8000:8000'
-  #   env_file:
-  #     - ./confs/enabled/db.env
-  #     - ./confs/enabled/cache.env
-  #     - ./confs/enabled/fake.env
-  #   volumes:
-  #     - './src/python:/apps/app'
-  #     - './volumes/fake_media:/var/media'
-  #     - './volumes/app_static:/var/static'
-  #   depends_on:
-  #     db:
-  #       condition: service_started
+  fake:
+    image: 'ifrn/avaportal:1.0.12'
+    build: .
+    restart: always
+    ports:
+      - '8001:8000'
+    env_file:
+      - ./confs/enabled/dbfake.env
+      - ./confs/enabled/fake.env
+      - ./confs/enabled/cache.env
+    volumes:
+      - './src/python/fake:/apps/app'
+      - './volumes/fake_media:/var/media'
+      - './volumes/fake_static:/var/static'
+    depends_on:
+      dbfake:
+        condition: service_healthy
 
   # zl01:
   #   # image: moodlehq/moodle-php-apache:8.1-bullseye # not for production

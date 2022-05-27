@@ -3,4 +3,5 @@ source _/functions
 
 # _/proxy/restart
 _/db/restart
+_/dbfake/restart
 _/cache/restart
