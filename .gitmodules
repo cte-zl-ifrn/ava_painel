@@ -1,3 +1,0 @@
-[submodule "src/php/moodle311"]
-	path = src/php/moodle311
-	url = https://github.com/moodle/moodle.git
