@@ -2,21 +2,21 @@ version: '3.7'
 
 services:
 
-  proxy:
-    image: nginx:1.21.6-alpine
-    restart: always
-    ports:
-      - "80:80"
-    volumes:  
-      - "./confs/enabled/proxy/default.conf:/etc/nginx/conf.d/default.conf"
-      - "../volumes/app_static:/var/app_static"
-      - "../volumes/app_media:/var/app_media"
-    healthcheck:
-      test: ["CMD", "curl", "--fail", "http://localhost"]
-      interval: 3s
-      timeout: 3s
-      retries: 3
-      start_period: 10s
+  # proxy:
+  #   image: nginx:1.21.6-alpine
+  #   restart: always
+  #   ports:
+  #     - "80:80"
+  #   volumes:  
+  #     - "./confs/enabled/proxy/default.conf:/etc/nginx/conf.d/default.conf"
+  #     - "../volumes/app_static:/var/app_static"
+  #     - "../volumes/app_media:/var/app_media"
+  #   healthcheck:
+  #     test: ["CMD", "curl", "--fail", "http://localhost"]
+  #     interval: 3s
+  #     timeout: 3s
+  #     retries: 3
+  #     start_period: 10s
 
   db:
     image: postgres:14.2-alpine
@@ -26,7 +26,7 @@ services:
     volumes:
       - "./volumes/db_data:/var/lib/postgresql/data"
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "postgres"]
+      test: ["CMD", "pg_isready", "-U", "ava_user"]
       interval: 3s
       timeout: 3s
       retries: 3
@@ -40,7 +40,7 @@ services:
     volumes:
       - "./volumes/dbfake_data:/var/lib/postgresql/data"
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "postgres"]
+      test: ["CMD", "pg_isready", "-U", "ava_user"]
       interval: 3s
       timeout: 3s
       retries: 3
@@ -60,15 +60,15 @@ services:
       retries: 3
       start_period: 10s
 
-  app:
+  portal:
     image: 'ifrn/avaportal:1.0.12'
-    build: .
+    build: src/python/portal
     restart: always
     ports:
       - '8000:8000'
     env_file:
       - ./confs/enabled/db.env
-      - ./confs/enabled/app.env
+      - ./confs/enabled/portal.env
       - ./confs/enabled/cache.env
     volumes:
       - './src/python/portal:/apps/app'
@@ -79,8 +79,8 @@ services:
         condition: service_healthy
 
   fake:
-    image: 'ifrn/avaportal:1.0.12'
-    build: .
+    image: 'ifrn/suapfake:1.0.12'
+    build: src/python/fake
     restart: always
     ports:
       - '8001:8000'
@@ -96,27 +96,23 @@ services:
       dbfake:
         condition: service_healthy
 
-  # zl01:
-  #   # image: moodlehq/moodle-php-apache:8.1-bullseye # not for production
-  #   image: moodlehq/moodle-php-apache:7.4-bullseye
-  #   restart: always
-  #   ports:
-  #     - '8001:80'
-  #   env_file:
-  #     - ./confs/enabled/db.env
-  #     - ./confs/enabled/cache.env
-  #   volumes:
-  #     # Sources
-  #     - './src/php/moodle311:/var/www/html/zl'
+  ava_zl_01:
+    # image: moodlehq/moodle-php-apache:8.1-bullseye # not for production
+    # image: moodlehq/moodle-php-apache:7.4-bullseye
+    image: 'ifrn/mooodle:3.11.7'
+    build: src/php
+    restart: always
+    ports:
+      - '8011:80'
+    env_file:
+      - ./confs/enabled/db.env
+      - ./confs/enabled/cache.env
+    volumes:
+      # Plugins
+      - './src/php/moodle-customfield_file:/var/www/html/customfield/field/file'
 
-  #     # Settings
-  #     - './src/php/moodle-config/config.php:/var/www/html/zl/config.php'
-
-  #     # Plugins
-  #     - './src/php/moodle-customfield_file:/var/www/html/zl/customfield/field/file'
-
-  #     # Data
-  #     - './volumes/moodledata_zl:/var/moodledata'
-  #   depends_on:
-  #     db:
-  #       condition: service_started
+      # Data
+      - './volumes/moodledata_zl:/var/moodledata'
+    depends_on:
+      db:
+        condition: service_healthy
