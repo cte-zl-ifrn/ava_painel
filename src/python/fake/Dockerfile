@@ -2,7 +2,7 @@ FROM python:3.10.4-slim-bullseye
 
 ENV PYTHONUNBUFFERED 1
 
-ADD src/python/requirements.txt /
+ADD requirements.txt /
 
 RUN pip install --upgrade pip && \
     pip install -r /requirements.txt
