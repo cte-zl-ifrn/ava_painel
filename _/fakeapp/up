@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 source _/functions
 
-_/db/up
+_/$SERVICE_NAME/up
 docker-compose up $@ $SERVICE_NAME
 

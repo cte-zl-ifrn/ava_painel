@@ -18,13 +18,27 @@ services:
   #     retries: 3
   #     start_period: 10s
 
-  db:
-    image: postgres:14.2-alpine
+  # cache:
+  #   image: redis:7.0.0
+  #   restart: always
+  #   env_file:
+  #     - ./confs/enabled/cache.env
+  #   volumes:
+  #     - "./volumes/cache_data:/data"
+  #   healthcheck:
+  #     test: ["CMD", "redis-cli", "ping"]      
+  #     interval: 3s
+  #     timeout: 3s
+  #     retries: 3
+  #     start_period: 10s
+
+  fakedb:
+    image: postgres:14.3-alpine
     restart: always
     env_file:
-      - ./confs/enabled/db.env
+      - ./confs/enabled/fakedb.env
     volumes:
-      - "./volumes/db_data:/var/lib/postgresql/data"
+      - "./volumes/fakedb_data:/var/lib/postgresql/data"
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "ava_user"]
       interval: 3s
@@ -32,71 +46,69 @@ services:
       retries: 3
       start_period: 10s
 
-  dbfake:
-    image: postgres:14.2-alpine
-    restart: always
-    env_file:
-      - ./confs/enabled/dbfake.env
-    volumes:
-      - "./volumes/dbfake_data:/var/lib/postgresql/data"
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "ava_user"]
-      interval: 3s
-      timeout: 3s
-      retries: 3
-      start_period: 10s
-
-  cache:
-    image: redis:7.0.0
-    restart: always
-    env_file:
-      - ./confs/enabled/cache.env
-    volumes:
-      - "./volumes/cache_data:/data"
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]      
-      interval: 3s
-      timeout: 3s
-      retries: 3
-      start_period: 10s
-
-  portal:
-    image: 'ifrn/avaportal:1.0.12'
-    build: src/python/portal
-    restart: always
-    ports:
-      - '8000:8000'
-    env_file:
-      - ./confs/enabled/db.env
-      - ./confs/enabled/portal.env
-      - ./confs/enabled/cache.env
-    volumes:
-      - './src/python/portal:/apps/app'
-      - './volumes/app_media:/var/media'
-      - './volumes/app_static:/var/static'
-    depends_on:
-      db:
-        condition: service_healthy
-
-  fake:
+  fakeapp:
     image: 'ifrn/suapfake:1.0.12'
     build: src/python/fake
     restart: always
     ports:
       - '8001:8000'
     env_file:
-      - ./confs/enabled/dbfake.env
-      - ./confs/enabled/fake.env
+      - ./confs/enabled/fakedb.env
+      - ./confs/enabled/fakeapp.env
       - ./confs/enabled/cache.env
     volumes:
       - './src/python/fake:/apps/app'
-      - './volumes/fake_media:/var/media'
-      - './volumes/fake_static:/var/static'
+      - './volumes/fakeapp_media:/var/media'
+      - './volumes/fakeapp_static:/var/static'
     depends_on:
-      dbfake:
-        condition: service_healthy
+      - fakedb
 
-  ava_zl_01:
+  portaldb:
+    image: postgres:14.3-alpine
+    restart: always
+    env_file:
+      - ./confs/enabled/portaldb.env
+    volumes:
+      - "./volumes/portaldb_data:/var/lib/postgresql/data"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "ava_user"]
+      interval: 3s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+  portalapp:
+    image: 'ifrn/avaportal:1.0.12'
+    build: src/python/portal
+    restart: always
+    ports:
+      - '8000:8000'
+    env_file:
+      - ./confs/enabled/portaldb.env
+      - ./confs/enabled/portalapp.env
+      - ./confs/enabled/cache.env
+    volumes:
+      - './src/python/portal:/apps/app'
+      - './volumes/portalapp_media:/var/media'
+      - './volumes/portalapp_static:/var/static'
+    depends_on:
+      - portaldb
+
+  avazldb:
+    image: postgres:14.3-alpine
+    restart: always
+    env_file:
+      - ./confs/enabled/avazldb.env
+    volumes:
+      - "./volumes/avazl_pgdata:/var/lib/postgresql/data"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "ava_user"]
+      interval: 3s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+  avazlapp:
     # image: moodlehq/moodle-php-apache:8.1-bullseye # not for production
     # image: moodlehq/moodle-php-apache:7.4-bullseye
     image: 'ifrn/mooodle:3.11.7'
@@ -105,14 +117,13 @@ services:
     ports:
       - '8011:80'
     env_file:
-      - ./confs/enabled/db.env
-      - ./confs/enabled/cache.env
+      - ./confs/enabled/avazldb.env
+      - ./confs/enabled/avazlapp.env
     volumes:
       # Plugins
       - './src/php/moodle-customfield_file:/var/www/html/customfield/field/file'
 
       # Data
-      - './volumes/moodledata_zl:/var/moodledata'
+      - './volumes/avazl_moodledata:/var/moodledata'
     depends_on:
-      db:
-        condition: service_healthy
+      - avazldb

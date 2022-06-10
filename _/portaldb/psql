@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+source _/functions
+source ./confs/enabled/$SERVICE_NAME.env
+
+_/$SERVICE_NAME/up
+
+_/$SERVICE_NAME/exec psql -U $POSTGRES_USER -d $POSTGRES_DATABASE $@

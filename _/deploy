@@ -7,12 +7,14 @@ cp -r ./confs/examples ./confs/enabled
 echo ""; echo_info "Parar o mundo"
 _/down
 
+_/build
+
 echo ""; echo_info "Migrar os bancos..."
 _/backs
 
 echo ""; echo_info "... id"
-_/app/migrate
-_/fake/migrate
+_/portalapp/migrate
+_/fakeapp/migrate
 
 echo ""; echo_info "Reiniciando o mundo novamente"
 _/restart

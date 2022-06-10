@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 source _/functions
-source ./confs/enabled/dbfake.env
+source ./confs/enabled/$SERVICE_NAME.env
 
 echo_info "Aguardando a base de dados..."
 until _/$SERVICE_NAME/exec psql -U $POSTGRES_USER -d $POSTGRES_DATABASE -A -c '\l'>/dev/null 2>&1; do
@@ -8,5 +8,3 @@ until _/$SERVICE_NAME/exec psql -U $POSTGRES_USER -d $POSTGRES_DATABASE -A -c '\
   echo_warning "Postgres is unavailable - sleeping. ERROR: $E"
   sleep 1
 done
-
-echo_success "Conectado com sucesso"
