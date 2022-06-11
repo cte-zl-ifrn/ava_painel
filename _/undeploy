@@ -10,4 +10,3 @@ _/down
 
 echo_info "Reset volumes"
 sudo rm -rf volumes
-git checkout volumes/avazl_moodledata/.empty

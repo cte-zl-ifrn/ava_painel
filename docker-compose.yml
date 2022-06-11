@@ -121,7 +121,7 @@ services:
       - ./confs/enabled/avazlapp.env
     volumes:
       # Plugins
-      - './src/php/moodle-customfield_file:/var/www/html/customfield/field/file'
+      # - './src/php/moodle-customfield_file:/var/www/html/customfield/field/file'
 
       # Data
       - './volumes/avazl_moodledata:/var/moodledata'
