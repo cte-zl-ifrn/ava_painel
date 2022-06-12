@@ -127,3 +127,37 @@ services:
       - './volumes/avazl_moodledata:/var/moodledata'
     depends_on:
       - avazldb
+
+  avapresencialdb:
+    image: postgres:14.3-alpine
+    restart: always
+    env_file:
+      - ./confs/enabled/avapresencialdb.env
+    volumes:
+      - "./volumes/avapresencial_pgdata:/var/lib/postgresql/data"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "ava_user"]
+      interval: 3s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+  avapresencialapp:
+    # image: moodlehq/moodle-php-apache:8.1-bullseye # not for production
+    # image: moodlehq/moodle-php-apache:7.4-bullseye
+    image: 'ifrn/mooodle:3.11.7'
+    build: src/php
+    restart: always
+    ports:
+      - '8021:80'
+    env_file:
+      - ./confs/enabled/avapresencialdb.env
+      - ./confs/enabled/avapresencialapp.env
+    volumes:
+      # Plugins
+      # - './src/php/moodle-customfield_file:/var/www/html/customfield/field/file'
+
+      # Data
+      - './volumes/avapresencial_moodledata:/var/moodledata'
+    depends_on:
+      - avazldb

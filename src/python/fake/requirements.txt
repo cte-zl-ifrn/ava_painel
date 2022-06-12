@@ -57,4 +57,4 @@ supervisor==4.2.4
 psycopg2-binary==2.9.3
 
 # Image
-pillow==9.1.0
+pillow==9.1.1

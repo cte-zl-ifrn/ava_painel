@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+source _/functions
+
+if [[ `docker container ls | grep ${COMPOSE_PROJECT_NAME}_${SERVICE_NAME}_1` ]]; then 
+  docker-compose exec $SERVICE_NAME $@
+else
+  docker-compose run $SERVICE_NAME $@
+fi
