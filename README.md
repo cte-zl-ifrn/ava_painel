@@ -6,7 +6,7 @@ Neste projeto, além do AVA-Portal (aditus), foi colocado um Fake SUAP, para emu
 
 ## Como funciona
 
-**Como desenvolvedor** - no local_settings.py do SUAP configure as variáveis (MOODLE_SYNC_URL e MOODLE_SYNC_TOKEN), no AVA-Portal configure o mesmo token que você configurou no SUAP. Para cada  Moodle a ser integrado instale o plugin auth_suap e cadastre no AVA-Portal como um "Ambiente". 
+**Como desenvolvedor** - no local_settings.py do SUAP configure as variáveis (`MOODLE_SYNC_URL` e `MOODLE_SYNC_TOKEN`), no AVA-Portal configure o mesmo token que você configurou no SUAP. Para cada  Moodle a ser integrado instale o plugin auth_suap e cadastre no AVA-Portal como um "Ambiente". 
 
 **Como usuário** - no SUAP, autorize o secretário acadêmico autoriza cada diário a ser integrado ao Moodle, na página do diário no SUAP o professor clica em "Sincronizar" e a mágica se faz, ou seja, o SUAP envia para o AVA-Portal, o AVA-Portal com base na sigla do campus decide para qual Moodle encaminhar a requisição de integração e encaminha para o mesmo, o Moodle cadastra/atualiza as categorias (Campus, Diário, Semestre, Turma), o curso, os pólos como grupos do curso e os professores e alunos, então inscreve os professores (Formador e Tutor) e inscreve os alunos, por fim, arrola os alunos nos grupos de seus respectivos pólos.
 
