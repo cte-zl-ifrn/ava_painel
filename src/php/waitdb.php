@@ -17,11 +17,12 @@ $dbport = env_as_int('POSTGRES_PORT', 5432);
 
 
 $connected = false;
+$i=1;
 while (!$connected) {
-    try {
-        pg_connect("host={$dbhost} port={$dbport} dbname={$dbname} user={$dbuser} password={$dbpass}");
-        $connected = true;
-    } catch (Exception $e) {
+    echo "Tentando conectar: $i";
+    $connected = pg_connect("host={$dbhost} port={$dbport} dbname={$dbname} user={$dbuser} password={$dbpass}");
+    if (!$connected) {
         sleep(3);
+        $i++;
     }
 }
