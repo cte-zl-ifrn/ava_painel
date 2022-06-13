@@ -6,8 +6,8 @@ cp -r ./confs/examples ./confs/enabled
 
 echo ""; echo_info "Parar o mundo"
 _/down
-mkdir -p volumes/avazl_moodledata 
-chmod -R 777 volumes/avazl_moodledata
+mkdir -p volumes/avazl_moodledata && chmod -R 777 volumes/avazl_moodledata
+mkdir -p volumes/avapresencial_moodledata && chmod -R 777 volumes/avapresencial_moodledata
 
 echo ""; echo_info "Construir as imagens"
 _/build
