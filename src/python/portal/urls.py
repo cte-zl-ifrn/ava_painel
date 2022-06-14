@@ -11,6 +11,7 @@ urlpatterns = [
     path('', include('a4.urls')),
     path('health/', include('health.urls')),
     path('', include('portal.urls')),
+    path('', include('middleware.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
     static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

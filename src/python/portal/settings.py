@@ -44,6 +44,7 @@ logging.config.dictConfig({
 MY_APPS = env_as_list('MY_APPS', [
     'portal',
     'health',
+    'middleware',
 ])
 THIRD_APPS = env_as_list('THIRD_APPS', [
     'markdownx',
@@ -219,3 +220,5 @@ AUTHENTICATION_BACKENDS = (
     # 'a4.backends.SuapOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
+
+SUAP_EAD_KEY = env('SUAP_EAD_KEY', 'changeme')

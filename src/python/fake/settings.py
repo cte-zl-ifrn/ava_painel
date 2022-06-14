@@ -167,3 +167,7 @@ AUTHENTICATION_BACKENDS = (
     # 'a4.backends.SuapOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
+
+
+MOODLE_SYNC_URL = env('MOODLE_SYNC_URL', 'http://portalapp:8000/api/moodle_suap/')
+MOODLE_SYNC_TOKEN = env('MOODLE_SYNC_TOKEN', 'changeme')

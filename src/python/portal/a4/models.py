@@ -43,7 +43,8 @@ class Usuario(AbstractUser):
         verbose_name_plural = _('users')
 
     def __str__(self):
-        return f"{self.nome} ({self.username} - {self.tipo})"
+        tipo = Usuario.Tipo.get_key(self.tipo)
+        return f"{self.nome} ({self.username} - {tipo})"
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         names = self.nome.split(" ")

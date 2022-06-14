@@ -1,5 +1,5 @@
 # Core
-django==4.0.4
+django==4.0.5
 
 # My
 sc4py==0.1.4
@@ -9,17 +9,17 @@ django-theme-adminlte3==3.2.0.6
 django-better-choices==1.17
 
 # REST
-requests==2.27.1
+requests==2.28.0
 django-rest-swagger==2.2.0
 PyYAML==6.0
-markdown==3.3.6
+markdown==3.3.7
 djangorestframework==3.13.1
 django-filter==21.1
-django-ninja==0.17.0
+django-ninja==0.18.0
 
 # Auth
 # django-python3-ldap==0.13.1
-django-oauth-toolkit==1.7.1
+django-oauth-toolkit==2.0.0
 django-cors-middleware==1.5.0
 social-auth-app-django==5.0.0
 
@@ -31,7 +31,7 @@ django-redis-sessions==0.6.2
 
 # Audit
 soft-delete==0.2.2
-django-simple-history==3.0.0
+django-simple-history==3.1.1
 django_audit_log==0.7.0
 
 # UI
@@ -44,12 +44,15 @@ django-markdownx==3.0.1
 # Devel
 django-model-documentation==0.8.0
 django-extensions==3.1.5
-django-debug-toolbar==3.2.4
-ipython==8.2.0
+django-debug-toolbar==3.4.0
+ipython==8.4.0
 Werkzeug==2.0.3
+ipdb==0.13.9
+pudb==2022.1.1
+
 
 # Production
-sentry-sdk==1.5.10
+sentry-sdk==1.5.12
 gunicorn==20.1.0
 supervisor==4.2.4
 

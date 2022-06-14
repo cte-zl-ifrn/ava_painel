@@ -122,6 +122,7 @@ services:
     volumes:
       # Plugins
       # - './src/php/moodle-customfield_file:/var/www/html/customfield/field/file'
+      - './src/php/moodle__auth_suap:/var/www/html/auth/suap'
 
       # Data
       - './volumes/avazl_moodledata:/var/moodledata'
