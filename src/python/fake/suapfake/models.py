@@ -39,7 +39,6 @@ def get_default_pacote():
             "descricao_historico": "Bancos de Dados",
             "sigla": "TEC.0001"
         },
-        "polo": None,
         "professores": [
             {
                 "id": 1,
@@ -54,12 +53,15 @@ def get_default_pacote():
         "alunos": [
             {
                 "id": 1,
-                "matricula": "20183000010001",
+                "matricula": "201830000100001",
                 "nome": "Nome completo do aluno",
                 "email": "nome.compelto@academico.ifrn.edu.br",
                 "email_secundario": "nome.completo@hotmail.com",
                 "situacao": "ativo",
-                "polo": None
+                "polo": {
+                    'id': 1,
+                    'nome': 'Pólo Assú'
+                }
             }
         ]
     }
