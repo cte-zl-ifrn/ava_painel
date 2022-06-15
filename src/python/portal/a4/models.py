@@ -31,7 +31,8 @@ class Usuario(AbstractUser):
     email_secundario = CharField(_('e-Mail pessoal'), max_length=255, null=True, blank=True)
     tipo = CharField(_('tipo'), max_length=255, choices=Tipo)
     campus = ForeignKey('portal.Campus', on_delete=PROTECT, verbose_name=_("campus do aluno"), null=True, blank=True)
-    polo = ForeignKey('portal.Polo', on_delete=PROTECT, verbose_name=_("pólo"), null=True, blank=True)
+    curso = ForeignKey('portal.Curso', on_delete=PROTECT, verbose_name=_("curso do aluno"), null=True, blank=True)
+    polo = ForeignKey('portal.Polo', on_delete=PROTECT, verbose_name=_("pólo do aluno"), null=True, blank=True)
     first_login = DateTimeField(_('first login'), blank=True, null=True)    
 
     EMAIL_FIELD = 'email'
@@ -50,10 +51,5 @@ class Usuario(AbstractUser):
         names = self.nome.split(" ")
         self.first_name = " ".join(names[:-1])
         self.last_name = "".join(names[-1:])
-        if len(self.username) == 11:
-            self.tipo = Usuario.Tipo.PRESTADOR
-        elif len(self.username) < 11:
-            self.tipo = Usuario.Tipo.SERVIDOR
-        else:
-            self.tipo = Usuario.Tipo.ALUNO
+        self.tipo = Usuario.Tipo.get_by_length(len(self.username))
         super().save(force_insert, force_update, using, update_fields)

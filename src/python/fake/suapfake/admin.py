@@ -22,21 +22,27 @@ import requests
 @admin.register(Diario)
 class DiarioAdmin(admin.ModelAdmin):
     list_display = ['codigo_diario', 'acoes']
-    exclude = ['pacote_recebido']
+    readonly_fields = ['pacote_recebido']
 
     def codigo_diario(self, obj):
         return f"{obj}"
 
     def acoes(self, obj):
         if obj.pacote_recebido:
-            url = obj.pacote_recebido['url']
-            return format_html(
-                f'<a style="border: 1px solid black; padding: 0 5px; background: red; color: black; margin: 0 5px 0 0;" href="{reverse("admin:suapfake_diario_sync", args=[obj.id])}">Sincronizar</a>'
-                f'<a style="border: 1px solid black; padding: 0 5px; background: aquamarine; color: black; margin: 0 5px 0 0;" href="{url}">Acessar AVA</a>'
-            )
+            if 'url' in obj.pacote_recebido:
+                url = obj.pacote_recebido['url']
+                return format_html(
+                    f'<a style="border: 1px solid black; padding: 0 5px; background: silver; color: black; margin: 0 5px 0 0;" href="{reverse("admin:suapfake_diario_sync", args=[obj.id])}">Sincronizar</a>'
+                    f'<a style="border: 1px solid black; padding: 0 5px; background: aquamarine; color: black; margin: 0 5px 0 0;" href="{url}">Acessar AVA</a>'
+                )
+            else:
+                return format_html(
+                    f'<a style="border: 1px solid black; padding: 0 5px; background: silver; color: black; margin: 0 5px 0 0;" href="{reverse("admin:suapfake_diario_sync", args=[obj.id])}">Sincronizar</a>'
+                    f'<a style="border: 1px solid black; padding: 0 5px; background: red; color: black; margin: 0 5px 0 0;" href="#">Error</a>'
+                )
         else:
             return format_html(
-                f'<a href="{reverse("admin:suapfake_diario_sync", args=[obj.id])}">Sincronizar</a>'
+                f'<a style="border: 1px solid black; padding: 0 5px; background: silver; color: black; margin: 0 5px 0 0;" href="{reverse("admin:suapfake_diario_sync", args=[obj.id])}">Sincronizar</a>'
             )
 
     acoes.short_description = 'Ações'
@@ -57,15 +63,20 @@ class DiarioAdmin(admin.ModelAdmin):
     def sync_view(self, request, object_id, form_url="", extra_context=None):
         try:
             diario = get_object_or_404(Diario, pk=object_id)
+        except Exception as e:
+            raise Exception(f"Erro ao tentar sincronizar. Diário não localizado.")
+        try:
             response = requests.post(
                 url=settings.MOODLE_SYNC_URL, 
                 json=diario.pacote_enviado, 
                 headers={'AUTHENTICATION': f'Token {settings.MOODLE_SYNC_TOKEN}'}
             )
+        except Exception as e:
+            raise Exception(f"Erro ao tentar sincronizar. Resposta inválida: {e}")
+            
+        try:
             diario.pacote_recebido = json.loads(response.content)
             diario.save()
             return redirect('admin:suapfake_diario_changelist')
         except Exception as e:
-            raise Exception(f"Erro ao tentar sincronizar. Solicite ao administrador que acesse o portal e verifique a causa.")
-        
-
+            raise Exception(f"Erro ao tentar sincronizar. Não foi possível converter para JSON. {response.content}")

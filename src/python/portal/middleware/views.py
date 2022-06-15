@@ -1,106 +1,54 @@
 import json
 import requests
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse, JsonResponse, HttpRequest
+from django.http import HttpResponse, JsonResponse
+from django.forms import ValidationError
 from django.conf import settings
-from portal.models import Campus, Ambiente
+from portal.models import Campus, Diario, h2d, SyncError
 from .models import Solicitacao
+from django.db import transaction
 
 
-def raise_error(request, error, code, campus=None, retorno=None):
-    solicitacao = Solicitacao()
-
-    solicitacao.status = Solicitacao.Status.FALHA
-    solicitacao.campus = campus
-    solicitacao.status_code = code
-
-    solicitacao.requisicao_header = {k:v for k,v in request.headers.items()}
-    solicitacao.requisicao_invalida = request.body
-   
-    solicitacao.resposta = error
-    if retorno:
-        solicitacao.resposta_header = {k:v for k,v in retorno.headers.items()}
-        solicitacao.resposta_invalida = retorno.text
-   
-    solicitacao.save()
+def raise_error(request, error):
+    solicitacao = Solicitacao.objects.create(
+        status=Solicitacao.Status.FALHA,
+        campus=error.campus if 'campus' in dir(error) else None,
+        status_code=error.code,
+        
+        requisicao_header=h2d(request),
+        requisicao_invalida=request.body,
+        
+        resposta_header=h2d(error.retorno) if error.retorno else None,
+        resposta_invalida=error.retorno.text if error.retorno else None
+    )
     
-    error['identificador'] = solicitacao.id
-    response = JsonResponse(error)
-    response.status_code=code
-    return response
+    error_json = {"error": error.message, "code": error.code, "solicitacao_id": solicitacao.id}
+    return JsonResponse(error_json, status=error.code)
 
 
 @csrf_exempt
+@transaction.atomic
 def moodle_suap(request):
-    if not hasattr(settings, 'SUAP_EAD_KEY'):
-        response = JsonResponse({"error": "Você se esqueceu de configurar a settings 'SUAP_EAD_KEY'."})
-        response.status_code=500
-        return response        
-    
-    if 'HTTP_AUTHENTICATION' not in request.META:
-        response = JsonResponse({"error": "Envie o token de autenticação no header."})
-        response.status_code=500
-        return response        
-
-    if f"Token {settings.SUAP_EAD_KEY}" != request.META['HTTP_AUTHENTICATION']:
-        response = JsonResponse({"error": "Você enviou um token de auteticação diferente do que tem na settings 'SUAP_EAD_KEY'."})
-        response.status_code=500
-        return response        
-
-    if request.method == 'POST':
-        return _sincronizar_diario(request)
-    else:
-        return _baixar_notas(request)
-
-
-def _sincronizar_diario(request):
     try:
-        pkg = json.loads(request.body)
-        filter = {"suap_id": pkg["campus"]["id"], "sigla": pkg["campus"]["sigla"]}
+        if not hasattr(settings, 'SUAP_EAD_KEY'):
+            raise SyncError("Você se esqueceu de configurar a settings 'SUAP_EAD_KEY'.", 428)
+        
+        if 'HTTP_AUTHENTICATION' not in request.META:
+            raise SyncError("Envie o token de autenticação no header.", 431)
+
+        if f"Token {settings.SUAP_EAD_KEY}" != request.META['HTTP_AUTHENTICATION']:
+            raise SyncError("Você enviou um token de auteticação diferente do que tem na settings 'SUAP_EAD_KEY'.", 403)
+
+        if request.method == 'POST':
+            diario = Diario.sync(request.body, h2d(request))
+            return JsonResponse(diario)
+        else:
+            return _baixar_notas(request)
+    except SyncError as e:
+        return raise_error(request, e)
     except Exception as e:
-        return raise_error(request, {"error": f"O JSON está inválido. {e}", "code": 406}, 406)
-    
-    campus = Campus.objects.filter(**filter).first()
-    if campus is None:
-        return raise_error(request, {"error": f"Não existe um campus com o id '{filter['suap_id']}' e a sigla '{filter['sigla']}'.", "code": 404}, 404)
-
-    if not campus.active:
-        return raise_error(request, {"error": f"O campus '{filter['sigla']}' existe, mas está inativo.", "code": 412 }, 412, campus)
-    
-    if not campus.ambiente.active:
-        return raise_error(request, {"error": f"O campus '{filter['sigla']}' existe e está ativo, mas o ambiente {campus.ambiente.sigla} está inativo.", "code": 412 }, 412, campus)
-
-    try:
-        retorno = requests.post(
-            f"{campus.ambiente.url}/auth/suap/sync_up.php", 
-            data={"jsonstring": request.body}, 
-            headers={"Authentication": f"Token {campus.ambiente.token}"}
-        )
-    except Exception as e:
-        return raise_error(request, {"error": f"Erro na integração. {e}", "code": 400}, 400, campus)
-    
-
-    retorno_json = None
-    if retorno.status_code != 200:
-        try:
-            retorno_json = json.loads(retorno.text)
-        except:
-            return raise_error(request, {"error": f"Erro na integração. Contacte um administrador.", "code": retorno.status_code}, retorno.status_code, campus, retorno)
-        return raise_error(request, {"error": retorno_json, "code": retorno.status_code}, retorno.status_code, campus, retorno)
-    
-    
-    solicitacao = Solicitacao()
-    solicitacao.requisicao = pkg
-    solicitacao.requisicao_header = {k:v for k,v in request.headers.items()}
-    solicitacao.resposta = retorno_json
-    solicitacao.resposta_header = {k:v for k,v in retorno.headers.items()}
-    solicitacao.status = Solicitacao.Status.SUCESSO
-    solicitacao.status_code = retorno.status_code
-    solicitacao.campus = campus
-    solicitacao.save()
- 
-    return HttpResponse(retorno.text)
-
+        return JsonResponse({"error": str(e), "code": 500})
+        
 
 def _baixar_notas(request):
-    return raise_error(request, {"error": f"Não implementado.", "code": 501}, 501)
+    return raise_error(request, SyncError("Não implementado.", 501))

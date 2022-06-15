@@ -23,7 +23,7 @@ class Solicitacao(Model):
     class Meta:
         verbose_name = _("solicitação")
         verbose_name_plural = _("solicitações")
-        ordering = ['id']
+        ordering = ['-timestamp']
 
     def __str__(self):
         return f'{self.id} - {self.diario}'

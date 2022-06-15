@@ -68,9 +68,9 @@ class PoloAdmin(ModelAdmin):
 
 @register(Inscricao)
 class InscricaoAdfmin(ModelAdmin):
-    list_display = ['diario', 'usuario', 'papel', 'active']
-    list_filter = ['active', 'papel']
-    # search_fields =  ['diario', 'usuario']
+    list_display = ['diario', 'usuario', 'papel', 'polo', 'active']
+    list_filter = ['active', 'papel', 'polo']
+    search_fields =  ['diario__codigo', 'usuario__username']
     
     class Meta:
         verbose_name = _("inscrição")

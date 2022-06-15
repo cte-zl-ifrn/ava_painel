@@ -1,5 +1,7 @@
 from django.utils.translation import gettext as _
 import re
+import json
+import requests
 from django.conf import settings
 from django.core import validators
 from django.forms import ValidationError
@@ -7,6 +9,20 @@ from django.db.models import Model, ForeignKey, PROTECT, BooleanField
 from django.db.models import CharField, URLField, ImageField, DateTimeField, IntegerField, SmallIntegerField
 from django_better_choices import Choices
 from a4.models import Usuario
+from middleware.models import Solicitacao
+
+
+def h2d(r):
+    {k:v for k,v in r.headers.items()}
+
+
+class SyncError(Exception):
+    def __init__(self, message, code, campus=None, retorno=None, params=None):
+        super().__init__(message, code, params)
+        self.message = message
+        self.code = code
+        self.campus = campus
+        self.retorno = retorno
 
 
 class Turno(Choices):
@@ -77,11 +93,11 @@ class Turma(Model):
     suap_id = CharField(_('ID da turma no SUAP'), max_length=255, unique=True)
     campus = ForeignKey(Campus, on_delete=PROTECT, verbose_name=_("campus"))
     codigo = CharField(_('código da turma'), max_length=255, unique=True, 
-                       validators=[validators.RegexValidator(TURMA_RE)]
-                       )
+                       validators=[validators.RegexValidator(TURMA_RE)])
+
+    curso = ForeignKey(Curso, on_delete=PROTECT, verbose_name=_('curso'))
     ano_mes = SmallIntegerField(verbose_name=_("ano/mês"))
     periodo = SmallIntegerField(_('período'))
-    curso = ForeignKey(Curso, on_delete=PROTECT, verbose_name=_('curso'))
     sigla = CharField(_('sigla da turma'), max_length=8)
     turno = CharField(_("turno"), max_length=1, choices=Turno)
 
@@ -120,10 +136,6 @@ class Componente(Model):
 
     def __str__(self):
         return f'{self.sigla}'
-   
-    def save(self, force_insert=False, force_update=False, using=None, update_fields=None) -> None:
-        self.turno = self.sigla[-1:]
-        return super().save(force_insert, force_update, using, update_fields)
 
 
 class Diario(Model):
@@ -152,7 +164,167 @@ class Diario(Model):
     def __str__(self):
         return f'{self.codigo}'
 
+    @classmethod
+    def sync(cls, message_string, headers):
+        def _validate_campus():
+            try:
+                pkg = json.loads(message_string)
+                filter = {"suap_id": pkg["campus"]["id"], "sigla": pkg["campus"]["sigla"]}
+            except:
+                raise SyncError(f"O JSON está inválido.", 406)
+            
+            campus = Campus.objects.filter(**filter).first()
+            if campus is None:
+                raise SyncError(f"Não existe um campus com o id '{filter['suap_id']}' e a sigla '{filter['sigla']}'.", 404)
 
+            if not campus.active:
+                raise SyncError(f"O campus '{filter['sigla']}' existe, mas está inativo.", 412, campus)
+            
+            if not campus.ambiente.active:
+                raise SyncError(f"O campus '{filter['sigla']}' existe e está ativo, mas o ambiente {campus.ambiente.sigla} está inativo.", 417, campus)
+            return campus, pkg
+        
+        campus, pkg = _validate_campus()
+        try:
+            retorno = requests.post(
+                f"{campus.ambiente.url}/auth/suap/sync_up.php", 
+                data={"jsonstring": message_string},
+                headers={"Authentication": f"Token {campus.ambiente.token}"}
+            )
+        except Exception as e:
+            
+            raise SyncError(f"Erro na integração. O Moodle disse: {e}", 513, campus)
+        
+        
+        retorno_json = None
+        if retorno.status_code != 200:
+            try:
+                retorno_json = json.loads(retorno.text)
+            except:
+                retorno_json = {}
+            raise SyncError(f"Erro na integração. Contacte um administrador. Erro: {retorno_json}", retorno.status_code, campus, retorno)
+        
+        try:
+            retorno_json = json.loads(retorno.text)
+        except:
+            raise SyncError(f"Erro na integração. Contacte um desenvolvedor.", retorno.status_code, campus, retorno)
+        
+        Solicitacao.objects.create(
+            requisicao=message_string,
+            requisicao_header=headers,
+            
+            resposta=retorno_json,
+            resposta_header=h2d(retorno),
+            
+            status=Solicitacao.Status.SUCESSO,
+            status_code=retorno.status_code,
+            
+            campus=campus
+        )
+        
+        try:
+            Diario.make(pkg)
+        except Exception as e:
+            raise SyncError(f"Erro na integração. Contacte um administrador.", 512, campus, retorno)
+        
+        return retorno_json
+    
+    @classmethod
+    def make(cls, d):
+        def get_polo_id(person):
+            if 'polo' in person and person['polo']:
+                return person['polo']['id']
+            else:
+                return None
+                        
+        campus = Campus.objects.get(suap_id=d['campus']['id'])
+        curso, created = Curso.objects.update_or_create(
+            codigo=d['curso']['codigo'],
+            defaults={
+                'suap_id': d['curso']['id'],
+                'nome': d['curso']['nome'],
+                'descricao': d['curso']['descricao'],
+            }
+        )
+        turma, created = Turma.objects.update_or_create(
+            codigo=d['turma']['codigo'],
+            defaults={
+                'suap_id': d['turma']['id'],
+                'campus': campus,
+            }
+        )
+        componente, created = Componente.objects.update_or_create(
+            sigla=d['componente']['sigla'],
+            defaults={
+                'suap_id': d['componente']['id'],
+                'descricao': d['componente']['descricao'],
+                'descricao_historico': d['componente']['descricao_historico'],
+                'periodo': d['componente']['periodo'],
+                'tipo': d['componente']['tipo'],
+                'optativo': d['componente']['optativo'],
+                'qtd_avaliacoes': d['componente']['qtd_avaliacoes'],
+            }
+        )
+        diario, created = Diario.objects.update_or_create(
+            codigo=turma.codigo + '.' + d['diario']['sigla'],
+            defaults={
+                'suap_id': d['diario']['id'],
+                'situacao': d['diario']['situacao'],
+                'descricao': d['diario']['descricao'],
+                'descricao_historico': d['diario']['descricao_historico'],
+                'turma': turma,
+                'componente': componente,
+            }
+        )
+        
+        pessoas = d['professores'] + d['alunos']
+        polos = {}
+        for p in pessoas:
+            if get_polo_id(p) and get_polo_id(p) not in polos:
+                polo, created = Polo.objects.update_or_create(
+                    suap_id=p['polo']['id'],
+                    defaults={'nome': p['polo']['nome']}
+                )
+                polos[p['polo']['id']] = polo
+
+        for p in pessoas:
+
+            if 'matricula' in p.keys():
+                papel = Papel.ALUNO
+            else:
+                papel = Papel.PROFESSOR if p['tipo'] == 'Principal' else Papel.TUTOR
+                
+            is_active = 'ativo' == p.get('situacao', p.get('status', '')).lower()
+            username = p.get('login', p.get('matricula', None))
+            polo = polos.get(get_polo_id(p))
+            usuario, created = Usuario.objects.update_or_create(
+                username=username,
+                defaults={
+                    'nome': p['nome'],
+                    'email': p['email'],
+                    # 'email_escolar': pessoa['email_escolar'],
+                    # 'email_academico': pessoa['email_academico'],
+                    # 'email_secundario': pessoa['email_secundario'],
+                    'is_active': is_active,
+                    'tipo': Usuario.Tipo.get_by_length(len(username)),
+                    # 'campus': campus if papel == Papel.ALUNO else None,
+                    'polo': polo,
+                    'curso': curso if papel == Papel.ALUNO else None,
+                }
+            )
+            inscricao, created = Inscricao.objects.update_or_create(
+                diario=diario,
+                usuario=usuario,
+                defaults={
+                    'polo': polo,
+                    'papel': papel,
+                    'active': is_active,
+                }
+            )
+            if created:
+                inscricao.notify()
+        return diario
+    
 class Polo(Model):
     suap_id = CharField(_('ID do pólo no SUAP'), max_length=255, unique=True)
     nome = CharField(_('nome do pólo'), max_length=255, unique=True)
@@ -169,6 +341,7 @@ class Polo(Model):
 class Inscricao(Model):
     diario = ForeignKey(Diario, on_delete=PROTECT)
     usuario = ForeignKey(settings.AUTH_USER_MODEL, on_delete=PROTECT)
+    polo = ForeignKey(Polo, on_delete=PROTECT, null=True, blank=True)
     papel = CharField(_('papel'), max_length=1, choices=Papel)
     active = BooleanField(_('ativo?'))
     
@@ -179,3 +352,6 @@ class Inscricao(Model):
 
     def __str__(self):
         return f'{self.diario} - {self.usuario}'
+    
+    def notify(self):
+        pass
