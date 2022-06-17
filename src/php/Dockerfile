@@ -14,8 +14,7 @@ RUN curl -L -o v.tar.gz https://github.com/moodle/moodle/archive/refs/tags/v3.11
     && curl --silent --show-error https://getcomposer.org/installer | php \ 
     && mv composer.phar /usr/bin/composer
 
-ADD config.php /var/www/html/config.php
-ADD waitdb.php /var/www/html
+ADD root/* /var/www/html/
 ADD up.sh /usr/local/bin/
 
 # VOLUME [ "/var/moodledata/antivirus_quarantine", "/var/moodledata/cache", "/var/moodledata/filedir", "/var/moodledata/lang", "/var/moodledata/localcache", "/var/moodledata/lock", "/var/moodledata/muc", "/var/moodledata/sessions", "/var/moodledata/temp", "/var/moodledata/trashdir" ]
