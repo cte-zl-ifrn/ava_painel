@@ -16,10 +16,10 @@ def raise_error(request, error):
         status_code=error.code,
         
         requisicao_header=h2d(request),
-        requisicao_invalida=request.body,
+        requisicao=request.body,
         
         resposta_header=h2d(error.retorno) if error.retorno else None,
-        resposta_invalida=error.retorno.text if error.retorno else None
+        resposta=error.retorno.text if error.retorno else None
     )
     
     error_json = {"error": error.message, "code": error.code, "solicitacao_id": solicitacao.id}
