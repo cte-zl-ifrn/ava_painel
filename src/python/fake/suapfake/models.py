@@ -9,8 +9,8 @@ def get_default_pacote():
     return {
         "campus": {
             "id": 1,
-            "descricao": "NOME COMPLETO DO CAMPUS",
-            "sigla": "NCC"
+            "descricao": "Campus EaD",
+            "sigla": "EAD"
         },
         "curso": {
             "id": 1,
