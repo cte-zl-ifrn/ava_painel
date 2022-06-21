@@ -13,6 +13,9 @@ unset($CFG);  // Ignore this line
 global $CFG;  // This is necessary here for PHPUnit execution
 $CFG = new stdClass();
 
+
+$CFG->env = env('CFG_ENV', 'local');
+
 //=========================================================================
 // 1. DATABASE SETUP
 //=========================================================================
