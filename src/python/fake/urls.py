@@ -4,6 +4,8 @@ from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 
+admin.site.site_header = 'SUAP Fake'
+admin.site.site_title = 'SUAP Fake'
 
 urlpatterns = [
     path('admin/login/', RedirectView.as_view(url='/login/')),
