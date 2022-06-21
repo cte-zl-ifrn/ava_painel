@@ -1,20 +1,12 @@
 <?php
-function env($name, $default=null) {
-  return getenv($name, true) ?: $default;
-}
-function env_as_int($name, $default=null) {
-  return intval(env($name, $default));
-}
-function env_as_bool($name, $default=null) {
-  return intval(env($name, $default));
-}
-
 unset($CFG);  // Ignore this line
 global $CFG;  // This is necessary here for PHPUnit execution
 $CFG = new stdClass();
 
-
 $CFG->env = env('CFG_ENV', 'local');
+
+require_once(__DIR__ . '/readenv.php');
+
 
 //=========================================================================
 // 1. DATABASE SETUP
@@ -25,11 +17,11 @@ $CFG->env = env('CFG_ENV', 'local');
 
 $CFG->dbtype    = env('CFG_DBTYPE', 'pgsql');
 $CFG->dblibrary = 'native';
-$CFG->dbhost    = env('POSTGRES_HOST', 'db');  // eg 'localhost' or 'db.isp.com' or IP
-$CFG->dbname    = env('POSTGRES_DATABASE', 'postgres');     // database name, eg moodle
-$CFG->dbuser    = env('POSTGRES_USER', 'ava_user');   // your database username
-$CFG->dbpass    = env('POSTGRES_PASSWORD', 'ava_pass');   // your database password
-$CFG->prefix    = env('CFG_PREFIX', 'mdl_');       // prefix to use for all table names
+$CFG->dbhost    = env('POSTGRES_HOST', 'db');
+$CFG->dbname    = env('POSTGRES_DATABASE', 'postgres');
+$CFG->dbuser    = env('POSTGRES_USER', 'ava_user');
+$CFG->dbpass    = env('POSTGRES_PASSWORD', 'ava_pass');
+$CFG->prefix    = env('CFG_PREFIX', 'mdl_');
 $CFG->dboptions = [
   'dbpersist' => env_as_bool('CFG_DBPERSIST', false),
   'dbsocket'  => env_as_bool('CFG_DBSOCKET', false),
@@ -38,21 +30,8 @@ $CFG->dboptions = [
   'dbcollation' => env('CFG_DBCOLLATION', 'utf8mb4_unicode_ci'),
   'fetchbuffersize' => env_as_int('CFG_FETCHBUFFERSIZE', 100000),
   'connecttimeout' => env_as_int('CFG_CONNECTTIMEOUT', null),
-  /*
-  'readonly' => [
-    'instance' => [
-      [
-        'dbhost' => 'slave.dbhost',
-        'dbport' => '',    // Defaults to master port
-        'dbuser' => '',    // Defaults to master user
-        'dbpass' => '',    // Defaults to master password
-      ],
-      [...],
-    ],
-  ]
-  */
+  //  'readonly' => [ 'instance' => [ ['dbhost' => '', 'dbport' => '', 'dbuser' => '', 'dbpass' => ''] ] ]
 ];
-
 
 //=========================================================================
 // 2. WEB SITE LOCATION
