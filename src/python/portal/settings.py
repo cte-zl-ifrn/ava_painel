@@ -49,8 +49,8 @@ MY_APPS = env_as_list('MY_APPS', [
 THIRD_APPS = env_as_list('THIRD_APPS', [
     'markdownx',
     'django_extensions',
-    'adminlte3',
-    'adminlte3_admin',
+    # 'adminlte3',
+    # 'adminlte3_admin',
 ])
 DJANGO_APPS = env_as_list('DJANGO_APPS', [
     'django.contrib.admin',
