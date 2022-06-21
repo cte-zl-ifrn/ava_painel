@@ -200,9 +200,8 @@ class Diario(Model):
         if retorno.status_code != 200:
             try:
                 retorno_json = json.loads(retorno.text)
-            except:
-                retorno_json = {}
-            raise SyncError(f"Erro na integração. Contacte um administrador. Erro: {retorno_json}", retorno.status_code, campus, retorno)
+            except Exception as e:
+                raise SyncError(f"Erro na integração. Contacte um administrador. Erro: {e}", retorno.status_code, campus, retorno)
         
         try:
             retorno_json = json.loads(retorno.text)
@@ -210,11 +209,11 @@ class Diario(Model):
             raise SyncError(f"Erro na integração. Contacte um desenvolvedor.", retorno.status_code, campus, retorno)
         
         Solicitacao.objects.create(
-            requisicao=message_string,
             requisicao_header=headers,
+            requisicao=message_string,
             
-            resposta=retorno_json,
             resposta_header=h2d(retorno),
+            resposta=retorno_json,
             
             status=Solicitacao.Status.SUCESSO,
             status_code=retorno.status_code,
