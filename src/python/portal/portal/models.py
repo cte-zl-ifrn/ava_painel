@@ -225,7 +225,7 @@ class Diario(Model):
         try:
             Diario.make(pkg)
         except Exception as e:
-            raise SyncError(f"Erro na integração. Contacte um administrador.", 512, campus, retorno)
+            raise SyncError(f"Erro na integração. Contacte um administrador. {e}", 512, campus, retorno)
         
         return retorno_json
     
