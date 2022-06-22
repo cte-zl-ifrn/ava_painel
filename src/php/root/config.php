@@ -3,9 +3,13 @@ unset($CFG);  // Ignore this line
 global $CFG;  // This is necessary here for PHPUnit execution
 $CFG = new stdClass();
 
-$CFG->env = env('CFG_ENV', 'local');
-
 require_once(__DIR__ . '/readenv.php');
+
+
+//=========================================================================
+// 0. CUSTOM
+//=========================================================================
+$CFG->env = env('CFG_ENV', 'local');
 
 
 //=========================================================================
