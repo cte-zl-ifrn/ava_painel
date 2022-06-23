@@ -1,15 +1,16 @@
 import json
 import requests
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse, JsonResponse
-from django.forms import ValidationError
-from django.conf import settings
-from portal.models import Campus, Diario, h2d, SyncError
-from .models import Solicitacao
 from django.db import transaction
-
+from django.http import JsonResponse
+from django.conf import settings
+from sentry_sdk import capture_exception
+from portal.models import Diario, h2d, SyncError
+from middleware.models import Solicitacao
 
 def raise_error(request, error):
+    event_id = capture_exception(error)
+    
     solicitacao = Solicitacao.objects.create(
         status=Solicitacao.Status.FALHA,
         campus=error.campus if 'campus' in dir(error) else None,
@@ -22,7 +23,8 @@ def raise_error(request, error):
         resposta=error.retorno.text if error.retorno else None
     )
     
-    error_json = {"error": error.message, "code": error.code, "solicitacao_id": solicitacao.id}
+    error_json = {"error": error.message, "code": error.code, "solicitacao_id": solicitacao.id, 'event_id': event_id}
+        
     return JsonResponse(error_json, status=error.code)
 
 
@@ -43,12 +45,9 @@ def moodle_suap(request):
             diario = Diario.sync(request.body, h2d(request))
             return JsonResponse(diario)
         else:
-            return _baixar_notas(request)
+            raise SyncError("Não implementado.", 501)
     except SyncError as e:
         return raise_error(request, e)
     except Exception as e:
-        return JsonResponse({"error": str(e), "code": 500})
-        
-
-def _baixar_notas(request):
-    return raise_error(request, SyncError("Não implementado.", 501))
+        event_id = capture_exception(e)
+        return JsonResponse({"error": str(e), "code": 500, 'event_id': event_id})
