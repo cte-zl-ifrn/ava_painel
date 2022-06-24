@@ -1,3 +1,5 @@
+src/php/moodle__auth_suap
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
