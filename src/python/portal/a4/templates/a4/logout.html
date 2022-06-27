@@ -1,0 +1,39 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <title>Login</title>
+    <meta charset="utf-8" />
+    <meta name="keywords" content="Ambiente, Virtual, Aprendizagem, IFRN, AVA" />
+    <meta name="description" content="Ambientes Virtuais Aprendizagem IFRN" />    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <style>
+        body {margin: 0; padding: 0; font-family: sans-serif;}
+        header {background: #363940; padding: 20px;}
+        main {padding: 20px; text-align: center;}
+    </style>
+</head>
+
+<body>
+    <header><img alt="Logo do IFRN" src="{% static 'dashboard/img/ifrnLogo.svg' %}" width="142" height="43" /></header>
+    <main>
+        <h1>Quase lá!</h1>
+        <p>
+            <a href='https://suap.ifrn.edu.br/accounts/logout/'>Clique aqui</a> para sair completamente.
+        </p>
+        <p>
+            <i>Isso é necessário pois o SUAP não tem uma logout geral.</i>
+        </p>
+    </main>
+    {% comment %} <script>
+        $.get('https://suap.ifrn.edu.br/accounts/logout/', function(data) {
+            window.location.href = '/';
+        }).fail(function() {
+            alert( "error" );
+        });
+    </script> {% endcomment %}
+</body>
+
+</html>

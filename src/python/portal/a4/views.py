@@ -4,9 +4,9 @@ import urllib
 import requests
 from django.conf import settings
 from django.contrib import auth
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.core.exceptions import ValidationError
-from django.http import HttpRequest, HttpResponse, Http404
+from django.http import HttpRequest, HttpResponse
 from .models import Usuario
 
 
@@ -64,4 +64,5 @@ def authenticate(request: HttpRequest) -> HttpResponse:
 
 
 def logout(request: HttpRequest) -> HttpResponse:
-    raise Http404()
+    auth.logout(request)
+    return render(request, "a4/logout.html")
