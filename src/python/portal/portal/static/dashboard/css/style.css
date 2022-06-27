@@ -852,3 +852,20 @@ p.categoria_card.detalhes {
 */
 
 /* ===== END Últimos Eventos ===== */
+
+/* ===== FOOTER: BEGIN ===== */
+footer {
+    background-color: #363940;
+    height: 66px;
+    color: #fff;
+    text-align: center;
+}
+
+footer p {
+    margin: 0 auto;
+    padding: 0;
+    max-width: 1243px;
+    text-align: center;
+    line-height: 66px;
+}
+/* ===== FOOTER: END ===== */
