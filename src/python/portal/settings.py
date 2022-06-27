@@ -51,6 +51,7 @@ MY_APPS = env_as_list('MY_APPS', [
 THIRD_APPS = env_as_list('THIRD_APPS', [
     'markdownx',
     'django_extensions',
+    "corsheaders",
     # 'adminlte3',
     # 'adminlte3_admin',
 ])
@@ -70,6 +71,7 @@ MIDDLEWARE = [
     'portal.middleware.GoToHTTPSMiddleware', # <-
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -260,3 +262,12 @@ if env('SENTRY_DNS', None):
         # transport=,
         # shutdown_timeout=env_as_int('SENTRY_SHUTDOWN_TIMEOUT', 2),
     )
+
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOWED_ORIGINS = [
+    "https://suap.ifrn.edu.br/accounts/logout/",
+    "http://localhost:8000",
+
+]

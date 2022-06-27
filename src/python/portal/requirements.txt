@@ -49,6 +49,7 @@ ipython==8.4.0
 Werkzeug==2.0.3
 ipdb==0.13.9
 pudb==2022.1.1
+djlint==1.2.1
 
 
 # Production
