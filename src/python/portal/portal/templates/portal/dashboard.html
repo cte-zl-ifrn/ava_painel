@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:url" content="https://getbootstrap.com/docs/5.0/forms/select/" />
 
-    <!-- Favicon
+    <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}" />
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}" />
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}" />
@@ -18,7 +18,7 @@
     <link rel="mask-icon" href="{% static 'favicon/safari-pinned-tab.svg' %}" color="#5bbad5" />
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="theme-color" content="#ffffff" />
- -->
+ 
     <!-- Google Fonts  -->
     <link href='//fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' />
     <link href='//fonts.googleapis.com/css?family=Roboto:400,700,500' rel='stylesheet' type='text/css' />
@@ -48,8 +48,15 @@
 </head>
 
 <body>
+    {% include 'portal/partials/header.html' %}
     <main>
-        {% include 'portal/partials/header.html' %}
+        <section>
+            Cards
+        </section>
+        <aside>
+            Lateral
+        </aside>
+
         <div id="app">
             <br/><br/><br/><br/>[[ message ]]
             <ul>
@@ -57,5 +64,6 @@
             </ul>
         </div>
     </main>
+    {% include 'portal/partials/footer.html' %}
 </body>
 </html>

@@ -1,7 +1,8 @@
-<div class="header">
-    <div class="navbar">
-        <div class="navbar-header">
-            <a class="navbar-brand page-scroll" href="{% url "portal:dashboard" %}"></a>
+{% load static %}
+<header>
+    <div class="header-wrapper">
+        <div class="header-brand">
+            <a href="{% url "portal:dashboard" %}"></a>
         </div>
         <ul class="menu-principal nav navbar-nav navbar-center">
             <li><a class="page-scroll area_aluno" href="{% url 'portal:dashboard' %}">ÁREA DO ALUNO</a></li>
@@ -11,13 +12,11 @@
             <li><a class="page-scroll" href="https://suap.ifrn.edu.br/">SUAP</a></li>
             <li><a class="page-scroll" href="{% url 'a4:logout' %}">SAIR</a></li>
         </ul>
-        <div class="user">
-            <a class="page-scroll ph-name" href="https://suap.ifrn.edu.br/comum/minha_conta/">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>{{ user.nome }}</li>
-                    <li><i class="fa fa-user-circle"></i></li>
-                </ul>
+        <div class="header-user">
+            <a href="https://suap.ifrn.edu.br/comum/minha_conta/">
+                {{ user.nome }}
+                <img width="56" height="56" src="{% static 'dashboard/img/user.jpeg'  %}" />
             </a>
         </div>
     </div>
-</div>
+</header>
