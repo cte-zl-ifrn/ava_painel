@@ -1,35 +1,7 @@
+{% extends 'portal/layouts/base.html' %}
 {% load static %}
-<!DOCTYPE html>
 
-<html lang="pt-BR">
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="IFRN" content="IE=edge" />
-    <title>IFRN - Portal</title>
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta property="og:url" content="https://getbootstrap.com/docs/5.0/forms/select/" />
-
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}" />
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}" />
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}" />
-    <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}" />
-    <link rel="mask-icon" href="{% static 'favicon/safari-pinned-tab.svg' %}" color="#5bbad5" />
-    <meta name="msapplication-TileColor" content="#ffffff" />
-    <meta name="theme-color" content="#ffffff" />
- 
-    <!-- Google Fonts  -->
-    <link href='//fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' />
-    <link href='//fonts.googleapis.com/css?family=Roboto:400,700,500' rel='stylesheet' type='text/css' />
-    <!-- Body font -->
-    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-
-    <!-- Theme CSS -->
-    <link rel="stylesheet" href="{% static 'dashboard/css/style.css' %}" />
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css" />
-    <link href="//cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+{% block extra_script %}
     <script type="importmap">
         {
             "imports": {
@@ -37,33 +9,103 @@
             }
         }
     </script>
-    
+
     <script type="module">
         import { createApp } from 'vue'
         import ava_dashboard from '{% static "dashboard/js/app.js" %}'
 
         createApp(ava_dashboard).mount('#app')
     </script>
-    
-</head>
+{% endblock extra_script %}
 
-<body>
-    {% include 'portal/partials/header.html' %}
+{% block main %}
     <main>
-        <section>
-            Cards
-        </section>
-        <aside>
-            Lateral
-        </aside>
-
         <div id="app">
-            <br/><br/><br/><br/>[[ message ]]
-            <ul>
-                <li v-for="card in cards">[[ card.diario.titulo ]]</li>
-            </ul>
+            <section>
+                <div id='grid-header'>
+                    <h1>Minhas disciplinas</h1>
+                    <div>Clique nas disciplinas abaixo para saber mais detalhes.</div>
+                </div>
+                <div id='grid-filter'>
+                    <div>
+                        a
+                        {% comment %} <select>
+                            <option>Curso com um nome grande para caramba para ter certeza de que nós sabemos controlar o limite</option>
+                            <option>Temos que ativar o auto-complete</option>
+                        </select> {% endcomment %}
+                    </div>
+                    <div>
+                        b
+                        {% comment %} <select>
+                            <option>Em andamento</option>
+                            <option>Concluído</option>
+                        </select> {% endcomment %}
+                    </div>
+                    <div>
+                        c
+                        {% comment %} <select>
+                            <option>2022.1</option>
+                            <option>2021.2</option>
+                            <option>2021.1</option>
+                            <option>2020.2</option>
+                            <option>2020.1</option>
+                            <option>2019.2</option>
+                            <option>2019.1</option>
+                        </select> {% endcomment %}
+                    </div>
+                </div>
+                <div id='course-cards'>
+                    <div v-for="card in cards" class="course-card">
+                        <div class="course-wrapper">
+                            <div class="icon_ambiente">
+                                <p class="ambiente_card">[[ card.ambiente.sigla ]]</p>
+                            </div>
+                            <img class="img-fluid" alt="imagem representativa do curso"
+                                v-bind:src="[[ card.diario.thumbnail ]]">
+                            <div class="progress bg-dark rounded-0">
+                                <div class="progress-bar bg-success " role="progressbar" style="width: 100%"
+                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="porcentagem">
+                                    <p class="valor_porcentagem">[[ card.diario.progresso ]]%</p>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-diario">[[ card.diario.codigo ]]</p>
+                                <h5 class="card-title">[[ card.diario.titulo ]]</h5>
+                            </div>
+                            <div class="card-footer">
+                                <div class="flex">
+                                    <a class="btn btn-primary" v-bind:href="[[ card.diario.url ]]">ACESSAR</a>
+                                    <div class="flex-auto"></div>
+                                    <button type="button" class="btn btn-secondary" v-on:click="detailme(card)">DETALHES</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <aside>
+                <div id='detalhes-header'>
+                    <h1>Detalhes</h1>
+                    <div v-if=destaque>
+                        <p>Mais detalhes sobre a disciplina abaixo:</p>
+                        <h3>[[ destaque.ambiente.titulo ]]</h3>
+                        <img class="img-fluid" alt="imagem representativa do curso" v-bind:src="[[ destaque.diario.thumbnail ]]">
+                        <p class="card-diario">[[ destaque.diario.codigo ]]</p>
+                        <p class="card-title">[[ destaque.diario.titulo ]]</p>
+                        <a class="btn btn-primary" v-bind:href="[[ destaque.diario.url ]]">ACESSAR</a>
+                        <h2>Eventos do curso</h2>
+                        <p>Não foi possível obter neste instante.</p>
+                    </div>
+                    <div v-else>Aqui aparecerão os detalhes da disciplina que você selecionar na grade ao lado.</div>
+                    <h2>Últimos informativos</h2>
+                    <ul  v-for="informativo in informativos" id="informativos">
+                        <li>
+                            <a v-bind:href="[[ informativo.url ]]" v-bind:title="[[ informativo.noticia ]]">[[ informativo.titulo ]]</a>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
         </div>
     </main>
-    {% include 'portal/partials/footer.html' %}
-</body>
-</html>
+{% endblock main %}

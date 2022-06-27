@@ -1,4 +1,4 @@
-/* ===== Begin Fonts ===== */
+/* ===== RESET: BEGIN ===== */
 
 * {
     margin: 0;
@@ -14,20 +14,15 @@ body {
     color: #565656;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     margin-bottom: 10px;
 }
 
-/* ===== END Fonts ===== */
+/* ===== RESET: END ===== */
 
 
-/* ===== Header ===== */
+/* ===== HEADER: BEGIN ===== */
 
 header {
     background-color: #363940;
@@ -52,7 +47,7 @@ header {
     position: sticky;
     top: 0;
     z-index: 10;
-    margin: 15px 15px 0 0;
+    margin: 15px 15px 0 22px;
 }
 
 .navbar-header {
@@ -103,11 +98,17 @@ ul.menu-principal {
     margin-left: 11px;
 }
 
+/* ===== HEADER: END ===== */
 
-/* ===== Main ===== */
-/*
+
+/* ===== MAIN: BEGIN ===== */
 main {
-    width: 100%;
+    text-align: center;
+}
+
+main > div {
+    max-width: 1243px;
+    margin: 0 auto;
     display: grid;
     color: #565656;;
     grid-template-rows: 90px 100px 200px 60px;
@@ -115,83 +116,204 @@ main {
     grid-gap: 14px;
 }
 
-
-a.page-scroll {
-    padding: 11px;
-    padding: 11px;
-    text-decoration: none;
-    color: #565656;
-    font-family: 'Roboto';
+main > div > section {
+    grid-column: 1/5;
 }
 
-.navbar-nav {
-    float: left;
-    margin: 0;
+main > div > aside {
+    grid-column: 5/5;
 }
 
-li {
-    list-style-type: none;
+/* ===== MAIN - GRID: BEGIN ===== */
+#grid-header {
+    border-bottom: 2px #438f4b solid;
+    margin: 0 20px;
 }
 
-a {
-    text-decoration: none;
-    color: #565656;
-    font-size: 13px;
+#grid-filter {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
 }
 
-a.page-scroll.area_aluno {
-    color: #5bc266 !important;
-    font-weight: 600;
-    font-size: 13px;
-    font-family: 'Roboto';
+#grid-filter > div {
+  overflow: hidden;
+  justify-content: flex-start;
+  display: flex;
+  margin: 10px;
+  border: 1px #363940 solid;
 }
 
-a.page-scroll.barra {
-    font-size: 21px;
-    top: -4px;
+#grid-filter > div > select {
+    width: 100%;
+}
+  
+/* ===== MAIN - GRID: END ===== */
+
+/* ===== MAIN - CARD: BEGIN ===== */
+#course-cards {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    /* background-color: #2196F3; */
+    padding: 10px;
 }
 
-a.page-scroll.barra {
-    cursor: default;
+.course-card {
+    justify-content: flex-start;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.a.page-scroll {
-    color: #565656;
-    font-family: 'Roboto';
+.course-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: auto;
+    background-color: rgba(255, 255, 255, 0.8);
+    font-size: 30px;
+    text-align: center;
+    margin: 10px;
+    position: relative;
 }
 
-
-a.navbar-brand.page-scroll {
-    background-image: url(../img/ifrnLogo.svg);
-    width: 142px;
-    height: 42px;
-    background-repeat: no-repeat;
-    background-position: left;
-    float: left;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    margin-right: 15px;
-    margin-bottom: 0px;
-}
-
-i.fa.fa-user-circle {
-    content: "\f614";
-    display: block;
-    font-size: 54px;
-    color: white;
+.icon_ambiente {
     position: absolute;
-    width: 100px;
-    height: 75px;
-    top: 8px;
-    left: 120px;
+    left: 1.0em;
+    top: 0px;
+    width: 0;
+    height: 44px;
+    border-right: 21px solid #5bc266;
+    border-left: 22px solid #5bc266;
+    border-bottom: 12px solid transparent;
 }
-*/
 
-/* ===== END Menu ===== */
+.ambiente_card {
+    font-family: 'Roboto';
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    margin-left: -20px;
+    margin-top: 5px;
+    width: 40px;
+    text-align: center;
+    position: initial;
+}
 
+.progress-bar.bg-success {
+    background-color: #5BC266 !important;
+}
 
-/* ===== */
+/* .progress-bar.bg-success.aberto {
+    background-color: #a154d0 !important;
+}
+
+.progress-bar.bg-success.caid {
+    background-color: #c90c0f !important;
+} */
+
+.progress.bg-dark.rounded-0 {
+    /* margin-top: -5px; */
+    border: none;
+    background-color: transparent;
+    /* max-width: 288px; */
+}
+
+.porcentagem {
+    position: absolute;
+    width: 50px;
+    height: 35px;
+    left: 18.5em;
+    background-color: #5bc266;
+    margin-top: 0px;
+    border-radius: 100% !important;
+}
+
+/* .porcentagem-aberto {
+    position: absolute;
+    width: 50px;
+    height: 35px;
+    left: 17em;
+    background-color: #a154d0;
+    margin-top: 0px;
+    border-radius: 100% !important;
+}
+
+.porcentagem-caid {
+    position: absolute;
+    width: 50px;
+    height: 35px;
+    left: 17em;
+    background-color: #c90c0f;
+    margin-top: 0px;
+    border-radius: 100% !important;
+} */
+
+.valor_porcentagem {
+    font-family: 'Roboto';
+    color: white;
+    margin-top: 8px;
+    margin-left: 5px;
+    text-align: center;
+    font-size: 13px !important;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+    color: var(--bs-card-color);
+    text-align: left;
+    padding-bottom: 5px !important;
+    background-color: #FFF;
+}
+
+.card-diario {
+    width: auto;
+    color: #9ca6a9;
+    text-align-last: auto;
+    text-align: left;
+    margin-left: -1px;
+    font-size: 15px;
+    margin-top: -10px;
+    margin-bottom: 4px;
+}
+
+.card-title {
+    margin-left: -6px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 200;
+    font-size: 16px;
+    line-height: 22px;
+    color: #565656;
+    text-align: left;
+}
+
+.card-footer {
+    border: none;
+    border-top: none !important;
+    background-color: #fff !important;
+}
+
+.flex {
+    display: flex;
+    padding: 0px 0px 0px 1px;
+    width: auto;
+    margin-left: -6px;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    max-width: 287px;
+}
+
+.flex-auto {
+    flex: auto;
+    padding: 0px 2px 0px 3px;
+}
+
+/* ===== MAIN - CARD: END ===== */
+
+/* ===== MAIN - DETAIL: BEGIN ===== */
+
+/* ===== MAIN - DEATIL: END ===== */
+
 /*
 p.titulo-curso {
     position: absolute;
@@ -507,21 +629,8 @@ a.btn.btn-blank {
     margin-left: -16px;
 }
 
-.card-body {
-    flex: 1 1 auto;
-    padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
-    color: var(--bs-card-color);
-    text-align: left;
-    padding-bottom: 5px !important;
-    background-color: #FFF;
-    max-width: 288px;
-}
 
-.card-footer {
-    border: none;
-    border-top: none !important;
-    background-color: #fff !important;
-}
+
 
 button.btn.btn-secondary {
     font-family: 'Roboto';
@@ -533,20 +642,6 @@ button.btn.btn-secondary {
     border-radius: 0px
 }
 
-.flex {
-    display: flex;
-    padding: 0px 0px 0px 1px;
-    width: auto;
-    margin-left: -6px;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    max-width: 287px;
-}
-
-.flex-auto {
-    flex: auto;
-    padding: 0px 2px 0px 3px;
-}
 
 .text-success {
     color: #28a745!important;
@@ -554,40 +649,10 @@ button.btn.btn-secondary {
     font-weight: 500;
 }
 
-.progress-bar.bg-success {
-    background-color: #5BC266 !important;
-}
-
-.progress-bar.bg-success.aberto {
-    background-color: #a154d0 !important;
-}
-
-.progress-bar.bg-success.caid {
-    background-color: #c90c0f !important;
-}
-
-.progress.bg-dark.rounded-0 {
-    margin-top: -5px;
-    border: none;
-    background-color: transparent;
-    max-width: 288px;
-}
 
 .img-fluid {
     max-width: 288px !important;
     height: 130px !important;
-}
-
-h5.card-title {
-    margin-left: -6px;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 200;
-    font-size: 16px;
-    line-height: 22px;
-    color: #565656;
-    max-width: 280px;
-    text-align: left;
 }
 
 button.btn.btn-primary {
@@ -600,55 +665,7 @@ button.btn.btn-primary {
     font-family: 'Roboto';
 }
 
-.porcentagem {
-    position: absolute;
-    width: 50px;
-    height: 35px;
-    left: 17em;
-    background-color: #5bc266;
-    margin-top: 0px;
-    border-radius: 100% !important;
-}
 
-.porcentagem-aberto {
-    position: absolute;
-    width: 50px;
-    height: 35px;
-    left: 17em;
-    background-color: #a154d0;
-    margin-top: 0px;
-    border-radius: 100% !important;
-}
-
-.porcentagem-caid {
-    position: absolute;
-    width: 50px;
-    height: 35px;
-    left: 17em;
-    background-color: #c90c0f;
-    margin-top: 0px;
-    border-radius: 100% !important;
-}
-
-p.valor_porcentagem {
-    font-family: 'Roboto';
-    color: white;
-    margin-top: 8px;
-    margin-left: 5px;
-    text-align: center;
-    font-size: 13px !important;
-}
-
-.icon_categoria {
-    position: absolute;
-    left: 1.3em;
-    top: 0px;
-    width: 0;
-    height: 44px;
-    border-right: 21px solid #5bc266;
-    border-left: 22px solid #5bc266;
-    border-bottom: 12px solid transparent;
-}
 
 .icon_categoria-aberto {
     position: absolute;
@@ -755,16 +772,7 @@ button.btn.btn-primary.btn-destaque {
     border-radius: 0.65rem !important;
 }
 
-p.card-turma {
-    width: auto;
-    color: #9ca6a9;
-    text-align-last: auto;
-    text-align: left;
-    margin-left: -1px;
-    font-size: 15px;
-    margin-top: -10px;
-    margin-bottom: 4px;
-}
+p
 
 .img-fluid-destaque {
     width: 288px;
