@@ -21,7 +21,7 @@ export default {
             cards: [
                 {
                     "ambiente": { "titulo": "Aberto", "sigla": "A", "classe": "aberto", },
-                    "diario": { "titulo": "DESENVOLVIMENTO DE PROJETOS COM O USO DE TECNOLOGIAS DIGITAIS", "codigo": "2020.1.15046.1E.POS.0341", "progresso": 10, "thumbnail": "https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=287&q=80", "url": "https://google.com"}
+                    "diario": { "titulo": "DESENVOLVIMENTO DE PROJETOS COM O USO DE TECNOLOGIAS DIGITAIS", "codigo": "2020.1.15046.1E.POS.0341", "progresso": 10, "thumbnail": "https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=287&q=80", "url": "https://google.com", "eventos": []}
                 },
                 {
                     "ambiente": { "titulo": "Aberto", "sigla": "A", "classe": "aberto", },
@@ -56,7 +56,7 @@ export default {
     },
     methods: {
         detailme: function (card) {
-            this.destaque = card
+            this.destaque = card;
         }
     },
 }

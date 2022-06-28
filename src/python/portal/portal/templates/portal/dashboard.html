@@ -87,6 +87,7 @@
             <aside>
                 <div id='detalhes-header'>
                     <h1>Detalhes</h1>
+                    <div v-if="!destaque">Aqui aparecerão os detalhes da disciplina que você selecionar na grade ao lado.</div>
                     <div v-if=destaque>
                         <p>Mais detalhes sobre a disciplina abaixo:</p>
                         <h3>[[ destaque.ambiente.titulo ]]</h3>
@@ -94,16 +95,19 @@
                         <p class="card-diario">[[ destaque.diario.codigo ]]</p>
                         <p class="card-title">[[ destaque.diario.titulo ]]</p>
                         <a class="btn btn-primary" v-bind:href="[[ destaque.diario.url ]]">ACESSAR</a>
-                        <h2>Eventos do curso</h2>
-                        <p>Não foi possível obter neste instante.</p>
+                        <div v-if=destaque.diario.eventos>
+                            <h2>Eventos do curso</h2>
+                            <p>Não foi possível obter neste instante. [[]]</p>
+                        </div>
                     </div>
-                    <div v-else>Aqui aparecerão os detalhes da disciplina que você selecionar na grade ao lado.</div>
-                    <h2>Últimos informativos</h2>
-                    <ul  v-for="informativo in informativos" id="informativos">
-                        <li>
-                            <a v-bind:href="[[ informativo.url ]]" v-bind:title="[[ informativo.noticia ]]">[[ informativo.titulo ]]</a>
-                        </li>
-                    </ul>
+                    <div v-if=informativos>
+                        <h2>Últimos informativos</h2>
+                        <ul  v-for="informativo in informativos" id="informativos">
+                            <li>
+                                <a v-bind:href="[[ informativo.url ]]" v-bind:title="[[ informativo.noticia ]]">[[ informativo.titulo ]]</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </aside>
         </div>
