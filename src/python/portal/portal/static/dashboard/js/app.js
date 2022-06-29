@@ -10,6 +10,7 @@ export default {
         }
     },
     mounted() {
+        document.getElementById('app').classList.remove('hide_this');
         axios.get('/portal/api/v1/diarios/').then(response=>{
             this.informativos = response.data.informativos;
             this.cards = response.data.cards;
