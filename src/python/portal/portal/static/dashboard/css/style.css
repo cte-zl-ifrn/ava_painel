@@ -106,6 +106,10 @@ main {
     text-align: center;
 }
 
+.hide_this {
+    display: none;
+}
+
 main > div {
     max-width: 1243px;
     margin: 0 auto;
