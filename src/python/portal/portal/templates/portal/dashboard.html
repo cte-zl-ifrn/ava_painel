@@ -29,43 +29,34 @@
                 </div>
                 <div id="grid-filter">
                     <div>
-                        <select id="">
+                        <select name="disciplina_id" id="disciplina_id" @change="filterCards($event)">
                             <option selected>TODAS DISCIPLINAS</option>
-                            <option value="1">Temos que ativar o auto-complete</option>
-                            <option value="2">Curso com um nome grande para caramba para ter certeza de que nós sabemos controlar o limite</option>
-                            <option value="3">Outro curso</option>
+                            <option v-for="row in disciplinas" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
                     <div>
-                        <select id="">
-                            <option>Em andamento</option>
-                            <option>Concluído</option>
+                        <select name="status_id" id="status_id" @change="filterCards($event)">
+                            <option v-for="row in statuses" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
                     <div>
-                         <select id="">
-                            <option>2022.1</option>
-                            <option>2021.2</option>
-                            <option>2021.1</option>
-                            <option>2020.2</option>
-                            <option>2020.1</option>
-                            <option>2019.2</option>
-                            <option>2019.1</option>
+                        <select name="competencia_id" id="competencia_id" @change="filterCards($event)">
+                            <option v-for="row in competencias" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
                 </div>
                 <div id="course-cards">
                     <div v-for="card in cards" class="course-card">
                         <div class="course-wrapper">
-                            <div class="icon_ambiente">
-                                <p class="ambiente_card">[[ card.ambiente.sigla ]]</p>
+                            <div class="icon_ambiente" v-bind:class="card.ambiente.classe">
+                                <p class="ambiente_card" v-bind:class="card.ambiente.classe">[[ card.ambiente.sigla ]]</p>
                             </div>
                             <img class="img-fluid" alt="imagem representativa do curso"
                                 v-bind:src="[[ card.diario.thumbnail ]]">
                             <div class="progress bg-dark rounded-0">
-                                <div class="progress-bar bg-success " role="progressbar" style="width: 100%"
+                                <div class="progress-bar" v-bind:class="card.ambiente.classe" role="progressbar" style="width: 100%"
                                     aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                <div class="porcentagem">
+                                <div class="porcentagem" v-bind:class="card.ambiente.classe" >
                                     <p class="valor_porcentagem">[[ card.diario.progresso ]]%</p>
                                 </div>
                             </div>
@@ -87,17 +78,28 @@
             <aside>
                 <div id="detalhes-header">
                     <h1>Detalhes</h1>
-                    <div v-if="!destaque">Aqui aparecerão os detalhes da disciplina que você selecionar na grade ao lado.</div>
+                    <div v-if="!destaque"><p class="dt-text">Abaixo aparecerão os detalhes da disciplina ao lado.</p><p>escolha um curso e clique em "DETALHES".</p></div>
                     <div v-if=destaque>
-                        <p class="dt-text">Mais detalhes sobre a disciplina abaixo:</p>
-                        <p class="ambiente_titulo">[[ destaque.ambiente.titulo ]]</p>
+                        <p class="dt-text">Mais detalhes sobre a disciplina que você escolheu:</p>
+                        <p class="ambiente_titulo" v-bind:class="destaque.ambiente.classe">[[ destaque.ambiente.titulo ]]</p>
                         <img class="img-fluid" alt="imagem representativa do curso" v-bind:src="[[ destaque.diario.thumbnail ]]">
                         <p class="card-diario">[[ destaque.diario.codigo ]]</p>
                         <p class="card-title">[[ destaque.diario.titulo ]]</p>
                         <a class="btn btn-primary destaque" v-bind:href="[[ destaque.diario.url ]]">ACESSAR O CURSO</a>
-                        <div v-if=destaque.diario.eventos>
-                            <p class="evento">Eventos do curso</p>
-                            <p>Não foi possível obter neste instante. [[]]</p>
+                        <p class="evento">Eventos do curso</p>
+                        <div v-if="!destaque.diario.eventos">
+                            <p>Não há eventos futuros registrados para este curso.</p>
+                        </div>
+                        <div v-if="destaque.diario.eventos">
+                            <ul>
+                                <li v-for="evento in destaque.diario.eventos">
+                                    <strong>[[ evento.titulo ]]</strong>
+                                    <br />
+                                    De: [[ formatDate(evento.data_hora_inicio) ]]
+                                    <br />
+                                    Até: [[ formatDate(evento.data_hora_fim) ]]
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <div v-if=informativos class="informativos">

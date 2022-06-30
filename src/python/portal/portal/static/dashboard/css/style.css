@@ -250,8 +250,8 @@ main>div>aside {
     top: 0px;
     width: 0;
     height: 44px;
-    border-right: 21px solid #5bc266;
-    border-left: 22px solid #5bc266;
+    border-right: 21px solid silver;
+    border-left: 22px solid silver;
     border-bottom: 12px solid transparent;
 }
 
@@ -267,19 +267,6 @@ main>div>aside {
     position: initial;
 }
 
-.progress-bar.bg-success {
-    background-color: #5BC266 !important;
-}
-
-
-/* .progress-bar.bg-success.aberto {
-    background-color: #a154d0 !important;
-}
-
-.progress-bar.bg-success.caid {
-    background-color: #c90c0f !important;
-} */
-
 .progress.bg-dark.rounded-0 {
     /* margin-top: -5px; */
     border: none;
@@ -292,31 +279,10 @@ main>div>aside {
     width: 50px;
     height: 35px;
     left: 18.5em;
-    background-color: #5bc266;
     margin-top: 0px;
     border-radius: 100% !important;
+    background-color: silver;
 }
-
-
-/* .porcentagem-aberto {
-    position: absolute;
-    width: 50px;
-    height: 35px;
-    left: 17em;
-    background-color: #a154d0;
-    margin-top: 0px;
-    border-radius: 100% !important;
-}
-
-.porcentagem-caid {
-    position: absolute;
-    width: 50px;
-    height: 35px;
-    left: 17em;
-    background-color: #c90c0f;
-    margin-top: 0px;
-    border-radius: 100% !important;
-} */
 
 .valor_porcentagem {
     font-family: 'Roboto';
@@ -423,10 +389,10 @@ p.dt-text {
     border-bottom: 2px #438f4b solid;
 }
 
-p.ambiente_titulo {
+.ambiente_titulo {
     font-size: 20px;
     margin-bottom: 0px;
-    background-color: #5bc266;
+    background-color: silver;
     color: #fff;
     font-weight: 700;
     text-align: center;
@@ -486,6 +452,48 @@ p.evento {
 
 
 /* ===== MAIN - ASIDES -  EVENT: END ===== */
+
+
+/* ===== AMBIENTES: BEGIN ===== */
+
+.ambiente_card.ambiente01,
+.progress-bar.ambiente01,
+.porcentagem.ambiente01,
+.ambiente_titulo.ambiente01 {
+    background-color: #a154d0;
+}
+
+.icon_ambiente.ambiente01 {
+    border-right-color: #a154d0;
+    border-left-color: #a154d0;
+}
+
+.ambiente_card.ambiente02,
+.progress-bar.ambiente02,
+.porcentagem.ambiente02,
+.ambiente_titulo.ambiente02 {
+    background-color: #c90c0f;
+}
+
+.icon_ambiente.ambiente02 {
+    border-right-color: #c90c0f;
+    border-left-color: #c90c0f;
+}
+
+.ambiente_card.ambiente03,
+.progress-bar.ambiente03,
+.porcentagem.ambiente03,
+.ambiente_titulo.ambiente03 {
+    background-color: #438f4b;
+}
+
+.icon_ambiente.ambiente03 {
+    border-right-color: #438f4b;
+    border-left-color: #438f4b;
+}
+
+
+/* ===== AMBIENTES: END ===== */
 
 
 /*
@@ -848,30 +856,6 @@ button.btn.btn-primary {
     font-family: 'Roboto';
 }
 
-
-
-.icon_categoria-aberto {
-    position: absolute;
-    left: 1.3em;
-    top: 0px;
-    width: 0;
-    height: 44px;
-    border-right: 21px solid #a154d0;
-    border-left: 22px solid #a154d0;
-    border-bottom: 12px solid transparent;
-}
-
-.icon_categoria-caid {
-    position: absolute;
-    left: 1.3em;
-    top: 0px;
-    width: 0;
-    height: 44px;
-    border-right: 21px solid #c90c0f;
-    border-left: 22px solid #c90c0f;
-    border-bottom: 12px solid transparent;
-}
-
 .barra_categoria {
     position: absolute;
     left: 0px;
@@ -879,42 +863,6 @@ button.btn.btn-primary {
     width: 288px;
     height: 40px;
     background-color: #5bc266;
-}
-
-p.categoria_card {
-    font-family: 'Roboto';
-    color: white;
-    font-size: 15px;
-    font-weight: 700;
-    margin-left: -17px;
-    margin-top: 5px;
-    width: 40px;
-    text-align: left;
-    position: initial;
-}
-
-p.categoria_card-aberto {
-    font-family: 'Roboto';
-    color: white;
-    font-size: 15px;
-    font-weight: 700;
-    margin-left: -5px;
-    margin-top: 5px;
-    width: 40px;
-    text-align: left;
-    position: initial;
-}
-
-p.categoria_card-caid {
-    font-family: 'Roboto';
-    color: white;
-    font-size: 15px;
-    font-weight: 700;
-    margin-left: -17px;
-    margin-top: 5px;
-    width: 40px;
-    text-align: left;
-    position: initial;
 }
 
 .card-destaque {
