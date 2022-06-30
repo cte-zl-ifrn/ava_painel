@@ -146,6 +146,10 @@ main {
     min-height: auto;
 }
 
+.hide_this {
+    display: none;
+}
+
 main>div {
     max-width: 1243px;
     height: 100%;

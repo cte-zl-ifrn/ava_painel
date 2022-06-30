@@ -1,7 +1,8 @@
-{% extends 'portal/layouts/base.html' %}
+{% extends "portal/layouts/base.html" %}
 {% load static %}
 
 {% block extra_script %}
+    <script src="//cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="importmap">
         {
             "imports": {
@@ -11,22 +12,22 @@
     </script>
 
     <script type="module">
-        import { createApp } from 'vue'
-        import ava_dashboard from '{% static "dashboard/js/app.js" %}'
+        import { createApp } from "vue"
+        import ava_dashboard from "{% static "dashboard/js/app.js" %}"
 
-        createApp(ava_dashboard).mount('#app')
+        createApp(ava_dashboard).mount("#app")
     </script>
 {% endblock extra_script %}
 
 {% block main %}
     <main>
-        <div id="app">
+        <div id="app" class="hide_this">
             <section>
-                <div id='grid-header'>
+                <div id="grid-header">
                     <h1>Minhas disciplinas</h1>
                     <div>Clique nas disciplinas abaixo para saber mais detalhes.</div>
                 </div>
-                <div id='grid-filter'>
+                <div id="grid-filter">
                     <div>
                         <select id="">
                             <option selected>TODAS DISCIPLINAS</option>
@@ -53,7 +54,7 @@
                         </select>
                     </div>
                 </div>
-                <div id='course-cards'>
+                <div id="course-cards">
                     <div v-for="card in cards" class="course-card">
                         <div class="course-wrapper">
                             <div class="icon_ambiente">
@@ -84,9 +85,9 @@
                 </div>
             </section>
             <aside>
-                <div id='detalhes-header'>
-                    <h2>Detalhes</h2>
-                    <div v-if="!destaque" class="dt-text">Mais detalhes sobre a disciplina abaixo:</div>
+                <div id="detalhes-header">
+                    <h1>Detalhes</h1>
+                    <div v-if="!destaque">Aqui aparecerão os detalhes da disciplina que você selecionar na grade ao lado.</div>
                     <div v-if=destaque>
                         <p class="dt-text">Mais detalhes sobre a disciplina abaixo:</p>
                         <p class="ambiente_titulo">[[ destaque.ambiente.titulo ]]</p>
