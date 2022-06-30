@@ -9,15 +9,21 @@
 }
 
 body {
-    min-height: 100vh;
+    min-height: 100%;
     background: #f2f3f5 !important;
     color: #565656;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-weight: 700;
     margin-bottom: 10px;
 }
+
 
 /* ===== RESET: END ===== */
 
@@ -84,7 +90,9 @@ ul.menu-principal {
     margin-top: 23px;
 }
 
-.header-user a, .header-user a:hover, .header-user a:active {
+.header-user a,
+.header-user a:hover,
+.header-user a:active {
     text-decoration: none;
     color: #fff;
 }
@@ -98,64 +106,120 @@ ul.menu-principal {
     margin-left: 11px;
 }
 
+a.page-scroll.area_aluno {
+    color: #5bc266;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+a.page-scroll.barra {
+    cursor: default;
+    font-size: 21px;
+}
+
+a.page-scroll {
+    font-size: 13px;
+    color: #565656;
+    font-weight: 500;
+    text-decoration: none;
+    word-spacing: 2px;
+    margin: 6px;
+}
+
+#grid-header>h1 {
+    font-size: 32px;
+}
+
+#grid-header>div {
+    font-size: 14px;
+    padding-bottom: 10px;
+}
+
+
 /* ===== HEADER: END ===== */
 
 
 /* ===== MAIN: BEGIN ===== */
+
 main {
     text-align: center;
+    min-height: auto;
 }
 
-main > div {
+main>div {
     max-width: 1243px;
+    height: 100%;
     margin: 0 auto;
     display: grid;
-    color: #565656;;
-    grid-template-rows: 90px 100px 200px 60px;
-    grid-template-columns: 250px repeat(3, 1fr) 250px;
+    color: #565656;
+    /* grid-template-rows: 90px 100px 200px 60px; */
+    grid-template-columns: 280px repeat(3, 1fr) 280px;
     grid-gap: 14px;
+    grid-template-areas: "a a a a b" "a a a a b" "a a a a b";
+    min-height: auto;
 }
 
-main > div > section {
+main>div>section {
     grid-column: 1/5;
+    margin-top: 20px;
 }
 
-main > div > aside {
+main>div>aside {
     grid-column: 5/5;
+    grid-area: b;
+    background-color: #efefef;
 }
+
 
 /* ===== MAIN - GRID: BEGIN ===== */
+
 #grid-header {
     border-bottom: 2px #438f4b solid;
     margin: 0 20px;
 }
 
 #grid-filter {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 10px;
 }
 
-#grid-filter > div {
-  overflow: hidden;
-  justify-content: flex-start;
-  display: flex;
-  margin: 10px;
-  border: 1px #363940 solid;
+#grid-filter>div {
+    overflow: hidden;
+    justify-content: flex-start;
+    display: flex;
+    margin: 8px;
+    border: 1px #dfd7d7 solid;
+    max-width: 297px;
+    ;
 }
 
-#grid-filter > div > select {
+#grid-filter>div>select {
     width: 100%;
+    font-style: normal;
+    font-weight: 200;
+    font-size: 16px;
+    line-height: 22px;
+    color: #565656;
+    text-align: left;
+    border: 1px #f3f3f3 solid;
+    background-color: #fff;
+    padding: 0.25em 0.5em;
+    background-image: linear-gradient(to top, #f9f9f9, #fff 33%)
 }
-  
+
+
 /* ===== MAIN - GRID: END ===== */
 
+
 /* ===== MAIN - CARD: BEGIN ===== */
+
 #course-cards {
     display: grid;
     grid-template-columns: auto auto auto;
     /* background-color: #2196F3; */
     padding: 10px;
+    grid-area: a;
 }
 
 .course-card {
@@ -169,6 +233,7 @@ main > div > aside {
     flex-direction: column;
     flex: auto;
     background-color: rgba(255, 255, 255, 0.8);
+    border: 1px #dddddd solid;
     font-size: 30px;
     text-align: center;
     margin: 10px;
@@ -202,6 +267,7 @@ main > div > aside {
     background-color: #5BC266 !important;
 }
 
+
 /* .progress-bar.bg-success.aberto {
     background-color: #a154d0 !important;
 }
@@ -226,6 +292,7 @@ main > div > aside {
     margin-top: 0px;
     border-radius: 100% !important;
 }
+
 
 /* .porcentagem-aberto {
     position: absolute;
@@ -270,7 +337,7 @@ main > div > aside {
     color: #9ca6a9;
     text-align-last: auto;
     text-align: left;
-    margin-left: -1px;
+    margin-left: -6px;
     font-size: 15px;
     margin-top: -10px;
     margin-bottom: 4px;
@@ -285,6 +352,7 @@ main > div > aside {
     line-height: 22px;
     color: #565656;
     text-align: left;
+    margin-bottom: 1.2rem !important;
 }
 
 .card-footer {
@@ -308,11 +376,113 @@ main > div > aside {
     padding: 0px 2px 0px 3px;
 }
 
+a.btn.btn-primary {
+    border-radius: 0px;
+    font-size: 0.8rem;
+    background-color: #327FDA;
+    border-color: #327FDA;
+    padding: 0.375rem 1.75rem;
+}
+
+button.btn.btn-secondary {
+    border-radius: 0px;
+    font-size: 0.8rem;
+    background-color: #808080;
+    border-color: #808080;
+    padding: 0.375rem 1.75rem;
+}
+
+
 /* ===== MAIN - CARD: END ===== */
 
-/* ===== MAIN - DETAIL: BEGIN ===== */
 
-/* ===== MAIN - DEATIL: END ===== */
+/* ===== MAIN - ASIDES - DETAIL: BEGIN ===== */
+
+div#detalhes-header {
+    padding-top: 30px;
+}
+
+#detalhes-header>div {
+    font-size: 13px;
+    /* border-bottom: 2px #438f4b solid; */
+    padding-bottom: 10px;
+    padding-top: 4px;
+}
+
+#detalhes-header>h2 {
+    font-size: 22px;
+}
+
+div.dt-text,
+p.dt-text {
+    padding-bottom: 9px;
+    border-bottom: 2px #438f4b solid;
+}
+
+p.ambiente_titulo {
+    font-size: 20px;
+    margin-bottom: 0px;
+    background-color: #5bc266;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+}
+
+img.img-fluid {
+    padding-bottom: 20px;
+}
+
+a.btn.btn-primary.destaque {
+    max-width: 200px;
+    text-align: center;
+    transform: translate(20%, 0%);
+}
+
+
+/* ===== MAIN - ASIDES -  DEATIL: END ===== */
+
+
+/* ===== MAIN - ASIDES - INFOR: BEGIN ===== */
+
+ul#informativos {
+    margin-top: 30px;
+}
+
+#detalhes-header>div>h2 {
+    padding-top: 30px;
+    font-size: 22px;
+    border-bottom: 2px #438f4b solid;
+    height: 62px;
+}
+
+ul#informativos>li {
+    text-align: justify;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+ul#informativos>li>a {
+    font-size: 14px;
+    text-decoration: none;
+    color: #5b5656;
+}
+
+
+/* ===== MAIN - ASIDES -  INFOR: END ===== */
+
+
+/* ===== MAIN - ASIDES - EVENT: BEGIN ===== */
+
+p.evento {
+    font-size: 22px;
+    margin-top: 30px;
+    border-bottom: 2px #438f4b solid;
+    margin-bottom: 25px;
+}
+
+
+/* ===== MAIN - ASIDES -  EVENT: END ===== */
+
 
 /*
 p.titulo-curso {
@@ -395,7 +565,10 @@ select.form-select.andamento {
 }
 */
 
+
 /* ===== */
+
+
 /*
 select.form-select {
     width: 290px;
@@ -491,7 +664,10 @@ p.copyright {
 }
 */
 
+
 /* ===== Periodos ===== */
+
+
 /*
 .btn-group {
     font-family: 'Roboto';
@@ -557,10 +733,13 @@ a.btn.btn-blank {
 }
 */
 
+
 /* ===== END Periodos ===== */
 
 
 /* Cards - Grid */
+
+
 /*
 .grid-container-cards {
     display: grid;
@@ -781,10 +960,13 @@ p
 }
 */
 
+
 /* End - Cards - Grid */
 
 
 /* ===== Card Detalhes ===== */
+
+
 /*
 .card-detalhes {
     padding-top: 85px;
@@ -829,10 +1011,13 @@ p.categoria_card.detalhes {
 }
 */
 
+
 /* ===== End Card Detalhes ===== */
 
 
 /* ===== Eventos ========= */
+
+
 /*
 .eventos {
     display: grid;
@@ -844,10 +1029,13 @@ p.categoria_card.detalhes {
 }
 */
 
+
 /* ===== END Eventos ===== */
 
 
 /* ===== Últimos Eventos ========= */
+
+
 /*
 .ultimos-eventos {
     display: grid;
@@ -859,9 +1047,12 @@ p.categoria_card.detalhes {
 }
 */
 
+
 /* ===== END Últimos Eventos ===== */
 
+
 /* ===== FOOTER: BEGIN ===== */
+
 footer {
     background-color: #363940;
     height: 66px;
@@ -875,5 +1066,8 @@ footer p {
     max-width: 1243px;
     text-align: center;
     line-height: 66px;
+    font-size: 14px;
 }
+
+
 /* ===== FOOTER: END ===== */

@@ -28,22 +28,21 @@
                 </div>
                 <div id='grid-filter'>
                     <div>
-                        a
-                        {% comment %} <select>
-                            <option>Curso com um nome grande para caramba para ter certeza de que nós sabemos controlar o limite</option>
-                            <option>Temos que ativar o auto-complete</option>
-                        </select> {% endcomment %}
+                        <select id="">
+                            <option selected>TODAS DISCIPLINAS</option>
+                            <option value="1">Temos que ativar o auto-complete</option>
+                            <option value="2">Curso com um nome grande para caramba para ter certeza de que nós sabemos controlar o limite</option>
+                            <option value="3">Outro curso</option>
+                        </select>
                     </div>
                     <div>
-                        b
-                        {% comment %} <select>
+                        <select id="">
                             <option>Em andamento</option>
                             <option>Concluído</option>
-                        </select> {% endcomment %}
+                        </select>
                     </div>
                     <div>
-                        c
-                        {% comment %} <select>
+                         <select id="">
                             <option>2022.1</option>
                             <option>2021.2</option>
                             <option>2021.1</option>
@@ -51,7 +50,7 @@
                             <option>2020.1</option>
                             <option>2019.2</option>
                             <option>2019.1</option>
-                        </select> {% endcomment %}
+                        </select>
                     </div>
                 </div>
                 <div id='course-cards'>
@@ -86,21 +85,21 @@
             </section>
             <aside>
                 <div id='detalhes-header'>
-                    <h1>Detalhes</h1>
-                    <div v-if="!destaque">Aqui aparecerão os detalhes da disciplina que você selecionar na grade ao lado.</div>
+                    <h2>Detalhes</h2>
+                    <div v-if="!destaque" class="dt-text">Mais detalhes sobre a disciplina abaixo:</div>
                     <div v-if=destaque>
-                        <p>Mais detalhes sobre a disciplina abaixo:</p>
-                        <h3>[[ destaque.ambiente.titulo ]]</h3>
+                        <p class="dt-text">Mais detalhes sobre a disciplina abaixo:</p>
+                        <p class="ambiente_titulo">[[ destaque.ambiente.titulo ]]</p>
                         <img class="img-fluid" alt="imagem representativa do curso" v-bind:src="[[ destaque.diario.thumbnail ]]">
                         <p class="card-diario">[[ destaque.diario.codigo ]]</p>
                         <p class="card-title">[[ destaque.diario.titulo ]]</p>
-                        <a class="btn btn-primary" v-bind:href="[[ destaque.diario.url ]]">ACESSAR</a>
+                        <a class="btn btn-primary destaque" v-bind:href="[[ destaque.diario.url ]]">ACESSAR O CURSO</a>
                         <div v-if=destaque.diario.eventos>
-                            <h2>Eventos do curso</h2>
+                            <p class="evento">Eventos do curso</p>
                             <p>Não foi possível obter neste instante. [[]]</p>
                         </div>
                     </div>
-                    <div v-if=informativos>
+                    <div v-if=informativos class="informativos">
                         <h2>Últimos informativos</h2>
                         <ul  v-for="informativo in informativos" id="informativos">
                             <li>
