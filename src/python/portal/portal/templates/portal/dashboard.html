@@ -82,9 +82,9 @@
                     <div v-if=destaque>
                         <p class="dt-text">Mais detalhes sobre a disciplina que você escolheu:</p>
                         <p class="ambiente_titulo" v-bind:class="destaque.ambiente.classe">[[ destaque.ambiente.titulo ]]</p>
-                        <img class="img-fluid" alt="imagem representativa do curso" v-bind:src="[[ destaque.diario.thumbnail ]]">
-                        <p class="card-diario">[[ destaque.diario.codigo ]]</p>
-                        <p class="card-title">[[ destaque.diario.titulo ]]</p>
+                        <img class="img-fluid destaque" alt="imagem representativa do curso" v-bind:src="[[ destaque.diario.thumbnail ]]">
+                        <p class="card-diario destaque">[[ destaque.diario.codigo ]]</p>
+                        <p class="card-title destaque">[[ destaque.diario.titulo ]]</p>
                         <a class="btn btn-primary destaque" v-bind:href="[[ destaque.diario.url ]]">ACESSAR O CURSO</a>
                         <p class="evento">Eventos do curso</p>
                         <div v-if="!destaque.diario.eventos">

@@ -165,7 +165,7 @@ main>div {
 
 main>div>section {
     grid-column: 1/5;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
 main>div>aside {
@@ -237,11 +237,12 @@ main>div>aside {
     flex-direction: column;
     flex: auto;
     background-color: rgba(255, 255, 255, 0.8);
-    border: 1px #dddddd solid;
+    border: 1px #efefef solid;
     font-size: 30px;
     text-align: center;
     margin: 10px;
     position: relative;
+    box-shadow: 0 9px 30px 0 rgb(0 0 0 / 10%);
 }
 
 .icon_ambiente {
@@ -369,7 +370,7 @@ button.btn.btn-secondary {
 /* ===== MAIN - ASIDES - DETAIL: BEGIN ===== */
 
 div#detalhes-header {
-    padding-top: 30px;
+    padding-top: 50px;
 }
 
 #detalhes-header>div {
@@ -379,6 +380,12 @@ div#detalhes-header {
     padding-top: 4px;
 }
 
+div#detalhes-header>h1 {
+    font-size: 22px;
+    height: 68px;
+    border-bottom: 2px #438f4b solid;
+}
+
 #detalhes-header>h2 {
     font-size: 22px;
 }
@@ -386,7 +393,7 @@ div#detalhes-header {
 div.dt-text,
 p.dt-text {
     padding-bottom: 9px;
-    border-bottom: 2px #438f4b solid;
+    /* border-bottom: 2px #438f4b solid; */
 }
 
 .ambiente_titulo {
@@ -399,13 +406,29 @@ p.dt-text {
 }
 
 img.img-fluid {
-    padding-bottom: 20px;
+    padding-bottom: 0px;
+    /* max-width: 288px; */
+    max-height: 140px;
 }
 
 a.btn.btn-primary.destaque {
     max-width: 200px;
     text-align: center;
     transform: translate(20%, 0%);
+}
+
+p.card-diario.destaque {
+    margin-left: -1px;
+    margin-top: 12px;
+}
+
+img.img-fluid.destaque {
+    width: 280px;
+    max-height: 140px;
+}
+
+p.card-title.destaque {
+    margin-left: -1px;
 }
 
 
@@ -416,6 +439,7 @@ a.btn.btn-primary.destaque {
 
 ul#informativos {
     margin-top: 30px;
+    padding: 0px 10px 0px 10px;
 }
 
 #detalhes-header>div>h2 {
@@ -428,7 +452,8 @@ ul#informativos {
 ul#informativos>li {
     text-align: justify;
     font-size: 13px;
-    text-decoration: none;
+    text-decoration: underline;
+    list-style-type: none;
 }
 
 ul#informativos>li>a {
