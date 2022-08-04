@@ -212,6 +212,13 @@ main>div>aside {
     background-image: linear-gradient(to top, #f9f9f9, #fff 33%)
 }
 
+div#grid-filter > h4 {
+    font-size: 14px;
+    height: 20px;
+    margin-left: 10px;
+    margin-bottom: -5px;
+}
+
 
 /* ===== MAIN - GRID: END ===== */
 
