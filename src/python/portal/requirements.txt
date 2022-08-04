@@ -1,5 +1,5 @@
 # Core
-django==4.0.5
+django==4.0.7
 
 # My
 sc4py==0.1.4
@@ -12,10 +12,11 @@ django-better-choices==1.17
 requests==2.28.1
 django-rest-swagger==2.2.0
 PyYAML==6.0
+# 3.4.1
 markdown==3.3.7
 djangorestframework==3.13.1
 django-filter==22.1
-django-ninja==0.19.0
+django-ninja==0.19.1
 
 # Auth
 # django-python3-ldap==0.13.1
@@ -43,17 +44,19 @@ django-markdownx==3.0.1
 
 # Devel
 django-model-documentation==0.8.0
+# 3.2.0
 django-extensions==3.1.5
 django-debug-toolbar==3.5.0
 ipython==8.4.0
-Werkzeug==2.0.3
+# 2.2.0
+Werkzeug==2.2.1
 ipdb==0.13.9
-pudb==2022.1.1
-djlint==1.2.1
+pudb==2022.1.2
+djlint==1.9.4
 
 
 # Production
-sentry-sdk==1.6.0
+sentry-sdk==1.9.0
 gunicorn==20.1.0
 supervisor==4.2.4
 
@@ -61,4 +64,5 @@ supervisor==4.2.4
 psycopg2-binary==2.9.3
 
 # Image
+# 9.2.0
 pillow==9.1.1
