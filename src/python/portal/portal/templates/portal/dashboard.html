@@ -27,19 +27,23 @@
                     <h1>Minhas disciplinas</h1>
                     <div>Clique nas disciplinas abaixo para saber mais detalhes.</div>
                 </div>
+
                 <div id="grid-filter">
+                    <h4>Todos os Cursos</h4>
+                    <h4>Status do curso</h4>
+                    <h4>Semestre</h4>
                     <div>
                         <select name="disciplina_id" id="disciplina_id" @change="filterCards($event)">
-                            <option selected>TODAS DISCIPLINAS</option>
+                            <option selected>Todos as Cursos</option>
                             <option v-for="row in disciplinas" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
-                    <div>
+                    <div>                       
                         <select name="status_id" id="status_id" @change="filterCards($event)">
                             <option v-for="row in statuses" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
-                    <div>
+                    <div>            
                         <select name="competencia_id" id="competencia_id" @change="filterCards($event)">
                             <option v-for="row in competencias" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
