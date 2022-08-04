@@ -2,7 +2,7 @@
 source _/functions
 
 # _/proxy/restart
-# _/cache/restart
+_/cache/restart
 _/portaldb/restart
 _/fakedb/restart
 _/avazldb/restart

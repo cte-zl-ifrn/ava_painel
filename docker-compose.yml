@@ -18,19 +18,19 @@ services:
   #     retries: 3
   #     start_period: 10s
 
-  # cache:
-  #   image: redis:7.0.0
-  #   restart: always
-  #   env_file:
-  #     - ./confs/enabled/cache.env
-  #   volumes:
-  #     - "./volumes/cache_data:/data"
-  #   healthcheck:
-  #     test: ["CMD", "redis-cli", "ping"]      
-  #     interval: 3s
-  #     timeout: 3s
-  #     retries: 3
-  #     start_period: 10s
+  cache2:
+    image: redis:7.0.2-alpine
+    restart: always
+    env_file:
+      - ./confs/enabled/cache.env
+    volumes:
+      - "./volumes/cache_data:/data"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]      
+      interval: 3s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
 
   fakedb:
     image: postgres:14.3-alpine
