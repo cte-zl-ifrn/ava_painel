@@ -49,7 +49,7 @@ django-extensions==3.1.5
 django-debug-toolbar==3.5.0
 ipython==8.4.0
 # 2.2.0
-Werkzeug==2.2.1
+Werkzeug==2.0.3
 ipdb==0.13.9
 pudb==2022.1.2
 djlint==1.9.4
