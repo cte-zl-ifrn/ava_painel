@@ -10,6 +10,7 @@ admin.site.site_title = 'SUAP Fake'
 urlpatterns = [
     path('admin/login/', RedirectView.as_view(url='/login/')),
     path('admin/', admin.site.urls),
+    path('health/', include('health.urls')),
     path('', include('suapfake.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
     static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

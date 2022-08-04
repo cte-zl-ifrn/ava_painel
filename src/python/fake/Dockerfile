@@ -2,6 +2,8 @@ FROM python:3.10.4-slim-bullseye
 
 ENV PYTHONUNBUFFERED 1
 
+RUN apt update && apt -y install curl 
+
 ADD requirements.txt /
 
 RUN pip install --upgrade pip && \
