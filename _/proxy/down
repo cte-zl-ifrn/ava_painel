@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-source _/functions
-
-docker stop ${COMPOSE_PROJECT_NAME}_${SERVICE_NAME}_1 && \
-docker rm ${COMPOSE_PROJECT_NAME}_${SERVICE_NAME}_1

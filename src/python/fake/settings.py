@@ -42,6 +42,7 @@ logging.config.dictConfig({
 
 # Apps
 MY_APPS = env_as_list('MY_APPS', [
+    'health',
     'suapfake',
 ])
 THIRD_APPS = env_as_list('THIRD_APPS', [

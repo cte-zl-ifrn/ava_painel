@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-source _/functions
-
-docker-compose exec $SERVICE_NAME $@
