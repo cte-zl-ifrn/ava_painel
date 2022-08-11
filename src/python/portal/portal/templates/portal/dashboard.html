@@ -3,16 +3,8 @@
 
 {% block extra_script %}
     <script src="//cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script type="importmap">
-        {
-            "imports": {
-                "vue": "//unpkg.com/vue@3/dist/vue.esm-browser.prod.js"
-            }
-        }
-    </script>
-
     <script type="module">
-        import { createApp } from "vue"
+        import { createApp } from "//unpkg.com/vue@3/dist/vue.esm-browser.prod.js"
         import ava_dashboard from "{% static "dashboard/js/app.js" %}"
 
         createApp(ava_dashboard).mount("#app")
