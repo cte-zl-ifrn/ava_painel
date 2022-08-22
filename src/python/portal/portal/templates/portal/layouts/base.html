@@ -32,7 +32,11 @@
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css" />
     <link href="//cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
     {% block extra_style %}{% endblock extra_style %}
+
+    <script src="{% static 'dashboard/js/jquery-3.6.0.min.js' %}"></script>
     {% block extra_script %}{% endblock extra_script %}
 </head>
 
@@ -40,6 +44,13 @@
     {% block header %}{% include 'portal/partials/header.html' %}{% endblock header %}
     {% block main %}{% endblock main %}
     {% block footer %}{% include 'portal/partials/footer.html' %}{% endblock footer %}
-    {% block endbody_script %}{% endblock endbody_script %}
+
+    {% block endbody_script %}
+         <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script> 
+
+         <script src="{% static 'dashboard/js/main.js' %}"></script> 
+    {% endblock endbody_script %}
+
+    
 </body>
 </html>

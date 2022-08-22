@@ -9,12 +9,12 @@ export default {
             status: [],
             competencias: [],
             informativos: [],
-            cards: []
+            cards: [],
         }
     },
     mounted() {
         axios.get('/portal/api/v1/diarios/').then(response => {
-            console.log(response.data)
+            console.log(response.data);
             this.disciplinas = response.data.disciplinas;
             this.statuses = response.data.statuses;
             this.competencias = response.data.competencias;
@@ -34,6 +34,7 @@ export default {
             return new Intl.DateTimeFormat('default', { dateStyle: 'long' }).format(date);
         },
         filterCards: function(a, b, c) {
+            console.log(a, b, c);
             axios.get(
                 '/portal/api/v1/diarios/', {
                     params: {
@@ -43,7 +44,7 @@ export default {
                     }
                 }
             ).then(response => {
-                console.log(response.data)
+                console.log(response.data);
                 this.disciplinas = response.data.disciplinas;
                 this.statuses = response.data.statuses;
                 this.competencias = response.data.competencias;
