@@ -10,7 +10,7 @@ class Grupo(Group):
 
 class Usuario(AbstractUser):
     class Tipo(Choices):
-        INCERTO    = Choices.Value(_("Incerto"),    value='I', is_servidor=True,  is_colaborador=True,  username_length=0)
+        INCERTO    = Choices.Value(_("Incerto"),    value='I', is_servidor=False, is_colaborador=False, username_length=0)
         SERVIDOR   = Choices.Value(_("Servidor"),   value='S', is_servidor=True,  is_colaborador=True,  username_length=7)
         TECNICO    = Choices.Value(_("Técnico"),    value='T', is_servidor=True,  is_colaborador=True,  username_length=7)
         DOCENTE    = Choices.Value(_("Docente"),    value='D', is_servidor=True,  is_colaborador=True,  username_length=7)
