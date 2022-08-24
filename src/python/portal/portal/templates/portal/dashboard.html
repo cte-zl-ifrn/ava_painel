@@ -3,20 +3,14 @@
 
 {% block extra_script %}
     <script src="//cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script type="importmap">
-        {
-            "imports": {
-                "vue": "//unpkg.com/vue@3/dist/vue.esm-browser.prod.js"
-            }
-        }
-    </script>
-
+    <script src="//unpkg.com/vue@3.2.37/dist/vue.global.prod.js"></script>
+    <script src="{% static 'nodejs/node_modules/vue-bootstrap-typeahead/dist/VueBootstrapTypeahead.umd.js' %}"></script>
     <script type="module">
-        import { createApp } from "vue"
-        import ava_dashboard from "{% static "dashboard/js/app.js" %}"
+        import ava_dashboard from "{% static 'dashboard/js/app.js' %}";
 
-        createApp(ava_dashboard).mount("#app")
-    </script>
+        Vue.createApp(ava_dashboard).mount("#app");
+        Vue.defineComponent('vue-bootstrap-typeahead', VueBootstrapTypeahead);
+    </script>    
 {% endblock extra_script %}
 
 {% block main %}
@@ -34,7 +28,7 @@
                     <h4>Semestre</h4>
                     <div>
                         <select name="disciplina_id" id="disciplina_id" @change="filterCards($event)">
-                            <option selected>Todos os cursos</option>
+                            <option selected value="">Todos os cursos</option>
                             <option v-for="row in disciplinas" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
@@ -119,3 +113,6 @@
         </div>
     </main>
 {% endblock main %}
+
+
+

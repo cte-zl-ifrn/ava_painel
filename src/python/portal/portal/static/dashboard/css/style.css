@@ -193,7 +193,7 @@ main>div>aside {
     justify-content: flex-start;
     display: flex;
     margin: 8px;
-    border: 1px #dfd7d7 solid;
+    /* border: 1px #dfd7d7 solid; */
     max-width: 297px;
     ;
 }
