@@ -105,10 +105,7 @@ services:
       start_period: 10s
 
   avazlapp:
-    # image: moodlehq/moodle-php-apache:8.1-bullseye # not for production
-    # image: moodlehq/moodle-php-apache:7.4-bullseye
-    image: 'ifrn/mooodle:3.11.7'
-    build: src/php
+    image: 'ctezlifrn/moodle:4.0.3-php8.0-001'
     restart: always
     ports:
       - '8011:80'
@@ -146,10 +143,7 @@ services:
       start_period: 10s
 
   avapresencialapp:
-    # image: moodlehq/moodle-php-apache:8.1-bullseye # not for production
-    # image: moodlehq/moodle-php-apache:7.4-bullseye
-    image: 'ifrn/mooodle:3.11.7'
-    build: src/php
+    image: 'ctezlifrn/moodle:4.0.3-php8.0-001'
     restart: always
     ports:
       - '8021:80'
