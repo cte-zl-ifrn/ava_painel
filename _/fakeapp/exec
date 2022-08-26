@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 source _/functions
 
-if [[ `docker container ls | grep ${COMPOSE_PROJECT_NAME}_${SERVICE_NAME}_1` ]]; then 
-  docker-compose exec $SERVICE_NAME $@
+if [[ `docker container ls | grep ${COMPOSE_PROJECT_NAME}-${SERVICE_NAME}-1` ]]; then 
+  docker compose exec $SERVICE_NAME $@
 else
   echo_info "O serviço não está em execução"
 fi

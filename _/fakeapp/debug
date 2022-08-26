@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 source _/functions
 
-docker-compose run --rm --service-ports $SERVICE_NAME python manage.py runserver_plus 0.0.0.0:8000 $@
+docker compose run --rm --service-ports $SERVICE_NAME python manage.py runserver_plus 0.0.0.0:8000 $@

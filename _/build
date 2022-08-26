@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 source _/functions
 
-docker-compose build $@
+docker compose build $@

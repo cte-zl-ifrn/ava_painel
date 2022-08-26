@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 source _/functions
 
-docker-compose logs -f $@ $SERVICE_NAME
+docker compose logs -f $@ $SERVICE_NAME

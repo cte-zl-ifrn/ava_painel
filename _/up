@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 source _/functions
 
-docker-compose up $@
+docker compose up $@
 
