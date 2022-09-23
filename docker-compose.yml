@@ -47,12 +47,12 @@ services:
     depends_on:
       fakedb:
         condition: service_healthy
-  #   healthcheck:
-  #     test: ["CMD-SHELL", "curl --silent --fail http://fakeapp:8000/health/ | grep 'Database: OK' || exit 1"]
-  #     interval: 3s
-  #     timeout: 1s
-  #     start_period: 1s
-  #     retries: 30
+      #   healthcheck:
+      #     test: ["CMD-SHELL", "curl --silent --fail http://fakeapp:8000/health/ | grep 'Database: OK' || exit 1"]
+      #     interval: 3s
+      #     timeout: 1s
+      #     start_period: 1s
+      #     retries: 30
 
   portaldb:
     image: postgres:14.3-alpine
@@ -87,12 +87,12 @@ services:
         condition: service_healthy
       portaldb:
         condition: service_healthy
-  #   healthcheck:
-  #     test: ["CMD-SHELL", "curl --silent --fail http://portalapp:8000/health/ | grep 'Database: OK' || exit 1"]
-  #     interval: 3s
-  #     timeout: 1s
-  #     start_period: 1s
-  #     retries: 30
+      #   healthcheck:
+      #     test: ["CMD-SHELL", "curl --silent --fail http://portalapp:8000/health/ | grep 'Database: OK' || exit 1"]
+      #     interval: 3s
+      #     timeout: 1s
+      #     start_period: 1s
+      #     retries: 30
 
   avazldb:
     image: postgres:14.3-alpine
@@ -126,13 +126,12 @@ services:
     depends_on:
       avazldb:
         condition: service_healthy
-
-    # healthcheck:
-    #   test: ["CMD-SHELL", "curl --silent --fail http://avazlapp:80/ | grep AVA_do_Zona_Leste || exit 1"]
-    #   interval: 3s
-    #   timeout: 1s
-    #   start_period: 1s
-    #   retries: 30
+      # healthcheck:
+      #   test: ["CMD-SHELL", "curl --silent --fail http://avazlapp:80/ | grep AVA_do_Zona_Leste || exit 1"]
+      #   interval: 3s
+      #   timeout: 1s
+      #   start_period: 1s
+      #   retries: 30
 
   avapresencialdb:
     image: postgres:14.3-alpine
@@ -165,9 +164,9 @@ services:
     depends_on:
       avapresencialdb:
         condition: service_healthy
-    # healthcheck:
-    #   test: ["CMD-SHELL", "curl --silent --fail http://avapresencialapp:80/ | grep AVA_do_Presencial || exit 1"]
-    #   interval: 3s
-    #   timeout: 1s
-    #   start_period: 1s
-    #   retries: 30
+      # healthcheck:
+      #   test: ["CMD-SHELL", "curl --silent --fail http://avapresencialapp:80/ | grep AVA_do_Presencial || exit 1"]
+      #   interval: 3s
+      #   timeout: 1s
+      #   start_period: 1s
+      #   retries: 30
