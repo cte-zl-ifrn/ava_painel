@@ -12,6 +12,16 @@ if [[ ! -d src/php/moodle__auth_suap ]]; then
     git clone https://github.com/cte-zl-ifrn/moodle__auth_suap.git src/php/moodle__auth_suap
 fi
 
+if [[ ! -d src/php/moodle__block_suapattendance ]]; then
+    echo ""; echo_info "Clonando o repositório do moodle__block_suapattendance"
+    git clone https://github.com/cte-zl-ifrn/moodle__block_suapattendance.git src/php/moodle__block_suapattendance
+fi
+
+if [[ ! -d src/php/moodle__local_suapsync ]]; then
+    echo ""; echo_info "Clonando o repositório do moodle__local_suapsync"
+    git clone https://github.com/cte-zl-ifrn/moodle__local_suapsync.git src/php/moodle__local_suapsync
+fi
+
 mkdir -p volumes/ava01_moodledata && chmod 777 volumes/ava01_moodledata
 mkdir -p volumes/ava02_moodledata && chmod 777 volumes/ava02_moodledata
 
