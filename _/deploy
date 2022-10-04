@@ -12,8 +12,8 @@ if [[ ! -d src/php/moodle__auth_suap ]]; then
     git clone https://github.com/cte-zl-ifrn/moodle__auth_suap.git src/php/moodle__auth_suap
 fi
 
-mkdir -p volumes/ava01_moodledata && chmod -R 777 volumes/ava01_moodledata
-mkdir -p volumes/ava02_moodledata && chmod -R 777 volumes/ava02_moodledata
+mkdir -p volumes/ava01_moodledata && chmod 777 volumes/ava01_moodledata
+mkdir -p volumes/ava02_moodledata && chmod 777 volumes/ava02_moodledata
 
 echo ""; echo_info "Sobe o cache e o db em background"
 _/backs
