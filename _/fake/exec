@@ -4,5 +4,5 @@ source _/functions
 if [[ `docker container ls | grep ${COMPOSE_PROJECT_NAME}-${SERVICE_NAME}-1` ]]; then 
   docker compose exec $SERVICE_NAME $@
 else
-  echo_info "O serviço não está em execução"
+  docker compose run --rm $SERVICE_NAME $@
 fi
