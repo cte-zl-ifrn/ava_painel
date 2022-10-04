@@ -16,15 +16,18 @@ services:
       retries: 3
       start_period: 10s
 
-  fakedb:
+  db:
     image: postgres:14.3-alpine
     restart: always
     env_file:
-      - ./confs/enabled/fakedb.env
+      - ./confs/enabled/db.env
     volumes:
+      # init settings, executed only on deploy
+      - "./src/postgres/:/docker-entrypoint-initdb.d"
+      # database data
       - "./volumes/fakedb_data:/var/lib/postgresql/data"
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "ava_user"]
+      test: ["CMD", "pg_isready", "-U", "ism_user"]
       interval: 3s
       timeout: 3s
       retries: 3
@@ -37,15 +40,15 @@ services:
     ports:
       - '8001:8000'
     env_file:
-      - ./confs/enabled/fakedb.env
-      - ./confs/enabled/fakeapp.env
+      - ./confs/enabled/db.env
       - ./confs/enabled/cache.env
+      - ./confs/enabled/fake.env
     volumes:
       - './src/python/fake:/apps/app'
       - './volumes/fakeapp_media:/var/media'
       - './volumes/fakeapp_static:/var/static'
     depends_on:
-      fakedb:
+      db:
         condition: service_healthy
       #   healthcheck:
       #     test: ["CMD-SHELL", "curl --silent --fail http://fakeapp:8000/health/ | grep 'Database: OK' || exit 1"]
@@ -54,30 +57,16 @@ services:
       #     start_period: 1s
       #     retries: 30
 
-  portaldb:
-    image: postgres:14.3-alpine
-    restart: always
-    env_file:
-      - ./confs/enabled/portaldb.env
-    volumes:
-      - "./volumes/portaldb_data:/var/lib/postgresql/data"
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "ava_user"]
-      interval: 3s
-      timeout: 3s
-      retries: 3
-      start_period: 10s
-
-  portalapp:
+  portal:
     image: 'ifrn/avaportal:1.0.12'
     build: src/python/portal
     restart: always
     ports:
       - '8000:8000'
     env_file:
-      - ./confs/enabled/portaldb.env
-      - ./confs/enabled/portalapp.env
+      - ./confs/enabled/db.env
       - ./confs/enabled/cache.env
+      - ./confs/enabled/portal.env
     volumes:
       - './src/python/portal:/apps/app'
       - './volumes/portalapp_media:/var/media'
@@ -85,7 +74,7 @@ services:
     depends_on:
       cache:
         condition: service_healthy
-      portaldb:
+      db:
         condition: service_healthy
       #   healthcheck:
       #     test: ["CMD-SHELL", "curl --silent --fail http://portalapp:8000/health/ | grep 'Database: OK' || exit 1"]
@@ -94,78 +83,51 @@ services:
       #     start_period: 1s
       #     retries: 30
 
-  avazldb:
-    image: postgres:14.3-alpine
-    restart: always
-    env_file:
-      - ./confs/enabled/avazldb.env
-    volumes:
-      - "./volumes/avazl_pgdata:/var/lib/postgresql/data"
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "ava_user"]
-      interval: 3s
-      timeout: 3s
-      retries: 3
-      start_period: 10s
-
-  avazlapp:
-    image: 'ctezlifrn/moodle:4.0.3-php8.0-002'
+  ava01:
+    image: 'ctezlifrn/moodle:4.0.4-php8.0-003'
     restart: always
     ports:
       - '8011:80'
     env_file:
-      - ./confs/enabled/avazldb.env
-      - ./confs/enabled/avazlapp.env
+      - ./confs/enabled/db.env
+      - ./confs/enabled/cache.env
+      - ./confs/enabled/ava01.env
     volumes:
       # Plugins
       # - './src/php/moodle-customfield_file:/var/www/html/customfield/field/file'
       - './src/php/moodle__auth_suap:/var/www/html/auth/suap'
-
       # Data
-      - './volumes/avazl_moodledata:/var/moodledata'
+      - './volumes/ava01_moodledata:/var/moodledata'
     depends_on:
-      avazldb:
+      db:
         condition: service_healthy
       # healthcheck:
-      #   test: ["CMD-SHELL", "curl --silent --fail http://avazlapp:80/ | grep AVA_do_Zona_Leste || exit 1"]
+      #   test: ["CMD-SHELL", "curl --silent --fail http://ava01:80/ | grep AVA_01 || exit 1"]
       #   interval: 3s
       #   timeout: 1s
       #   start_period: 1s
       #   retries: 30
 
-  avapresencialdb:
-    image: postgres:14.3-alpine
-    restart: always
-    env_file:
-      - ./confs/enabled/avapresencialdb.env
-    volumes:
-      - "./volumes/avapresencial_pgdata:/var/lib/postgresql/data"
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "ava_user"]
-      interval: 3s
-      timeout: 3s
-      retries: 3
-      start_period: 10s
-
-  avapresencialapp:
-    image: 'ctezlifrn/moodle:4.0.3-php8.0-002'
+  ava02:
+    image: 'ctezlifrn/moodle:4.0.4-php8.0-003'
     restart: always
     ports:
       - '8021:80'
     env_file:
-      - ./confs/enabled/avapresencialdb.env
-      - ./confs/enabled/avapresencialapp.env
+      - ./confs/enabled/db.env
+      - ./confs/enabled/cache.env
+      - ./confs/enabled/ava02.env
     volumes:
       # Plugins
       # - './src/php/moodle-customfield_file:/var/www/html/customfield/field/file'
 
       # Data
-      - './volumes/avapresencial_moodledata:/var/moodledata'
+      - './volumes/ava02_moodledata:/var/moodledata'
     depends_on:
-      avapresencialdb:
+      db:
         condition: service_healthy
       # healthcheck:
-      #   test: ["CMD-SHELL", "curl --silent --fail http://avapresencialapp:80/ | grep AVA_do_Presencial || exit 1"]
+      #   test: ["CMD-SHELL", "curl --silent --fail http://ava02:80/ | grep AVA_02 || exit 1"]
       #   interval: 3s
       #   timeout: 1s
       #   start_period: 1s

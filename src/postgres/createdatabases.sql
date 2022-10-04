@@ -1,0 +1,4 @@
+CREATE DATABASE fakedb;
+CREATE DATABASE portaldb;
+CREATE DATABASE avazldb;
+CREATE DATABASE avapresencialdb;
