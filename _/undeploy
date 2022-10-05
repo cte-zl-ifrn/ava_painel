@@ -10,3 +10,6 @@ _/down
 
 echo_info "Reset volumes"
 sudo rm -rf volumes
+
+mkdir -p volumes/ava01_moodledata && chmod 777 volumes/ava01_moodledata
+mkdir -p volumes/ava02_moodledata && chmod 777 volumes/ava02_moodledata
