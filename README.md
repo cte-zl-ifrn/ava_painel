@@ -46,6 +46,10 @@ _/portalapp/debug
 ```
 
 
+## Screenshot
+
+![screenshot](screenshot.png)
+
 ## Tipo de commits
 
 - `feat:` novas funcionalidades.
