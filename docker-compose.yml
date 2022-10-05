@@ -84,7 +84,7 @@ services:
       #     retries: 30
 
   ava01:
-    image: 'ctezlifrn/moodle:4.0.4-php8.0-004'
+    image: 'ctezlifrn/moodle:4.0.4-php8.0-005'
     restart: always
     ports:
       - '8011:80'
@@ -94,9 +94,8 @@ services:
       - ./confs/enabled/ava01.env
     volumes:
       # Plugins
-      # - './src/php/moodle-customfield_file:/var/www/html/customfield/field/file'
-      - './src/php/moodle__auth_suap:/var/www/html/auth/suap'
-      - './src/php/moodle__block_suapattendance:/var/www/html/blocks/suapattendance'
+      # - './src/php/moodle__auth_suap:/var/www/html/auth/suap'
+      # - './src/php/moodle__block_suapattendance:/var/www/html/blocks/suapattendance'
       - './src/php/moodle__local_suapsync:/var/www/html/local/suapsync'
       # Data
       - './volumes/ava01_moodledata:/var/moodledata'
@@ -111,7 +110,7 @@ services:
       #   retries: 30
 
   ava02:
-    image: 'ctezlifrn/moodle:4.0.4-php8.0-004'
+    image: 'ctezlifrn/moodle:4.0.4-php8.0-005'
     restart: always
     ports:
       - '8021:80'
@@ -121,7 +120,9 @@ services:
       - ./confs/enabled/ava02.env
     volumes:
       # Plugins
-      # - './src/php/moodle-customfield_file:/var/www/html/customfield/field/file'
+      # - './src/php/moodle__auth_suap:/var/www/html/auth/suap'
+      # - './src/php/moodle__block_suapattendance:/var/www/html/blocks/suapattendance'
+      # - './src/php/moodle__local_suapsync:/var/www/html/local/suapsync'
       # Data
       - './volumes/ava02_moodledata:/var/moodledata'
     depends_on:
