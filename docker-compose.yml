@@ -84,7 +84,7 @@ services:
       #     retries: 30
 
   ava01:
-    image: 'ctezlifrn/moodle:4.0.4-php8.0-005'
+    image: 'ctezlifrn/moodle:4.0.4-php8.0-006'
     restart: always
     ports:
       - '8011:80'
@@ -110,7 +110,7 @@ services:
       #   retries: 30
 
   ava02:
-    image: 'ctezlifrn/moodle:4.0.4-php8.0-005'
+    image: 'ctezlifrn/moodle:4.0.4-php8.0-006'
     restart: always
     ports:
       - '8021:80'
