@@ -50,6 +50,22 @@ _/portalapp/debug
 
 ![screenshot](screenshot.png)
 
+
+## Plugins previstos
+
+1. suap sync (local)
+   1. importar as inscrições (alunos e professores) dos diários
+   2. exportar as presenças dos alunos
+   3. exportar as notas dos alunos
+2. suap attendances (block)
+   1. configurar o modelo de cálculo de presenças
+   2. permitir que os professores visualizem as presenças
+   3. permitir que os alunos visualizem as presenças
+3. suap auth (auth)
+   1. autênticar usando o oauth do SUAP
+   2. auto inscrever os alunos ao fazer login
+
+
 ## Tipo de commits
 
 - `feat:` novas funcionalidades.
@@ -60,3 +76,4 @@ _/portalapp/debug
 - `doc:` documentação no código ou do repositório.
 - `env:` CI/CD ou settings.
 - `build:` build ou dependências.
+
