@@ -45,6 +45,21 @@ _/portalapp/down
 _/portalapp/debug
 ```
 
+## oAuth2 do SUAP
+
+O atributos retornados são:
+
+- `identificacao` - numérico - **é o IFid do usuário**, no caso: matrícula para alunos ou servidores e CPF para demais colaboradores
+- `nome` - alfanumérico - **nome completo do usuário**, para compatibilidade com APIs que não sabem tratar nome e sobrenome separados
+- `primeiro_nome` - alfanumérico - **primeiro nome do usuário**, para compatibilidade com APIs que não sabem tratar nome e sobrenome juntos
+- `ultimo_nome` - alfanumérico - **último nome do usuário**, para compatibilidade com APIs que não sabem tratar nome e sobrenome juntos
+- `campus` - alfanumérico - **sigla do campus** do aluno ou servidor, caso exista, não se aplica aos demais colaboradores
+- `email` - email - **email do servidor**, caso exista, apenas para servidores
+- `email_secundario` - email - **email pessoal**, caso exista, o mesmo usado para recuperação de senha, para todos
+- `email_google_classroom` - email - **email do Google Suite**, caso exista, apenas para alunos e servidores
+- `email_academico` - email - **email da Microsoft 365**, caso exista, apenas para alunos e servidores
+- `email_preferencial` - email - **email preferencial** para comunicação, caso exista, para servidores é o mesmo que o `email`, para alunos e demais colaboradores é o `email_secundario`, salvo se a instituição tiver criado um mecanismo que permita ao usuário escolher qual é seu email preferencial.
+
 
 ## Screenshot
 
