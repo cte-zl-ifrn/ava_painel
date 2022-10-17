@@ -60,6 +60,11 @@ O atributos retornados são:
 - `email_academico` - email - **email da Microsoft 365**, caso exista, apenas para alunos e servidores
 - `email_preferencial` - email - **email preferencial** para comunicação, caso exista, para servidores é o mesmo que o `email`, para alunos e demais colaboradores é o `email_secundario`, salvo se a instituição tiver criado um mecanismo que permita ao usuário escolher qual é seu email preferencial.
 
+O escopos disponíveis são:
+
+- `identificacao` - atributos `identificacao`, `nome`, `primeiro_nome` e `ultimo_nome`
+- `email` - atributos `email_preferencial`, `email`, `email_secundario`, `email_google_classroom` e `email_academico`
+- `documentos_pessoais` - não sei :(
 
 ## Screenshot
 
