@@ -19,6 +19,8 @@ services:
   db:
     image: postgres:14.3-alpine
     restart: always
+    # ports:
+    #   - 5433:5432
     env_file:
       - ./confs/enabled/db.env
     volumes:
@@ -95,7 +97,7 @@ services:
     volumes:
       # Plugins
       # - './src/php/moodle__auth_suap:/var/www/html/auth/suap'
-      # - './src/php/moodle__block_suapattendance:/var/www/html/blocks/suapattendance'
+      - './src/php/moodle__block_suapattendance:/var/www/html/blocks/suapattendance'
       - './src/php/moodle__local_suapsync:/var/www/html/local/suapsync'
       # Data
       - './volumes/ava01_moodledata:/var/moodledata'
