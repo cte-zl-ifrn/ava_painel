@@ -36,7 +36,7 @@ services:
       start_period: 10s
 
   fake:
-    image: 'ifrn/suapfake:1.0.12'
+    image: 'ifrn/suapfake:1.0.13'
     build: src/python/fake
     restart: always
     ports:
@@ -60,7 +60,7 @@ services:
       #     retries: 30
 
   portal:
-    image: 'ifrn/avaportal:1.0.12'
+    image: 'ifrn/avaportal:1.0.13'
     build: src/python/portal
     restart: always
     ports:
@@ -86,7 +86,7 @@ services:
       #     retries: 30
 
   ava01:
-    image: 'ctezlifrn/moodle:4.0.4-php8.0-006'
+    image: 'ctezlifrn/moodle:4.0.5-php8.0-006'
     restart: always
     ports:
       - '8011:80'
@@ -112,7 +112,7 @@ services:
       #   retries: 30
 
   ava02:
-    image: 'ctezlifrn/moodle:4.0.4-php8.0-006'
+    image: 'ctezlifrn/moodle:4.0.5-php8.0-006'
     restart: always
     ports:
       - '8021:80'

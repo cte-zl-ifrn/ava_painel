@@ -1,9 +1,6 @@
 # Core
-django==4.0.7
-
-# My
+django==4.1.3
 sc4py==0.1.4
-django-theme-adminlte3==3.2.0.6
 
 # Models
 django-better-choices==1.17
@@ -12,57 +9,55 @@ django-better-choices==1.17
 requests==2.28.1
 django-rest-swagger==2.2.0
 PyYAML==6.0
-# 3.4.1
-markdown==3.3.7
-djangorestframework==3.13.1
+markdown==3.4.1
+djangorestframework==3.14.0
 django-filter==22.1
 django-ninja==0.19.1
 
 # Auth
 # django-python3-ldap==0.13.1
-django-oauth-toolkit==2.1.0
-django-cors-middleware==1.5.0
-social-auth-app-django==5.0.0
+# django-oauth-toolkit==2.1.0
+# django-cors-middleware==1.5.0
+# django-cors-headers 3.13.0
+# social-auth-app-django==5.0.0
 
 # Image
-qrcode==7.3.1
+# qrcode==7.3.1
 
 # Session
 django-redis-sessions==0.6.2
 
 # Audit
 soft-delete==0.2.2
-django-simple-history==3.1.1
+django-simple-history==3.2.0
 django_audit_log==0.7.0
 
 # UI
-# django-crispy-forms==1.14.0
-django-import-export==2.8.0
+django-theme-adminlte3==3.2.0.6
+django-import-export==3.0.1
 django-daterange-filter==1.3.0
-# django-tabbed-admin==1.0.4 
 django-markdownx==3.0.1
+# django-tabbed-admin==1.0.4 
+# django-crispy-forms==1.14.0
 
 # Devel
 django-model-documentation==0.8.0
-# 3.2.0
-django-extensions==3.1.5
-django-debug-toolbar==3.5.0
-ipython==8.4.0
-# última versão que funciona: 2.0.3
-Werkzeug==2.0.3
+django-extensions==3.2.1
+django-debug-toolbar==3.7.0
+ipython==8.6.0
+Werkzeug==2.2.2
 ipdb==0.13.9
-pudb==2022.1.2
-djlint==1.9.4
+pudb==2022.1.3
+djlint==1.19.7
 
 
 # Production
-sentry-sdk==1.9.0
+sentry-sdk==1.11.1
 gunicorn==20.1.0
 supervisor==4.2.4
 
 # Database
-psycopg2-binary==2.9.3
+psycopg2-binary==2.9.5
 
 # Image
-# 9.2.0
-pillow==9.1.1
+pillow==9.3.0

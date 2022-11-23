@@ -51,7 +51,7 @@ MY_APPS = env_as_list('MY_APPS', [
 THIRD_APPS = env_as_list('THIRD_APPS', [
     'markdownx',
     'django_extensions',
-    "corsheaders",
+    # "corsheaders",
     # 'adminlte3',
     # 'adminlte3_admin',
 ])
@@ -71,7 +71,7 @@ MIDDLEWARE = [
     'portal.middleware.GoToHTTPSMiddleware', # <-
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    "corsheaders.middleware.CorsMiddleware",
+    # "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
