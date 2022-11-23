@@ -42,13 +42,19 @@ def authenticate(request: HttpRequest) -> HttpResponse:
     response_data = json.loads(requests.get(f"{OAUTH['BASE_URL']}/api/eu/", data={'scope': request_data.get('scope')}, headers=headers, verify=OAUTH['VERIFY_SSL']).text )
     
     username = response_data['identificacao']
+    print(response_data)
     user = Usuario.objects.filter(username=username).first()
     if user is None:
         is_superuser = Usuario.objects.count() == 0
         user = Usuario.objects.create(
             username=username,
-            nome=response_data.get('nome'),
-            email=response_data.get('email'),
+            nome_civil='-',
+            nome_social='-',
+            nome_apresentacao=response_data.get('nome'),
+            first_name = response_data.get('primeiro_nome'),
+            last_name = response_data.get('ultimo_nome'),
+            email=response_data.get('email_preferencial'),
+            email_corporativo=response_data.get('email'),
             email_escolar=response_data.get('email_google_classroom'),
             email_academico=response_data.get('email_academico'),
             email_secundario=response_data.get('email_secundario'),
@@ -59,6 +65,7 @@ def authenticate(request: HttpRequest) -> HttpResponse:
             is_superuser=is_superuser,
             is_staff=is_superuser,
         )
+        
     auth.login(request, user)
     return redirect('/')
 

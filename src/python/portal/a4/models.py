@@ -1,5 +1,5 @@
 from django.utils.translation import gettext as _
-from django.db.models import ForeignKey, PROTECT, CharField, DateTimeField
+from django.db.models import ForeignKey, PROTECT, CharField, DateTimeField, EmailField
 from django_better_choices import Choices
 from django.contrib.auth.models import AbstractUser, Group
 
@@ -24,12 +24,18 @@ class Usuario(AbstractUser):
                 if username_length == tipo.username_length:
                     return tipo
             return Usuario.Tipo.INCERTO
-
-    nome = CharField(_('nome do usuário'), max_length=255)
-    email_escolar = CharField(_('e-Mail escolar'), max_length=255, null=True, blank=True)
-    email_academico = CharField(_('e-Mail academico'), max_length=255, null=True, blank=True)
-    email_secundario = CharField(_('e-Mail pessoal'), max_length=255, null=True, blank=True)
+    username = CharField(_("IFRN-id"), max_length=150, unique=True, 
+                         validators=[AbstractUser.username_validator], 
+                         error_messages={"unique": _("A user with that IFRN-id already exists."),})
+    nome_civil = CharField(_('nome civil'), max_length=255)
+    nome_social = CharField(_('nome social'), max_length=255)
+    nome_apresentacao = CharField(_('nome de apresentação'), max_length=255)
     tipo = CharField(_('tipo'), max_length=255, choices=Tipo)
+    email = EmailField(_('e-Mail preferêncial'), null=True, blank=False)
+    email_secundario = EmailField(_('e-Mail pessoal'), null=True, blank=True)
+    email_corporativo = EmailField(_('e-Mail corporativo'), blank=True)
+    email_escolar = EmailField(_('e-Mail escolar'), null=True, blank=True)
+    email_academico = EmailField(_('e-Mail academico'), null=True, blank=True)
     campus = ForeignKey('portal.Campus', on_delete=PROTECT, verbose_name=_("campus do aluno"), null=True, blank=True)
     curso = ForeignKey('portal.Curso', on_delete=PROTECT, verbose_name=_("curso do aluno"), null=True, blank=True)
     polo = ForeignKey('portal.Polo', on_delete=PROTECT, verbose_name=_("pólo do aluno"), null=True, blank=True)
@@ -45,11 +51,12 @@ class Usuario(AbstractUser):
 
     def __str__(self):
         tipo = Usuario.Tipo.get_key(self.tipo)
-        return f"{self.nome} ({self.username} - {tipo})"
+        return f"{self.nome_apresentacao} ({self.username} - {tipo})"
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        names = self.nome.split(" ")
-        self.first_name = " ".join(names[:-1])
-        self.last_name = "".join(names[-1:])
+        # names = self.nome_civil.split(" ")
+        # self.first_name = " ".join(names[:-1])
+        # self.last_name = "".join(names[-1:])
+        # self.nome_apresentacao = self.nome_social if self.nome_social else self.nome_civil
         self.tipo = Usuario.Tipo.get_by_length(len(self.username))
         super().save(force_insert, force_update, using, update_fields)

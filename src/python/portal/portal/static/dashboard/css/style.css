@@ -87,7 +87,7 @@ ul.menu-principal {
 .header-user {
     float: right;
     height: 76px;
-    margin-top: 23px;
+    margin-top: 10px;
 }
 
 .header-user a,
@@ -95,6 +95,9 @@ ul.menu-principal {
 .header-user a:active {
     text-decoration: none;
     color: #fff;
+    display: table-cell;
+    text-align: center;
+    font-size: 13px;
 }
 
 .header-user a:hover {
@@ -103,7 +106,8 @@ ul.menu-principal {
 
 .header-user img {
     border-radius: 50%;
-    margin-left: 11px;
+    margin: auto auto 5px auto;
+    display: block;
 }
 
 a.page-scroll.area_aluno {

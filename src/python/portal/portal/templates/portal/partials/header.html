@@ -7,15 +7,15 @@
         <ul class="menu-principal nav navbar-nav navbar-center">
             <li><a class="page-scroll area_aluno" href="{% url 'portal:dashboard' %}">ÁREA DO ALUNO</a></li>
             <li><a class="page-scroll barra">|</a></li>
-            <li><a class="page-scroll" href="https://ead.ifrn.edu.br/portal/">PORTAL EAD</a></li>
+            <li><a class="page-scroll" href="https://ead.ifrn.edu.br/portal/">PORTAL ZL</a></li>
             <li><a class="page-scroll" href="https://portal.ifrn.edu.br/">PORTAL IFRN</a></li>
             <li><a class="page-scroll" href="https://suap.ifrn.edu.br/">SUAP</a></li>
             <li><a class="page-scroll" href="{% url 'a4:logout' %}">SAIR</a></li>
         </ul>
         <div class="header-user">
             <a href="https://suap.ifrn.edu.br/comum/minha_conta/">
-                {{ user.nome }}
                 <img width="56" height="56" src="{% static 'dashboard/img/user.jpeg'  %}" />
+                {{ user.nome_apresentacao }}
             </a>
         </div>
     </div>
