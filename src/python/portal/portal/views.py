@@ -16,10 +16,3 @@ def dashboard(request):
     ]
     # return render(request, 'portal/index.html', context={'categorias': categorias})
     return render(request, "portal/dashboard.html", context={'page_title': 'Dashboard v1'})
-
-@login_required
-def contacts(request: HttpRequest) -> HttpResponse:
-    return render(request, "portal/contacts.html")
-
-def term_of_use(request: HttpRequest) -> HttpResponse:
-    return render(request, "portal/term_of_use.html")
