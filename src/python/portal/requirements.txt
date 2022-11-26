@@ -1,6 +1,7 @@
 # Core
 django==4.1.3
 sc4py==0.1.4
+sc4net==0.1.3
 
 # Models
 django-better-choices==1.17
