@@ -97,6 +97,7 @@ services:
     volumes:
       # Plugins
       # - './src/php/moodle__auth_suap:/var/www/html/auth/suap'
+      - './src/php/config.php:/var/www/html/config.php'
       - './src/php/moodle__block_suapattendance:/var/www/html/blocks/suapattendance'
       - './src/php/moodle__local_suapsync:/var/www/html/local/suapsync'
       # Data
