@@ -22,6 +22,11 @@ class AmbienteAdmin(ModelAdmin):
     list_display = ['nome', 'sigla', 'url', 'active']
     search_fields = ['nome', 'url']
     list_filter = ['active']
+    fieldsets = [
+        (_("Nome"), {"fields": ['nome']}),
+        (_("Dashboard"), {"fields": [('sigla', 'cor')]}),
+        (_("Integração"), {"fields": [('active', 'url', 'token')]})
+    ]
     inlines = [CampusInline]
 
 
