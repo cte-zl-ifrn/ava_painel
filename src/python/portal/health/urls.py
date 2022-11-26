@@ -7,5 +7,5 @@ app_name = HealthConfig.name
 
 
 urlpatterns = [
-    path('', health, name="health"),
+    path('health/', health, name="health"),
 ]
