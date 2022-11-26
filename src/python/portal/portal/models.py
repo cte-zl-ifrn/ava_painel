@@ -2,6 +2,7 @@ from django.utils.translation import gettext as _
 import re
 import json
 import requests
+from django.utils.safestring import mark_safe
 from django.conf import settings
 from django.core import validators
 from django.forms import ValidationError
@@ -42,7 +43,12 @@ class Papel(Choices):
 
 
 class Ambiente(Model):
-    sigla = CharField(_('sigla do ambiente'), max_length=255, unique=True)
+    def _c(color: str):
+        return f"<span style='background: {color}; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>{color}</span>"
+    sigla = CharField(_('sigla do ambiente'), max_length=255, unique=True,
+                    help_text=mark_safe(f"Esta é a sigla que vai aparecer no dashboard"))
+    cor = CharField(_('cor do ambiente'), max_length=255,
+                    help_text=mark_safe(f"Escolha uma cor em RGB. Ex.: {_c('#a154d0')} {_c('#438f4b')} {_c('#c90c0f')}"))
     nome = CharField(_('nome do ambiente'), max_length=255)
     url = CharField(_('URL'), max_length=255)
     token = CharField(_('token'), max_length=255)
