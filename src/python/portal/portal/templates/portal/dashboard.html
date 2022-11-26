@@ -4,12 +4,10 @@
 {% block extra_script %}
     <script src="//cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="//unpkg.com/vue@3.2.37/dist/vue.global.prod.js"></script>
-    <script src="{% static 'nodejs/node_modules/vue-bootstrap-typeahead/dist/VueBootstrapTypeahead.umd.js' %}"></script>
     <script type="module">
         import ava_dashboard from "{% static 'dashboard/js/app.js' %}";
 
         Vue.createApp(ava_dashboard).mount("#app");
-        Vue.defineComponent('vue-bootstrap-typeahead', VueBootstrapTypeahead);
     </script>    
 {% endblock extra_script %}
 
@@ -18,17 +16,17 @@
         <div id="app" class="hide_this">
             <section>
                 <div id="grid-header">
-                    <h1>Minhas disciplinas</h1>
-                    <div>Clique nas disciplinas abaixo para saber mais detalhes.</div>
+                    <h1>Meus diários</h1>
+                    <div>Clique nos diários abaixo para saber mais detalhes.</div>
                 </div>
 
                 <div id="grid-filter">
-                    <h4>Todos os cursos</h4>
-                    <h4>Status do curso</h4>
-                    <h4>Semestre</h4>
+                    <h4>Escolha uma disciplina</h4>
+                    <h4>Situação dos diário</h4>
+                    <h4>Semestre dos diário</h4>
                     <div>
                         <select name="disciplina_id" id="disciplina_id" @change="filterCards($event)">
-                            <option selected value="">Todos os cursos</option>
+                            <option selected value="">Sem filtro</option>
                             <option v-for="row in disciplinas" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
@@ -39,6 +37,7 @@
                     </div>
                     <div>            
                         <select name="competencia_id" id="competencia_id" @change="filterCards($event)">
+                            <option selected value="">Sem filtro</option>
                             <option v-for="row in competencias" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
@@ -76,9 +75,9 @@
             <aside>
                 <div id="detalhes-header">
                     <h1>Detalhes</h1>
-                    <div v-if="!destaque"><p class="dt-text">Abaixo aparecerão os detalhes da disciplina ao lado.</p><p>escolha um curso e clique em "DETALHES".</p></div>
+                    <div v-if="!destaque"><p class="dt-text">Abaixo aparecerão os detalhes do diário ao lado.</p><p>escolha um curso e clique em "DETALHES".</p></div>
                     <div v-if=destaque>
-                        <p class="dt-text">Mais detalhes sobre a disciplina que você escolheu:</p>
+                        <p class="dt-text">Mais detalhes sobre o diário que você escolheu:</p>
                         <p class="ambiente_titulo" v-bind:class="destaque.ambiente.classe">[[ destaque.ambiente.titulo ]]</p>
                         <img class="img-fluid destaque" alt="imagem representativa do curso" v-bind:src="[[ destaque.diario.thumbnail ]]">
                         <p class="card-diario destaque">[[ destaque.diario.codigo ]]</p>
