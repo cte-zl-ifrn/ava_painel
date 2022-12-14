@@ -9,6 +9,8 @@ from django.forms import ValidationError
 from django.db.models import Model, ForeignKey, PROTECT, BooleanField
 from django.db.models import CharField, URLField, ImageField, DateTimeField, IntegerField, SmallIntegerField
 from django_better_choices import Choices
+from simple_history.models import HistoricalRecords
+from safedelete.models import SafeDeleteModel
 from a4.models import Usuario
 from middleware.models import Solicitacao
 
@@ -42,7 +44,7 @@ class Papel(Choices):
     TUTOR_REMOTO = Choices.Value(_("Tutor remoto"), value='R')
 
 
-class Ambiente(Model):
+class Ambiente(SafeDeleteModel):
     def _c(color: str):
         return f"<span style='background: {color}; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>{color}</span>"
     sigla = CharField(_('sigla do ambiente'), max_length=255, unique=True,
@@ -53,6 +55,8 @@ class Ambiente(Model):
     url = CharField(_('URL'), max_length=255)
     token = CharField(_('token'), max_length=255)
     active = BooleanField(_('ativo?'), default=True)
+    
+    history = HistoricalRecords() 
 
     class Meta:
         verbose_name = _("ambiente")
@@ -63,12 +67,14 @@ class Ambiente(Model):
         return f'{self.nome}'
 
 
-class Campus(Model):
+class Campus(SafeDeleteModel):
     suap_id = CharField(_('ID do campus no SUAP'), max_length=255, unique=True)
     sigla = CharField(_('sigla do campus'), max_length=255, unique=True)
     descricao = CharField(_('descrição'), max_length=255)
     ambiente = ForeignKey(Ambiente, on_delete=PROTECT)
     active = BooleanField(_('ativo?'))
+
+    history = HistoricalRecords() 
 
     class Meta:
         verbose_name = _("campus")
@@ -79,11 +85,13 @@ class Campus(Model):
         return f'{self.descricao} ({self.sigla})'
 
 
-class Curso(Model):
+class Curso(SafeDeleteModel):
     suap_id = CharField(_('ID do curso no SUAP'), max_length=255, unique=True)
     codigo = CharField(_('código do curso'), max_length=255, unique=True)
     nome = CharField(_('nome do curso'), max_length=255)
     descricao = CharField(_('descrição'), max_length=255)
+
+    history = HistoricalRecords() 
 
     class Meta:
         verbose_name = _("curso")
@@ -94,7 +102,7 @@ class Curso(Model):
         return f'{self.nome} ({self.codigo})'
 
 
-class Turma(Model):
+class Turma(SafeDeleteModel):
     TURMA_RE = re.compile(r'(\d{5})\.(\d)\.(\d{5})\.(..)')
     suap_id = CharField(_('ID da turma no SUAP'), max_length=255, unique=True)
     campus = ForeignKey(Campus, on_delete=PROTECT, verbose_name=_("campus"))
@@ -106,6 +114,8 @@ class Turma(Model):
     periodo = SmallIntegerField(_('período'))
     sigla = CharField(_('sigla da turma'), max_length=8)
     turno = CharField(_("turno"), max_length=1, choices=Turno)
+
+    history = HistoricalRecords() 
 
     class Meta:
         verbose_name = _("turma")
@@ -125,7 +135,7 @@ class Turma(Model):
         super().save(*args, **kwargs)
         
 
-class Componente(Model):
+class Componente(SafeDeleteModel):
     suap_id = CharField(_('ID do componente no SUAP'), max_length=255, unique=True)
     sigla = CharField(_('sigla do componente'), max_length=255, unique=True)
     descricao = CharField(_('descrição'), max_length=512)
@@ -134,6 +144,8 @@ class Componente(Model):
     tipo = IntegerField(_('tipo'), null=True, blank=True)
     optativo = BooleanField(_('optativo'), null=True, blank=True)
     qtd_avaliacoes = IntegerField(_('qtd. avalições'), null=True, blank=True)
+
+    history = HistoricalRecords() 
 
     class Meta:
         verbose_name = _("componente")
@@ -144,7 +156,7 @@ class Componente(Model):
         return f'{self.sigla}'
 
 
-class Diario(Model):
+class Diario(SafeDeleteModel):
     DIARIO_RE = re.compile(r'(\d{5}\.\d\.\d{5}\...)\.(.*\..*)')
     suap_id = CharField(_('ID do diário no SUAP'), max_length=255, unique=True)
     codigo = CharField(_('código do diário'), max_length=255, unique=True, 
@@ -155,6 +167,8 @@ class Diario(Model):
     descricao_historico = CharField(_('descrição no histórico'), max_length=255)
     turma = ForeignKey(Turma, on_delete=PROTECT, verbose_name=_('turma'))
     componente = ForeignKey(Componente, on_delete=PROTECT, verbose_name=_('componente'))
+
+    history = HistoricalRecords() 
 
     class Meta:
         verbose_name = _("diário")
@@ -330,9 +344,11 @@ class Diario(Model):
                 inscricao.notify()
         return diario
     
-class Polo(Model):
+class Polo(SafeDeleteModel):
     suap_id = CharField(_('ID do pólo no SUAP'), max_length=255, unique=True)
     nome = CharField(_('nome do pólo'), max_length=255, unique=True)
+
+    history = HistoricalRecords() 
 
     class Meta:
         verbose_name = _("pólo")
@@ -343,13 +359,15 @@ class Polo(Model):
         return f'{self.nome}'
 
 
-class Inscricao(Model):
+class Inscricao(SafeDeleteModel):
     diario = ForeignKey(Diario, on_delete=PROTECT)
     usuario = ForeignKey(settings.AUTH_USER_MODEL, on_delete=PROTECT)
     polo = ForeignKey(Polo, on_delete=PROTECT, null=True, blank=True)
     papel = CharField(_('papel'), max_length=1, choices=Papel)
     active = BooleanField(_('ativo?'))
     
+    history = HistoricalRecords() 
+
     class Meta:
         verbose_name = _("inscrição")
         verbose_name_plural = _("inscrições")

@@ -1,8 +1,15 @@
 from django.utils.translation import gettext as _
 from django.db.models import Model
-from django.contrib.admin import register, display, ModelAdmin, StackedInline, TabularInline
-from .models import Ambiente, Polo, Componente, Diario, Campus, Curso, Turma, Inscricao
-
+from django.contrib.admin import register, display, StackedInline, TabularInline
+from import_export.admin import ImportExportMixin, ExportActionMixin
+from simple_history.admin import SimpleHistoryAdmin
+from safedelete.admin import SafeDeleteAdmin, SafeDeleteAdminFilter
+from .models import (
+    Ambiente, Polo, Componente, Diario, Campus, Curso, Turma, Inscricao
+)
+from .resources import (
+    AmbienteResource, CampusResource, CursoResource
+)
 
 #### 
 # Inlines
@@ -17,64 +24,82 @@ class CampusInline(StackedInline):
 # Admins
 ####
 
+class BaseModelAdminMixin(ImportExportMixin, ExportActionMixin):
+    pass
+
+
+class BaseModelAdmin(BaseModelAdminMixin, SafeDeleteAdmin, SimpleHistoryAdmin):
+    list_filter = [SafeDeleteAdminFilter,] + list(SafeDeleteAdmin.list_filter)
+    pass
+
+
 @register(Ambiente)
-class AmbienteAdmin(ModelAdmin):
+class AmbienteAdmin(BaseModelAdmin):
     list_display = ['nome', 'sigla', 'url', 'active']
-    search_fields = ['nome', 'url']
-    list_filter = ['active']
+    history_list_display = list_display
+    field_to_highlight = list_display[0]
+    search_fields = ['nome', 'sigla', 'url']
+    list_filter = ['active',] + BaseModelAdmin.list_filter
     fieldsets = [
         (_("Nome"), {"fields": ['nome']}),
         (_("Dashboard"), {"fields": [('sigla', 'cor')]}),
         (_("Integração"), {"fields": [('active', 'url', 'token')]})
     ]
     inlines = [CampusInline]
+    resource_classes = [AmbienteResource]
 
 
 @register(Campus)
-class CampusAdmin(ModelAdmin):
+class CampusAdmin(BaseModelAdmin):
     list_display = ['sigla', 'descricao', 'ambiente', 'active']
-    list_filter = ['active', 'ambiente']
+    history_list_display = list_display
+    field_to_highlight = list_display[0]
+    list_filter = ['active', 'ambiente'] + BaseModelAdmin.list_filter
     search_fields = ['sigla', 'descricao', 'suap_id']
+    resource_classes = [CampusResource]
 
 
 @register(Curso)
-class CursoAdmin(ModelAdmin):
+class CursoAdmin(BaseModelAdmin):
     list_display = ['codigo', 'nome']
+    history_list_display = list_display
+    field_to_highlight = list_display[0]
     search_fields = ['codigo', 'nome', 'suap_id', 'descricao']
+    resource_classes = [CursoResource]
 
 
 @register(Turma)
-class TurmaAdmin(ModelAdmin):
+class TurmaAdmin(BaseModelAdmin):
     list_display = ['codigo', 'campus', 'ano_mes', 'periodo', 'curso', 'sigla', 'turno']
-    list_filter = ['turno', 'ano_mes', 'periodo', 'campus', 'curso']
+    list_filter = ['turno', 'ano_mes', 'periodo', 'campus', 'curso'] + BaseModelAdmin.list_filter
     readonly_fields = ['ano_mes', 'periodo', 'curso', 'sigla', 'turno']
     search_fields = ['codigo']
 
 
 @register(Componente)
-class ComponenteAdmin(ModelAdmin):
+class ComponenteAdmin(BaseModelAdmin):
     list_display = ['sigla', 'descricao', 'periodo']
-    list_filter = ['optativo', 'qtd_avaliacoes', 'periodo', 'tipo']
+    list_filter = ['optativo', 'qtd_avaliacoes', 'periodo', 'tipo'] + BaseModelAdmin.list_filter
     search_fields =  ['sigla', 'suap_id', 'descricao', 'descricao_historico']
 
 
 @register(Diario)
-class DiarioAdmin(ModelAdmin):
+class DiarioAdmin(BaseModelAdmin):
     list_display = ['codigo', 'situacao', 'descricao', 'turma', 'componente']
-    list_filter = ['situacao']
+    list_filter = ['situacao'] + BaseModelAdmin.list_filter
     search_fields =  ['codigo', 'suap_id', 'descricao', 'descricao_historico', 'sigla']
 
 
 @register(Polo)
-class PoloAdmin(ModelAdmin):
+class PoloAdmin(BaseModelAdmin):
     list_display = ['nome']
     search_fields =  ['nome', 'suap_id']
 
 
 @register(Inscricao)
-class InscricaoAdfmin(ModelAdmin):
+class InscricaoAdfmin(BaseModelAdmin):
     list_display = ['diario', 'usuario', 'papel', 'polo', 'active']
-    list_filter = ['active', 'papel', 'polo']
+    list_filter = ['active', 'papel', 'polo'] + BaseModelAdmin.list_filter
     search_fields =  ['diario__codigo', 'usuario__username']
     
     class Meta:

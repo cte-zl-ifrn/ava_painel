@@ -1,9 +1,11 @@
 from django.utils.translation import gettext as _
 from django.db.models import Model, CharField, DateTimeField, TextField, JSONField, ForeignKey, PROTECT
 from django_better_choices import Choices
+from simple_history.models import HistoricalRecords
+from safedelete.models import SafeDeleteModel
 
 
-class Solicitacao(Model):
+class Solicitacao(SafeDeleteModel):
     class Status(Choices):
         SUCESSO = Choices.Value(_("Sucesso"), value='S')
         FALHA   = Choices.Value(_("Falha"), value='F')
@@ -17,6 +19,8 @@ class Solicitacao(Model):
     campus = ForeignKey('portal.Campus', on_delete=PROTECT, null=True, blank=True)
     diario = ForeignKey('portal.Diario', on_delete=PROTECT, null=True, blank=True)
     status_code = CharField(_("status code"), max_length=256, null=True, blank=True)
+    
+    history = HistoricalRecords() 
 
     class Meta:
         verbose_name = _("solicitação")
