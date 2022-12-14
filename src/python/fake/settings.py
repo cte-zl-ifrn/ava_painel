@@ -130,7 +130,7 @@ USE_TZ = env_as_bool('DJANGO_USE_TZ', True)
 if DEBUG:
     INSTALLED_APPS = INSTALLED_APPS + env_as_list('DEV_APPS', 'debug_toolbar' if DEBUG else '')
     DEBUG_TOOLBAR_CONFIG = {
-        'SHOW_TOOLBAR_CALLBACK': lambda request: request.get_host() in ['localhost', '127.0.0.1'],
+        'SHOW_TOOLBAR_CALLBACK': lambda request: request.get_host() in ['localhost', '127.0.0.1', 'localhost:8000', '127.0.0.1:8000'],
     }
     MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
 
