@@ -2,8 +2,6 @@ from tokenize import blank_re
 from django.utils.translation import gettext as _
 from django.conf import settings
 from django.db.models import Model, CharField, JSONField
-from pyparsing import null_debug_action
-from traitlets import default
 
 def get_default_pacote():
     return {
