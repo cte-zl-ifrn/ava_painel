@@ -51,6 +51,9 @@ MY_APPS = env_as_list('MY_APPS', [
 THIRD_APPS = env_as_list('THIRD_APPS', [
     'markdownx',
     'django_extensions',
+    'import_export',
+    'simple_history',
+    'safedelete',
     # "corsheaders",
     # 'adminlte3',
     # 'adminlte3_admin',
@@ -77,6 +80,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 
@@ -148,7 +152,7 @@ USE_TZ = env_as_bool('DJANGO_USE_TZ', True)
 if DEBUG:
     INSTALLED_APPS = INSTALLED_APPS + env_as_list('DEV_APPS', 'debug_toolbar' if DEBUG else '')
     DEBUG_TOOLBAR_CONFIG = {
-        'SHOW_TOOLBAR_CALLBACK': lambda request: request.get_host() in ['localhost', '127.0.0.1'],
+        'SHOW_TOOLBAR_CALLBACK': lambda request: request.get_host() in ['localhost', '127.0.0.1', 'localhost:8000', '127.0.0.1:8000'],
     }
     MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
 
