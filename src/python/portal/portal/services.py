@@ -1,8 +1,10 @@
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Any
+import concurrent
 from ninja import NinjaAPI
 from django.contrib.admin.views.decorators import staff_member_required
 from datetime import datetime
 from sc4net import get, get_json
+from .models import Ambiente
 
 
 def get_disciplinas(username: str) -> List[Dict[str, Union[str, int]]]:
@@ -27,22 +29,51 @@ def get_semestres(username: str) -> dict:
         {"id": "20222", "label": "2022.2"},
     ]
 
+def _get_diarios(params: Dict[str, Any]):
+    try:
+        ambiente_dict = {"titulo": params["ambiente"].nome, "sigla": params["ambiente"].sigla, "classe": "ambiente01", }
+        base_url = params["ambiente"].url if params["ambiente"].url[-1:] != '/' else params["ambiente"].url[:-1]
+        url = f'{base_url}/local/suapsync/api/get_diarios.php?username={username}&student={params["as_student"]}'
+        url += f"&disciplina={params['disciplina']}" if params['disciplina'] else ""
+        url += f"&situacao={params['situacao']}" if params['situacao'] else ""
+        url += f"&semestre={params['semestre']}" if params['semestre'] else ""
+        url += f"&q={params['q']}" if params['q'] else ""
+        print(url)
+        result = get_json(url)
+        print(result)
+        params['results']["disciplinas"] += result.get("disciplinas", [])
+        params['results']["competencias"] += result.get("semestres", [])
+        params['results']["cards"] += [ {"ambiente": ambiente_dict, "diario": diario } for diario in result.get("diarios", [])]
+    except Exception as e:
+        print(url, e)
+    
 
-def get_diarios(student: int, username: str, disciplina: str = None, situacao: str = None, semestre: str = None, q: str = None) -> dict:
-    print(username, disciplina, situacao, semestre)
-    url = f'http://ava01:80/local/suapsync/api/get_diarios.php?username={username}&student={student}'
-    url += f"&disciplina={disciplina}" if disciplina else ""
-    url += f"&situacao={situacao}" if situacao else ""
-    url += f"&semestre={semestre}" if semestre else ""
-    url += f"&q={q}" if q else ""
-    result = get_json(url)
-    print(result)
-    return {
-        "disciplinas": result.get("disciplinas", []),
-        "statuses": result.get("situacoes", []),
-        "competencias": result.get("semestres", []),
-        "cards": [ {"ambiente": {"titulo": "Projetos", "sigla": "Proj", "classe": "ambiente01", }, "diario": diario } for diario in result.get("diarios", [])],
+def get_diarios(as_student: int, username: str, disciplina: str = None, situacao: str = None, semestre: str = None, q: str = None) -> dict:
+    print(as_student, username, disciplina, situacao, semestre)
+    results = {
+        "disciplinas": [],
+        "statuses": [
+            {'id': 'allincludinghidden', 'label': 'Sem filtro'},
+            {'id': 'inprogress', 'label': 'Em andamento'},
+            {'id': 'future', 'label': 'Não iniciados'},
+            {'id': 'past', 'label': 'Encerrados'},
+            {'id': 'favourites', 'label': 'Favoritos'},
+        ],
+        "competencias": [],
+        "cards": [],
     }
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        executor.map(_get_diarios, [{
+            "ambiente": ambiente,
+            "results": results,
+            "disciplina": disciplina,
+            "situacao": situacao,
+            "semestre": semestre,
+            "as_student": as_student,
+            "q": q,
+            } for ambiente in Ambiente.objects.filter(active=True)])
+    return results
 
 
 def get_informativos(username: str) -> dict:

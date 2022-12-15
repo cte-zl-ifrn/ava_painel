@@ -5,14 +5,5 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def dashboard(request):
-    # campus = Campus.objects.filter(homepage=True)
-    categorias = [
-        {"titulo": "Todos", "url": "#todos", "current": True},
-        {"titulo": "Meus cursos", "url": "#Meus_cursos", "current": False},
-        {"titulo": "Destaques", "url": "#Destaques", "current": False},
-        {"titulo": "Gestão", "url": "#Gestão", "current": False},
-        {"titulo": "Administração", "url": "#Administração", "current": False},
-        {"titulo": "Qualidade de vida", "url": "#qualidade", "current": False}
-    ]
-    # return render(request, 'portal/index.html', context={'categorias': categorias})
-    return render(request, "portal/dashboard.html", context={'page_title': 'Dashboard v1'})
+    # https://ead.ifrn.edu.br/ava/academico/lib/ajax/service.php?info=core_course_get_enrolled_courses_by_timeline_classification  
+    return render(request, "portal/dashboard.html")
