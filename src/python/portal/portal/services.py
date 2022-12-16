@@ -33,7 +33,7 @@ def _get_diarios(params: Dict[str, Any]):
     try:
         ambiente_dict = {"titulo": params["ambiente"].nome, "sigla": params["ambiente"].sigla, "classe": "ambiente01", }
         base_url = params["ambiente"].url if params["ambiente"].url[-1:] != '/' else params["ambiente"].url[:-1]
-        url = f'{base_url}/local/suapsync/api/get_diarios.php?username={username}&student={params["as_student"]}'
+        url = f'{base_url}/local/suapsync/api/get_diarios.php?username={params["username"]}&student={params["as_student"]}'
         url += f"&disciplina={params['disciplina']}" if params['disciplina'] else ""
         url += f"&situacao={params['situacao']}" if params['situacao'] else ""
         url += f"&semestre={params['semestre']}" if params['semestre'] else ""
@@ -45,11 +45,10 @@ def _get_diarios(params: Dict[str, Any]):
         params['results']["competencias"] += result.get("semestres", [])
         params['results']["cards"] += [ {"ambiente": ambiente_dict, "diario": diario } for diario in result.get("diarios", [])]
     except Exception as e:
-        print(url, e)
+        print("error", e)
     
 
 def get_diarios(as_student: int, username: str, disciplina: str = None, situacao: str = None, semestre: str = None, q: str = None) -> dict:
-    print(as_student, username, disciplina, situacao, semestre)
     results = {
         "disciplinas": [],
         "statuses": [
@@ -64,9 +63,11 @@ def get_diarios(as_student: int, username: str, disciplina: str = None, situacao
     }
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        print([ambiente.url for ambiente in Ambiente.objects.filter(active=True)])
         executor.map(_get_diarios, [{
             "ambiente": ambiente,
             "results": results,
+            "username": username,
             "disciplina": disciplina,
             "situacao": situacao,
             "semestre": semestre,
