@@ -105,6 +105,7 @@ TEMPLATES = [
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
+            # 'app_dirs': True,
             # 'loaders': [
             #     ('django.template.loaders.cached.Loader', [
             #         'django.template.loaders.filesystem.Loader',
