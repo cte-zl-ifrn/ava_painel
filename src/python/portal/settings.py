@@ -130,6 +130,10 @@ TEMPLATES = [
         },
     },
 ]
+
+if DEBUG:
+    TEMPLATES[0]['OPTIONS']['loaders'] = ['django.template.loaders.app_directories.Loader']
+
 TABBED_ADMIN_USE_JQUERY_UI = True
 GTAG_ID = env("GTAG_ID", None)
 
