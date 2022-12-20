@@ -27,7 +27,5 @@ if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] in ['runserver', 'runserver_plus']:
         _wait_db(DATABASES['default'])
         execute_from_command_line([sys.argv[0], 'migrate'])
-        if DEBUG:
-            execute_from_command_line([sys.argv[0], 'migrate'])
         
     execute_from_command_line(sys.argv)
