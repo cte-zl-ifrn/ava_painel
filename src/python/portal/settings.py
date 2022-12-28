@@ -105,14 +105,6 @@ TEMPLATES = [
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
-            # 'app_dirs': True,
-            # 'loaders': [
-            #     ('django.template.loaders.cached.Loader', [
-            #         'django.template.loaders.filesystem.Loader',
-            #         'django.template.loaders.app_directories.Loader',
-            #         'path.to.custom.Loader',
-            #     ]),
-            # ],            
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -132,7 +124,8 @@ TEMPLATES = [
 ]
 
 if DEBUG:
-    TEMPLATES[0]['OPTIONS']['loaders'] = ['django.template.loaders.app_directories.Loader']
+    TEMPLATES[0]['APP_DIRS'] = False
+    TEMPLATES[0]['OPTIONS']['loaders'] = ['django.template.loaders.app_directories.Loader']  
 
 TABBED_ADMIN_USE_JQUERY_UI = True
 GTAG_ID = env("GTAG_ID", None)
