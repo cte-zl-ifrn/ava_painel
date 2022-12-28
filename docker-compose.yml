@@ -112,28 +112,28 @@ services:
       #   start_period: 1s
       #   retries: 30
 
-  ava02:
-    image: 'ctezlifrn/moodle:4.0.5-php8.0-006'
-    restart: always
-    ports:
-      - '8021:80'
-    env_file:
-      - ./confs/enabled/db.env
-      - ./confs/enabled/cache.env
-      - ./confs/enabled/ava02.env
-    volumes:
-      # Plugins
-      # - './src/php/moodle__auth_suap:/var/www/html/auth/suap'
-      # - './src/php/moodle__block_suapattendance:/var/www/html/blocks/suapattendance'
-      # - './src/php/moodle__local_suapsync:/var/www/html/local/suapsync'
-      # Data
-      - './volumes/ava02_moodledata:/var/moodledata'
-    depends_on:
-      db:
-        condition: service_healthy
-      # healthcheck:
-      #   test: ["CMD-SHELL", "curl --silent --fail http://ava02:80/ | grep AVA_02 || exit 1"]
-      #   interval: 3s
-      #   timeout: 1s
-      #   start_period: 1s
-      #   retries: 30
+  # ava02:
+  #   image: 'ctezlifrn/moodle:4.0.5-php8.0-006'
+  #   restart: always
+  #   ports:
+  #     - '8021:80'
+  #   env_file:
+  #     - ./confs/enabled/db.env
+  #     - ./confs/enabled/cache.env
+  #     - ./confs/enabled/ava02.env
+  #   volumes:
+  #     # Plugins
+  #     # - './src/php/moodle__auth_suap:/var/www/html/auth/suap'
+  #     # - './src/php/moodle__block_suapattendance:/var/www/html/blocks/suapattendance'
+  #     # - './src/php/moodle__local_suapsync:/var/www/html/local/suapsync'
+  #     # Data
+  #     - './volumes/ava02_moodledata:/var/moodledata'
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #     # healthcheck:
+  #     #   test: ["CMD-SHELL", "curl --silent --fail http://ava02:80/ | grep AVA_02 || exit 1"]
+  #     #   interval: 3s
+  #     #   timeout: 1s
+  #     #   start_period: 1s
+  #     #   retries: 30
