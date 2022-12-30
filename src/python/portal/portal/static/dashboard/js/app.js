@@ -5,25 +5,34 @@ export default {
     data() {
         return {
             destaque: null,
+            semestres: [],
+            situacoes: [
+                {"label": "Em andamento", "id": "inprogress"},
+                {"label": "Todas as situações", "id": "allincludinghidden"},
+                {"label": "Não iniciados", "id": "future"},
+                {"label": "Encerrados", "id": "past"},
+                {"label": "Favoritos", "id": "favourites"},
+            ],
+            ordenacoes: [
+                {"label": "Disciplina", "id": "fullname"},
+                {"label": "Código do diário", "id": "shortname"},
+                {"label": "Últimos acessados", "id": "ul.timeaccess desc"},
+            ],
+            visualizacoes: [
+                {"label": "Cartões", "id": "card"},
+                {"label": "Linhas", "id": "list"},
+            ],
             disciplinas: [],
-            status: [],
-            competencias: [],
+            cursos: [],
+            arquetipos: [],
+            ambientes: [],
             informativos: [],
-            cards: [],
+            diarios: [],
         }
     },
     mounted() {
-        axios.get('/portal/api/v1/diarios/').then(response => {
-            console.log(response.data);
-            this.disciplinas = response.data.disciplinas;
-            this.statuses = response.data.statuses;
-            this.competencias = response.data.competencias;
-            this.informativos = response.data.informativos;
-            this.cards = response.data.cards;
-            document.getElementById('app').classList.remove('hide_this');
-        }).then(e => {
-            console.log(e);
-        });
+        document.getElementById('grid-filter').classList.remove('hide_this');
+        this.filterCards();
     },
     methods: {
         detailme: function(card) {
@@ -34,25 +43,42 @@ export default {
             return new Intl.DateTimeFormat('default', { dateStyle: 'long' }).format(date);
         },
         filterCards: function(a, b, c) {
+            this.filtering()
             axios.get(
                 '/portal/api/v1/diarios/', {
                     params: {
-                        "student": 1,
-                        "disciplina": document.getElementById('disciplina_id').value,
-                        "situacao": document.getElementById('status_id').value,
-                        "semestre": document.getElementById('competencia_id').value,
+                        "semestre": document.getElementById('semestre').value,
+                        "situacao": document.getElementById('situacao').value,
+                        "ordenacao": document.getElementById('ordenacao').value,
+                        "disciplina": document.getElementById('disciplina').value,
+                        "curso": document.getElementById('curso').value,
+                        "arquetipo": document.getElementById('arquetipo').value,
+                        // "ambiente": document.getElementById('ambiente').value,
+                        "q": document.getElementById('q').value,
+                        // "page": document.getElementById('page').value,
+                        // "page_size": document.getElementById('page_size').value,
                     }
                 }
             ).then(response => {
-                this.disciplinas = response.data.disciplinas;
-                this.statuses = response.data.statuses;
-                this.competencias = response.data.competencias;
-                this.informativos = response.data.informativos;
-                this.cards = response.data.cards;
-                document.getElementById('app').classList.remove('hide_this');
+                Object.assign(this, response.data);
+                this.filtered();
             }).then(e => {
-                console.log(e);
+                this.filtered();
             });
+        },
+        changeCourseView: function() {
+            var newView = document.getElementById('visualizacao').value;
+            var oldView = newView=='list' ? 'cards' : 'list';
+            document.getElementById('course-' + newView).classList.remove('hide_this');
+            document.getElementById('course-' + oldView).classList.add('hide_this');
+        },
+        filtering: function() {
+            document.getElementById('search-loader').classList.remove('hide_this');
+            document.getElementById('course-views').classList.add('hide_this');
+        },
+        filtered: function() {
+            document.getElementById('search-loader').classList.add('hide_this');
+            document.getElementById('course-views').classList.remove('hide_this');
         },
     },
 }

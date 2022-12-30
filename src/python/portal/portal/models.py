@@ -36,12 +36,37 @@ class Turno(Choices):
     DIURNO = Choices.Value(_("Diurno"), value='D')
     INTEGRAL = Choices.Value(_("Integral"), value='I')
     DESCONHECIDO = Choices.Value(_("Desconhecido"), value='_')
+Turno.kv = [{'id': p, 'label': p.display} for p in Turno.values()]
 
 
-class Papel(Choices):
-    ALUNO = Choices.Value(_("Aluno"), value='A')
-    PROFESSOR = Choices.Value(_("Professor"), value='P')
-    TUTOR_REMOTO = Choices.Value(_("Tutor remoto"), value='R')
+class Arquetipo(Choices):
+    ALUNO = Choices.Value(_("Aluno"), value='student')
+    PROFESSOR = Choices.Value(_("Professor"), value='editingteacher')
+    TUTOR = Choices.Value(_("Tutor"), value='teacher')
+    EQUIPE = Choices.Value(_("Coordenador"), value='manager')
+    CONTEUDISTA = Choices.Value(_("Conteudista"), value='coursecreator')
+Arquetipo.kv = [{'id': p, 'label': p.display} for p in Arquetipo.values()]
+
+class Situacao(Choices):
+    IN_PROGRESS = Choices.Value(_("Em andamento"), value='inprogress')
+    ALL = Choices.Value(_("Todas as situações"), value='allincludinghidden')
+    FUTURE = Choices.Value(_("Não iniciados"), value='future')
+    PAST = Choices.Value(_("Encerrados"), value='past')
+    FAVOURITES = Choices.Value(_("Favoritos"), value='favourites')
+Situacao.kv = [{'id': p, 'label': p.display} for p in Situacao.values()]
+
+
+class Ordenacao(Choices):
+    CURSO = Choices.Value(_("Disciplina"), value='fullname')
+    CODIGO = Choices.Value(_("Código do diário"), value='shortname')
+    ULTIMO_ACESSO = Choices.Value(_("Últimos acessados"), value='ul.timeaccess desc')
+Ordenacao.kv = [{'id': p, 'label': p.display} for p in Ordenacao.values()]
+
+
+class Visualizacao(Choices):
+    ROWS = Choices.Value(_("Linhas"), value='list')
+    CARDS = Choices.Value(_("Cartões"), value='cards')
+Visualizacao.kv = [{'id': p, 'label': p.display} for p in Visualizacao.values()]
 
 
 class Ambiente(SafeDeleteModel):
@@ -50,13 +75,13 @@ class Ambiente(SafeDeleteModel):
     sigla = CharField(_('sigla do ambiente'), max_length=255, unique=True,
                     help_text=mark_safe(f"Esta é a sigla que vai aparecer no dashboard"))
     cor = CharField(_('cor do ambiente'), max_length=255,
-                    help_text=mark_safe(f"Escolha uma cor em RGB. Ex.: {_c('#a154d0')} {_c('#438f4b')} {_c('#c90c0f')}"))
+                    help_text=mark_safe(f"Escolha uma cor em RGB. Ex.: {_c('#a154d0')} {_c('#438f4b')} {_c('#c90c0f')} {_c('#c90c0f')}"))
     nome = CharField(_('nome do ambiente'), max_length=255)
     url = CharField(_('URL'), max_length=255)
     token = CharField(_('token'), max_length=255)
     active = BooleanField(_('ativo?'), default=True)
     
-    history = HistoricalRecords() 
+    history = HistoricalRecords()
 
     class Meta:
         verbose_name = _("ambiente")
@@ -65,6 +90,13 @@ class Ambiente(SafeDeleteModel):
 
     def __str__(self):
         return f'{self.nome}'
+    
+    @staticmethod
+    def as_dict():
+        return [
+            {"id": a.id, "label": a.nome, "sigla": a.sigla, "style": f"background-color: {a.cor}"}
+            for a in Ambiente.objects.filter(active=True)
+        ]
 
 
 class Campus(SafeDeleteModel):
@@ -309,9 +341,9 @@ class Diario(SafeDeleteModel):
         for p in pessoas:
 
             if 'matricula' in p.keys():
-                papel = Papel.ALUNO
+                papel = Arquetipo.ALUNO
             else:
-                papel = Papel.PROFESSOR if p['tipo'] == 'Principal' else Papel.TUTOR
+                papel = Arquetipo.PROFESSOR if p['tipo'] == 'Principal' else Arquetipo.TUTOR
                 
             is_active = 'ativo' == p.get('situacao', p.get('status', '')).lower()
             username = p.get('login', p.get('matricula', None))
@@ -326,9 +358,9 @@ class Diario(SafeDeleteModel):
                     # 'email_secundario': pessoa['email_secundario'],
                     'is_active': is_active,
                     'tipo': Usuario.Tipo.get_by_length(len(username)),
-                    # 'campus': campus if papel == Papel.ALUNO else None,
+                    # 'campus': campus if papel == Arquetipo.ALUNO else None,
                     'polo': polo,
-                    'curso': curso if papel == Papel.ALUNO else None,
+                    'curso': curso if papel == Arquetipo.ALUNO else None,
                 }
             )
             inscricao, created = Inscricao.objects.update_or_create(
@@ -343,7 +375,8 @@ class Diario(SafeDeleteModel):
             if created:
                 inscricao.notify()
         return diario
-    
+
+
 class Polo(SafeDeleteModel):
     suap_id = CharField(_('ID do pólo no SUAP'), max_length=255, unique=True)
     nome = CharField(_('nome do pólo'), max_length=255, unique=True)
@@ -363,7 +396,7 @@ class Inscricao(SafeDeleteModel):
     diario = ForeignKey(Diario, on_delete=PROTECT)
     usuario = ForeignKey(settings.AUTH_USER_MODEL, on_delete=PROTECT)
     polo = ForeignKey(Polo, on_delete=PROTECT, null=True, blank=True)
-    papel = CharField(_('papel'), max_length=1, choices=Papel)
+    papel = CharField(_('papel'), max_length=256, choices=Arquetipo)
     active = BooleanField(_('ativo?'))
     
     history = HistoricalRecords() 

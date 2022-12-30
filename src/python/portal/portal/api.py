@@ -1,30 +1,30 @@
 from ninja import NinjaAPI
 from django.contrib.admin.views.decorators import staff_member_required
 from datetime import datetime
-from .services import get_disciplinas, get_situacoes, get_semestres, get_diarios, get_informativos
+from .services import get_diarios, get_informativos
+from .models import Arquetipo
 
 
 api = NinjaAPI(docs_decorator=staff_member_required)
 
 
-@api.get("/disciplinas/")
-def disciplinas(request):
-    return get_disciplinas(request.user.username)
-
-
-@api.get("/situacoes/")
-def situacoes(request):
-    return get_situacoes()
-
-
-@api.get("/semestres/")
-def semestres(request):
-    return get_semestres(request.user.username)
-
-
 @api.get("/diarios/")
-def diarios(request, student: int = 1, disciplina: str = None, situacao: str = None, semestre: str = None):
-    return get_diarios(student, request.user.username, disciplina, situacao, semestre)
+def diarios(
+        request, 
+        semestre: str = None,
+        situacao: str = None,
+        ordenacao: str = None,
+        disciplina: str = None,
+        curso: str = None,
+        arquetipo: str = None,
+        ambiente: str = None,
+        q: str = None,
+        page: int = 1,
+        page_size: int = 9,
+    ):
+    return get_diarios(request.user.username, semestre, situacao, disciplina, curso, arquetipo, ambiente, q, page, page_size)
+    # return get_diarios('277375', semestre, situacao, disciplina, curso, arquetipo, ambiente, q, page, page_size)
+
 
 @api.get("/informativos/")
 def informativos(request):
