@@ -108,7 +108,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="flex">
-                                        <a class="btn btn-primary" v-bind:href="[[ card.diario.url ]]">ACESSAR</a>
+                                        <a class="btn btn-primary" v-bind:href="[[ card.diario.viewurl ]]">ACESSAR</a>
                                         <div class="flex-auto"></div>
                                         <button type="button" class="btn btn-secondary" v-on:click="detailme(card)">DETALHES</button>
                                     </div>
@@ -121,7 +121,7 @@
                             <div class="course-wrapper">
                                 <div class="card-body">
                                     <p class="card-diario">[[ card.diario.shortname ]]</p>
-                                    <h5 class="card-title"><a v-bind:href="[[ card.diario.url ]]">[[ card.diario.fullname ]]</a></h5>
+                                    <h5 class="card-title"><a v-bind:href="[[ card.diario.viewurl ]]">[[ card.diario.fullname ]]</a></h5>
                                 </div>
                                 <div class="progress bg-dark rounded-0">
                                     <div class="progress-bar" :style="{ background: card.ambiente.cor }"></div>
@@ -147,7 +147,7 @@
                         <img class="img-fluid destaque" alt="imagem representativa do curso" v-bind:src="[[ destaque.diario.courseimage ]]" />
                         <p class="card-diario destaque">[[ destaque.diario.shortname ]]</p>
                         <p class="card-title destaque">[[ destaque.diario.fullname ]]</p>
-                        <a class="btn btn-primary destaque" v-bind:href="[[ destaque.diario.url ]]">ACESSAR O CURSO</a>
+                        <a class="btn btn-primary destaque" v-bind:href="[[ destaque.diario.viewurl ]]">ACESSAR O CURSO</a>
                         <p class="evento">Eventos do curso</p>
                         <div v-if="!destaque.diario.eventos">
                             <p>Não há eventos futuros registrados para este curso.</p>
