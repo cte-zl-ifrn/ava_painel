@@ -16,64 +16,55 @@
         <div>
             <section>
                 <div id="grid-header">
-                    <h1>Meus diários</h1>
+                    <h1 class="titulo">Meus diários</h1>
                     <div>Clique em <i>"+i"</i> nos diários abaixo para saber mais detalhes.</div>
                 </div>
 
                 <div id="grid-filter" class="hide_this">
                     <div>
-                        <div>Buscar</div>
-                        <input name="q" id="q" @keyup.enter="filterCards($event)" />
+                        <input placeholder="Buscar curso..." name="q" id="q" @keyup.enter="filterCards($event)" />
                     </div>
-                    <div>            
-                        <div>Semestre</div>
+                    <div>
                         <select name="semestre" id="semestre" @change="filterCards($event)">
                             <option selected value="">Todos os semestres</option>
                             <option v-for="row in semestres" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
                     <div>
-                        <div>Ambiente</div>
                         <select name="ambiente" id="ambiente_id" @change="filterCards($event)">
                             <option selected value="">Todos os ambientes</option>
                             <option v-for="row in ambientes" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>                    
                     </div>
                     <div>
-                        <div>Disciplina</div>
                         <select name="disciplina" id="disciplina" @change="filterCards($event)">
                             <option selected value="">Todas as disciplinas</option>
                             <option v-for="row in disciplinas" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
                     <div>
-                        <div>Curso</div>
                         <select name="curso" id="curso" @change="filterCards($event)">
                             <option selected value="">Todos os cursos</option>
                             <option v-for="row in cursos" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
                     <div>
-                        <div>Papel</div>
                         <select name="arquetipo" id="arquetipo" @change="filterCards($event)">
                             <option selected value="">Todos os papéis</option>
                             <option v-for="row in arquetipos" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>                    
                     </div>
                     <div>
-                        <div>Situação</div>
                         <select name="situacao" id="situacao" @change="filterCards($event)">
                             <option v-for="row in situacoes" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
                     <div>
-                        <div>Ordenação</div>
                         <select name="ordenacao" id="ordenacao" @change="filterCards($event)">
                             <option v-for="row in ordenacoes" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
                     <div>
-                        <div>Visualização</div>
                         <select name="visualizacao" id="visualizacao" @change="changeCourseView($event)">
                             <option v-for="row in visualizacoes" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
@@ -95,7 +86,10 @@
                                 <div class="icon_ambiente" v-bind:class="card.ambiente.classe" :style="{ borderRightColor: card.ambiente.cor, borderLeftColor: card.ambiente.cor }">
                                     <p class="ambiente_card" v-bind:class="card.ambiente.classe" :style="{ background: card.ambiente.cor }">[[ card.ambiente.sigla ]]</p>
                                 </div>
-                                <img class="img-fluid" alt="imagem representativa do curso" v-bind:src="[[ card.diario.courseimage ]]" />
+
+                                <div class="card-image" v-bind:style="{ backgroundImage: 'url(' + [[ card.diario.courseimage ]] + ')' }"></div>
+
+<!--                                <img class="img-fluid" alt="imagem representativa do curso" v-bind:src="[[ card.diario.courseimage ]]" />-->
                                 <div class="progress bg-dark rounded-0">
                                     <div class="progress-bar" :style="{ background: card.ambiente.cor }"></div>
                                     <div class="porcentagem" :style="{ background: card.ambiente.cor }" v-if="card.diario.showcompletionconditions">
@@ -139,18 +133,21 @@
             </section>
             <aside>
                 <div id="detalhes-header">
-                    <h1>Detalhes</h1>
-                    <div v-if="!destaque"><p class="dt-text">Abaixo aparecerão os detalhes do diário ao lado.</p><p>escolha um curso e clique em <i>"+i"</i>.</p></div>
+                    <h2 class="subtitulo">Detalhes</h2>
+                    <div v-if="!destaque"><p class="subtitulo_descricao">Abaixo aparecerão os detalhes do diário ao lado.</p><div class="separador"></div><p class="subtitulo_descricao">escolha um curso e clique em <i>"+i"</i>.</p></div>
+
                     <div v-if=destaque>
-                        <p class="dt-text">Mais detalhes sobre o diário que você escolheu:</p>
+                        <p class="subtitulo_descricao">Mais detalhes sobre o diário que você escolheu:</p>
+                        <div class="separador"></div>
                         <p class="ambiente_titulo" v-bind:class="destaque.ambiente.classe" :style="{ background: destaque.ambiente.cor }">[[ destaque.ambiente.titulo ]]</p>
                         <img class="img-fluid destaque" alt="imagem representativa do curso" v-bind:src="[[ destaque.diario.courseimage ]]" />
                         <p class="card-diario destaque">[[ destaque.diario.shortname ]]</p>
                         <p class="card-title destaque">[[ destaque.diario.fullname ]]</p>
                         <a class="btn btn-primary destaque" v-bind:href="[[ destaque.diario.viewurl ]]">ACESSAR O CURSO</a>
-                        <p class="evento">Eventos do curso</p>
+                        <p class="subtitulo evento">Eventos do curso</p>
+                        <div class="separador"></div>
                         <div v-if="!destaque.diario.eventos">
-                            <p>Não há eventos futuros registrados para este curso.</p>
+                            <p class="subtitulo_descricao">Não há eventos futuros registrados para este curso.</p>
                         </div>
                         <div v-if="destaque.diario.eventos">
                             <ul>
@@ -165,7 +162,8 @@
                         </div>
                     </div>
                     <div v-if=informativos class="informativos">
-                        <h2>Últimos informativos</h2>
+                        <h2 class="subtitulo">Últimos informativos</h2>
+                        <div class="separador"></div>
                         <ul  v-for="informativo in informativos" id="informativos">
                             <li>
                                 <a v-bind:href="[[ informativo.url ]]" v-bind:title="[[ informativo.noticia ]]">[[ informativo.titulo ]]</a>

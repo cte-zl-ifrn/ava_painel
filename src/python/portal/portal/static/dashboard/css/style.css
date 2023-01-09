@@ -5,7 +5,7 @@
     padding: 0;
     /* box-sizing: border-box; */
     text-align: left;
-    font-family: 'Montserrat', 'Roboto', Helvetica, Arial, sans-serif
+    font-family: 'Open Sans', 'Roboto', Helvetica, Arial, sans-serif;
 }
 
 body {
@@ -20,7 +20,8 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: 700;
+    font-family: 'Montserrat', 'Roboto', Helvetica, Arial, sans-serif;
+    font-weight: 400 !important;
     margin-bottom: 10px;
 }
 
@@ -131,7 +132,7 @@ a.page-scroll {
 }
 
 #grid-header>h1 {
-    font-size: 32px;
+    /*font-size: 32px;*/
 }
 
 #grid-header>div {
@@ -318,13 +319,14 @@ main>div>aside {
 
 #grid-filter>div>select, #grid-filter>div>input {
     width: 100%;
+    height: 40px;
     font-style: normal;
     font-weight: 200;
     font-size: 16px;
     line-height: 22px;
     color: #565656;
     text-align: left;
-    border: 1px #f3f3f3 solid;
+    border: 1px #DBDBDB solid;
     background-color: #fff;
     padding: 0.25em 0.5em;
     background-image: linear-gradient(to top, #f9f9f9, #fff 33%)
@@ -387,7 +389,6 @@ div#grid-filter > h4 {
 }
 
 .ambiente_card {
-    font-family: 'Roboto';
     color: white;
     font-size: 15px;
     font-weight: 700;
@@ -413,7 +414,7 @@ div#grid-filter > h4 {
     position: absolute;
     width: 50px;
     height: 28px;
-    right: 50px;
+    right: 10px;
     border-radius: 100% 100% 0 0;
     margin-top: -12px;
 }
@@ -427,12 +428,16 @@ div#grid-filter > h4 {
 }
 
 .valor_porcentagem {
-    font-family: 'Roboto';
     color: white;
     margin: 0;
     text-align: center;
     font-size: 13px;
-    padding: 7px 0 0 0;
+    padding: 6px 0 0 0;
+}
+
+.card-image{
+    height: 140px;
+    background-size: auto;
 }
 
 .card-body {
@@ -450,20 +455,20 @@ div#grid-filter > h4 {
     text-align-last: auto;
     text-align: left;
     margin-left: -6px;
-    font-size: 15px;
+    font-size: 12px;
     margin-top: -10px;
     margin-bottom: 4px;
 }
 
 .card-title {
     margin-left: -6px;
-    font-family: 'Roboto';
     font-style: normal;
     font-weight: 200;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 22px;
     color: #565656;
     text-align: left;
+    text-transform: uppercase;
 }
 
 .card-footer {
@@ -510,23 +515,23 @@ button.btn.btn-secondary {
 /* ===== MAIN - ASIDES - DETAIL: BEGIN ===== */
 
 div#detalhes-header {
-    padding-top: 50px;
+    /*padding-top: 50px;*/
 }
 
 #detalhes-header>div {
     font-size: 13px;
     /* border-bottom: 2px #438f4b solid; */
-    padding: 10px;
+    /*padding: 10px;*/
 }
 
 div#detalhes-header>h1 {
-    font-size: 22px;
+    /*font-size: 22px;*/
     height: 68px;
     border-bottom: 2px #438f4b solid;
 }
 
 #detalhes-header>h2 {
-    font-size: 22px;
+    /*font-size: 22px;*/
 }
 
 div.dt-text,
@@ -542,6 +547,7 @@ p.dt-text {
     color: #fff;
     font-weight: 700;
     text-align: center;
+    margin-top: 24px;;
 }
 
 img.img-fluid {
@@ -551,14 +557,16 @@ img.img-fluid {
 }
 
 a.btn.btn-primary.destaque {
-    max-width: 200px;
-    text-align: center;
-    transform: translate(20%, 0%);
+    display: block;
+    margin: 0 15px;
 }
 
 p.card-diario.destaque {
-    margin-left: -1px;
+    margin: 0 15px;
     margin-top: 12px;
+}
+p.card-title.destaque {
+    margin: 0 15px 10px;
 }
 
 img.img-fluid.destaque {
@@ -577,10 +585,10 @@ ul#informativos {
 }
 
 #detalhes-header>div>h2 {
-    padding-top: 30px;
-    font-size: 22px;
-    border-bottom: 2px #438f4b solid;
-    height: 62px;
+    /*padding-top: 30px;*/
+    /*font-size: 22px;*/
+    /*border-bottom: 2px #438f4b solid;*/
+    /*height: 62px;*/
 }
 
 ul#informativos>li {
@@ -603,10 +611,10 @@ ul#informativos>li>a {
 /* ===== MAIN - ASIDES - EVENT: BEGIN ===== */
 
 p.evento {
-    font-size: 22px;
-    margin-top: 30px;
-    border-bottom: 2px #438f4b solid;
-    margin-bottom: 25px;
+    /*font-size: 22px;*/
+    /*margin-top: 30px;*/
+    /*border-bottom: 2px #438f4b solid;*/
+    /*margin-bottom: 25px;*/
 }
 
 
@@ -645,3 +653,40 @@ footer a:hover {
 }
 
 /* ===== FOOTER: END ===== */
+
+
+/* ############# CUSTOM  ############# */
+
+.titulo {
+    font-family: 'Montserrat Light';
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 29px;
+    letter-spacing: 0em;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.subtitulo {
+    font-family: 'Montserrat Light';
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    text-transform: uppercase;
+    padding: 50px 12px 0;
+}
+.subtitulo_descricao{
+    padding: 0 12px;
+    margin: 5px 0 12px 0;
+}
+
+.separador{
+    height: 2px;
+    width: 100%;
+    background-color: #438f4b;
+    margin: 15px 0;
+}
+
+/* _____________ CUSTOM  _____________ */
