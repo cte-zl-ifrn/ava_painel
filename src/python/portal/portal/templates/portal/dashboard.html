@@ -119,11 +119,11 @@
                                 </div>
                                 <div class="progress bg-dark rounded-0">
                                     <div class="progress-bar" :style="{ background: card.ambiente.cor }"></div>
-                                    <div class="porcentagem" :style="{ background: card.ambiente.cor }" v-if="card.diario.showcompletionconditions">
+                                    <div class="porcentagem" v-if="card.diario.showcompletionconditions">
                                         <p class="valor_porcentagem">[[ card.diario.progress ]]%</p>
                                     </div>
                                     <div class="porcentagem-detalhe">
-                                        <a type="button" class="btn btn-secondary" v-on:click="detailme(card)" :style="{ backgroundColor: card.ambiente.cor, borderColor: card.ambiente.cor }">+i</a>
+                                        <a type="button" class="detalhe-link" v-on:click="detailme(card)"><i class="fa fa-search"></i> </a>
                                     </div>
                                 </div>
                             </div>

@@ -6,6 +6,11 @@
     /* box-sizing: border-box; */
     text-align: left;
     font-family: 'Open Sans', 'Roboto', Helvetica, Arial, sans-serif;
+
+    -moz-transition: all 100ms ease-in;
+    -webkit-transition: all 100ms ease-in;
+    -o-transition: all 100ms ease-in;
+    transition: all 100ms ease-in;
 }
 
 body {
@@ -21,7 +26,7 @@ h4,
 h5,
 h6 {
     font-family: 'Montserrat', 'Roboto', Helvetica, Arial, sans-serif;
-    font-weight: 400 !important;
+    font-weight: 400;
     margin-bottom: 10px;
 }
 
@@ -348,6 +353,78 @@ div#grid-filter > h4 {
 #course-list {
     margin: 0 20px;
 }
+#course-list .course-wrapper{
+    flex-direction: row-reverse;
+    /*box-shadow: 2px 2px 5px 0 rgb(0 0 0 / 5%);*/
+    box-shadow: none;
+}
+#course-list .course-wrapper .progress.bg-dark.rounded-0{
+    width: 20px;
+    min-width: 20px;
+    height: auto;
+}
+#course-list .course-wrapper .card-body{
+    border: 1px solid #dedede;
+    padding: 10px 80px 10px 10px;
+}
+#course-list .course-wrapper .card-body .card-diario{
+    margin: 0;
+}
+#course-list .course-wrapper .card-body .card-title{
+    margin: 0;
+    font-weight: 300;
+}
+#course-list .course-wrapper .card-body .card-title > a{
+    color: #565656;
+    text-decoration: none;
+}
+#course-list .course-wrapper .progress .porcentagem-detalhe{
+    margin: 0;
+    right: 10px;
+    top: 13px;
+    background-color: transparent;
+    border: 1px solid #dedede;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+}
+#course-list .course-wrapper .progress .porcentagem-detalhe:hover{
+    background-color: #438f4b;
+    border: 1px solid #438f4b;
+}
+#course-list .course-wrapper .progress .porcentagem-detalhe:hover > a{
+    color: #fff;
+}
+#course-list .course-wrapper .progress .porcentagem-detalhe .detalhe-link{
+    font-size: 14px;
+    font-weight: 200;
+    color: #aaa;
+    transform: translateY(-1px);
+}
+#course-list .course-wrapper .progress .porcentagem{
+    margin: 0;
+    right: 45px;
+    top: 13px;
+    background-color: transparent;
+    border: 1px solid #dedede;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    width: 40px;
+    height: 30px;
+}
+#course-list .course-wrapper .progress .porcentagem .valor_porcentagem{
+    color: #a0a0a0;
+    margin: 0;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 0;
+}
 
 #course-cards {
     display: grid;
@@ -427,13 +504,7 @@ div#grid-filter > h4 {
     margin-top: -15px;
 }
 
-.valor_porcentagem {
-    color: white;
-    margin: 0;
-    text-align: center;
-    font-size: 13px;
-    padding: 6px 0 0 0;
-}
+
 
 .card-image{
     height: 140px;
