@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"path": "../../.."
+		},
+		{
+			"path": "../../../../moodle"
+		},
+		{
+			"path": "../../../../moodle__image"
+		},
+		{
+			"path": "../../../../moodle__auth_suap"
+		},
+		{
+			"path": "../../../../moodle__block_suapattendance"
+		},
+		{
+			"path": "../../../../moodle__local_suap"
+		},
+		{
+			"path": "../../../../moodle__theme_maeve"
+		}
+	],
+	"settings": {}
+}
