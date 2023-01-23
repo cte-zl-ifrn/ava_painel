@@ -22,8 +22,8 @@ def diarios(
         page: int = 1,
         page_size: int = 9,
     ):
-    #return get_diarios(request.user.username, semestre, situacao, disciplina, curso, arquetipo, ambiente, q, page, page_size)
-    return get_diarios('277375', semestre, situacao, disciplina, curso, arquetipo, ambiente, q, page, page_size)
+    return get_diarios(request.user.username, semestre, situacao, disciplina, curso, arquetipo, ambiente, q, page, page_size)
+    # return get_diarios('277375', semestre, situacao, disciplina, curso, arquetipo, ambiente, q, page, page_size)
 
 
 @api.get("/informativos/")

@@ -278,5 +278,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOWED_ORIGINS = [
     "https://suap.ifrn.edu.br/accounts/logout/",
     "http://localhost:8000",
-
+    "https://ava.ifrn.edu.br",
+    "http://ava.ifrn.edu.br",
 ]
+
+CSRF_TRUSTED_ORIGINS=['https://ava.ifrn.edu.br', 'http://ava.ifrn.edu.br']

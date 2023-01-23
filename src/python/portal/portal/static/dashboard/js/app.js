@@ -14,13 +14,13 @@ export default {
                 {"label": "Favoritos", "id": "favourites"},
             ],
             ordenacoes: [
-                {"label": "Disciplina", "id": "fullname"},
-                {"label": "Código do diário", "id": "shortname"},
-                {"label": "Últimos acessados", "id": "ul.timeaccess desc"},
+                {"label": "Por disciplina", "id": "fullname"},
+                {"label": "Por código do diário", "id": "shortname"},
+                {"label": "Pelo últimos acessados", "id": "ul.timeaccess desc"},
             ],
             visualizacoes: [
-                {"label": "Cartões", "id": "card"},
-                {"label": "Linhas", "id": "list"},
+                {"label": "Ver como linhas", "id": "list"},
+                {"label": "Ver como cartões", "id": "card"},
             ],
             disciplinas: [],
             cursos: [],
@@ -28,6 +28,7 @@ export default {
             ambientes: [],
             informativos: [],
             diarios: [],
+            salas: [],
         }
     },
     mounted() {

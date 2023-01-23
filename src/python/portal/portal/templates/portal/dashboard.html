@@ -17,38 +17,38 @@
             <section>
                 <div id="grid-header">
                     <h1 class="titulo">Meus diários</h1>
-                    <div>Clique em <i>"+i"</i> nos diários abaixo para saber mais detalhes.</div>
+                    <div class="hide_this">Clique em <i class="fa fa-search"></i> nos diários abaixo para saber mais detalhes.</div>
                 </div>
 
                 <div id="grid-filter" class="hide_this">
-                    <div>
+                    <div class="hide_this">
                         <input placeholder="Buscar curso..." name="q" id="q" @keyup.enter="filterCards($event)" />
                     </div>
-                    <div>
+                    <div class="hide_this">
                         <select name="semestre" id="semestre" @change="filterCards($event)">
                             <option selected value="">Todos os semestres</option>
                             <option v-for="row in semestres" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
-                    <div>
+                    <div class="hide_this">
                         <select name="ambiente" id="ambiente_id" @change="filterCards($event)">
                             <option selected value="">Todos os ambientes</option>
                             <option v-for="row in ambientes" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>                    
                     </div>
-                    <div>
+                    <div class="hide_this">
                         <select name="disciplina" id="disciplina" @change="filterCards($event)">
                             <option selected value="">Todas as disciplinas</option>
                             <option v-for="row in disciplinas" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
-                    <div>
+                    <div class="hide_this">
                         <select name="curso" id="curso" @change="filterCards($event)">
                             <option selected value="">Todos os cursos</option>
                             <option v-for="row in cursos" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
-                    <div>
+                    <div class="hide_this">
                         <select name="arquetipo" id="arquetipo" @change="filterCards($event)">
                             <option selected value="">Todos os papéis</option>
                             <option v-for="row in arquetipos" v-bind:value="row.id">[[ row.label ]]</option>
@@ -102,9 +102,9 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="flex">
-                                        <a class="btn btn-primary" v-bind:href="[[ card.diario.viewurl ]]">ACESSAR</a>
+                                        <a class="btn btn-primary" v-bind:href="[[ card.diario.viewurl ]]"><!--<i class="fa fa-external-link" aria-hidden="true"></i>-->ACESSAR</a>
                                         <div class="flex-auto"></div>
-                                        <button type="button" class="btn btn-secondary" v-on:click="detailme(card)">DETALHES</button>
+                                        <button type="button" class="btn btn-secondary" v-on:click="detailme(card)"><i class="fa fa-search"></i> DETALHES</button>
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +134,7 @@
             <aside>
                 <div id="detalhes-header">
                     <h2 class="subtitulo">Detalhes</h2>
-                    <div v-if="!destaque"><p class="subtitulo_descricao">Abaixo aparecerão os detalhes do diário ao lado.</p><div class="separador"></div><p class="subtitulo_descricao">escolha um curso e clique em <i>"+i"</i>.</p></div>
+                    <div v-if="!destaque"><p class="subtitulo_descricao">Abaixo aparecerão os detalhes do diário ao lado.</p><div class="separador"></div></div>
 
                     <div v-if=destaque>
                         <p class="subtitulo_descricao">Mais detalhes sobre o diário que você escolheu:</p>
