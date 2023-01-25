@@ -221,9 +221,13 @@ class Diario(SafeDeleteModel):
         def _validate_campus():
             try:
                 pkg = json.loads(message_string)
-                filter = {"suap_id": pkg["campus"]["id"], "sigla": pkg["campus"]["sigla"]}
+            except Exception as e:
+                raise SyncError(f"O JSON está inválido: {e} {message_string}.", 407)
+
+            try:
+                filter = {"suap_id": pkg["campus"]["id"], "sigla": pkg["campus"]["sigla"], 'active': True}
             except:
-                raise SyncError(f"O JSON está inválido.", 406)
+                raise SyncError(f"O JSON não tinha a estrutura definida.", 406)
             
             campus = Campus.objects.filter(**filter).first()
             if campus is None:
@@ -235,31 +239,30 @@ class Diario(SafeDeleteModel):
             if not campus.ambiente.active:
                 raise SyncError(f"O campus '{filter['sigla']}' existe e está ativo, mas o ambiente {campus.ambiente.sigla} está inativo.", 417, campus)
             return campus, pkg
-        
+
+
         campus, pkg = _validate_campus()
         try:
             retorno = requests.post(
-                f"{campus.ambiente.url}/auth/suap/sync_up.php", 
+                f"{campus.ambiente.url}/local/suap/sync_up_enrolments.php", 
                 data={"jsonstring": message_string},
                 headers={"Authentication": f"Token {campus.ambiente.token}"}
             )
         except Exception as e:
-            
             raise SyncError(f"Erro na integração. O Moodle disse: {e}", 513, campus)
-        
-        
+
         retorno_json = None
         if retorno.status_code != 200:
             try:
                 retorno_json = json.loads(retorno.text)
             except Exception as e:
                 raise SyncError(f"Erro na integração. Contacte um administrador. Erro: {e}", retorno.status_code, campus, retorno)
-        
+
         try:
             retorno_json = json.loads(retorno.text)
         except:
             raise SyncError(f"Erro na integração. Contacte um desenvolvedor.", retorno.status_code, campus, retorno)
-        
+
         Solicitacao.objects.create(
             requisicao_header=headers,
             requisicao=message_string,
@@ -272,23 +275,24 @@ class Diario(SafeDeleteModel):
             
             campus=campus
         )
-        
+
         try:
             Diario.make(pkg)
         except Exception as e:
             raise SyncError(f"Erro na integração. Contacte um administrador. {e}", 512, campus, retorno)
-        
+
         return retorno_json
     
     @classmethod
     def make(cls, d):
         def get_polo_id(person):
-            if 'polo' in person and person['polo']:
+            if 'polo' in person and person['polo'] and not isinstance(person['polo'], int):
                 return person['polo']['id']
             else:
                 return None
-                        
+     
         campus = Campus.objects.get(suap_id=d['campus']['id'])
+
         curso, created = Curso.objects.update_or_create(
             codigo=d['curso']['codigo'],
             defaults={
@@ -330,13 +334,13 @@ class Diario(SafeDeleteModel):
         
         pessoas = d['professores'] + d['alunos']
         polos = {}
-        for p in pessoas:
-            if get_polo_id(p) and get_polo_id(p) not in polos:
-                polo, created = Polo.objects.update_or_create(
-                    suap_id=p['polo']['id'],
-                    defaults={'nome': p['polo']['nome']}
-                )
-                polos[p['polo']['id']] = polo
+        # for p in pessoas:
+        #     if get_polo_id(p) and get_polo_id(p) not in polos:
+        #         polo, created = Polo.objects.update_or_create(
+        #             suap_id=p['polo']['id'],
+        #             defaults={'nome': p['polo']['nome']}
+        #         )
+        #         polos[p['polo']['id']] = polo
 
         for p in pessoas:
 
@@ -344,18 +348,18 @@ class Diario(SafeDeleteModel):
                 papel = Arquetipo.ALUNO
             else:
                 papel = Arquetipo.PROFESSOR if p['tipo'] == 'Principal' else Arquetipo.TUTOR
+            polo = polos.get(get_polo_id(p), None)
                 
             is_active = 'ativo' == p.get('situacao', p.get('status', '')).lower()
             username = p.get('login', p.get('matricula', None))
-            polo = polos.get(get_polo_id(p))
             usuario, created = Usuario.objects.update_or_create(
                 username=username,
                 defaults={
-                    'nome': p['nome'],
+                    'nome_civil': p['nome'],
                     'email': p['email'],
-                    # 'email_escolar': pessoa['email_escolar'],
-                    # 'email_academico': pessoa['email_academico'],
-                    # 'email_secundario': pessoa['email_secundario'],
+                    # 'email_escolar': p['email_escolar'],
+                    # 'email_academico': p['email_academico'],
+                    'email_secundario': p.get('email_secundario', None),
                     'is_active': is_active,
                     'tipo': Usuario.Tipo.get_by_length(len(username)),
                     # 'campus': campus if papel == Arquetipo.ALUNO else None,
@@ -407,7 +411,8 @@ class Inscricao(SafeDeleteModel):
         ordering = ['diario', 'usuario']
 
     def __str__(self):
-        return f'{self.diario} - {self.usuario}'
+        active = '✅' if self.active else '⛔'
+        return f'{self.diario} - {self.usuario} - {self.papel} - {active}'
     
     def notify(self):
         pass

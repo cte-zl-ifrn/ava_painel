@@ -10,7 +10,7 @@ from middleware.models import Solicitacao
 
 def raise_error(request, error):
     event_id = capture_exception(error)
-    
+    print(error.retorno.content)
     solicitacao = Solicitacao.objects.create(
         status=Solicitacao.Status.FALHA,
         campus=error.campus if 'campus' in dir(error) else None,
@@ -42,10 +42,8 @@ def moodle_suap(request):
             raise SyncError("Você enviou um token de auteticação diferente do que tem na settings 'SUAP_EAD_KEY'.", 403)
 
         if request.method == 'POST':
-            diario = Diario.sync(request.body, h2d(request))
-            return JsonResponse(diario)
-        else:
-            raise SyncError("Não implementado.", 501)
+            return JsonResponse(Diario.sync(request.body, h2d(request)))
+        raise SyncError("Não implementado.", 501)
     except SyncError as e:
         return raise_error(request, e)
     except Exception as e:

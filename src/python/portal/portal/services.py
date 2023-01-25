@@ -62,8 +62,6 @@ def get_diarios(
         "diarios": [],
     }
 
-    print(f'Diários do usuário {username}')
-
     requests = [
         {
             "ambiente": ava,
@@ -80,22 +78,6 @@ def get_diarios(
             "results": results,
         } for ava in Ambiente.objects.filter(active=True) if ambiente == ava.id or ambiente != '' or ambiente is not None
     ]
-
-    print(requests)
-    print({
-        "ambiente": ambiente,
-        "username": username,
-        "semestre": semestre,
-        "situacao": situacao,
-        "ordenacao": ordenacao,
-        "disciplina": disciplina,
-        "curso": curso,
-        "arquetipo": arquetipo,
-        "q": q,
-        "page": page,
-        "page_size": page_size,
-        "results": results,
-    })
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
         executor.map(_get_diarios, requests)

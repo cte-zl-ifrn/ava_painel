@@ -198,35 +198,35 @@ a.page-scroll {
     animation-delay: 600ms;
   }
   #mosaic-loader > .cell:nth-child(1) {
-    --cell-color: #d4aee0;
+    --cell-color: #d40000;
     border-radius: 50%;
   }
   #mosaic-loader > .cell:nth-child(2) {
-    --cell-color: #8975b4;
+    --cell-color: #30672e;
   }
   #mosaic-loader > .cell:nth-child(3) {
-    --cell-color: #64518a;
+    --cell-color: #2a8b26;
   }
   #mosaic-loader > .cell:nth-child(4) {
-    --cell-color: #565190;
+    --cell-color: #33a52f;
   }
   #mosaic-loader > .cell:nth-child(5) {
-    --cell-color: #44abac;
+    --cell-color: #2abf2c;
   }
   #mosaic-loader > .cell:nth-child(6) {
     --cell-color: transparent;
   }
   #mosaic-loader > .cell:nth-child(7) {
-    --cell-color: #1482ce;
+    --cell-color: #30672e;
   }
   #mosaic-loader > .cell:nth-child(8) {
-    --cell-color: #05597c;
+    --cell-color: #2a8b26;
   }
   #mosaic-loader > .cell:nth-child(9) {
-    --cell-color: #b2dd57;
+    --cell-color: #33a52f;
   }
   #mosaic-loader > .cell:nth-child(10) {
-    --cell-color: #57c443;
+    --cell-color: #2abf2c;
   }
   #mosaic-loader > .cell:nth-child(11) {
     --cell-color: #05b853;
@@ -235,16 +235,16 @@ a.page-scroll {
     --cell-color: transparent;
   }
   #mosaic-loader > .cell:nth-child(13) {
-    --cell-color: #fdc82e;
+    --cell-color: #33a52f;
   }
   #mosaic-loader > .cell:nth-child(14) {
-    --cell-color: #fd9c2e;
+    --cell-color: #33a52f;
   }
   #mosaic-loader > .cell:nth-child(15) {
-    --cell-color: #d5385a;
+    --cell-color: #33a52f;
   }
   #mosaic-loader > .cell:nth-child(16) {
-    --cell-color: #911750;
+    --cell-color: #33a52f;
   }
   
   @keyframes ripple {

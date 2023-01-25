@@ -83,10 +83,13 @@ MIDDLEWARE = [
     'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
+import platform
 
 # Routing
 WSGI_APPLICATION = env('DJANGO_WSGI_APPLICATION', 'wsgi.application')
 ALLOWED_HOSTS = env_as_list('DJANGO_ALLOWED_HOSTS', '*' if DEBUG else '')
+# + ['0.0.0.0', platform.node()]
+print(ALLOWED_HOSTS)
 USE_X_FORWARDED_HOST = env_as_bool('DJANGO_USE_X_FORWARDED_HOST', False)
 SECURE_PROXY_SSL_HEADER = env_as_list('DJANGO_SECURE_PROXY_SSL_HEADER', '')
 ROOT_URLCONF = env('DJANGO_ROOT_URLCONF', 'urls')
@@ -96,7 +99,6 @@ MEDIA_URL = env('DJANGO_MEDIA_URL', '/media/')
 MEDIA_ROOT = env('DJANGO_MEDIA_ROOT', '/var/media')
 MARKDOWNX_URLS_PATH = env('MARKDOWNX_URLS_PATH', '/markdownx/markdownify/')
 MARKDOWNX_UPLOAD_URLS_PATH = env('MARKDOWNX_UPLOAD_URLS_PATH', '/markdownx/upload/')
-
 
 # Template engine
 TEMPLATES = [

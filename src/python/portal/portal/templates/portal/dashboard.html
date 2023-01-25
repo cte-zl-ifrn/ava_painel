@@ -21,34 +21,34 @@
                 </div>
 
                 <div id="grid-filter" class="hide_this">
-                    <div class="hide_this">
+                    <div>
                         <input placeholder="Buscar curso..." name="q" id="q" @keyup.enter="filterCards($event)" />
                     </div>
-                    <div class="hide_this">
+                    <div>
                         <select name="semestre" id="semestre" @change="filterCards($event)">
                             <option selected value="">Todos os semestres</option>
                             <option v-for="row in semestres" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
-                    <div class="hide_this">
+                    <div>
                         <select name="ambiente" id="ambiente_id" @change="filterCards($event)">
                             <option selected value="">Todos os ambientes</option>
                             <option v-for="row in ambientes" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>                    
                     </div>
-                    <div class="hide_this">
+                    <div>
                         <select name="disciplina" id="disciplina" @change="filterCards($event)">
                             <option selected value="">Todas as disciplinas</option>
                             <option v-for="row in disciplinas" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
-                    <div class="hide_this">
+                    <div>
                         <select name="curso" id="curso" @change="filterCards($event)">
                             <option selected value="">Todos os cursos</option>
                             <option v-for="row in cursos" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
-                    <div class="hide_this">
+                    <div>
                         <select name="arquetipo" id="arquetipo" @change="filterCards($event)">
                             <option selected value="">Todos os papéis</option>
                             <option v-for="row in arquetipos" v-bind:value="row.id">[[ row.label ]]</option>

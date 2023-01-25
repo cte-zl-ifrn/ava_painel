@@ -1,7 +1,8 @@
 from django.utils.translation import gettext as _
 import requests, json
 from functools import update_wrapper
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
+from django.http import HttpResponse
 from django.utils.html import format_html
 from django.db import transaction
 from django.urls import path, reverse
@@ -43,4 +44,10 @@ class SolicitacaoAdmin(ModelAdmin):
     @transaction.atomic
     def sync_view(self, request, object_id, form_url="", extra_context=None):
         s = get_object_or_404(Solicitacao, pk=object_id)
-        Diario.sync(s.requisicao, s.requisicao_header)
+        print(s.requisicao_header)
+        print(s.requisicao)
+        try:
+            Diario.sync(s.requisicao, s.requisicao_header)
+        except Exception as e:
+            return HttpResponse(e.message)
+            
