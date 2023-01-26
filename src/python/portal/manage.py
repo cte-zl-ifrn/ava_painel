@@ -18,6 +18,7 @@ def _wait_db(db):
         time.sleep(3)
 
 if __name__ == "__main__":
+    debugpyativo = False
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
     try:
         from django.core.management import execute_from_command_line
@@ -27,5 +28,15 @@ if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] in ['runserver', 'runserver_plus']:
         _wait_db(DATABASES['default'])
         execute_from_command_line([sys.argv[0], 'migrate'])
+        
+        from sc4py.env import env_as_bool
+        if env_as_bool("DJANGO_DEBUG", False) and not debugpyativo:
+            try:
+                import debugpy
+                debugpy.listen(('0.0.0.0', 5678))
+                debugpy.wait_for_client()
+            except:
+                pass
+            # debugpy.breakpoint()
         
     execute_from_command_line(sys.argv)
