@@ -1,74 +1,162 @@
 {% extends "portal/layouts/base.html" %}
 {% load static %}
-
 {% block extra_script %}
     <script src="//cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="//unpkg.com/vue@3.2.37/dist/vue.global.prod.js"></script>
-    
     <script type="module">
         import ava_dashboard from "{% static 'dashboard/js/app.js' %}";      
         Vue.createApp(ava_dashboard).mount("#app");
-    </script>    
+    </script>
 {% endblock extra_script %}
-
 {% block main %}
     <main id="app">
         <div>
-            <section>
-                <div id="grid-header">
-                    <h1 class="titulo">Meus diários</h1>
-                    <div class="hide_this">Clique em <i class="fa fa-search"></i> nos diários abaixo para saber mais detalhes.</div>
-                </div>
+            <section >
+                <nav>
+                    <div class="nav nav-tabs" role="tablist">
+                        <button class="nav-link active" id="nav-diarios-tab" data-bs-toggle="tab" data-bs-target="#nav-diarios" type="button" role="tab" aria-controls="nav-diarios" aria-selected="true">
+                            Diários
+                        </button>
+                        <button class="nav-link" id="nav-coordenacoes-tab" data-bs-toggle="tab" data-bs-target="#nav-coordenacoes" type="button" role="tab" aria-controls="nav-coordenacoes" aria-selected="false" v-if="coordenacoes">
+                            Salas das coordenação
+                        </button>
+                        <button class="nav-link" id="nav-praticas-tab" data-bs-toggle="tab" data-bs-target="#nav-praticas" type="button" role="tab" aria-controls="nav-praticas" aria-selected="false" v-if="praticas" >
+                            Pratique
+                        </button>
+                    </div>
+                </nav>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="nav-diarios" role="tabpanel" aria-labelledby="nav-diarios-tab">
+                        <div id="grid-filter" class="hide_this">
+                            <div>
+                                <select name="semestre" id="semestre" @change="filterCards($event)">
+                                    <option selected value="">Todos os semestres</option>
+                                    <option v-for="row in semestres" v-bind:value="row.id">[[ row.label ]]</option>
+                                </select>
+                            </div>
+                            <div>
+                                <select name="disciplina" id="disciplina" @change="filterCards($event)">
+                                    <option selected value="">Todas as disciplinas</option>
+                                    <option v-for="row in disciplinas" v-bind:value="row.id">[[ row.label ]]</option>
+                                </select>
+                            </div>
+                            <div>
+                                <select name="curso" id="curso" @change="filterCards($event)">
+                                    <option selected value="">Todos os cursos</option>
+                                    <option v-for="row in cursos" v-bind:value="row.id">[[ row.label ]]</option>
+                                </select>
+                            </div>
+                            <div class="hide_this">
+                                <select name="arquetipo" id="arquetipo" @change="filterCards($event)">
+                                    <option selected value="">Todos os papéis</option>
+                                    <option v-for="row in arquetipos" v-bind:value="row.id">[[ row.label ]]</option>
+                                </select>
+                            </div>
+                            <div>
+                                <select name="situacao" id="situacao" @change="filterCards($event)">
+                                    <option v-for="row in situacoes" v-bind:value="row.id">[[ row.label ]]</option>
+                                </select>
+                            </div>
+                            <div>
+                                <select name="ordenacao" id="ordenacao" @change="filterCards($event)">
+                                    <option v-for="row in ordenacoes" v-bind:value="row.id">[[ row.label ]]</option>
+                                </select>
+                            </div>
+                            <div class="hide_this">
+                                <select name="visualizacao" id="visualizacao" @change="changeCourseView($event)">
+                                    <option v-for="row in visualizacoes" v-bind:value="row.id">[[ row.label ]]</option>
+                                </select>
+                            </div>
+                            <div>
+                                <select name="ambiente" id="ambiente_id" @change="filterCards($event)">
+                                    <option selected value="">Todos os ambientes</option>
+                                    <option v-for="row in ambientes" v-bind:value="row.id">[[ row.label ]]</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input placeholder="Buscar curso..." name="q" id="q" @keyup.enter="filterCards($event)"/>
+                            </div>
+                        </div>
+                        <div id="course-views" class="hide_this">
+                            <div id="course-cards" class="hide_this">
+                                <div v-for="card in diarios" class="course-card">
+                                    <div class="course-wrapper">
+                                        <div class="icon_ambiente" v-bind:class="card.ambiente.classe" :style="{ borderRightColor: card.ambiente.cor, borderLeftColor: card.ambiente.cor }">
+                                            <p class="ambiente_card" v-bind:class="card.ambiente.classe" :style="{ background: card.ambiente.cor }">
+                                                [[ card.ambiente.sigla ]]
+                                            </p>
+                                        </div>
+                                        <div class="card-image" v-bind:style="{ backgroundImage: 'url(' + [[ card.diario.courseimage ]] + ')' }"></div>
+                                        <div class="progress bg-dark rounded-0">
+                                            <div class="progress-bar" :style="{ background: card.ambiente.cor }"></div>
+                                            <div class="porcentagem" :style="{ background: card.ambiente.cor }" v-if="card.diario.showcompletionconditions">
+                                                <p class="valor_porcentagem">[[ card.diario.progress ]]%</p>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-diario">[[ card.diario.shortname ]]</p>
+                                            <h5 class="card-title">[[ card.diario.fullname ]]</h5>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="flex">
+                                                <a class="btn btn-primary" v-bind:href="[[ card.diario.viewurl ]]">ACESSAR</a>
+                                                <div class="flex-auto"></div>
+                                                <button type="button" class="btn btn-secondary" v-on:click="detailme(card)">DETALHES</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="course-list">
+                                <div v-for="card in diarios" class="course-listitem">
+                                    <div class="course-wrapper">
+                                        <div class="card-body">
+                                            <p class="card-diario">[[ card.diario.shortname ]]</p>
+                                            <h5 class="card-title">
+                                                <a v-bind:href="[[ card.diario.viewurl ]]">[[ card.diario.fullname ]]</a>
+                                            </h5>
+                                        </div>
+                                        <div class="progress bg-dark rounded-0">
+                                            <div class="progress-bar" :style="{ background: card.ambiente.cor }"></div>
+                                            <div class="porcentagem" v-if="card.diario.showcompletionconditions">
+                                                <p class="valor_porcentagem">[[ card.diario.progress ]]%</p>
+                                            </div>
+                                            <div class="porcentagem-detalhe">
+                                                <a type="button" class="detalhe-link" v-on:click="detailme(card)"><i class="fa fa-search"></i> </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                <div id="grid-filter" class="hide_this">
-                    <div>
-                        <input placeholder="Buscar curso..." name="q" id="q" @keyup.enter="filterCards($event)" />
+                    <div class="tab-pane fade" id="nav-coordenacoes" role="tabpanel" aria-labelledby="nav-coordenacoes-tab" v-if="coordenacoes">
+                        <aside>
+                            <div id="detalhes-header">
+                                <h2 class="subtitulo">Salas das coordenação</h2>
+                                <div class="separador"></div>
+                                <ul v-for="coordenacao in coordenacoes" id="coordenacoes">
+                                    <li><a v-bind:title="[[ coordenacao.fullname ]]">[[ coordenacao.fullname ]]</a></li>
+                                </ul>
+                            </div>
+                        </aside>
                     </div>
-                    <div>
-                        <select name="semestre" id="semestre" @change="filterCards($event)">
-                            <option selected value="">Todos os semestres</option>
-                            <option v-for="row in semestres" v-bind:value="row.id">[[ row.label ]]</option>
-                        </select>
+
+                    <div class="tab-pane fade" id="nav-praticas" role="tabpanel" aria-labelledby="nav-praticas-tab" v-if="praticas">
+                        <aside>
+                            <div id="detalhes-header">
+                                <h2 class="subtitulo">Pratique</h2>
+                                <div class="separador"></div>
+                                <ul v-for="pratica in praticas" id="praticas">
+                                    <li><a v-bind:title="[[ pratica.fullname ]]">[[ pratica.fullname ]]</a></li>
+                                </ul>
+                                <div class="praticas">
+                                </div>
+                            </div>
+                        </aside>
                     </div>
-                    <div>
-                        <select name="ambiente" id="ambiente_id" @change="filterCards($event)">
-                            <option selected value="">Todos os ambientes</option>
-                            <option v-for="row in ambientes" v-bind:value="row.id">[[ row.label ]]</option>
-                        </select>                    
-                    </div>
-                    <div>
-                        <select name="disciplina" id="disciplina" @change="filterCards($event)">
-                            <option selected value="">Todas as disciplinas</option>
-                            <option v-for="row in disciplinas" v-bind:value="row.id">[[ row.label ]]</option>
-                        </select>
-                    </div>
-                    <div>
-                        <select name="curso" id="curso" @change="filterCards($event)">
-                            <option selected value="">Todos os cursos</option>
-                            <option v-for="row in cursos" v-bind:value="row.id">[[ row.label ]]</option>
-                        </select>
-                    </div>
-                    <div>
-                        <select name="arquetipo" id="arquetipo" @change="filterCards($event)">
-                            <option selected value="">Todos os papéis</option>
-                            <option v-for="row in arquetipos" v-bind:value="row.id">[[ row.label ]]</option>
-                        </select>                    
-                    </div>
-                    <div>
-                        <select name="situacao" id="situacao" @change="filterCards($event)">
-                            <option v-for="row in situacoes" v-bind:value="row.id">[[ row.label ]]</option>
-                        </select>
-                    </div>
-                    <div>
-                        <select name="ordenacao" id="ordenacao" @change="filterCards($event)">
-                            <option v-for="row in ordenacoes" v-bind:value="row.id">[[ row.label ]]</option>
-                        </select>
-                    </div>
-                    <div>
-                        <select name="visualizacao" id="visualizacao" @change="changeCourseView($event)">
-                            <option v-for="row in visualizacoes" v-bind:value="row.id">[[ row.label ]]</option>
-                        </select>
-                    </div>
+
                 </div>
                 <div id="search-loader">
                     <p>Procurando seus cursos</p>
@@ -79,99 +167,7 @@
                         <div class="cell d-3"></div><div class="cell d-4"></div><div class="cell d-5"></div>
                     </div>
                 </div>
-                <div id="course-views" class="hide_this">
-                    <div id="course-cards" class="hide_this">
-                        <div v-for="card in diarios" class="course-card">
-                            <div class="course-wrapper">
-                                <div class="icon_ambiente" v-bind:class="card.ambiente.classe" :style="{ borderRightColor: card.ambiente.cor, borderLeftColor: card.ambiente.cor }">
-                                    <p class="ambiente_card" v-bind:class="card.ambiente.classe" :style="{ background: card.ambiente.cor }">[[ card.ambiente.sigla ]]</p>
-                                </div>
-
-                                <div class="card-image" v-bind:style="{ backgroundImage: 'url(' + [[ card.diario.courseimage ]] + ')' }"></div>
-
-<!--                                <img class="img-fluid" alt="imagem representativa do curso" v-bind:src="[[ card.diario.courseimage ]]" />-->
-                                <div class="progress bg-dark rounded-0">
-                                    <div class="progress-bar" :style="{ background: card.ambiente.cor }"></div>
-                                    <div class="porcentagem" :style="{ background: card.ambiente.cor }" v-if="card.diario.showcompletionconditions">
-                                        <p class="valor_porcentagem">[[ card.diario.progress ]]%</p>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <p class="card-diario">[[ card.diario.shortname ]]</p>
-                                    <h5 class="card-title">[[ card.diario.fullname ]]</h5>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="flex">
-                                        <a class="btn btn-primary" v-bind:href="[[ card.diario.viewurl ]]"><!--<i class="fa fa-external-link" aria-hidden="true"></i>-->ACESSAR</a>
-                                        <div class="flex-auto"></div>
-                                        <button type="button" class="btn btn-secondary" v-on:click="detailme(card)"><i class="fa fa-search"></i> DETALHES</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="course-list">
-                        <div v-for="card in diarios" class="course-listitem">
-                            <div class="course-wrapper">
-                                <div class="card-body">
-                                    <p class="card-diario">[[ card.diario.shortname ]]</p>
-                                    <h5 class="card-title"><a v-bind:href="[[ card.diario.viewurl ]]">[[ card.diario.fullname ]]</a></h5>
-                                </div>
-                                <div class="progress bg-dark rounded-0">
-                                    <div class="progress-bar" :style="{ background: card.ambiente.cor }"></div>
-                                    <div class="porcentagem" v-if="card.diario.showcompletionconditions">
-                                        <p class="valor_porcentagem">[[ card.diario.progress ]]%</p>
-                                    </div>
-                                    <div class="porcentagem-detalhe">
-                                        <a type="button" class="detalhe-link" v-on:click="detailme(card)"><i class="fa fa-search"></i> </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                    
-                </div>
             </section>
-            <aside>
-                <div id="detalhes-header">
-                    <h2 class="subtitulo">Detalhes</h2>
-                    <div v-if="!destaque"><p class="subtitulo_descricao">Abaixo aparecerão os detalhes do diário ao lado.</p><div class="separador"></div></div>
-
-                    <div v-if=destaque>
-                        <p class="subtitulo_descricao">Mais detalhes sobre o diário que você escolheu:</p>
-                        <div class="separador"></div>
-                        <p class="ambiente_titulo" v-bind:class="destaque.ambiente.classe" :style="{ background: destaque.ambiente.cor }">[[ destaque.ambiente.titulo ]]</p>
-                        <img class="img-fluid destaque" alt="imagem representativa do curso" v-bind:src="[[ destaque.diario.courseimage ]]" />
-                        <p class="card-diario destaque">[[ destaque.diario.shortname ]]</p>
-                        <p class="card-title destaque">[[ destaque.diario.fullname ]]</p>
-                        <a class="btn btn-primary destaque" v-bind:href="[[ destaque.diario.viewurl ]]">ACESSAR O CURSO</a>
-                        <p class="subtitulo evento">Eventos do curso</p>
-                        <div class="separador"></div>
-                        <div v-if="!destaque.diario.eventos">
-                            <p class="subtitulo_descricao">Não há eventos futuros registrados para este curso.</p>
-                        </div>
-                        <div v-if="destaque.diario.eventos">
-                            <ul>
-                                <li v-for="evento in destaque.diario.eventos">
-                                    <strong>[[ evento.titulo ]]</strong>
-                                    <br />
-                                    De: [[ formatDate(evento.data_hora_inicio) ]]
-                                    <br />
-                                    Até: [[ formatDate(evento.data_hora_fim) ]]
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div v-if=informativos class="informativos">
-                        <h2 class="subtitulo">Últimos informativos</h2>
-                        <div class="separador"></div>
-                        <ul  v-for="informativo in informativos" id="informativos">
-                            <li>
-                                <a v-bind:href="[[ informativo.url ]]" v-bind:title="[[ informativo.noticia ]]">[[ informativo.titulo ]]</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </aside>
         </div>
     </main>
 {% endblock main %}

@@ -76,7 +76,7 @@ ul.menu-principal {
     /* position: absolute; */
     top: -9px;
     height: 42px;
-    width: 472px;
+    /* width: 472px; */
     background-color: #ffff;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     border-radius: 0px 0px 0.65rem 0.65rem;
@@ -279,7 +279,7 @@ main>div {
     max-width: 1243px;
     height: 100%;
     margin: 0 auto;
-    display: grid;
+    /* display: grid; */
     color: #565656;
     /* grid-template-rows: 90px 100px 200px 60px; */
     grid-template-columns: 280px repeat(3, 1fr) 280px;
@@ -289,7 +289,7 @@ main>div {
 }
 
 main>div>section {
-    grid-column: 1/5;
+    /* grid-column: 1/6; */
     margin-top: 40px;
 }
 
@@ -297,6 +297,10 @@ main>div>aside {
     grid-column: 5/5;
     grid-area: b;
     background-color: #efefef;
+}
+
+.nav-tabs {
+    margin: 0px 28px;
 }
 
 
@@ -309,9 +313,13 @@ main>div>aside {
 
 #grid-filter {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     padding: 10px 20px;
 }
+
+/* #grid-filter>div:first-child {
+    grid-column: 1 / 4;
+} */
 
 #grid-filter>div {
     overflow: hidden;
@@ -319,7 +327,6 @@ main>div>aside {
     /* display: flex; */
     margin: 8px;
     /* border: 1px #dfd7d7 solid; */
-    max-width: 297px;
 }
 
 #grid-filter>div>select, #grid-filter>div>input {
@@ -337,7 +344,7 @@ main>div>aside {
     background-image: linear-gradient(to top, #f9f9f9, #fff 33%)
 }
 
-div#grid-filter > h4 {
+#grid-filter > h4 {
     font-size: 14px;
     height: 20px;
     margin-left: 10px;
@@ -761,3 +768,19 @@ footer a:hover {
 }
 
 /* _____________ CUSTOM  _____________ */
+
+@media screen and (max-width: 480px) {
+    #grid-filter {
+        grid-template-columns: repeat(2, 1fr);
+    }    
+    ul.menu-principal {
+        display: none;
+    }
+    #course-list {
+        margin: 0 20px;
+        width: calc(100vw - 50px);
+    }
+    .tab-content>.active {
+        width: 100vw;
+    }
+}

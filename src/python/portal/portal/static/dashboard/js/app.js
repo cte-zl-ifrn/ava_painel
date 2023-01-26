@@ -26,7 +26,7 @@ export default {
             cursos: [],
             arquetipos: [],
             ambientes: [],
-            informativos: [],
+            coordenacoes: [],
             diarios: [],
             salas: [],
         }
@@ -62,6 +62,7 @@ export default {
                 }
             ).then(response => {
                 Object.assign(this, response.data);
+                console.log(response.data);
                 this.filtered();
             }).then(e => {
                 this.filtered();
