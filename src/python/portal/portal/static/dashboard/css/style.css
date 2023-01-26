@@ -769,6 +769,7 @@ footer a:hover {
 
 /* _____________ CUSTOM  _____________ */
 
+<<<<<<< HEAD
 @media screen and (max-width: 480px) {
     #grid-filter {
         grid-template-columns: repeat(2, 1fr);
@@ -784,3 +785,26 @@ footer a:hover {
         width: 100vw;
     }
 }
+=======
+/* ===== MOBILE: BEGIN ===== */
+
+@media only screen 
+and (min-width : 321px) 
+and (max-width: 780px) {
+
+    #grid-filter { display: block;}
+    main>div>aside { display: none;}
+    ul.menu-principal { width: 415px}
+    #grid-header>div { display: none;}
+    a.page-scroll.barra {display: none;}
+    a.page-scroll.area_aluno { width: auto; display: contents; font-size: 12px;}
+    main>div { display: contents;}
+    #grid-filter>div{ width: auto; max-width: none;}
+    #grid-header { margin: 50px 0px 5px 0px; width: auto; padding-left: 20px;}
+    .header-user{ position: absolute; left: 300px; top: 15px;}
+    span.user_nome { display: none; }
+    
+}
+
+/* ===== MOBILE: END ===== */
+>>>>>>> b8dc26cfc1a677b5ef9b202a37cf9200f5cadd70
