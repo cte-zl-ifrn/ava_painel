@@ -21,12 +21,18 @@ As variáveis de ambiente no SUAP têm as seguintes definições:
 ## Como iniciar o desenvolvimento
 
 ```bash
+mkdir ava
+cd ava
+
 # Baixe o projeto
 git clone git@github.com:cte-zl-ifrn/portal__ava.git portal__ava 
 
-cd portal__ava
+# Baixe as dependencias
+git clone git@github.com:cte-zl-ifrn/moodle__local_suap.git moodle__local_suap 
+git clone git@github.com:cte-zl-ifrn/moodle__block_suapattendance.git moodle__block_suapattendance
 
-# Instala o sistema
+# Instala o sistema, um suap fake e 1 moodle para teste
+cd portal__ava
 _/deploy
 ```
 
