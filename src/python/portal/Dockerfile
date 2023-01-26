@@ -12,5 +12,7 @@ RUN pip install --upgrade pip && \
 # FIX: bug on corsheaders
 # RUN echo 'import django.dispatch;check_request_enabled = django.dispatch.Signal()' > /usr/local/lib/python3.10/site-packages/corsheaders/signals.py
 
+ADD . /apps/app
+
 WORKDIR /apps/app
 CMD ["python", "manage.py", "runserver_plus", "0.0.0.0:8000"]
