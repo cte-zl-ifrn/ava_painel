@@ -65,6 +65,7 @@ services:
     restart: always
     ports:
       - '8000:8000'
+      - '5678:5678'
     env_file:
       - ./confs/enabled/db.env
       - ./confs/enabled/cache.env
@@ -98,7 +99,6 @@ services:
       # Configs
       - '../moodle__image/src/php/config.php:/var/www/html/config.php'
       # Plugins
-      - '../moodle__auth_suap:/var/www/html/auth/suap'
       - '../moodle__local_suap:/var/www/html/local/suap'
       - '../moodle__block_suapattendance:/var/www/html/blocks/suapattendance'
       # Data
