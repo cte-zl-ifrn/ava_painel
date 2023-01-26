@@ -4,13 +4,12 @@ from ninja import NinjaAPI
 from django.contrib.admin.views.decorators import staff_member_required
 from datetime import datetime
 from sc4net import get, get_json
-from .models import Ambiente, Arquetipo, Situacao, Ordenacao, Visualizacao
+from .models import Ambiente, Arquetipo, Situacao, Ordenacao, Visualizacao, Curso
 
 
 def _get_diarios(params: Dict[str, Any]):
     try:
         ambiente = params["ambiente"]
-        print(f'Diários no ambiente {ambiente} {params}')
         adict = {"titulo": ambiente.nome,
                  "sigla": ambiente.sigla, "cor": ambiente.cor, }
 
@@ -21,9 +20,9 @@ def _get_diarios(params: Dict[str, Any]):
         base_url = ambiente.url if ambiente.url[-1:] != '/' else ambiente.url[:-1]
         url = f'{base_url}/local/suap/api/get_diarios.php?' + \
             "&".join(querystrings)
-        print(url)
         result = get_json(url)
-        print(result)
+
+
         for k, v in params['results'].items():
             if k in result:
                 if k == 'diarios':
@@ -31,7 +30,7 @@ def _get_diarios(params: Dict[str, Any]):
                         {"ambiente": adict, "diario": diario} for diario in result[k] or []]
                 else:
                     params['results'][k] += result[k] or []
-        print(params['results'])
+                    
     except Exception as e:
         print("error", e)
 
@@ -52,14 +51,12 @@ def get_diarios(
 
     results = {
         "semestres": [],
-        "situacoes": Situacao.kv,
-        "ordenacoes": Ordenacao.kv,
-        "visualizacoes": Visualizacao.kv,
+        "ambientes": Ambiente.as_dict(),
         "disciplinas": [],
         "cursos": [],
         "arquetipos": Arquetipo.kv,
-        "ambientes": Ambiente.as_dict(),
         "diarios": [],
+        "coordenacoes": [],
     }
 
     requests = [
@@ -81,6 +78,20 @@ def get_diarios(
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
         executor.map(_get_diarios, requests)
+
+
+    results["semestres"] = sorted(results["semestres"], key = lambda e: e['label'], reverse=True)
+    results["ambientes"] = sorted(results["ambientes"], key = lambda e: e['label'])
+    results["disciplinas"] = sorted(results["disciplinas"], key = lambda e: e['label'])
+    results["coordenacoes"] = sorted(results["coordenacoes"], key = lambda e: e['fullname'])
+    cursos = {c.codigo: c.nome for c in Curso.objects.filter(codigo__in=[x['id'] for x in results["cursos"]])}
+    for c in results["cursos"]:
+        if c['id'] in cursos:
+            c['label'] = f"{cursos[c['id']]} [{c['id']}]"
+    results["cursos"] = sorted(results["cursos"], key = lambda e: e['label'])
+    results["situacoes"] = Situacao.kv
+    results["ordenacoes"] = Ordenacao.kv
+    results["visualizacoes"] = Visualizacao.kv
 
     return results
 
