@@ -1,0 +1,29 @@
+<div id="course-cards" class="hide_this">
+    <div v-for="card in diarios" class="course-card">
+        <div class="course-wrapper">
+            <div class="icon_ambiente" v-bind:class="card.ambiente.classe" :style="{ borderRightColor: card.ambiente.cor, borderLeftColor: card.ambiente.cor }">
+                <p class="ambiente_card" v-bind:class="card.ambiente.classe" :style="{ background: card.ambiente.cor }">
+                    [[ card.ambiente.sigla ]]
+                </p>
+            </div>
+            <div class="card-image" v-bind:style="{ backgroundImage: 'url(' + [[ card.diario.courseimage ]] + ')' }"></div>
+            <div class="progress bg-dark rounded-0">
+                <div class="progress-bar" :style="{ background: card.ambiente.cor }"></div>
+                <div class="porcentagem" :style="{ background: card.ambiente.cor }" v-if="card.diario.showcompletionconditions">
+                    <p class="valor_porcentagem">[[ card.diario.progress ]]%</p>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="card-diario">[[ card.diario.shortname ]]</p>
+                <h5 class="card-title">[[ card.diario.fullname ]]</h5>
+            </div>
+            <div class="card-footer">
+                <div class="flex">
+                    <a class="btn btn-primary" v-bind:href="[[ card.diario.viewurl ]]">ACESSAR</a>
+                    <div class="flex-auto"></div>
+                    <button type="button" class="btn btn-secondary" v-on:click="detailme(card)">DETALHES</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

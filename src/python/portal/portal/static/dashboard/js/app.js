@@ -27,6 +27,7 @@ export default {
             arquetipos: [],
             ambientes: [],
             coordenacoes: [],
+            praticas: [],
             diarios: [],
             salas: [],
         }

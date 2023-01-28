@@ -1,0 +1,21 @@
+<div class="course-list">
+    <div v-for="card in diarios" class="course-listitem">
+        <div class="course-wrapper">
+            <div class="card-body">
+                <p class="card-diario">[[ card.diario.shortname ]]</p>
+                <h5 class="card-title">
+                    <a v-bind:href="[[ card.diario.viewurl ]]">[[ card.diario.fullname ]]</a>
+                </h5>
+            </div>
+            <div class="progress bg-dark rounded-0">
+                <div class="progress-bar" :style="{ background: card.ambiente.cor }"></div>
+                <div class="porcentagem" v-if="card.diario.showcompletionconditions">
+                    <p class="valor_porcentagem">[[ card.diario.progress ]]%</p>
+                </div>
+                <div class="porcentagem-detalhe">
+                    <a type="button" class="detalhe-link" v-on:click="detailme(card)"><i class="fa fa-search"></i> </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

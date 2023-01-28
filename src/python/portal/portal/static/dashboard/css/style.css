@@ -320,6 +320,9 @@ main>div>aside {
 /* #grid-filter>div:first-child {
     grid-column: 1 / 4;
 } */
+#grid-filter>div:last-child {
+    grid-column: 3 / 5;
+}
 
 #grid-filter>div {
     overflow: hidden;
@@ -357,35 +360,35 @@ main>div>aside {
 
 /* ===== MAIN - CARD: BEGIN ===== */
 
-#course-list {
+.course-list {
     margin: 0 20px;
 }
-#course-list .course-wrapper{
+.course-list .course-wrapper{
     flex-direction: row-reverse;
     /*box-shadow: 2px 2px 5px 0 rgb(0 0 0 / 5%);*/
     box-shadow: none;
 }
-#course-list .course-wrapper .progress.bg-dark.rounded-0{
+.course-list .course-wrapper .progress.bg-dark.rounded-0{
     width: 20px;
     min-width: 20px;
     height: auto;
 }
-#course-list .course-wrapper .card-body{
+.course-list .course-wrapper .card-body{
     border: 1px solid #dedede;
     padding: 10px 80px 10px 10px;
 }
-#course-list .course-wrapper .card-body .card-diario{
+.course-list .course-wrapper .card-body .card-diario{
     margin: 0;
 }
-#course-list .course-wrapper .card-body .card-title{
+.course-list .course-wrapper .card-body .card-title{
     margin: 0;
     font-weight: 300;
 }
-#course-list .course-wrapper .card-body .card-title > a{
+.course-list .course-wrapper .card-body .card-title > a{
     color: #565656;
     text-decoration: none;
 }
-#course-list .course-wrapper .progress .porcentagem-detalhe{
+.course-list .course-wrapper .progress .porcentagem-detalhe{
     margin: 0;
     right: 10px;
     top: 13px;
@@ -398,20 +401,20 @@ main>div>aside {
     width: 30px;
     height: 30px;
 }
-#course-list .course-wrapper .progress .porcentagem-detalhe:hover{
+.course-list .course-wrapper .progress .porcentagem-detalhe:hover{
     background-color: #438f4b;
     border: 1px solid #438f4b;
 }
-#course-list .course-wrapper .progress .porcentagem-detalhe:hover > a{
+.course-list .course-wrapper .progress .porcentagem-detalhe:hover > a{
     color: #fff;
 }
-#course-list .course-wrapper .progress .porcentagem-detalhe .detalhe-link{
+.course-list .course-wrapper .progress .porcentagem-detalhe .detalhe-link{
     font-size: 14px;
     font-weight: 200;
     color: #aaa;
     transform: translateY(-1px);
 }
-#course-list .course-wrapper .progress .porcentagem{
+.course-list .course-wrapper .progress .porcentagem{
     margin: 0;
     right: 45px;
     top: 13px;
@@ -424,7 +427,7 @@ main>div>aside {
     width: 40px;
     height: 30px;
 }
-#course-list .course-wrapper .progress .porcentagem .valor_porcentagem{
+.course-list .course-wrapper .progress .porcentagem .valor_porcentagem{
     color: #a0a0a0;
     margin: 0;
     text-align: center;
@@ -769,29 +772,12 @@ footer a:hover {
 
 /* _____________ CUSTOM  _____________ */
 
-<<<<<<< HEAD
-@media screen and (max-width: 480px) {
-    #grid-filter {
-        grid-template-columns: repeat(2, 1fr);
-    }    
-    ul.menu-principal {
-        display: none;
-    }
-    #course-list {
-        margin: 0 20px;
-        width: calc(100vw - 50px);
-    }
-    .tab-content>.active {
-        width: 100vw;
-    }
-}
-=======
+
 /* ===== MOBILE: BEGIN ===== */
 
 @media only screen 
 and (min-width : 321px) 
 and (max-width: 780px) {
-
     #grid-filter { display: block;}
     main>div>aside { display: none;}
     ul.menu-principal { width: 415px}
@@ -806,5 +792,20 @@ and (max-width: 780px) {
     
 }
 
+@media screen and (max-width: 480px) {
+    #grid-filter {
+        grid-template-columns: repeat(2, 1fr);
+    }    
+    ul.menu-principal {
+        display: none;
+    }
+    .course-list {
+        margin: 0 20px;
+        width: calc(100vw - 50px);
+    }
+    .tab-content>.active {
+        width: 100vw;
+    }
+}
 /* ===== MOBILE: END ===== */
->>>>>>> b8dc26cfc1a677b5ef9b202a37cf9200f5cadd70
+

@@ -17,10 +17,10 @@
                         <button class="nav-link active" id="nav-diarios-tab" data-bs-toggle="tab" data-bs-target="#nav-diarios" type="button" role="tab" aria-controls="nav-diarios" aria-selected="true">
                             Diários
                         </button>
-                        <button class="nav-link" id="nav-coordenacoes-tab" data-bs-toggle="tab" data-bs-target="#nav-coordenacoes" type="button" role="tab" aria-controls="nav-coordenacoes" aria-selected="false" v-if="coordenacoes">
+                        <button class="nav-link" id="nav-coordenacoes-tab" data-bs-toggle="tab" data-bs-target="#nav-coordenacoes" type="button" role="tab" aria-controls="nav-coordenacoes" aria-selected="false" v-if="coordenacoes.length!=0">
                             Salas das coordenação
                         </button>
-                        <button class="nav-link" id="nav-praticas-tab" data-bs-toggle="tab" data-bs-target="#nav-praticas" type="button" role="tab" aria-controls="nav-praticas" aria-selected="false" v-if="praticas" >
+                        <button class="nav-link" id="nav-praticas-tab" data-bs-toggle="tab" data-bs-target="#nav-praticas" type="button" role="tab" aria-controls="nav-praticas" aria-selected="false" v-if="praticas.length!=0" >
                             Pratique
                         </button>
                     </div>
@@ -78,36 +78,7 @@
                             </div>
                         </div>
                         <div id="course-views" class="hide_this">
-                            <div id="course-cards" class="hide_this">
-                                <div v-for="card in diarios" class="course-card">
-                                    <div class="course-wrapper">
-                                        <div class="icon_ambiente" v-bind:class="card.ambiente.classe" :style="{ borderRightColor: card.ambiente.cor, borderLeftColor: card.ambiente.cor }">
-                                            <p class="ambiente_card" v-bind:class="card.ambiente.classe" :style="{ background: card.ambiente.cor }">
-                                                [[ card.ambiente.sigla ]]
-                                            </p>
-                                        </div>
-                                        <div class="card-image" v-bind:style="{ backgroundImage: 'url(' + [[ card.diario.courseimage ]] + ')' }"></div>
-                                        <div class="progress bg-dark rounded-0">
-                                            <div class="progress-bar" :style="{ background: card.ambiente.cor }"></div>
-                                            <div class="porcentagem" :style="{ background: card.ambiente.cor }" v-if="card.diario.showcompletionconditions">
-                                                <p class="valor_porcentagem">[[ card.diario.progress ]]%</p>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-diario">[[ card.diario.shortname ]]</p>
-                                            <h5 class="card-title">[[ card.diario.fullname ]]</h5>
-                                        </div>
-                                        <div class="card-footer">
-                                            <div class="flex">
-                                                <a class="btn btn-primary" v-bind:href="[[ card.diario.viewurl ]]">ACESSAR</a>
-                                                <div class="flex-auto"></div>
-                                                <button type="button" class="btn btn-secondary" v-on:click="detailme(card)">DETALHES</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="course-list">
+                            <div class="course-list">
                                 <div v-for="card in diarios" class="course-listitem">
                                     <div class="course-wrapper">
                                         <div class="card-body">
@@ -122,7 +93,10 @@
                                                 <p class="valor_porcentagem">[[ card.diario.progress ]]%</p>
                                             </div>
                                             <div class="porcentagem-detalhe">
-                                                <a type="button" class="detalhe-link" v-on:click="detailme(card)"><i class="fa fa-search"></i> </a>
+                                                <span type="button" class="detalhe-link">
+                                                    <i class="fa fa-star" v-if="card.diario.isfavourite"></i>
+                                                    <i class="fa fa-star-o" v-if="!card.diario.isfavourite"></i>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -132,29 +106,49 @@
                     </div>
 
                     <div class="tab-pane fade" id="nav-coordenacoes" role="tabpanel" aria-labelledby="nav-coordenacoes-tab" v-if="coordenacoes">
-                        <aside>
-                            <div id="detalhes-header">
-                                <h2 class="subtitulo">Salas das coordenação</h2>
-                                <div class="separador"></div>
-                                <ul v-for="coordenacao in coordenacoes" id="coordenacoes">
-                                    <li><a v-bind:title="[[ coordenacao.fullname ]]">[[ coordenacao.fullname ]]</a></li>
-                                </ul>
+                        <div class="course-list">
+                            <div  v-for="card in coordenacoes" class="course-listitem">
+                                <div class="course-wrapper">
+                                    <div class="card-body">
+                                        <p class="card-diario">[[ card.shortname ]]</p>
+                                        <h5 class="card-title">
+                                            <a v-bind:href="[[ card.viewurl ]]">[[ card.fullname ]]</a>
+                                        </h5>
+                                    </div>
+                                    <div class="progress bg-dark rounded-0">
+                                        <div class="porcentagem-detalhe">
+                                            <span type="button" class="detalhe-link">
+                                                <i class="fa fa-star" v-if="card.isfavourite"></i>
+                                                <i class="fa fa-star-o" v-if="!card.isfavourite"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </aside>
+                        </div>
                     </div>
 
                     <div class="tab-pane fade" id="nav-praticas" role="tabpanel" aria-labelledby="nav-praticas-tab" v-if="praticas">
-                        <aside>
-                            <div id="detalhes-header">
-                                <h2 class="subtitulo">Pratique</h2>
-                                <div class="separador"></div>
-                                <ul v-for="pratica in praticas" id="praticas">
-                                    <li><a v-bind:title="[[ pratica.fullname ]]">[[ pratica.fullname ]]</a></li>
-                                </ul>
-                                <div class="praticas">
+                        <div class="course-list">
+                            <div  v-for="card in praticas" class="course-listitem">
+                                <div class="course-wrapper">
+                                    <div class="card-body">
+                                        <p class="card-diario">[[ card.shortname ]]</p>
+                                        <h5 class="card-title">
+                                            <a v-bind:href="[[ card.viewurl ]]">[[ card.fullname ]]</a>
+                                        </h5>
+                                    </div>
+                                    <div class="progress bg-dark rounded-0">
+                                        <div class="porcentagem-detalhe">
+                                            <span type="button" class="detalhe-link">
+                                                <i class="fa fa-star" v-if="card.isfavourite"></i>
+                                                <i class="fa fa-star-o" v-if="!card.isfavourite"></i>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </aside>
+                        </div>
                     </div>
 
                 </div>
