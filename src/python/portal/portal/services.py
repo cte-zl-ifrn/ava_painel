@@ -10,8 +10,13 @@ from .models import Ambiente, Arquetipo, Situacao, Ordenacao, Visualizacao, Curs
 def _get_diarios(params: Dict[str, Any]):
     try:
         ambiente = params["ambiente"]
-        adict = {"titulo": ambiente.nome,
-                 "sigla": ambiente.sigla, "cor": ambiente.cor, }
+        adict = {
+            "ambiente": {
+                "titulo": ambiente.nome,
+                "sigla": ambiente.sigla,
+                "cor": ambiente.cor
+            }
+        }
 
         querystrings = [
             f'{k}={v}' if v else "" for k, v in params.items() if k not in ['ambiente', 'results'] and v is not None
@@ -21,13 +26,13 @@ def _get_diarios(params: Dict[str, Any]):
         url = f'{base_url}/local/suap/api/get_diarios.php?' + \
             "&".join(querystrings)
         result = get_json(url)
-
+        
+        print(result)
 
         for k, v in params['results'].items():
             if k in result:
-                if k == 'diarios':
-                    params['results']["diarios"] += [
-                        {"ambiente": adict, "diario": diario} for diario in result[k] or []]
+                if k in ['diarios', 'coordenacoes', 'praticas']:
+                    params['results'][k] += [{**diario, **adict} for diario in result[k] or []]
                 else:
                     params['results'][k] += result[k] or []
                     

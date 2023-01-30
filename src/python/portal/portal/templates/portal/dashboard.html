@@ -11,7 +11,58 @@
 {% block main %}
     <main id="app">
         <div>
-            <section >
+            <section>
+                <h2 id="filter-title">Filtrar diários e salas</h2>
+                <div id="grid-filter" class="hide_this">
+                    <div>
+                        <select name="semestre" id="semestre" @change="filterCards($event)">
+                            <option selected value="">Todos os semestres</option>
+                            <option v-for="row in semestres" v-bind:value="row.id">[[ row.label ]]</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select name="disciplina" id="disciplina" @change="filterCards($event)">
+                            <option selected value="">Todas as disciplinas</option>
+                            <option v-for="row in disciplinas" v-bind:value="row.id">[[ row.label ]]</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select name="curso" id="curso" @change="filterCards($event)">
+                            <option selected value="">Todos os cursos</option>
+                            <option v-for="row in cursos" v-bind:value="row.id">[[ row.label ]]</option>
+                        </select>
+                    </div>
+                    <div class="hide_this">
+                        <select name="arquetipo" id="arquetipo" @change="filterCards($event)">
+                            <option selected value="">Todos os papéis</option>
+                            <option v-for="row in arquetipos" v-bind:value="row.id">[[ row.label ]]</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select name="situacao" id="situacao" @change="filterCards($event)">
+                            <option v-for="row in situacoes" v-bind:value="row.id">[[ row.label ]]</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select name="ordenacao" id="ordenacao" @change="filterCards($event)">
+                            <option v-for="row in ordenacoes" v-bind:value="row.id">[[ row.label ]]</option>
+                        </select>
+                    </div>
+                    <div class="hide_this">
+                        <select name="visualizacao" id="visualizacao" @change="changeCourseView($event)">
+                            <option v-for="row in visualizacoes" v-bind:value="row.id">[[ row.label ]]</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select name="ambiente" id="ambiente_id" @change="filterCards($event)">
+                            <option selected value="">Todos os ambientes</option>
+                            <option v-for="row in ambientes" v-bind:value="row.id">[[ row.label ]]</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input placeholder="Buscar curso..." name="q" id="q" @keyup.enter="filterCards($event)"/>
+                    </div>
+                </div>
                 <nav class="tab-menu">
                     <div class="nav nav-tabs" role="tablist">
                         <button class="nav-link active" id="nav-diarios-tab" data-bs-toggle="tab" data-bs-target="#nav-diarios" type="button" role="tab" aria-controls="nav-diarios" aria-selected="true">
@@ -26,131 +77,9 @@
                     </div>
                 </nav>
                 <div class="tab-content">
-                    <div class="tab-pane fade show active" id="nav-diarios" role="tabpanel" aria-labelledby="nav-diarios-tab">
-                        <div id="grid-filter" class="hide_this">
-                            <div>
-                                <select name="semestre" id="semestre" @change="filterCards($event)">
-                                    <option selected value="">Todos os semestres</option>
-                                    <option v-for="row in semestres" v-bind:value="row.id">[[ row.label ]]</option>
-                                </select>
-                            </div>
-                            <div>
-                                <select name="disciplina" id="disciplina" @change="filterCards($event)">
-                                    <option selected value="">Todas as disciplinas</option>
-                                    <option v-for="row in disciplinas" v-bind:value="row.id">[[ row.label ]]</option>
-                                </select>
-                            </div>
-                            <div>
-                                <select name="curso" id="curso" @change="filterCards($event)">
-                                    <option selected value="">Todos os cursos</option>
-                                    <option v-for="row in cursos" v-bind:value="row.id">[[ row.label ]]</option>
-                                </select>
-                            </div>
-                            <div class="hide_this">
-                                <select name="arquetipo" id="arquetipo" @change="filterCards($event)">
-                                    <option selected value="">Todos os papéis</option>
-                                    <option v-for="row in arquetipos" v-bind:value="row.id">[[ row.label ]]</option>
-                                </select>
-                            </div>
-                            <div>
-                                <select name="situacao" id="situacao" @change="filterCards($event)">
-                                    <option v-for="row in situacoes" v-bind:value="row.id">[[ row.label ]]</option>
-                                </select>
-                            </div>
-                            <div>
-                                <select name="ordenacao" id="ordenacao" @change="filterCards($event)">
-                                    <option v-for="row in ordenacoes" v-bind:value="row.id">[[ row.label ]]</option>
-                                </select>
-                            </div>
-                            <div class="hide_this">
-                                <select name="visualizacao" id="visualizacao" @change="changeCourseView($event)">
-                                    <option v-for="row in visualizacoes" v-bind:value="row.id">[[ row.label ]]</option>
-                                </select>
-                            </div>
-                            <div>
-                                <select name="ambiente" id="ambiente_id" @change="filterCards($event)">
-                                    <option selected value="">Todos os ambientes</option>
-                                    <option v-for="row in ambientes" v-bind:value="row.id">[[ row.label ]]</option>
-                                </select>
-                            </div>
-                            <div>
-                                <input placeholder="Buscar curso..." name="q" id="q" @keyup.enter="filterCards($event)"/>
-                            </div>
-                        </div>
-                        <div id="course-views" class="hide_this">
-                            <div class="course-list">
-                                <div v-for="card in diarios" class="course-listitem">
-                                    <div class="course-wrapper">
-                                        <div class="card-body">
-                                            <p class="card-diario">[[ card.diario.shortname ]]</p>
-                                            <h5 class="card-title">
-                                                <a v-bind:href="[[ card.diario.viewurl ]]">[[ card.diario.fullname ]]</a>
-                                            </h5>
-                                        </div>
-                                        <div class="progress bg-dark rounded-0">
-                                            <div class="progress-bar" :style="{ background: card.ambiente.cor }"></div>
-                                            <div class="porcentagem" v-if="card.diario.showcompletionconditions">
-                                                <p class="valor_porcentagem">[[ card.diario.progress ]]%</p>
-                                            </div>
-                                            <div class="porcentagem-detalhe">
-                                                <span type="button" class="detalhe-link">
-                                                    <i class="fa fa-star" v-if="card.diario.isfavourite"></i>
-                                                    <i class="fa fa-star-o" v-if="!card.diario.isfavourite"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane fade" id="nav-coordenacoes" role="tabpanel" aria-labelledby="nav-coordenacoes-tab" v-if="coordenacoes">
-                        <div class="course-list">
-                            <div  v-for="card in coordenacoes" class="course-listitem">
-                                <div class="course-wrapper">
-                                    <div class="card-body">
-                                        <p class="card-diario">[[ card.shortname ]]</p>
-                                        <h5 class="card-title">
-                                            <a v-bind:href="[[ card.viewurl ]]">[[ card.fullname ]]</a>
-                                        </h5>
-                                    </div>
-                                    <div class="progress bg-dark rounded-0">
-                                        <div class="porcentagem-detalhe">
-                                            <span type="button" class="detalhe-link">
-                                                <i class="fa fa-star" v-if="card.isfavourite"></i>
-                                                <i class="fa fa-star-o" v-if="!card.isfavourite"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane fade" id="nav-praticas" role="tabpanel" aria-labelledby="nav-praticas-tab" v-if="praticas">
-                        <div class="course-list">
-                            <div  v-for="card in praticas" class="course-listitem">
-                                <div class="course-wrapper">
-                                    <div class="card-body">
-                                        <p class="card-diario">[[ card.shortname ]]</p>
-                                        <h5 class="card-title">
-                                            <a v-bind:href="[[ card.viewurl ]]">[[ card.fullname ]]</a>
-                                        </h5>
-                                    </div>
-                                    <div class="progress bg-dark rounded-0">
-                                        <div class="porcentagem-detalhe">
-                                            <span type="button" class="detalhe-link">
-                                                <i class="fa fa-star" v-if="card.isfavourite"></i>
-                                                <i class="fa fa-star-o" v-if="!card.isfavourite"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    {% include "portal/partials/course-lists.html" with list_name="diarios" %}
+                    {% include "portal/partials/course-lists.html" with list_name="coordenacoes" %}
+                    {% include "portal/partials/course-lists.html" with list_name="praticas" %}
                 </div>
                 <div id="search-loader">
                     <p>Procurando seus cursos</p>

@@ -319,6 +319,13 @@ main>div>aside {
     margin: 0px 28px;
 }
 
+#filter-title {
+    margin: 0 30px;
+    font-size: 17pt;
+    font-weight: 300;
+    /* border-bottom: 2px solid #438f4b;*/
+}
+
 
 /* ===== MAIN - GRID: BEGIN ===== */
 
