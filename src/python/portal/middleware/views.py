@@ -11,13 +11,17 @@ from middleware.models import Solicitacao
 def raise_error(request, error):
     event_id = capture_exception(error)
     print(error.retorno.content)
+    try:
+        message_string = request.body.decode('utf-8')
+    except:
+        message_string = request.body
     solicitacao = Solicitacao.objects.create(
         status=Solicitacao.Status.FALHA,
         campus=error.campus if 'campus' in dir(error) else None,
         status_code=error.code,
         
         requisicao_header=h2d(request),
-        requisicao=request.body,
+        requisicao=message_string,
         
         resposta_header=h2d(error.retorno) if error.retorno else None,
         resposta=error.retorno.text if error.retorno else None
@@ -42,7 +46,11 @@ def moodle_suap(request):
             raise SyncError("Você enviou um token de auteticação diferente do que tem na settings 'SUAP_EAD_KEY'.", 403)
 
         if request.method == 'POST':
-            return JsonResponse(Diario.sync(request.body, h2d(request)))
+            try:
+                message_string = request.body.decode('utf-8')
+            except:
+                return SyncError("Erro ao decodificar o JSON", 502)
+            return JsonResponse(Diario.sync(message_string, h2d(request)))
         raise SyncError("Não implementado.", 501)
     except SyncError as e:
         return raise_error(request, e)
