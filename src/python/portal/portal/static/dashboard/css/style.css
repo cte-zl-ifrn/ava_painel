@@ -284,6 +284,26 @@ main>div {
     min-height: auto;
 }
 
+
+.tab-menu > .nav-tabs{
+    border-bottom: 2px solid #438f4b;
+}
+.tab-menu > .nav-tabs > .nav-link{
+    color: #565656;
+    text-transform: uppercase;
+    background-color: #dfdfdf;
+    border-color: transparent transparent #438f4b;
+    border: 0px solid;
+    border-radius: 0;
+    margin-right: 2px;
+    margin-bottom: 0px;
+}
+.tab-menu > .nav-tabs > .nav-link.active{
+    color: #fff;
+    background-color: #438f4b;
+}
+
+
 main>div>section {
     /* grid-column: 1/6; */
     margin-top: 40px;
