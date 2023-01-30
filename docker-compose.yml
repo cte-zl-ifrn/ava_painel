@@ -60,7 +60,7 @@ services:
       #     retries: 30
 
   portal:
-    image: 'ctezlifrn/avaportal:1.0.19'
+    image: 'ctezlifrn/avaportal:1.0.21'
     build: src/python/portal
     restart: always
     ports:
