@@ -55,7 +55,7 @@ export default {
                         "disciplina": document.getElementById('disciplina').value,
                         "curso": document.getElementById('curso').value,
                         "arquetipo": document.getElementById('arquetipo').value,
-                        // "ambiente": document.getElementById('ambiente').value,
+                        "ambiente": document.getElementById('ambiente_id').value,
                         "q": document.getElementById('q').value,
                         // "page": document.getElementById('page').value,
                         // "page_size": document.getElementById('page_size').value,

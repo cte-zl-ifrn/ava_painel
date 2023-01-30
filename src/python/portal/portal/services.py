@@ -5,6 +5,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from datetime import datetime
 from sc4net import get, get_json
 from .models import Ambiente, Arquetipo, Situacao, Ordenacao, Visualizacao, Curso
+import sentry_sdk
 
 
 def _get_diarios(params: Dict[str, Any]):
@@ -27,8 +28,6 @@ def _get_diarios(params: Dict[str, Any]):
             "&".join(querystrings)
         result = get_json(url)
         
-        print(result)
-
         for k, v in params['results'].items():
             if k in result:
                 if k in ['diarios', 'coordenacoes', 'praticas']:
@@ -37,7 +36,7 @@ def _get_diarios(params: Dict[str, Any]):
                     params['results'][k] += result[k] or []
                     
     except Exception as e:
-        print("error", e)
+        sentry_sdk.capture_exception(e)
 
 
 def get_diarios(
@@ -63,7 +62,7 @@ def get_diarios(
         "diarios": [],
         "coordenacoes": [],
     }
-
+    
     requests = [
         {
             "ambiente": ava,
@@ -78,7 +77,7 @@ def get_diarios(
             "page": page,
             "page_size": page_size,
             "results": results,
-        } for ava in Ambiente.objects.filter(active=True) if ambiente == ava.id or ambiente != '' or ambiente is not None
+        } for ava in Ambiente.objects.filter(active=True) if int(ambiente) == ava.id or ambiente == '' or ambiente is None
     ]
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
