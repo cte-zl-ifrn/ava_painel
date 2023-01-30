@@ -10,7 +10,6 @@ from middleware.models import Solicitacao
 
 def raise_error(request, error):
     event_id = capture_exception(error)
-    print(error.retorno.content)
     try:
         message_string = request.body.decode('utf-8')
     except:

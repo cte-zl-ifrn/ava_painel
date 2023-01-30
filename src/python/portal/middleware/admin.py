@@ -44,8 +44,6 @@ class SolicitacaoAdmin(ModelAdmin):
     @transaction.atomic
     def sync_view(self, request, object_id, form_url="", extra_context=None):
         s = get_object_or_404(Solicitacao, pk=object_id)
-        print(s.requisicao_header)
-        print(s.requisicao)
         try:
             Diario.sync(s.requisicao, s.requisicao_header)
         except Exception as e:

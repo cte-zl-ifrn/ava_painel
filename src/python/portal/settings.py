@@ -89,7 +89,6 @@ import platform
 WSGI_APPLICATION = env('DJANGO_WSGI_APPLICATION', 'wsgi.application')
 ALLOWED_HOSTS = env_as_list('DJANGO_ALLOWED_HOSTS', '*' if DEBUG else '')
 # + ['0.0.0.0', platform.node()]
-print(ALLOWED_HOSTS)
 USE_X_FORWARDED_HOST = env_as_bool('DJANGO_USE_X_FORWARDED_HOST', False)
 SECURE_PROXY_SSL_HEADER = env_as_list('DJANGO_SECURE_PROXY_SSL_HEADER', '')
 ROOT_URLCONF = env('DJANGO_ROOT_URLCONF', 'urls')
@@ -239,7 +238,6 @@ AUTHENTICATION_BACKENDS = (
 SUAP_EAD_KEY = env('SUAP_EAD_KEY', 'changeme')
 
 if env('SENTRY_DNS', None):
-    print(env('SENTRY_DNS'))
     sentry_sdk.init(
         dsn=env('SENTRY_DNS'),
         integrations=[DjangoIntegration(), RedisIntegration()],

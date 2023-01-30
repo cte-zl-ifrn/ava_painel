@@ -4,6 +4,7 @@ import sys
 from settings import DATABASES
 import psycopg2
 import time
+import logging
 
 
 if __name__ == "__main__":
@@ -23,7 +24,7 @@ if __name__ == "__main__":
             port=db['PORT']
         )
         while connection.closed:
-            print(f"ERROR: Aguardando o banco {db['HOST']:db['PORT']/db['NAME']} subir")
+            logging.info(f"ERROR: Aguardando o banco {db['HOST']:db['PORT']/db['NAME']} subir")
             time.sleep(3)
         execute_from_command_line([sys.argv[0], 'migrate'])
         

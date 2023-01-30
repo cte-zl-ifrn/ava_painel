@@ -42,7 +42,6 @@ def authenticate(request: HttpRequest) -> HttpResponse:
     response_data = json.loads(requests.get(f"{OAUTH['BASE_URL']}/api/eu/", data={'scope': request_data.get('scope')}, headers=headers, verify=OAUTH['VERIFY_SSL']).text )
     
     username = response_data['identificacao']
-    print(response_data)
     user = Usuario.objects.filter(username=username).first()
     if user is None:
         is_superuser = Usuario.objects.count() == 0

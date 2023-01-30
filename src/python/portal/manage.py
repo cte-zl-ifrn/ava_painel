@@ -4,6 +4,7 @@ import sys
 from settings import DATABASES, DEBUG
 import psycopg2
 import time
+import logging
 
 def _wait_db(db):
     connection = psycopg2.connect(
@@ -14,7 +15,7 @@ def _wait_db(db):
         port=db['PORT']
     )
     while connection.closed:
-        print(f"ERROR: Aguardando o banco {db['HOST']:db['PORT']/db['NAME']} subir")
+        logging.info(f"ERROR: Aguardando o banco {db['HOST']:db['PORT']/db['NAME']} subir")
         time.sleep(3)
 
 if __name__ == "__main__":
