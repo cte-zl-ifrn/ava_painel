@@ -136,10 +136,6 @@ a.page-scroll {
     margin: 6px;
 }
 
-#grid-header>h1 {
-    /*font-size: 32px;*/
-}
-
 #grid-header>div {
     font-size: 14px;
     padding-bottom: 10px;
@@ -595,10 +591,6 @@ button.btn.btn-secondary {
 
 /* ===== MAIN - ASIDES - DETAIL: BEGIN ===== */
 
-div#detalhes-header {
-    /*padding-top: 50px;*/
-}
-
 #detalhes-header>div {
     font-size: 13px;
     /* border-bottom: 2px #438f4b solid; */
@@ -611,14 +603,9 @@ div#detalhes-header>h1 {
     border-bottom: 2px #438f4b solid;
 }
 
-#detalhes-header>h2 {
-    /*font-size: 22px;*/
-}
-
 div.dt-text,
 p.dt-text {
     padding-bottom: 9px;
-    /* border-bottom: 2px #438f4b solid; */
 }
 
 .ambiente_titulo {
@@ -665,13 +652,6 @@ ul#informativos {
     padding: 0px 10px 0px 10px;
 }
 
-#detalhes-header>div>h2 {
-    /*padding-top: 30px;*/
-    /*font-size: 22px;*/
-    /*border-bottom: 2px #438f4b solid;*/
-    /*height: 62px;*/
-}
-
 ul#informativos>li {
     text-align: justify;
     font-size: 13px;
@@ -690,13 +670,6 @@ ul#informativos>li>a {
 
 
 /* ===== MAIN - ASIDES - EVENT: BEGIN ===== */
-
-p.evento {
-    /*font-size: 22px;*/
-    /*margin-top: 30px;*/
-    /*border-bottom: 2px #438f4b solid;*/
-    /*margin-bottom: 25px;*/
-}
 
 
 /* ===== MAIN - ASIDES -  EVENT: END ===== */
