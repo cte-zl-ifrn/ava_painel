@@ -63,6 +63,8 @@ def get_diarios(
         "coordenacoes": [],
     }
     
+    has_ambiente = ambiente != '' and ambiente is not None
+    
     requests = [
         {
             "ambiente": ava,
@@ -77,7 +79,7 @@ def get_diarios(
             "page": page,
             "page_size": page_size,
             "results": results,
-        } for ava in Ambiente.objects.filter(active=True) if (ambiente != '' and int(ambiente) == ava.id) or ambiente == ''
+        } for ava in Ambiente.objects.filter(active=True) if (has_ambiente and int(ambiente) == ava.id) or not has_ambiente
     ]
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
