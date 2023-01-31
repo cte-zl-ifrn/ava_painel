@@ -17,6 +17,7 @@ def layout_settings(request: HttpRequest) -> dict:
         # "layout_has_fullscreen_toggler": True,
         # "layout_has_customizer": True,
         "layout_has_auth_remembering": True,
+        "last_startup": settings.LAST_STARTUP,
         "layout_auto_page_title": request.path.lower().replace("/", " ").lstrip().title(),
     }
 

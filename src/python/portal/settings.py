@@ -4,6 +4,8 @@ import logging.config
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.redis import RedisIntegration
+from datetime import datetime
+
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -236,6 +238,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SUAP_EAD_KEY = env('SUAP_EAD_KEY', 'changeme')
+
+LAST_STARTUP = int(datetime.timestamp(datetime.now())*1000)
 
 if env('SENTRY_DNS', None):
     sentry_sdk.init(
