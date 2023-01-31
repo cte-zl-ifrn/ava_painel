@@ -77,7 +77,7 @@ def get_diarios(
             "page": page,
             "page_size": page_size,
             "results": results,
-        } for ava in Ambiente.objects.filter(active=True) if int(ambiente) == ava.id or ambiente == '' or ambiente is None
+        } for ava in Ambiente.objects.filter(active=True) if (ambiente != '' and int(ambiente) == ava.id) or ambiente == ''
     ]
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
