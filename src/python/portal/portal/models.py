@@ -57,11 +57,10 @@ Situacao.kv = [{'id': p, 'label': p.display} for p in Situacao.values()]
 
 
 class Ordenacao(Choices):
-    CURSO = Choices.Value(_("Por disciplina"), value='fullname')
-    CODIGO = Choices.Value(_("Por código do diário"), value='shortname')
-    ULTIMO_ACESSO = Choices.Value(_("Pelos últimos acessados"), value='ul.timeaccess desc')
+    CURSO = Choices.Value(_("Ordenado por disciplina"), value='fullname')
+    CODIGO = Choices.Value(_("Ordenado por código do diário"), value='shortname')
+    ULTIMO_ACESSO = Choices.Value(_("Ordenado pelo último acessado"), value='ul.timeaccess desc')
 Ordenacao.kv = [{'id': p, 'label': p.display} for p in Ordenacao.values()]
-
 
 class Visualizacao(Choices):
     ROWS = Choices.Value(_("Ver como linhas"), value='list')

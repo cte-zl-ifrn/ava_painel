@@ -14,9 +14,9 @@ export default {
                 {"label": "Favoritos", "id": "favourites"},
             ],
             ordenacoes: [
-                {"label": "Por disciplina", "id": "fullname"},
-                {"label": "Por código do diário", "id": "shortname"},
-                {"label": "Pelo últimos acessados", "id": "ul.timeaccess desc"},
+                {"label": "Ordenado por disciplina", "id": "fullname"},
+                {"label": "Ordenado por código do diário", "id": "shortname"},
+                {"label": "Ordenado pelo último acessado", "id": "ul.timeaccess desc"},
             ],
             visualizacoes: [
                 {"label": "Ver como linhas", "id": "list"},
