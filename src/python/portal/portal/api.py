@@ -1,6 +1,7 @@
+from datetime import datetime
 from ninja import NinjaAPI
 from django.contrib.admin.views.decorators import staff_member_required
-from datetime import datetime
+from django.conf import settings
 from .services import get_diarios, get_informativos
 from .models import Arquetipo
 
@@ -23,7 +24,7 @@ def diarios(
         page_size: int = 9,
     ):
     return get_diarios(
-        username=request.user.username,
+        username=settings.SUAP_PORTAL_FAKEUSER or request.user.username,
         semestre=semestre,
         situacao=situacao,
         disciplina=disciplina,

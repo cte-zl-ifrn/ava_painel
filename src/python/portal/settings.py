@@ -238,6 +238,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SUAP_EAD_KEY = env('SUAP_EAD_KEY', 'changeme')
+SUAP_PORTAL_FAKEUSER = env('SUAP_PORTAL_FAKEUSER', None)
 
 LAST_STARTUP = int(datetime.timestamp(datetime.now())*1000)
 
