@@ -61,6 +61,7 @@ def get_diarios(
         "arquetipos": Arquetipo.kv,
         "diarios": [],
         "coordenacoes": [],
+        "praticas": [],
     }
     
     has_ambiente = ambiente != '' and ambiente is not None
@@ -90,6 +91,7 @@ def get_diarios(
     results["ambientes"] = sorted(results["ambientes"], key = lambda e: e['label'])
     results["disciplinas"] = sorted(results["disciplinas"], key = lambda e: e['label'])
     results["coordenacoes"] = sorted(results["coordenacoes"], key = lambda e: e['fullname'])
+    results["praticas"] = sorted(results["praticas"], key = lambda e: e['fullname'])
     cursos = {c.codigo: c.nome for c in Curso.objects.filter(codigo__in=[x['id'] for x in results["cursos"]])}
     for c in results["cursos"]:
         if c['id'] in cursos:

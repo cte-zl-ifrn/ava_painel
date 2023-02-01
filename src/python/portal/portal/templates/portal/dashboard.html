@@ -72,12 +72,12 @@
                             Salas das coordenação
                         </button>
                         <button class="nav-link" id="nav-praticas-tab" data-bs-toggle="tab" data-bs-target="#nav-praticas" type="button" role="tab" aria-controls="nav-praticas" aria-selected="false" v-if="praticas.length!=0" >
-                            Pratique
+                            Práticas
                         </button>
                     </div>
                 </nav>
                 <div class="tab-content">
-                    {% include "portal/partials/course-lists.html" with list_name="diarios" %}
+                    {% include "portal/partials/course-lists.html" with list_name="diarios" extra_class="show active" %}
                     {% include "portal/partials/course-lists.html" with list_name="coordenacoes" %}
                     {% include "portal/partials/course-lists.html" with list_name="praticas" %}
                 </div>
