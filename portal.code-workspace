@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../moodle"
+		},
+		{
+			"path": "../moodle__image"
+		},
+		{
+			"path": "../moodle__local_suap"
+		},
+		{
+			"path": "../moodle__block_suapattendance"
+		},
+		{
+			"path": "../moodle__theme_maeve"
+		}
+	]
+}

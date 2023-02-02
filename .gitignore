@@ -1,6 +1,3 @@
-src/php/moodle__auth_suap
-src/php/moodle__block_suapattendance/
-src/php/moodle__local_suapsync/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -106,7 +103,6 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-.vscode
 .idea
 confs/enabled/
 volumes/
