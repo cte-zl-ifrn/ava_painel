@@ -86,7 +86,6 @@ def get_diarios(
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
         executor.map(_get_diarios, requests)
 
-
     results["semestres"] = sorted(results["semestres"], key = lambda e: e['label'], reverse=True)
     results["ambientes"] = sorted(results["ambientes"], key = lambda e: e['label'])
     results["disciplinas"] = sorted(results["disciplinas"], key = lambda e: e['label'])
@@ -96,6 +95,9 @@ def get_diarios(
     for c in results["cursos"]:
         if c['id'] in cursos:
             c['label'] = f"{cursos[c['id']]} [{c['id']}]"
+        else:
+            c['label'] = f"Curso [{c['id']}], favor solicitar o cadastro"
+            
     results["cursos"] = sorted(results["cursos"], key = lambda e: e['label'])
     results["situacoes"] = Situacao.kv
     results["ordenacoes"] = Ordenacao.kv
