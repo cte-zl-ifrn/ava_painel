@@ -4,7 +4,7 @@ from django.db import connection
 
 
 def health(request):
-    debug = "FAIL (are active)" if not settings.DEBUG else "OK"
+    debug = "FAIL (are active)" if settings.DEBUG else "OK"
     
     try:
         connection.connect()
