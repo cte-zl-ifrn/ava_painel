@@ -383,6 +383,14 @@ main>div>aside {
 
 /* ===== MAIN - CARD: BEGIN ===== */
 
+#search-error {
+    margin: 2em 3em 3em 3em;
+}
+
+#search-error p {
+    text-align: center;
+}
+
 .course-list {
     margin: 0 20px;
 }
@@ -457,6 +465,10 @@ main>div>aside {
     font-size: 12px;
     font-weight: 700;
     padding: 0;
+}
+
+.course-listitem-isempty {
+    margin: 5px 35px;
 }
 
 #course-cards {
@@ -711,6 +723,7 @@ footer {
     background-color: #363940;
     color: #fff;
     text-align: center;
+    margin-top: 2em;
     padding: 20px 0;
 }
 

@@ -63,23 +63,28 @@
                         <input placeholder="Buscar curso..." name="q" id="q" @keyup.enter="filterCards($event)"/>
                     </div>
                 </div>
-                <nav class="tab-menu">
-                    <div class="nav nav-tabs" role="tablist">
-                        <button class="nav-link active" id="nav-diarios-tab" data-bs-toggle="tab" data-bs-target="#nav-diarios" type="button" role="tab" aria-controls="nav-diarios" aria-selected="true">
-                            Diários
-                        </button>
-                        <button class="nav-link" id="nav-coordenacoes-tab" data-bs-toggle="tab" data-bs-target="#nav-coordenacoes" type="button" role="tab" aria-controls="nav-coordenacoes" aria-selected="false" v-if="coordenacoes.length!=0">
-                            Salas das coordenação
-                        </button>
-                        <button class="nav-link" id="nav-praticas-tab" data-bs-toggle="tab" data-bs-target="#nav-praticas" type="button" role="tab" aria-controls="nav-praticas" aria-selected="false" v-if="praticas.length!=0" >
-                            Práticas
-                        </button>
+                <div id="search-list" v-show="diarios.length!=0 || coordenacoes.length!=0 || praticas.length!=0">
+                    <nav class="tab-menu">
+                        <div class="nav nav-tabs" role="tablist">
+                            <button class="nav-link active" id="nav-diarios-tab" data-bs-toggle="tab" data-bs-target="#nav-diarios" type="button" role="tab" aria-controls="nav-diarios" aria-selected="true">
+                                Diários
+                            </button>
+                            <button class="nav-link" id="nav-coordenacoes-tab" data-bs-toggle="tab" data-bs-target="#nav-coordenacoes" type="button" role="tab" aria-controls="nav-coordenacoes" aria-selected="false" v-if="coordenacoes.length!=0">
+                                Salas das coordenação
+                            </button>
+                            <button class="nav-link" id="nav-praticas-tab" data-bs-toggle="tab" data-bs-target="#nav-praticas" type="button" role="tab" aria-controls="nav-praticas" aria-selected="false" v-if="praticas.length!=0">
+                                Práticas
+                            </button>
+                        </div>
+                    </nav>
+                    <div class="tab-content">
+                        {% include "portal/partials/course-lists.html" with list_name="diarios" extra_class="show active" list_alias="diários" %}
+                        {% include "portal/partials/course-lists.html" with list_name="coordenacoes" list_alias="salas de coordenação" %}
+                        {% include "portal/partials/course-lists.html" with list_name="praticas" list_alias="práticas" %}
                     </div>
-                </nav>
-                <div class="tab-content">
-                    {% include "portal/partials/course-lists.html" with list_name="diarios" extra_class="show active" %}
-                    {% include "portal/partials/course-lists.html" with list_name="coordenacoes" %}
-                    {% include "portal/partials/course-lists.html" with list_name="praticas" %}
+                </div>
+                <div id="search-error" v-if="has_error">
+                    <p>Ocorreu um erro. Favor atualizar aguardar ao menos 5 minutos antes de atualizar a página.
                 </div>
                 <div id="search-loader">
                     <p>Procurando seus cursos</p>

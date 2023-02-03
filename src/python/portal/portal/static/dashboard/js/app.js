@@ -30,6 +30,7 @@ export default {
             praticas: [],
             diarios: [],
             salas: [],
+            has_error: false,
         }
     },
     mounted() {
@@ -65,8 +66,10 @@ export default {
                 Object.assign(this, response.data);
                 console.log(response.data);
                 this.filtered();
-            }).then(e => {
+            }).catch(error => {
+                this.has_error = true;
                 this.filtered();
+                return Promise.reject(error)
             });
         },
         changeCourseView: function() {
@@ -76,6 +79,10 @@ export default {
             document.getElementById('course-' + oldView).classList.add('hide_this');
         },
         filtering: function() {
+            this.diarios = [];
+            this.coordenacoes = [];
+            this.praticas = [];
+            this.has_error = false;
             document.getElementById('search-loader').classList.remove('hide_this');
             document.getElementById('course-views').classList.add('hide_this');
         },
