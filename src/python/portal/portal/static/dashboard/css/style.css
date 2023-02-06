@@ -387,10 +387,6 @@ main>div>aside {
     margin: 2em 3em 3em 3em;
 }
 
-#search-error p {
-    text-align: center;
-}
-
 .course-list {
     margin: 0 20px;
 }
@@ -467,8 +463,11 @@ main>div>aside {
     padding: 0;
 }
 
-.course-listitem-isempty {
-    margin: 5px 35px;
+#course-listitem-isempty, #search-error {
+    margin: 0px 30px;
+    padding: 10px;
+    background: #fff;
+    border: 1px #DBDBDB solid;
 }
 
 #course-cards {

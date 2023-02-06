@@ -13,7 +13,7 @@
         <div>
             <section>
                 <h2 id="filter-title">Filtrar diários e salas</h2>
-                <div id="grid-filter" class="hide_this">
+                <div id="grid-filter">
                     <div>
                         <select name="situacao" id="situacao" @change="filterCards($event)">
                             <option v-for="row in situacoes" v-bind:value="row.id">[[ row.label ]]</option>
@@ -37,12 +37,12 @@
                             <option v-for="row in cursos" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
-                    <div class="hide_this">
+                    {% comment %} <div>
                         <select name="arquetipo" id="arquetipo" @change="filterCards($event)">
                             <option selected value="">Todos os papéis</option>
                             <option v-for="row in arquetipos" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
-                    </div>
+                    </div> {% endcomment %}
                     <div>
                         <select name="ambiente" id="ambiente_id" @change="filterCards($event)">
                             <option selected value="">Todos os ambientes</option>
@@ -52,11 +52,6 @@
                     <div>
                         <select name="ordenacao" id="ordenacao" @change="filterCards($event)">
                             <option v-for="row in ordenacoes" v-bind:value="row.id">[[ row.label ]]</option>
-                        </select>
-                    </div>
-                    <div class="hide_this">
-                        <select name="visualizacao" id="visualizacao" @change="changeCourseView($event)">
-                            <option v-for="row in visualizacoes" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
                     <div>
@@ -83,10 +78,16 @@
                         {% include "portal/partials/course-lists.html" with list_name="praticas" list_alias="práticas" %}
                     </div>
                 </div>
-                <div id="search-error" v-if="has_error">
-                    <p>Ocorreu um erro. Favor atualizar aguardar ao menos 5 minutos antes de atualizar a página.
+                <div id="course-listitem-isempty" v-if="!has_error && !is_filtering && diarios.length==0 && coordenacoes.length==0 && praticas.length==0">
+                    <h3>Atenção!</h3>
+                    <p>Não existem "Diários", "Salas de coordenação" ou "Práticas" que atendam ao critério de filtro informado. Para mostrar todos os diários tente limpar os filtros e no primeiro campo escolher a opção "Todas as situações".</p>
+                    <p>SE ALUNO: Também é possível que a Secretaria Acadêmica ainda não tenham criado seus diários ou lhe inserido em uma sala de coodenação, neste caso, favor aguarde.</p>
                 </div>
-                <div id="search-loader">
+                <div id="search-error" v-if="has_error">
+                    <h3>Ocorreu um erro.</h3>
+                    <p>Favor aguardar ao menos 5 minutos antes de atualizar a página.</p>
+                </div>
+                <div id="search-loader" v-if="is_filtering">
                     <p>Procurando seus cursos</p>
                     <div id="mosaic-loader">
                         <div class="cell d-0"></div><div class="cell d-1"></div><div class="cell d-2"></div>
