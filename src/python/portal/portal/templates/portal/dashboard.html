@@ -65,7 +65,7 @@
                                 Diários
                             </button>
                             <button class="nav-link" id="nav-coordenacoes-tab" data-bs-toggle="tab" data-bs-target="#nav-coordenacoes" type="button" role="tab" aria-controls="nav-coordenacoes" aria-selected="false" v-if="coordenacoes.length!=0">
-                                Salas das coordenação
+                                Salas das coordenações
                             </button>
                             <button class="nav-link" id="nav-praticas-tab" data-bs-toggle="tab" data-bs-target="#nav-praticas" type="button" role="tab" aria-controls="nav-praticas" aria-selected="false" v-if="praticas.length!=0">
                                 Práticas
@@ -74,7 +74,7 @@
                     </nav>
                     <div class="tab-content">
                         {% include "portal/partials/course-lists.html" with list_name="diarios" extra_class="show active" list_alias="diários" %}
-                        {% include "portal/partials/course-lists.html" with list_name="coordenacoes" list_alias="salas de coordenação" %}
+                        {% include "portal/partials/course-lists.html" with list_name="coordenacoes" list_alias="salas das coordenações" %}
                         {% include "portal/partials/course-lists.html" with list_name="praticas" list_alias="práticas" %}
                     </div>
                 </div>
