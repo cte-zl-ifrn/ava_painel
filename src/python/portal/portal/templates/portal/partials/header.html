@@ -1,12 +1,12 @@
 {% load static %}
-<header>
+<header id="header">
     <div class="header-wrapper">
         <div class="header-brand">
             <a href="{% url "portal:dashboard" %}"></a>
         </div>
-        <ul class="menu-principal nav navbar-nav navbar-center">
-            {% comment %} <li><a class="page-scroll area_aluno" href="{% url 'portal:dashboard' %}">ÁREA DO ALUNO</a></li> {% endcomment %}
-            {% comment %} <li><a class="page-scroll barra">|</a></li> {% endcomment %}
+        {% comment %} <ul class="menu-principal nav navbar-nav navbar-center">
+            <li><a class="page-scroll area_aluno" href="{% url 'portal:dashboard' %}">ÁREA DO ALUNO</a></li>
+            <li><a class="page-scroll barra">|</a></li>
             <li><a class="page-scroll" href="https://ead.ifrn.edu.br/portal/">ZL</a></li>
             <li><a class="page-scroll" href="https://portal.ifrn.edu.br/">IFRN</a></li>
             <li><a class="page-scroll" href="https://ead.ifrn.edu.br/portal/ifrn-ead-ava/">OUTROS AVA</a></li>
@@ -15,6 +15,29 @@
             <li>|</li>
             <li><a class="page-scroll" href="{% url 'a4:logout' %}">SAIR</a></li>
         </ul>
+        {% endcomment %}
+        <div class="btn-group dropstart">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-notifications" data-bs-toggle="dropdown" aria-expanded="false">
+                    Notificações: [[unread_notification_total]]
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdown-notifications">
+                    <li><span class="dropdown-item-text">Notificações <span>v</span> <span>*</span> </span></li>
+                    <li v-for='atualizacao in atualizacoes' ><a class="dropdown-item" href="#">[[atualizacao.ambiente.titulo]] <span>[[atualizacao.unread_popup_notification_count]]</a></li>
+                    <li><span class="dropdown-item-text"><a v-bind:href="notifications_url">Ver todoas as notificações</a></span></li>
+                </ul>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-conversations" data-bs-toggle="dropdown" aria-expanded="false">
+                    Notificações: [[unread_conversations_total]]
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdown-conversations">
+                    <li><span class="dropdown-item-text">Conversas <span>v</span> <span>*</span> </span></li>
+                    <li v-for='atualizacao in atualizacoes' ><a class="dropdown-item" href="#">[[atualizacao.ambiente.titulo]] <span>[[atualizacao.unread_conversations_count]]</a></li>
+                    <li><span class="dropdown-item-text"><a v-bind:href="conversations_url">Ver todoas as conversas</a></span></li>
+                </ul>
+            </div>
+        </div>
         <div class="header-user">
             <a href="https://suap.ifrn.edu.br/comum/minha_conta/">
                 <img width="56" height="56" src="{% static 'dashboard/img/user.jpeg'  %}" />

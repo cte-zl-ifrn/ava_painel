@@ -2,7 +2,8 @@ from datetime import datetime
 from ninja import NinjaAPI
 from django.contrib.admin.views.decorators import staff_member_required
 from django.conf import settings
-from .services import get_diarios, get_informativos
+from django.http import HttpRequest
+from .services import get_diarios, get_atualizacoes_counts
 from .models import Arquetipo
 
 
@@ -36,16 +37,6 @@ def diarios(
         page_size=page_size
     )
 
-@api.get("/informativos/")
-def informativos(request):
-    return get_informativos(request.user.username)
-
-
-@api.get("/notificacoes/")
-def informativos(request):
-    return get_informativos(request.user.username)
-
-
-@api.get("/mensagens/")
-def informativos(request):
-    return get_informativos(request.user.username)
+@api.get("/atualizacoes_counts/")
+def atualizacoes_counts(request: HttpRequest):
+    return get_atualizacoes_counts(request.user.username)

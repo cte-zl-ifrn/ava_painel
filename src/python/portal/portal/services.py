@@ -1,3 +1,4 @@
+import logging
 from typing import Dict, List, Union, Any
 import concurrent
 from ninja import NinjaAPI
@@ -104,68 +105,36 @@ def get_diarios(
     return results
 
 
-def get_informativos(username: str) -> dict:
-    return [
-        {
-            "titulo": "PLAFOREDU – MEC lança plataforma virtual com 280 cursos de capacitação gratuitos. Clique aqui e saiba como estudar",
-            "url": "https://ead.ifrn.edu.br/portal/mec-lanca-plataforma-virtual-com-280-cursos-de-capacitacao-gratuitos/",
-            "noticia": "Reportagem: Laurence Campos O Ministério da Educação (MEC) lançou este mês a plataforma PlaforEDU, um ambiente virtual de aprendizado para formação continuada de servidores da Rede Federal de Ensino de Educação Básica, Técnica e Tecnológica. Na plataforma, os professores terão à disposição 280 cursos gratuitos de capacitação. As aulas são divididas em 05 trilhas do"
-        },
-        {
-            "titulo": "SEMEAD 2022 – Últimos dias para a submissão de trabalhos. Clique aqui e saiba como se inscrever",
-            "url": "https://ead.ifrn.edu.br/portal/semead-2022-ultimos-dias-para-a-submissao-de-trabalhos-clique-aqui-e-saiba-como-se-inscrever/",
-            "noticia": "Quase tudo pronto para a quinta edição do Seminário Internacional de Educação a Distância! O evento, cuja programação inclui palestras, conferências, minicursos, mesas redondas e apresentação de trabalhos, irá acontecer de forma online nos dias 18, 19 e 20 de maio de 2022."
-        },
-    ]
+def get_atualizacoes_counts(username: str) -> dict:
+    def _callback(params):
+        try:
+            ava = params["ava"]
 
-
-def get_notificacoes(username: str) -> dict:
-    return [
-        {
-            "error": False,
-            "data":
-            {
-                "unreadcount": 1,
-                "ambientes":
-                [
-                    {
-                        "titulo": "Acadêmico",
-                        "sigla": "ZL",
-                        "cor": "#438f4b",
-                        "unreadcount": 1,
-                        "notifications":
-                        [
-                            {
-                                "id": 254,
-                                "useridfrom": -20,
-                                "useridto": 5,
-                                "subject": "Estudantes com risco em L\u00f3gica e Algoritmos cursos", "shortenedsubject": "Estudantes com risco em L\u00f3gica e Algoritmos cursos",
-                                "text": "<p>Ol\u00e1, Kelson,<br>\n&lt;p&gt;Alguns estudantes inscritos em L\u00f3gica e Algoritmos n\u00e3o acessaram o curso recentemente.&lt;\/p&gt;<br>\n<br>\nhttps:\/\/teste.ava.ifrn.edu.br\/gui\/report\/insights\/insights.php?modelid=5&amp;contextid=56<\/p>",
-                                "fullmessage": "Ol\u00e1, Kelson,\n<p>Alguns estudantes inscritos em L\u00f3gica e Algoritmos n\u00e3o acessaram o curso recentemente.<\/p>\n\nhttps:\/\/teste.ava.ifrn.edu.br\/gui\/report\/insights\/insights.php?modelid=5&contextid=56",
-                                "fullmessageformat": 2,
-                                "fullmessagehtml": "<head><style>\nbody:not(.dir-ltr):not(.dir-rtl) {\n    font-family: 'Open Sans', sans-serif;\n}\n.btn-insight {\n    color: #007bff;\n    background-color: transparent;\n    display: inline-block;\n    font-weight: 400;\n    text-align: center;\n    white-space: nowrap;\n    vertical-align: middle;\n    user-select: none;\n    border: 1px solid #007bff;\n    padding: .375rem .75rem;\n    line-height: 1.5;\n    border-radius: 0;\n    text-decoration: none;\n    cursor: pointer;\n}\n<\/style><\/head>\n\nOl\u00e1, Kelson,\n<p>Alguns estudantes inscritos em L\u00f3gica e Algoritmos n\u00e3o acessaram o curso recentemente.<\/p>\n<br\/><br\/>\n<a class=\"btn btn-outline-primary btn-insight\" href=\"https:\/\/teste.ava.ifrn.edu.br\/gui\/report\/insights\/insights.php?modelid=5&amp;contextid=56\">Ver insight<\/a>",
-                                "smallmessage": "Ol\u00e1, Kelson,\n<p>Alguns estudantes inscritos em L\u00f3gica e Algoritmos n\u00e3o acessaram o curso recentemente.<\/p>\n\nhttps:\/\/teste.ava.ifrn.edu.br\/gui\/report\/insights\/insights.php?modelid=5&contextid=56",
-                                "contexturl": "https:\/\/teste.ava.ifrn.edu.br\/gui\/report\/insights\/insights.php?modelid=5&contextid=56",
-                                "contexturlname": "Estudantes com risco em L\u00f3gica e Algoritmos cursos",
-                                "timecreated": 1667743203,
-                                "timecreatedpretty": "19 dias 2 horas atr\u00e1s",
-                                "timeread": None,
-                                "read": False,
-                                "deleted": False,
-                                "iconurl": "https:\/\/teste.ava.ifrn.edu.br\/gui\/theme\/image.php\/moove\/core\/1665688157\/i\/marker",
-                                "component": "moodle",
-                                "eventtype": "insights",
-                                "customdata": None
-                            }
-                        ]
-                    }
-                ]
+            counts = get_json(f'{ava.base_api_url}/get_atualizacoes_counts.php?username={params["username"]}')
+            counts["ambiente"] = {
+                "titulo": ava.nome, 
+                "sigla": ava.sigla, 
+                "cor": ava.cor, 
+                "notifications_url": f"{ava.base_url}/message/output/popup/notifications.php",
+                "conversations_url": f"{ava.base_url}/message/",
             }
-        }
-    ]
+            params['results']["atualizacoes"].append(counts)
+            params['results']["unread_notification_total"] = sum([c['unread_popup_notification_count'] for c in params['results']["atualizacoes"]])
+            params['results']["unread_conversations_total"] = sum([c['unread_conversations_count'] for c in params['results']["atualizacoes"]])
+            
+        except Exception as e:
+            logging.error(e)
+            sentry_sdk.capture_exception(e)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        results = {"atualizacoes": [], "unread_notification_total": 0, "unread_conversations_total": 0}
+        requests = [{"username": username, "ava": ava,"results": results,} for ava in Ambiente.objects.filter(active=True)]
+        executor.map(_callback, requests)
+
+    results["atualizacoes"] = sorted(results["atualizacoes"], key = lambda e: e['ambiente']['titulo'])
+    return results
 
 
-def get_mensagens(username: str) -> dict:
     return [
         {
             "error": False,
