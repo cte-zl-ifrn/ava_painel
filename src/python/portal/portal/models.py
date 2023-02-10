@@ -89,7 +89,15 @@ class Ambiente(SafeDeleteModel):
 
     def __str__(self):
         return f'{self.nome}'
-    
+
+    @property
+    def base_url(self):
+        return self.url if self.url[-1:] != '/' else self.url[:-1]
+
+    @property
+    def base_api_url(self):
+        return f'{self.base_url}/local/suap/api'
+
     @staticmethod
     def as_dict():
         return [

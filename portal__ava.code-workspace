@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../moodle__block_suapattendance"
+		},
+		{
+			"path": "../moodle__local_suap"
+		},
+		{
+			"path": "../moodle__image"
+		}
+	],
+	"settings": {}
+}
