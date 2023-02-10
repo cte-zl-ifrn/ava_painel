@@ -94,6 +94,7 @@ ul.menu-principal {
     float: right;
     height: 76px;
     margin-top: 10px;
+    margin-right: 35px;
 }
 
 .header-user a,
@@ -726,6 +727,31 @@ footer {
     padding: 20px 0;
 }
 
+footer a.btn.btn-primary {
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #fff;
+    border-color: #fff;
+    color: #438f4b;
+}
+
+footer a.btn.btn-primary:hover {
+    background-color: #438f4b;
+    border-color: #438f4b;
+    color: #fff;
+    text-decoration: none;
+}
+
+footer .contact i.fa {
+    font-size: 1.3rem;
+    color: #fff;
+}
+
+footer .contact i.fa:hover {
+    font-size: 1.3rem;
+    color: #40e151;
+}
+
 footer p {
     margin: 0 auto;
     padding: 0;
@@ -743,6 +769,29 @@ footer a, footer a:hover {
 footer a:hover {
     color: #fff;
     font-weight: bolder;
+}
+
+
+footer .contact {
+    text-align: center;
+}
+
+footer .contact ul {
+    list-style: none;
+    margin: auto;
+    width: fit-content;
+}
+
+footer .contact ul li {
+    display: inline;
+}
+
+footer .contact ul li a {
+    color: #fff;
+}
+
+footer .contact ul li a {
+    color: #fff;
 }
 
 /* ===== FOOTER: END ===== */

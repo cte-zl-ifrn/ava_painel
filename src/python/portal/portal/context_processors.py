@@ -18,6 +18,7 @@ def layout_settings(request: HttpRequest) -> dict:
         # "layout_has_customizer": True,
         "layout_has_auth_remembering": True,
         "last_startup": settings.LAST_STARTUP,
+        "portal_version": settings.PORTAL_VERSION,
         "layout_auto_page_title": request.path.lower().replace("/", " ").lstrip().title(),
     }
 
