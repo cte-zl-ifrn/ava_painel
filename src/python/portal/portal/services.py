@@ -6,6 +6,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from datetime import datetime
 from sc4net import get, get_json
 from .models import Ambiente, Arquetipo, Situacao, Ordenacao, Visualizacao, Curso
+from django.shortcuts import get_object_or_404
 import sentry_sdk
 
 
@@ -143,3 +144,7 @@ def get_atualizacoes_counts(username: str) -> dict:
             }
         }
     ]
+
+def set_favourite_course(username: str, ava: str, courseid: int, favourite: int) -> dict:
+    ava = get_object_or_404(Ambiente, sigla=ava)
+    return get_json(f'{ava.base_api_url}/set_favourite_course.php?username={username}&courseid={courseid}&favourite={favourite}')
