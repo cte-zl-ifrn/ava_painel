@@ -45,6 +45,38 @@ export default {
             const date = new Date(dateString);
             return new Intl.DateTimeFormat('default', { dateStyle: 'long' }).format(date);
         },
+        favourite: function(card) {
+            const new_status = card.isfavourite ? 0 : 1;
+            axios.get(
+                '/portal/api/v1/set_favourite/', {
+                    params: {
+                        "ava": card.ambiente.sigla,
+                        "courseid": card.id,
+                        "favourite": new_status,
+                    }
+                }
+            ).then(response => {
+                card.isfavourite = new_status == 1;
+            }).catch(error => {
+                console.log(error);
+            });
+        },
+        hidden: function(card) {
+            const new_status = card.isfavourite ? 0 : 1;
+            axios.get(
+                '/portal/api/v1/set_hidden/', {
+                    params: {
+                        "ava": card.ambiente.sigla,
+                        "courseid": card.id,
+                        "hidden": new_status,
+                    }
+                }
+            ).then(response => {
+                card.hidden = new_status == 1;
+            }).catch(error => {
+                console.log(error);
+            });
+        },
         filterCards: function(a, b, c) {
             this.filtering();
             try {

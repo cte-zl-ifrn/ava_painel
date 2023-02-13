@@ -14,18 +14,18 @@
                         <div class="porcentagem" v-if="card.showcompletionconditions">
                             <p class="valor_porcentagem">[[ card.progress ]]%</p>
                         </div>
-                        <div class="porcentagem-detalhe">
+                        <div class="porcentagem-detalhe" v-on:click="favourite(card)">
                             <span type="button" class="detalhe-link">
                                 <i class="fa fa-star" v-if="card.isfavourite"></i>
                                 <i class="fa fa-star-o" v-if="!card.isfavourite"></i>
                             </span>
                         </div>
                         {% comment %}
-                        <div class="porcentagem-detalhe">
+                        <div class="porcentagem-detalhe" v-on:click="hidden(card)">
                             <span type="button" class="detalhe-link">
                                 <i class="fa fa-eye" v-if="card.hidden"></i>
                                 <i class="fa fa-eye-slash" v-if="!card.hidden"></i>
-                            </span>   
+                            </span>
                         </div>
                         {% endcomment %}
                     </div>
