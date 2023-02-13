@@ -21,9 +21,10 @@ def login(request: HttpRequest) -> HttpResponse:
 
 def authenticate(request: HttpRequest) -> HttpResponse:
     OAUTH = settings.OAUTH
-    
-    assert 'code' in request.GET, _("O código de autenticação não foi informado.")
-    
+
+    if 'code' not in request.GET:
+        raise Exception(_("O código de autenticação não foi informado."))
+
     access_token_request_data = dict(
         grant_type='authorization_code',
         code=request.GET.get('code'),

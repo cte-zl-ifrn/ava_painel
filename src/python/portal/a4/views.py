@@ -27,19 +27,24 @@ def login(request: HttpRequest) -> HttpResponse:
 def authenticate(request: HttpRequest) -> HttpResponse:
     from portal.models import Campus, Polo
     OAUTH = settings.OAUTH
-    
-    assert 'code' in request.GET, _("O código de autenticação não foi informado.")
-    
-    access_token_request_data = dict(
-        grant_type='authorization_code',
-        code=request.GET.get('code'),
-        redirect_uri=OAUTH['REDIRECT_URI'],
-        client_id=OAUTH['CLIENTE_ID'],
-        client_secret=OAUTH['CLIENT_SECRET']
-    )
+
+    if 'code' not in request.GET:
+        raise Exception(_("O código de autenticação não foi informado."))
+
+    access_token_request_data = {
+        'grant_type': 'authorization_code',
+        'code': request.GET.get('code'),
+        'redirect_uri': OAUTH['REDIRECT_URI'],
+        'client_id': OAUTH['CLIENTE_ID'],
+        'client_secret': OAUTH['CLIENT_SECRET']
+    }
+
     request_data = json.loads(requests.post(f"{OAUTH['BASE_URL']}/o/token/", data=access_token_request_data, verify=OAUTH['VERIFY_SSL']).text)
     headers = {'Authorization': 'Bearer {}'.format(request_data.get('access_token')), 'x-api-key': OAUTH['CLIENT_SECRET']}
-    response_data = json.loads(requests.get(f"{OAUTH['BASE_URL']}/api/eu/", data={'scope': request_data.get('scope')}, headers=headers, verify=OAUTH['VERIFY_SSL']).text )
+    # response_data = json.loads(requests.get(f"{OAUTH['BASE_URL']}/api/eu/", data={'scope': request_data.get('scope')}, headers=headers, verify=OAUTH['VERIFY_SSL']).text )
+    response = requests.get(f"{OAUTH['BASE_URL']}/api/eu/?scope={request_data.get('scope')}", headers=headers, verify=OAUTH['VERIFY_SSL'])
+    print(response.text)
+    response_data = json.loads(response.text)
     
     username = response_data['identificacao']
     user = Usuario.objects.filter(username=username).first()
