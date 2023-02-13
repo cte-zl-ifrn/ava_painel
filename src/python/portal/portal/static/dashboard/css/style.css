@@ -413,7 +413,7 @@ main>div>aside {
 }
 .course-list .course-wrapper .progress .porcentagem-detalhe{
     margin: 0;
-    right: 10px;
+    right: 65px;
     top: 13px;
     background-color: transparent;
     border: 1px solid #dedede;
@@ -421,12 +421,13 @@ main>div>aside {
     align-items: center;
     justify-content: center;
     border-radius: 5px;
-    width: 30px;
+    width: 40px;
     height: 30px;
 }
 .course-list .course-wrapper .progress .porcentagem-detalhe:hover{
     background-color: #438f4b;
     border: 1px solid #438f4b;
+
 }
 .course-list .course-wrapper .progress .porcentagem-detalhe:hover > a{
     color: #fff;
@@ -439,7 +440,7 @@ main>div>aside {
 }
 .course-list .course-wrapper .progress .porcentagem{
     margin: 0;
-    right: 45px;
+    right: 120px;
     top: 13px;
     background-color: transparent;
     border: 1px solid #dedede;
@@ -450,6 +451,7 @@ main>div>aside {
     width: 40px;
     height: 30px;
 }
+
 .course-list .course-wrapper .progress .porcentagem .valor_porcentagem{
     color: #a0a0a0;
     margin: 0;
@@ -528,7 +530,24 @@ main>div>aside {
     border-radius: 100% 100% 0 0;
     margin-top: -12px;
 }
-
+.course-list .course-wrapper .progress .eyes-hidden-unhidden {
+    position: absolute;
+    margin: 0;
+    right: 9px;
+    top: 13px;
+    background-color: transparent;
+    border: 1px solid #dedede;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    width: 40px;
+    height: 30px;
+}
+.course-list .course-wrapper .progress .eyes-hidden-unhidden:hover{
+    background-color: #30672e;
+    color: #808080;
+}
 .porcentagem-detalhe {
     position: absolute;
     width: 35px;
@@ -537,6 +556,9 @@ main>div>aside {
     margin-top: -15px;
 }
 
+.hidden{
+    margin-left: 300px !important;
+}
 
 
 .card-image{
@@ -691,6 +713,12 @@ ul#informativos>li>a {
     text-decoration: none;
     color: #5b5656;
 }
+
+
+
+
+
+
 
 
 /* ===== MAIN - ASIDES -  INFOR: END ===== */

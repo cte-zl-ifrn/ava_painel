@@ -61,7 +61,7 @@ export default {
             });
         },
         hidden: function(card) {
-            const new_status = card.isfavourite ? 0 : 1;
+            const new_status = card.hidden ? 0 : 1;
             axios.get(
                 '/portal/api/v1/set_hidden/', {
                     params: {

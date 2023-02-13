@@ -16,18 +16,17 @@
                         </div>
                         <div class="porcentagem-detalhe" v-on:click="favourite(card)">
                             <span type="button" class="detalhe-link">
-                                <i class="fa fa-star" v-if="card.isfavourite"></i>
-                                <i class="fa fa-star-o" v-if="!card.isfavourite"></i>
+                                <i class="fa fa-star" v-if="!card.isfavourite"></i>
+                                <i class="fa fa-star-o" v-if="card.isfavourite"></i>
                             </span>
                         </div>
-                        {% comment %}
-                        <div class="porcentagem-detalhe" v-on:click="hidden(card)">
-                            <span type="button" class="detalhe-link">
+                        <div class="eyes-hidden-unhidden" v-on:click="hidden(card)">
+                            <span type="button" class="detalhe-link" id="">
                                 <i class="fa fa-eye" v-if="card.hidden"></i>
                                 <i class="fa fa-eye-slash" v-if="!card.hidden"></i>
                             </span>
+                            
                         </div>
-                        {% endcomment %}
                     </div>
                 </div>
             </div>
