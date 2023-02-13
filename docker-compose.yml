@@ -88,6 +88,7 @@ services:
 
   ava01:
     image: 'ctezlifrn/moodle:4.1.1-php8.0-014'
+    build: src/php
     restart: always
     ports:
       - '8011:80'
@@ -99,8 +100,10 @@ services:
       # Configs
       - '../moodle__image/src/php/config.php:/var/www/html/config.php'
       # Plugins
+      - '../moodle__auth_suap:/var/www/html/auth/suap'
       - '../moodle__local_suap:/var/www/html/local/suap'
       - '../moodle__block_suapattendance:/var/www/html/blocks/suapattendance'
+      - '../moodle__theme_maeve:/var/www/html/theme/maeve'
       # Data
       - './volumes/ava01_moodledata:/var/moodledata'
     depends_on:
@@ -112,3 +115,27 @@ services:
       #   timeout: 1s
       #   start_period: 1s
       #   retries: 30
+
+
+  cron01:
+    image: 'ctezlifrn/moodle:4.1.1-php8.0-014'
+    build: src/php
+    restart: always
+    env_file:
+      - ./confs/enabled/db.env
+      - ./confs/enabled/cache.env
+      - ./confs/enabled/ava01.env
+    volumes:
+      # Configs
+      - '../moodle__image/src/php/config.php:/var/www/html/config.php'
+      # Plugins
+      - '../moodle__auth_suap:/var/www/html/auth/suap'
+      - '../moodle__local_suap:/var/www/html/local/suap'
+      - '../moodle__block_suapattendance:/var/www/html/blocks/suapattendance'
+      - '../moodle__theme_maeve:/var/www/html/theme/maeve'
+      # Data
+      - './volumes/ava01_moodledata:/var/moodledata'
+    # command: 
+    depends_on:
+      db:
+        condition: service_healthy
