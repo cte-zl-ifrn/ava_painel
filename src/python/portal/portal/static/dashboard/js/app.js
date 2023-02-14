@@ -118,3 +118,40 @@ export default {
         },
     },
 }
+
+$(document).ready(function(){                          
+    var down = false;
+    $('#notifications-drawer').click(function(e){  
+        $("#box").css('visibility','visible');   
+        var color = $(this).text();
+        if(down){            
+            $('#box').css('height','0px');
+            $('#box').css('opacity','0');
+            down = false;
+        }else{            
+            $('#box').css('height','auto');
+            $('#box').css('opacity','1');
+            down = true;            
+        }       
+    });       
+});
+
+$(document).ready(function(){                          
+    var down = false;
+    $('#messagen-drawer').click(function(e){ 
+        $("#box2").css('visibility','visible');     
+        var color = $(this).text();
+        if(down){            
+            $('#box2').css('height','0px');
+            $('#box2').css('opacity','0');
+            down = false;
+        }else{ 
+            $('#box2').css('height','auto');
+            $('#box2').css('opacity','1');
+            down = true;            
+        }       
+    });
+    $('#close').click(function(e){
+        $("#box2").css('visibility','hidden');   
+    });
+});
