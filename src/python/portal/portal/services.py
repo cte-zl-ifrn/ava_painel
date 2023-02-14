@@ -147,6 +147,12 @@ def get_atualizacoes_counts(username: str) -> dict:
         }
     ]
 
+
 def set_favourite_course(username: str, ava: str, courseid: int, favourite: int) -> dict:
     ava = get_object_or_404(Ambiente, sigla=ava)
     return get_json(f'{ava.base_api_url}/set_favourite_course.php?username={username}&courseid={courseid}&favourite={favourite}')
+
+
+def set_hidden_course(username: str, ava: str, courseid: int, hidden: int) -> dict:
+    ava = get_object_or_404(Ambiente, sigla=ava)
+    return get_json(f'{ava.base_api_url}/set_hidden_course.php?username={username}&courseid={courseid}&hidden={hidden}')
