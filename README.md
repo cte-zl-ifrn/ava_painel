@@ -76,6 +76,7 @@ O escopos disponíveis são:
 
 ![screenshot](screenshot.png)
 
+O projeto ficará parecido com o desenho: https://xd.adobe.com/view/5cc616ad-12e8-4e36-8574-6a80ed2d0ee4-0995/
 
 ## Plugins previstos
 
