@@ -100,11 +100,17 @@ ul.menu-principal {
 .header-user a,
 .header-user a:hover,
 .header-user a:active {
-    text-decoration: none;
-    color: #fff;
-    display: table-cell;
-    text-align: center;
-    font-size: 13px;
+    text-decoration: none !important;
+    color: #565656;
+    display: inline-block;
+    text-align: left;
+    font-size: 90%;
+}
+
+.header-user button.btn.btn-secondary {
+    background-color: transparent;
+    border-color: transparent;
+    padding: 0 0 0 10px;
 }
 
 .header-user a:hover {
@@ -911,7 +917,6 @@ and (max-width: 780px) {
     height: 40px;
     position: relative;
     float: right;
-    right: 180px;
     margin-top: 20px;
 }
 .icon{
@@ -920,14 +925,22 @@ and (max-width: 780px) {
 }
 .icon span {
     background: #f00;
-    padding-left: 5px;
-    padding-right: 5px;
-    border-radius: 70%;
+    padding-left: 3px;
+    padding-right: 3px;
+    border-radius: 50%;
     color: #fff;
     vertical-align: top;
     margin-left: -8px;
     font-size: 11px;
     padding-bottom: 1px;
+    max-width: 20px;
+    overflow: hidden;
+    line-height: 18px;
+    height: 18px;
+    width: 18px;
+    display: inline-block;
+    text-align: center;
+    margin: 3px 10px 1px -9px;
 }
 .icon img{
     display: inline-block;
@@ -1075,24 +1088,13 @@ span.normal-icon {
     height: 40px;
     position: relative;
     float: right;
-    right: 105px;
     margin-top: 20px;
 }
 .icon{
     cursor: pointer;
     margin-right: 1px;
 }
-.icon span {
-    background: #f00;
-    padding-left: 3px;
-    padding-right: 3px;
-    border-radius: 50%;
-    color: #fff;
-    vertical-align: top;
-    margin-left: -8px;
-    font-size: 11px;
-    padding-bottom: 1px;
-}
+
 .icon img{
     display: inline-block;
     width: 26px;

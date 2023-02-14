@@ -4,6 +4,7 @@
         <div class="header-brand">
             <a href="{% url "portal:dashboard" %}"></a>
         </div>
+        {% comment %} 
         <ul class="menu-principal nav navbar-nav navbar-center">
             <li><a class="page-scroll area_aluno" href="{% url 'portal:dashboard' %}">ÁREA DO ALUNO</a></li>
             <li><a class="page-scroll barra">|</a></li>
@@ -15,82 +16,84 @@
             <li>|</li>
             <li><a class="page-scroll" href="{% url 'a4:logout' %}">SAIR</a></li>
         </ul>
-       {% comment %} 
-        <div class="btn-group dropstart">
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-notifications" data-bs-toggle="dropdown" aria-expanded="false">
-                    Notificações: [[unread_notification_total]]
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdown-notifications">
-                    <li><span class="dropdown-item-text">Notificações <span>v</span> <span>*</span> </span></li>
-                    <li v-for='atualizacao in atualizacoes' ><a class="dropdown-item" href="#">[[atualizacao.ambiente.titulo]] <span>[[atualizacao.unread_popup_notification_count]]</a></li>
-                    <li><span class="dropdown-item-text"><a v-bind:href="notifications_url">Ver todoas as notificações</a></span></li>
-                </ul>
-            </div>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown-conversations" data-bs-toggle="dropdown" aria-expanded="false">
-                    Mensagens: [[unread_conversations_total]]
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdown-conversations">
-                    <li><span class="dropdown-item-text">Conversas <span>v</span> <span>*</span> </span></li>
-                    <li v-for='atualizacao in atualizacoes' ><a class="dropdown-item" href="#">[[atualizacao.ambiente.titulo]] <span>[[atualizacao.unread_conversations_count]]</a></li>
-                    <li><span class="dropdown-item-text"><a v-bind:href="conversations_url">Ver todoas as conversas</a></span></li>
-                </ul>
-            </div>
-        </div>
         {% endcomment %}
         
-        <div class="region-notifications">
-            <div class="icon" id="notifications-drawer"> <i class="icon fa fa-bell-o fa-fw " title="Toggle notifications menu" role="img" aria-label="Toggle notifications menu"></i><span>[[unread_notification_total]]</span></div>
-            <div class="notifications" id="box">
-                <div class="menu-notifications">
-                    <h2>NOTIFICAÇÕES</h2>
-                    <span class="normal-icon"><i class="icon fa fa-check fa-fw " aria-hidden="true"></i></span>
-                    <span class="normal-icon"><i class="icon fa fa-cog fa-fw " aria-hidden="true"></i></span>
-                </div>
-                <div class="notifications-item ambientes-notificacao">
-                    <div class="text">
-                        <ul>
-                            <li v-for='atualizacao in atualizacoes' >
-                                <a class="ambientes-list" href="#">[[atualizacao.ambiente.titulo]] <span>[[atualizacao.unread_popup_notification_count]]</a>
-                            </li>
-                        </ul>
+        <div>
+
+            <div class="dropdown header-user">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img width="56" height="56" src="{% static 'dashboard/img/user.png'  %}" />
+                </button>
+                {% comment %} <span class="user_nome">{{ user.nome_apresentacao }}</span> {% endcomment %}
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><h6 class="dropdown-header">{{ user.nome_apresentacao }}</h6></li>
+                    <li><a class="dropdown-item" href="https://suap.ifrn.edu.br/comum/minha_conta/">Perfil no SUAP</a></li>
+                  {% comment %} <li><a class="dropdown-item" href="#">Notas</a></li> {% endcomment %}
+                  <li><a class="dropdown-item" href="https://ead.ifrn.edu.br/portal/ifrn-ead-ava/">Outros AVA</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  {% comment %} <li><a class="dropdown-item" href="#">Calendário</a></li> {% endcomment %}
+                  {% comment %} <li><a class="dropdown-item" href="#">Configurações</a></li> {% endcomment %}
+                  <li><a class="dropdown-item" href="{% url 'a4:logout' %}">Sair</a></li>
+                </ul>
+            </div>
+
+            <div class="region-notifications">
+                <div class="icon" id="notifications-drawer"> <i class="icon fa fa-bell-o fa-fw " title="Toggle notifications menu" role="img" aria-label="Toggle notifications menu"></i><span>[[unread_notification_total]]</span></div>
+                <div class="notifications" id="box">
+                    <div class="menu-notifications">
+                        <h2>NOTIFICAÇÕES</h2>
+                        <span class="normal-icon"><i class="icon fa fa-check fa-fw " aria-hidden="true"></i></span>
+                        <span class="normal-icon"><i class="icon fa fa-cog fa-fw " aria-hidden="true"></i></span>
+                    </div>
+                    <div class="notifications-item ambientes-notificacao">
+                        <div class="text">
+                            <ul>
+                                <li v-for='atualizacao in atualizacoes' >
+                                    <a class="ambientes-list" href="#">[[atualizacao.ambiente.titulo]] <span>[[atualizacao.unread_popup_notification_count]]</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="notifications-all">
+                        <a v-bind:href="notifications_url">Ver todoas as notificações</a>
                     </div>
                 </div>
-                <div class="notifications-all">
-                    <a v-bind:href="notifications_url">Ver todoas as notificações</a>
-                </div>
             </div>
-        </div>
 
-        <div class="region-messages">
-            <div class="icon" id="messagen-drawer"> <i class="icon fa fa-comment-o fa-fw " title="messagen drawer" role="img" aria-label="messagen drawer"></i><span>[[unread_conversations_total]]</span></div>
-            <div class="messages" id="box2">
-                <div class="menu-messages">
-                    <span><i class="fa fa-user" aria-hidden="true"></i></span>
-                    <h2>CONVERSAS</h2>
-                    <span class="normal-icon" id="close"><i class="icon fa fa-times fa-fw " aria-hidden="true"></i></span>
-                </div>  
-                <div class="messages-item ambientes-message">
-                    <div class="text">
-                        <ul>
-                            <li v-for='atualizacao in atualizacoes' >
-                                <a class="ambientes-list" href="#">[[atualizacao.ambiente.titulo]] <span>[[atualizacao.unread_conversations_count]]</a>
-                            </li>
-                        </ul>
+            <div class="region-messages">
+                <div class="icon" id="messagen-drawer"> <i class="icon fa fa-comment-o fa-fw " title="messagen drawer" role="img" aria-label="messagen drawer"></i><span>[[unread_conversations_total]]</span></div>
+                <div class="messages" id="box2">
+                    <div class="menu-messages">
+                        <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                        <h2>CONVERSAS</h2>
+                        <span class="normal-icon" id="close"><i class="icon fa fa-times fa-fw " aria-hidden="true"></i></span>
+                    </div>  
+                    <div class="messages-item ambientes-message">
+                        <div class="text">
+                            <ul>
+                                <li v-for='atualizacao in atualizacoes' >
+                                    <a class="ambientes-list" href="#">[[atualizacao.ambiente.titulo]] <span>[[atualizacao.unread_conversations_count]]</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="messages-all">
+                        <a v-bind:href="messages_url">Ver todoas as mensagens</a>
                     </div>
                 </div>
-                <div class="messages-all">
-                    <a v-bind:href="messages_url">Ver todoas as mensagens</a>
-                </div>
             </div>
-        </div>
-
-        <div class="header-user">
-            <a href="https://suap.ifrn.edu.br/comum/minha_conta/">
-                <img width="56" height="56" src="{% static 'dashboard/img/user.jpeg'  %}" />
-                <span class="user_nome">{{ user.nome_apresentacao }}</span>
-            </a>
+            
+            <div class="dropdown header-user" style='margin-top: 30px;'>
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuSuporte" data-bs-toggle="dropdown" aria-expanded="false">
+                    Centrais de Atendimento
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuSuporte">
+                    <li><a class="dropdown-item" href="{% url 'a4:logout' %}">Central de ajuda</a></li>
+                    <li><h6 class="dropdown-header">Central de serviço SUAP</h6></li>
+                    <li><a class="dropdown-item" href="https://suap.ifrn.edu.br/centralservicos/selecionar_servico_abertura/producao-de-material-didatico/?tab=1-ambiente-virtual-de-aprendizagem-moodle">AVA (Moodle)</a></li>
+                    <li><a class="dropdown-item" href="https://suap.ifrn.edu.br/centralservicos/selecionar_servico_abertura/ensino/">Secretaria acadêmica</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 </header>
