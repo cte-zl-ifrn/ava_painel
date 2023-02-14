@@ -4,7 +4,7 @@ from django.utils.translation import gettext as _
 from django.conf import settings
 from django.http import HttpRequest
 from django.urls import reverse
-
+from portal.models import Ambiente
 
 def layout_settings(request: HttpRequest) -> dict:
     return {
@@ -20,6 +20,7 @@ def layout_settings(request: HttpRequest) -> dict:
         "last_startup": settings.LAST_STARTUP,
         "portal_version": settings.PORTAL_VERSION,
         "layout_auto_page_title": request.path.lower().replace("/", " ").lstrip().title(),
+        "ambientes": Ambiente.objects.filter(active=True)
     }
 
 

@@ -33,8 +33,15 @@
                   <li><hr class="dropdown-divider"></li>
                   {% comment %} <li><a class="dropdown-item" href="#">Calendário</a></li> {% endcomment %}
                   {% comment %} <li><a class="dropdown-item" href="#">Configurações</a></li> {% endcomment %}
+                  {% if user.is_superuser %}
+                    <li><h6 class="dropdown-header">Admin do Moodle</h6></li>
+                    {% for ava in ambientes  %}
+                        <li style='border-left: 8px solid {{ava.cor}};'><a class="dropdown-item" href="{{ava.url}}/admin/">{{ava.nome}}</a></li>
+                    {% endfor %}
+                  {% endif %}
+                  <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="{% url 'a4:logout' %}">Sair</a></li>
-                </ul>
+              </ul>
             </div>
 
             <div class="region-messages">
@@ -43,7 +50,7 @@
                     <div class="menu-messages">
                         <span><i class="fa fa-user" aria-hidden="true"></i></span>
                         <h2>CONVERSAS</h2>
-                        <span class="normal-icon" id="close"><i class="icon fa fa-times fa-fw " aria-hidden="true"></i></span>
+                        {% comment %} <span class="normal-icon" id="close"><i class="icon fa fa-times fa-fw " aria-hidden="true"></i></span> {% endcomment %}
                     </div>  
                     <div class="messages-item ambientes-message">
                         <div class="text">
@@ -55,7 +62,9 @@
                         </div>
                     </div>
                     <div class="messages-all">
-                        <a v-bind:href="messages_url">Ver todas as mensagens</a>
+                        
+                        Total de [[unread_notification_total]] mensagens.
+                        {% comment %} <a v-bind:href="messages_url">Ver todas as mensagens</a> {% endcomment %}
                     </div>
                 </div>
             </div>
@@ -65,37 +74,38 @@
                 <div class="notifications" id="box">
                     <div class="menu-notifications">
                         <h2>NOTIFICAÇÕES</h2>
-                        <span class="normal-icon"><i class="icon fa fa-check fa-fw " aria-hidden="true"></i></span>
+                        {% comment %} <span class="normal-icon"><i class="icon fa fa-check fa-fw " aria-hidden="true"></i></span>
                         <span class="normal-icon"><i class="icon fa fa-cog fa-fw " aria-hidden="true"></i></span>
+                        <span class="normal-icon" id="close"><i class="icon fa fa-times fa-fw" aria-hidden="true"></i></span> {% endcomment %}
                     </div>
                     <div class="notifications-item ambientes-notificacao">
                         <div class="text">
                             <ul>
-                                <li v-for='atualizacao in atualizacoes' >
-                                    <a class="ambientes-list" href="#">[[atualizacao.ambiente.titulo]] <span>[[atualizacao.unread_popup_notification_count]]</a>
+                                <li v-for='atualizacao in atualizacoes'>
+                                    <a class="ambientes-list" href="[[atualizacao.ambiente.titulo]]">[[atualizacao.ambiente.titulo]] <span>[[atualizacao.unread_popup_notification_count]]</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="notifications-all">
-                        <a v-bind:href="notifications_url">Ver todas as notificações</a>
+                        Total de [[unread_notification_total]] notificações.
+                        {% comment %} <a v-bind:href="notifications_url">Ver todas as notificações</a> {% endcomment %}
                     </div>
                 </div>
             </div>
             
-            <div class="dropdown header-user" style='margin-top: 30px;'>
+            <div class="dropdown header-ajuda" style='padding: 25px 10px; border-right: 1px solid #fff;'>
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuSuporte" data-bs-toggle="dropdown" aria-expanded="false">
                     Centrais de Atendimento
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuSuporte">
-                    <li><a class="dropdown-item" href="https://ead.ifrn.edu.br/ajuda/">Central de ajuda</a></li>
                     <li><h6 class="dropdown-header">Central de serviço SUAP</h6></li>
                     <li><a class="dropdown-item" href="https://suap.ifrn.edu.br/centralservicos/selecionar_servico_abertura/producao-de-material-didatico/?tab=1-ambiente-virtual-de-aprendizagem-moodle">AVA (Moodle)</a></li>
                     <li><a class="dropdown-item" href="https://suap.ifrn.edu.br/centralservicos/selecionar_servico_abertura/ensino/">Secretaria acadêmica</a></li>
                     <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="https://ead.ifrn.edu.br/ajuda/">Central de ajuda</a></li>
                     <li><a class="dropdown-item" href="https://ead.ifrn.edu.br/portal/ouvidoria/">Ouvidoria</a></li>
                     <li><a class="dropdown-item" href="https://ead.ifrn.edu.br/portal/contato/">Contatos</a></li>
-                    
                 </ul>
             </div>
         </div>
