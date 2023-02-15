@@ -19,6 +19,18 @@ if [[ ! -d src/php/moodle__local_suap ]]; then
     chmod -R a+x src/php/moodle__local_suap
 fi
 
+if [[ ! -d src/php/moodle__auth_suap ]]; then
+    echo ""; echo_info "Clonando o repositório do moodle__auth_suap"
+    git clone https://github.com/cte-zl-ifrn/moodle__auth_suap.git ../moodle__auth_suap
+    chmod -R a+x src/php/moodle__auth_suap
+fi
+
+if [[ ! -d src/php/moodle__theme_maeve ]]; then
+    echo ""; echo_info "Clonando o repositório do moodle__theme_maeve"
+    git clone https://github.com/cte-zl-ifrn/moodle__theme_maeve.git ../moodle__theme_maeve
+    chmod -R a+x src/php/moodle__theme_maeve
+fi
+
 mkdir -p volumes/ava01_moodledata && chmod 777 volumes/ava01_moodledata
 mkdir -p volumes/ava02_moodledata && chmod 777 volumes/ava02_moodledata
 
