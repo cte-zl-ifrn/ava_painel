@@ -934,9 +934,6 @@ and (max-width: 780px) {
 /* ===== MOBILE: END ===== */
 
 /* ===== NOTIFICATIONS: BEGIN ==== */
-#box {
-    visibility: hidden;
-}
 
 .region-notifications{
     display: flex;
@@ -1015,11 +1012,8 @@ li {
     margin-bottom: 0px;
     cursor: pointer;
 }
-.notifications-all:hover{
-    background-color: #eee;
-}
 
-.notifications-item:hover{
+.notifications-item li:hover{
     background-color: #eee;
 }
 .notifications-item img{
@@ -1099,6 +1093,9 @@ i.icon.fa.fa-bell-o.fa-fw {
     display: flex;
     width: auto;
 }
+#box {
+    display: none;
+}
 
 /* ===== NOTIFICATIONS: END ==== */
 
@@ -1106,7 +1103,7 @@ i.icon.fa.fa-bell-o.fa-fw {
 /* ===== MESSAGES: BEGIN ==== */
 
 #box2 {
-    visibility: hidden;
+    display: none;
 }
 .region-messages{
     display: flex;
@@ -1166,11 +1163,8 @@ li {
     margin-bottom: 0px;
     cursor: pointer;
 }
-.messages-all:hover{
-    background-color: #eee;
-}
 
-.messages-item:hover{
+.messages-item li:hover{
     background-color: #eee;
 }
 .messages-item img{

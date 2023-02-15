@@ -22,3 +22,25 @@ export default {
         },
     },
 }
+
+$(document).ready(function(){                          
+    $('#notifications-drawer').click(function(e){  
+        $("#box2").hide();
+        if ($('#box:visible').length) {
+            $("#box").hide();
+        } else {
+            $("#box").show();
+        }
+    });       
+});
+
+$(document).ready(function(){                          
+    $('#messagen-drawer').click(function(e){  
+        $("#box").hide();
+        if ($('#box2:visible').length) {
+            $("#box2").hide();
+        } else {
+            $("#box2").show();
+        }
+    });       
+});
