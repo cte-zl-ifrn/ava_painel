@@ -48,23 +48,20 @@
                 <div class="icon" id="messagen-drawer"> <i class="icon fa fa-comment-o fa-fw " title="messagen drawer" role="img" aria-label="messagen drawer"></i><span>[[unread_conversations_total]]</span></div>
                 <div class="messages" id="box2">
                     <div class="menu-messages">
-                        <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                        <span class="icone-conversa"><i class="fa fa-comment" aria-hidden="true"></i></span>
                         <h2>CONVERSAS</h2>
-                        {% comment %} <span class="normal-icon" id="close"><i class="icon fa fa-times fa-fw " aria-hidden="true"></i></span> {% endcomment %}
                     </div>  
                     <div class="messages-item ambientes-message">
                         <div class="text">
                             <ul>
                                 <li v-for='atualizacao in atualizacoes' >
-                                    <a class="ambientes-list" href="#">[[atualizacao.ambiente.titulo]] <span>[[atualizacao.unread_conversations_count]]</a>
+                                    <a class="ambientes-list" v-bind:style="{ 'border-left': '8px solid ' + atualizacao.ambiente.cor }" v-bind:href="[[atualizacao.ambiente.conversations_url]]">[[atualizacao.ambiente.titulo]] <span>[[atualizacao.unread_conversations_count]]</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <div class="messages-all">
-                        
+                    <div class="messages-all">    
                         Total de [[unread_notification_total]] mensagens.
-                        {% comment %} <a v-bind:href="messages_url">Ver todas as mensagens</a> {% endcomment %}
                     </div>
                 </div>
             </div>
@@ -74,22 +71,18 @@
                 <div class="notifications" id="box">
                     <div class="menu-notifications">
                         <h2>NOTIFICAÇÕES</h2>
-                        {% comment %} <span class="normal-icon"><i class="icon fa fa-check fa-fw " aria-hidden="true"></i></span>
-                        <span class="normal-icon"><i class="icon fa fa-cog fa-fw " aria-hidden="true"></i></span>
-                        <span class="normal-icon" id="close"><i class="icon fa fa-times fa-fw" aria-hidden="true"></i></span> {% endcomment %}
                     </div>
                     <div class="notifications-item ambientes-notificacao">
                         <div class="text">
                             <ul>
                                 <li v-for='atualizacao in atualizacoes'>
-                                    <a class="ambientes-list" href="[[atualizacao.ambiente.titulo]]">[[atualizacao.ambiente.titulo]] <span>[[atualizacao.unread_popup_notification_count]]</a>
+                                    <a class="ambientes-list" v-bind:style="{ 'border-left': '8px solid ' + atualizacao.ambiente.cor }" v-bind:href="[[atualizacao.ambiente.conversations_url]]">[[atualizacao.ambiente.titulo]] <span>[[atualizacao.unread_popup_notification_count]]</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="notifications-all">
                         Total de [[unread_notification_total]] notificações.
-                        {% comment %} <a v-bind:href="notifications_url">Ver todas as notificações</a> {% endcomment %}
                     </div>
                 </div>
             </div>
