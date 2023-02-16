@@ -1,6 +1,8 @@
 import logging
-from typing import Dict, List, Union, Any
 import concurrent
+import re
+from enum import Enum
+from typing import Dict, List, Union, Any
 from ninja import NinjaAPI
 from django.contrib.admin.views.decorators import staff_member_required
 from datetime import datetime
@@ -10,30 +12,85 @@ from django.shortcuts import get_object_or_404
 import sentry_sdk
 
 
+CODIGO_TURMA_REGEX = re.compile('^(\d\d\d\d\d)\.(\d*)\.(\d*)\.(..)\.(.*)$')
+CODIGO_TURMA_ELEMENTS_COUNT = 5
+CODIGO_TURMA_SEMESTRE_INDEX = 0
+CODIGO_TURMA_PERIODO_INDEX = 1
+CODIGO_TURMA_CURSO_INDEX = 2
+CODIGO_TURMA_TURMA_INDEX = 3
+CODIGO_TURMA_EXCEDENTE_INDEX = 4
+
+CODIGO_DIARIO_REGEX = re.compile('^(\d\d\d\d\d)\.(\d*)\.(\d*)\.(.*)\.(.*\..*)$')
+CODIGO_DIARIO_ELEMENTS_COUNT = 5
+CODIGO_DIARIO_SEMESTRE_INDEX = 0
+CODIGO_DIARIO_PERIODO_INDEX = 1
+CODIGO_DIARIO_CURSO_INDEX = 2
+CODIGO_DIARIO_TURMA_INDEX = 3
+CODIGO_DIARIO_DISCIPLINA_INDEX = 4
+
+CODIGO_COORDENACAO_REGEX = re.compile('^(ZL)\.(\d*)(.*)')
+CODIGO_COORDENACAO_ELEMENTS_COUNT = 3
+CODIGO_COORDENACAO_CAMPUS_INDEX = 0
+CODIGO_COORDENACAO_CURSO_INDEX = 1
+CODIGO_COORDENACAO_SUFIXO_INDEX = 2
+
+CODIGO_PRATICA_REGEX = re.compile('^(.*)\.(\d{11,14}\d*)$')
+CODIGO_PRATICA_ELEMENTS_COUNT = 2
+CODIGO_PRATICA_PREFIXO_INDEX = 0
+CODIGO_PRATICA_MATRICULA_INDEX = 1
+CODIGO_PRATICA_SUFIXO_INDEX = 2
+
+
+CURSOS_CACHE = {}
+
+
+def _merge_curso(diario: dict, codigo_curso: str):
+    if codigo_curso not in CURSOS_CACHE and CURSOS_CACHE.get(codigo_curso, None) is None:
+        CURSOS_CACHE[codigo_curso] = Curso.objects.filter(codigo=codigo_curso).first()
+    curso = CURSOS_CACHE.get(codigo_curso, None)
+    if curso is not None:
+        diario['curso'] = {'codigo': curso.codigo, 'nome': curso.nome}
+
+
+def _merge_turma(diario: dict, codigo_turma: tuple):
+    if codigo_turma is not None:
+        diario['turma'] = '.'.join(codigo_turma[0:CODIGO_TURMA_TURMA_INDEX+1])
+        diario['componente'] = codigo_turma[CODIGO_TURMA_EXCEDENTE_INDEX]
+
+
+def _merge_diario(diario: dict, ambiente: dict):
+    codigo = diario['shortname']
+    diario_re = CODIGO_DIARIO_REGEX.findall(codigo)
+    turma_re = CODIGO_TURMA_REGEX.findall(codigo)
+    coordenacao_re = CODIGO_COORDENACAO_REGEX.findall(codigo)
+    pratica_re = CODIGO_PRATICA_REGEX.findall(codigo)
+    if len(diario_re) > 0 and len(diario_re[0]) == CODIGO_DIARIO_ELEMENTS_COUNT:
+        _merge_curso(diario, diario_re[0][CODIGO_DIARIO_CURSO_INDEX])
+        _merge_turma(diario, turma_re[0])
+    elif len(coordenacao_re) > 0 and len(coordenacao_re[0]) == CODIGO_COORDENACAO_ELEMENTS_COUNT:
+        _merge_curso(diario, coordenacao_re[0][CODIGO_COORDENACAO_CURSO_INDEX])
+    elif len(pratica_re) > 0 and len(pratica_re[0]) == CODIGO_PRATICA_ELEMENTS_COUNT:
+        if len(turma_re) > 0 and len(turma_re[0]) == CODIGO_TURMA_ELEMENTS_COUNT:
+            _merge_curso(diario, turma_re[0][CODIGO_TURMA_CURSO_INDEX])
+            _merge_turma(diario, turma_re[0])
+    return {**diario, **ambiente}
+
+
 def _get_diarios(params: Dict[str, Any]):
     try:
         ambiente = params["ambiente"]
-        adict = {
-            "ambiente": {
-                "titulo": ambiente.nome,
-                "sigla": ambiente.sigla,
-                "cor": ambiente.cor
-            }
-        }
+        ambientedict = {"ambiente": {"titulo": ambiente.nome, "sigla": ambiente.sigla, "cor": ambiente.cor}}
 
-        querystrings = [
-            f'{k}={v}' if v else "" for k, v in params.items() if k not in ['ambiente', 'results'] and v is not None
-        ]
+        querystrings = [f'{k}={v}' if v else "" for k, v in params.items() if k not in ['ambiente', 'results'] and v is not None]
 
         base_url = ambiente.url if ambiente.url[-1:] != '/' else ambiente.url[:-1]
-        url = f'{base_url}/local/suap/api/get_diarios.php?' + \
-            "&".join(querystrings)
+        url = f'{base_url}/local/suap/api/get_diarios.php?' + "&".join(querystrings)
         result = get_json(url)
         
         for k, v in params['results'].items():
             if k in result:
                 if k in ['diarios', 'coordenacoes', 'praticas']:
-                    params['results'][k] += [{**diario, **adict} for diario in result[k] or []]
+                    params['results'][k] += [_merge_diario(diario, ambientedict) for diario in result[k] or []]
                 else:
                     params['results'][k] += result[k] or []
                     
