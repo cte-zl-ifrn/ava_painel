@@ -4,7 +4,16 @@
             <div v-for="card in {{list_name}}" class="course-listitem">
                 <div class="course-wrapper">
                     <div class="card-body">
-                        <p class="card-diario">[[ card.shortname ]]</p>
+                        <p class="card-diario">
+                            <span v-if='card.turma'>
+                                <span class='card-turma'>[[ card.turma ]]</span>
+                                <span class='card-componente'>[[ card.componente ]]</span>
+                            </span>
+                            <span v-if='!card.turma'>[[ card.shortname ]]</span>
+                        </p>
+                        <p class="card-curso" v-if='card.curso'>
+                            [[ card.curso.nome ]]</span>
+                        </p>
                         <h5 class="card-title">
                             <a v-bind:href="[[ card.viewurl ]]">[[ card.fullname ]]</a>
                         </h5>
@@ -16,17 +25,16 @@
                         </div>
                         <div class="porcentagem-detalhe" v-on:click="favourite(card)">
                             <span type="button" class="detalhe-link">
-                                <i class="fa fa-star" v-if="!card.isfavourite"></i>
-                                <i class="fa fa-star-o" v-if="card.isfavourite"></i>
+                                <i class="fa fa-star-o" v-if="!card.isfavourite"></i>
+                                <i class="fa fa-star" v-if="card.isfavourite"></i>
                             </span>
                         </div>
-                        <div class="eyes-hidden-unhidden" v-on:click="hidden(card)">
+                        {% comment %} <div class="eyes-hidden-unhidden" v-on:click="hidden(card)">
                             <span type="button" class="detalhe-link" id="">
                                 <i class="fa fa-eye" v-if="card.hidden"></i>
                                 <i class="fa fa-eye-slash" v-if="!card.hidden"></i>
-                            </span>
-                            
-                        </div>
+                            </span>                            
+                        </div> {% endcomment %}
                     </div>
                 </div>
             </div>
