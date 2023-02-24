@@ -53,24 +53,27 @@ _/portalapp/debug
 
 ## oAuth2 do SUAP
 
-O atributos retornados são:
+- É obrigatório ao menos um dos escopos `identificacao` ou `email`, os quais retornam os atributos:
+  - `identificacao` - NUMÉRICO - **é o IFid do usuário**, no caso: matrícula para alunos ou servidores e CPF para demais colaboradores
+  - `nome_social` - ALFANUMÉRICO - **nome social**, este é o informado pelo indivíduo, não se trata de apelido, mas sim de nome social, conforme legislação
+  - `nome_usual` - ALFANUMÉRICO - **nome usual**, escolhido pelo indivíduo na interface do SUAP
+  - `nome_registro` - ALFANUMÉRICO - **nome civil**, este é conforme está no registro civil do indivíduo
+  - `nome` - ALFANUMÉRICO - **nome completo**, para compatibilidade com APIs que não sabem tratar nome e sobrenome separados
+  - `primeiro_nome` - ALFANUMÉRICO - **primeiro nome**, para compatibilidade com APIs que não sabem tratar nome e sobrenome juntos
+  - `ultimo_nome` - ALFANUMÉRICO - **último nome**, para compatibilidade com APIs que não sabem tratar nome e sobrenome juntos
+  - `campus` - ALFANUMÉRICO - **sigla do campus** do aluno ou servidor, caso exista, não se aplica aos demais colaboradores
+  - `email_preferencial` - EMAIL - **email preferencial** para comunicação, caso exista, para servidores é o mesmo que o `email`, para alunos e demais colaboradores `email_secundario`, salvo se a instituição tiver criado um mecanismo que permita ao usuário escolher qual é seu email preferencial.
+  - `email` - EMAIL - **email do servidor**, caso exista, apenas para servidores
+  - `email_secundario` - EMAIL - **email pessoal**, caso exista, o mesmo usado para recuperação de senha, para todos
+  - `email_google_classroom` - EMAIL - **email do Google Suite**, caso exista, apenas para alunos e servidores
+  - `email_academico` - EMAIL - **email da Microsoft 365**, caso exista, apenas para alunos e servidores
+  - `foto` - URL - **URL da foto no SUAP**, assim poderá ser usada a mesma foto em todos os ambientes
+- Já o escopo `documentos_pessoais` retorna os atributos:
+  - `cpf` - NUMÉRICO - **CPF** do indivíduo, útil para os casos de integração com gov.br ou para informar que possui outras contas no sistema. Poderá ser necessário novo login para trocar de conta.
+  - `data_de_nascimento` - DATA - **data de nascimento**, ajuda a identificar indivíduos menos de idade, entre outros
+  - `sexo` - ALFANUMÉRICO - **sexo**
+  - No futuro poderá retornar dados de **necessidades especiais**, assim os sistemas já adaptarão as interfaces a estas necessidades.
 
-- `identificacao` - numérico - **é o IFid do usuário**, no caso: matrícula para alunos ou servidores e CPF para demais colaboradores
-- `nome` - alfanumérico - **nome completo do usuário**, para compatibilidade com APIs que não sabem tratar nome e sobrenome separados
-- `primeiro_nome` - alfanumérico - **primeiro nome do usuário**, para compatibilidade com APIs que não sabem tratar nome e sobrenome juntos
-- `ultimo_nome` - alfanumérico - **último nome do usuário**, para compatibilidade com APIs que não sabem tratar nome e sobrenome juntos
-- `campus` - alfanumérico - **sigla do campus** do aluno ou servidor, caso exista, não se aplica aos demais colaboradores
-- `email` - email - **email do servidor**, caso exista, apenas para servidores
-- `email_secundario` - email - **email pessoal**, caso exista, o mesmo usado para recuperação de senha, para todos
-- `email_google_classroom` - email - **email do Google Suite**, caso exista, apenas para alunos e servidores
-- `email_academico` - email - **email da Microsoft 365**, caso exista, apenas para alunos e servidores
-- `email_preferencial` - email - **email preferencial** para comunicação, caso exista, para servidores é o mesmo que o `email`, para alunos e demais colaboradores é o `email_secundario`, salvo se a instituição tiver criado um mecanismo que permita ao usuário escolher qual é seu email preferencial.
-
-O escopos disponíveis são:
-
-- `identificacao` - atributos `identificacao`, `nome`, `primeiro_nome` e `ultimo_nome`
-- `email` - atributos `email_preferencial`, `email`, `email_secundario`, `email_google_classroom` e `email_academico`
-- `documentos_pessoais` - não sei :(
 
 ## Screenshot
 
