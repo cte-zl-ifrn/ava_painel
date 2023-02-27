@@ -1020,45 +1020,6 @@ a.btn.btn-primary{
 
 /* _____________ CUSTOM  _____________ */
 
-
-/* ===== MOBILE: BEGIN ===== */
-
-@media only screen 
-and (min-width : 321px) 
-and (max-width: 780px) {
-    #grid-filter { display: block;}
-    main>div>aside { display: none;}
-    ul.menu-principal { width: 415px}
-    #grid-header>div { display: none;}
-    a.page-scroll.barra {display: none;}
-    a.page-scroll.area_aluno { width: auto; display: contents; font-size: 12px;}
-    main>div { display: contents;}
-    #grid-filter>div{ width: auto; max-width: none;}
-    #grid-header { margin: 50px 0px 5px 0px; width: auto; padding-left: 20px;}
-    .header-user{ position: absolute; left: 300px; top: 15px;}
-    span.user_nome { display: none; }
-    .region-notifications {right:115px !important;}
-    .region-messages {right: 50px !important;}
-    
-}
-
-@media screen and (max-width: 480px) {
-    #grid-filter {
-        grid-template-columns: repeat(2, 1fr);
-    }    
-    ul.menu-principal {
-        display: none;
-    }
-    .course-list {
-        margin: 0 20px;
-        width: calc(100vw - 50px);
-    }
-    .tab-content>.active {
-        width: 100vw;
-    }
-}
-/* ===== MOBILE: END ===== */
-
 /* ===== NOTIFICATIONS: BEGIN ==== */
 
 .region-notifications{
@@ -1446,6 +1407,9 @@ ul.dropdown-ajauda {
 ul.dropdown-user {
     inset: 0px auto auto -38px;
 }
+.dropdown-header-ajuda {
+    display: none;
+}
 
 /* ===== MESSAGEN: END ==== */
 
@@ -1489,6 +1453,9 @@ and (max-width: 5880px) {
 and (min-width : 1489px) 
 and (max-width: 5880px) { 
     ul.menu-notifications.show{ transform: translate3d(-260px, 69px, 0px) !important;  }
+    ul.dropdown-menu.dropdown-user.show { transform: translate3d(2px, 89.0909px, 0px) !important;}
+    ul.dropdown-menu.dropdown-ajauda.show { transform: translate3d(11px, 51.8182px, 0px) !important;}
+
 }
 
 @media only screen 
