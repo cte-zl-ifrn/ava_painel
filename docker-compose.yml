@@ -98,7 +98,7 @@ services:
       - ./confs/enabled/ava01.env
     volumes:
       # Configs
-      - '../moodle__image/src/php/config.php:/var/www/html/config.php'
+      # - '../moodle__image/src/php/config.php:/var/www/html/config.php'
       # Plugins
       - '../moodle__auth_suap:/var/www/html/auth/suap'
       - '../moodle__local_suap:/var/www/html/local/suap'
@@ -127,7 +127,7 @@ services:
       - ./confs/enabled/ava01.env
     volumes:
       # Configs
-      - '../moodle__image/src/php/config.php:/var/www/html/config.php'
+      # - '../moodle__image/src/php/config.php:/var/www/html/config.php'
       # Plugins
       - '../moodle__auth_suap:/var/www/html/auth/suap'
       - '../moodle__local_suap:/var/www/html/local/suap'
