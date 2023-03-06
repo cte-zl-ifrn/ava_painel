@@ -55,7 +55,7 @@ MY_APPS = env_as_list('MY_APPS', [
     'middleware',
 ])
 THIRD_APPS = env_as_list('THIRD_APPS', [
-    'markdownx',
+    # 'markdownx',
     'django_extensions',
     'import_export',
     'simple_history',
@@ -89,12 +89,9 @@ MIDDLEWARE = [
     'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
-import platform
-
 # Routing
 WSGI_APPLICATION = env('DJANGO_WSGI_APPLICATION', 'wsgi.application')
 ALLOWED_HOSTS = env_as_list('DJANGO_ALLOWED_HOSTS', '*' if DEBUG else '')
-# + ['0.0.0.0', platform.node()]
 USE_X_FORWARDED_HOST = env_as_bool('DJANGO_USE_X_FORWARDED_HOST', False)
 SECURE_PROXY_SSL_HEADER = env_as_list('DJANGO_SECURE_PROXY_SSL_HEADER', '')
 ROOT_URLCONF = env('DJANGO_ROOT_URLCONF', 'urls')
