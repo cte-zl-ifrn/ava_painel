@@ -258,7 +258,7 @@ class Diario(SafeDeleteModel):
         campus, pkg = _validate_campus()
         try:
             retorno = requests.post(
-                f"{campus.ambiente.url}/local/suap/sync_up_enrolments.php", 
+                f"{campus.ambiente.url}/local/suap/api/sync_up_enrolments.php", 
                 data={"jsonstring": message_string},
                 headers={"Authentication": f"Token {campus.ambiente.token}"}
             )
