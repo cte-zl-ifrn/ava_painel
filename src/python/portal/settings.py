@@ -60,6 +60,7 @@ THIRD_APPS = env_as_list('THIRD_APPS', [
     'import_export',
     'simple_history',
     'safedelete',
+    'django_sass',
     # "corsheaders",
     # 'adminlte3',
     # 'adminlte3_admin',
