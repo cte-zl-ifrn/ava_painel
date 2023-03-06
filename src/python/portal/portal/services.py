@@ -172,7 +172,7 @@ def get_atualizacoes_counts(username: str) -> dict:
 
             counts = get_json(f'{ava.base_api_url}/get_atualizacoes_counts.php?username={params["username"]}')
             counts["ambiente"] = {
-                "titulo": ava.nome, 
+                "titulo": re.subn('🟥 |🟦 |🟧 |🟨 |🟩 |🟪 ', '', ava.nome)[0],
                 "sigla": ava.sigla, 
                 "cor": ava.cor, 
                 "notifications_url": f"{ava.base_url}/message/output/popup/notifications.php",

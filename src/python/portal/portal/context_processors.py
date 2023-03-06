@@ -20,7 +20,8 @@ def layout_settings(request: HttpRequest) -> dict:
         "last_startup": settings.LAST_STARTUP,
         "portal_version": settings.PORTAL_VERSION,
         "layout_auto_page_title": request.path.lower().replace("/", " ").lstrip().title(),
-        "ambientes": Ambiente.objects.filter(active=True)
+        "ambientes": Ambiente.objects.filter(active=True),
+        "admins": Ambiente.admins(),
     }
 
 

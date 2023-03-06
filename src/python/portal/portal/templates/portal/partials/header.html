@@ -16,8 +16,8 @@
                   <li><hr class="dropdown-divider"></li>
                   {% if user.is_superuser %}
                     <li><h6 class="dropdown-header">Admin do Moodle</h6></li>
-                    {% for ava in ambientes  %}
-                        <li style='border-left: 8px solid {{ava.cor}};'><a class="dropdown-item" href="{{ava.url}}/admin/">{{ava.nome}}</a></li>
+                    {% for ava in admins  %}
+                        <li style='border-left: 8px solid {{ava.cor}};'><a class="dropdown-item" href="{{ava.url}}">{{ava.nome}}</a></li>
                     {% endfor %}
                   {% endif %}
                   <li><hr class="dropdown-divider"></li>
@@ -43,7 +43,7 @@
                         <li v-for='atualizacao in atualizacoes'>
                             <a class="dropdown-item ambientes-list" v-bind:style="{ 'border-left': '8px solid ' + atualizacao.ambiente.cor }" v-bind:href="[[atualizacao.ambiente.conversations_url]]">[[atualizacao.ambiente.titulo]] <span>[[atualizacao.unread_conversations_count]]</a>
                         </li>
-                        <li><a class="dropdown-item messages-all">Total de [[unread_notification_total]] mensagens.</a></li>
+                        <li><a class="dropdown-item messages-all">Total de [[unread_conversations_total]] mensagens.</a></li>
                         </ul>
                     </div>
                 </div>
