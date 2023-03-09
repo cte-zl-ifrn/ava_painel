@@ -1,15 +1,15 @@
 import logging
 import concurrent
 import re
-from enum import Enum
-from typing import Dict, List, Union, Any
-from ninja import NinjaAPI
-from django.contrib.admin.views.decorators import staff_member_required
-from datetime import datetime
-from sc4net import get, get_json
-from .models import Ambiente, Arquetipo, Situacao, Ordenacao, Visualizacao, Curso
-from django.shortcuts import get_object_or_404
+import json
 import sentry_sdk
+from enum import EnumW
+from typing import Dict, List, Union, Any
+from datetime import datetime
+from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import get_object_or_404
+from sc4net import get
+from .models import Ambiente, Arquetipo, Situacao, Ordenacao, Visualizacao, Curso
 
 
 CODIGO_TURMA_REGEX = re.compile('^(\d\d\d\d\d)\.(\d*)\.(\d*)\.(..)\.(.*)$')
@@ -45,7 +45,9 @@ CURSOS_CACHE = {}
 
 
 def get_json_api(ava: Ambiente, url: str):
-    return get_json(f'{ava.base_api_url}{url}', headers={'Authentication': f'Token {ava.token}'})
+    content = get(url, headers={'Authentication': f'Token {ava.token}'})
+    logging.debug(content)
+    return json.loads(content)
     
 
 def _merge_curso(diario: dict, codigo_curso: str):
@@ -97,6 +99,7 @@ def _get_diarios(params: Dict[str, Any]):
                     params['results'][k] += result[k] or []
                     
     except Exception as e:
+        logging.error(e)
         sentry_sdk.capture_exception(e)
 
 
@@ -195,16 +198,6 @@ def get_atualizacoes_counts(username: str) -> dict:
 
     results["atualizacoes"] = sorted(results["atualizacoes"], key = lambda e: e['ambiente']['titulo'])
     return results
-
-
-    return [
-        {
-            "error": False,
-            "data": {
-                "conversations": [{"id": 107, "name": "", "subname": None, "imageurl": None, "type": 1, "membercount": 2, "ismuted": False, "isfavourite": False, "isread": False, "unreadcount": 1, "members": [{"id": 5, "fullname": "Kelson da Costa Medeiros", "profileurl": "https:\/\/teste.ava.ifrn.edu.br\/gui\/user\/profile.php?id=5", "profileimageurl": "https:\/\/teste.ava.ifrn.edu.br\/gui\/pluginfile.php\/22\/user\/icon\/moove\/f1?rev=457", "profileimageurlsmall": "https:\/\/teste.ava.ifrn.edu.br\/gui\/pluginfile.php\/22\/user\/icon\/moove\/f2?rev=457", "isonline": True, "showonlinestatus": True, "isblocked": False, "iscontact": False, "isdeleted": False, "canmessageevenifblocked": True, "canmessage": False, "requirescontact": False, "contactrequests": []}], "messages":[{"id": 1, "useridfrom": 5, "text": "<p>teste<\/p>", "timecreated": 1669392466}], "candeletemessagesforallusers": False}]
-            }
-        }
-    ]
 
 
 def set_favourite_course(username: str, ava: str, courseid: int, favourite: int) -> dict:

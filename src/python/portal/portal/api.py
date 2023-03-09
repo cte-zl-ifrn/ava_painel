@@ -40,15 +40,15 @@ def diarios(
 
 @api.get("/atualizacoes_counts/")
 def atualizacoes_counts(request: HttpRequest):
-    return get_atualizacoes_counts(request.user.username)
+    return get_atualizacoes_counts(settings.SUAP_PORTAL_FAKEUSER or request.user.username)
 
 
 @api.get("/set_favourite/")
 def set_favourite(request: HttpRequest, ava: str, courseid: int, favourite: int):
-    return set_favourite_course(request.user.username, ava, courseid, favourite)
+    return set_favourite_course(settings.SUAP_PORTAL_FAKEUSER or request.user.username, ava, courseid, favourite)
 
 
 @api.get("/set_hidden/")
 def set_hidden(request: HttpRequest, ava: str, courseid: int, hidden: int):
-    return set_hidden_course(request.user.username, ava, courseid, hidden)
+    return set_hidden_course(settings.SUAP_PORTAL_FAKEUSER or request.user.username, ava, courseid, hidden)
 
