@@ -31,6 +31,7 @@ export default {
             salas: [],
             has_error: false,
             is_filtering: true,
+            activeParagraph: null,
         }
     },
     mounted() {
@@ -116,5 +117,48 @@ export default {
         filtered: function() {
             this.is_filtering = false;
         },
+        isActive(id){
+            return this.activeParagraph === id;
+        },
+        addActiveClass(id){
+            this.activeParagraph = id;
+        },
     },
 }
+
+
+
+
+
+
+// var maisDetalhes = document.getElementsByClassName("mais-detalhes-card");
+// var lessHr = document.getElementsByClassName("menos-detalhes-hr");
+// var lessDetails = document.getElementsByClassName("menos-detalhes-card");
+
+
+// maisDetalhes[0].addEventListener('click', function() {
+//    alert("teste");
+//     maisDetalhes.classList.add("d-none");
+// });
+
+// lessDetails[0].addEventListener('click', function() {
+//     lessDetails.classList.remove("d-none");
+//     lessHr.classList.remove("d-none");
+// });
+
+// $("#mais-detalhes-card").click(function() {
+//     alert("teste");
+//     $("#mais-detalhes-card").addClass("d-none");
+
+//     $("#menos-detalhes-hr").removeClass("d-none");
+//     $("#menos-detalhes-card").removeClass("d-none");
+// });
+
+// $("#menos-detalhes-card").click(function() {
+//     $("#mais-detalhes-card").removeClass("d-none");
+
+//     $("#menos-detalhes-card").addClass("d-none");
+//     $("#menos-detalhes-hr").addClass("d-none");
+// });
+
+

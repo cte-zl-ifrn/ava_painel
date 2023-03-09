@@ -425,9 +425,11 @@ main>div>aside {
     margin: 0 20px;
 }
 .course-list .course-wrapper{
-    flex-direction: row-reverse;
+    /* flex-direction: row-reverse; */
     /*box-shadow: 2px 2px 5px 0 rgb(0 0 0 / 5%);*/
     box-shadow: none;
+    display: flex;
+    flex-wrap: wrap;
 }
 .course-list .course-wrapper .progress.bg-dark.rounded-0{
     width: 20px;
@@ -435,7 +437,7 @@ main>div>aside {
     height: auto;
 }
 .course-list .course-wrapper .card-body{
-    border: 1px solid #dedede;
+    border: 5px solid #dedede;
     padding: 10px 80px 10px 10px;
 }
 .course-list .course-wrapper .card-body .card-diario{
@@ -443,34 +445,40 @@ main>div>aside {
 }
 .course-list .course-wrapper .card-body .card-title{
     margin: 0;
-    font-weight: 300;
+    font-weight: 600;
+    margin-top: 14px;
+    color: #1D2125;
+    font-size: 24px;
+    line-height: 28px;
 }
 .course-list .course-wrapper .card-body .card-title > a{
     color: #565656;
     text-decoration: none;
 }
 .course-list .course-wrapper .card-turma {
-    color: #222222;
-    font-weight: 900;
-    font-size: 120%;
+    color: #1D2125;
+    font-weight: 600;
+    font-size: 16px;
 }
 .course-list .course-wrapper .card-componente {
-    font-weight: 900;
-    font-size: 90%;
+    font-weight: 600;
+    font-size: 14px;
     padding-left: 10px;
+    color: #54595E;
 }
 .course-list .course-wrapper .card-curso {
-    font-size: 0.9rem;
-    font-style: italic;
+    font-size: 14px;
     padding: 0;
     margin: 0;
+    color: #54595E;
+    margin-top: 4px;
 }
 .course-list .course-wrapper .progress .porcentagem-detalhe{
     margin: 0;
     right: 10px;
-    top: 13px;
+    top: 83px;
     background-color: transparent;
-    border: 1px solid #dedede;
+    border: 1px solid #54595E;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -487,30 +495,30 @@ main>div>aside {
     color: #fff;
 }
 .course-list .course-wrapper .progress .porcentagem-detalhe .detalhe-link{
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 200;
     color: #aaa;
     transform: translateY(-1px);
 }
 .course-list .course-wrapper .progress .porcentagem{
     margin: 0;
-    right: 60px;
-    top: 13px;
-    background-color: transparent;
+    /* right: 60px; */
+    top: 4px;
+    background-color: #ECDAFA;
     border: 1px solid #dedede;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 5px;
-    width: 40px;
+    width: 50px;
     height: 30px;
 }
 
 .course-list .course-wrapper .progress .porcentagem .valor_porcentagem{
-    color: #a0a0a0;
+    color: #5E2A79;
     margin: 0;
     text-align: center;
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 700;
     padding: 0;
 }
@@ -548,6 +556,10 @@ main>div>aside {
     margin: 10px;
     position: relative;
     box-shadow: 0 9px 30px 0 rgb(0 0 0 / 10%);
+
+    border-bottom: 1px solid #a24fd3 !important;
+    border-right: 1px solid #a24fd3 !important;
+    border-top: 1px solid #a24fd3 !important;
 }
 
 .icon_ambiente {
@@ -595,9 +607,9 @@ main>div>aside {
     position: absolute;
     margin: 0;
     right: 9px;
-    top: 13px;
+    top: 43px;
     background-color: transparent;
-    border: 1px solid #dedede;
+    border: 1px solid #54595E;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -605,6 +617,59 @@ main>div>aside {
     width: 40px;
     height: 30px;
 }
+
+.more-details {
+    position: absolute;
+    margin: 0;
+    right: 9px;
+    top: 126px;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 10%;
+    height: 30px;
+    
+}
+
+.more-details:hover{
+    cursor: pointer;
+}
+
+.less-details {
+    position: absolute;
+    margin: 0;
+    right: 9px;
+    top: 135px;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 100%;
+    height: 30px;
+}
+
+.less-details:hover{
+    cursor: pointer;
+}
+
+.less-hr {
+    position: absolute;
+    margin: 0;
+    right: 9px;
+    top: 110px;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 100%;
+    height: 30px;
+}
+
+.hr-style{
+    width: 98%;
+}
+
 .course-list .course-wrapper .progress .eyes-hidden-unhidden:hover{
     background-color: #30672e;
     color: #808080;
@@ -628,12 +693,17 @@ main>div>aside {
 }
 
 .card-body {
-    flex: 1 1 auto;
+    flex: 1 1 153px !important;
     padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
     color: var(--bs-card-color);
     text-align: left;
     padding-bottom: 5px !important;
     background-color: #FFF;
+
+    border-image: linear-gradient(to right, #51286a, #ecdbf9) !important;
+    border-image-slice: 3 !important;
+    border-bottom: none !important;
+    border-right: none !important;
 }
 
 .card-diario {
@@ -655,7 +725,6 @@ main>div>aside {
     line-height: 22px;
     color: #565656;
     text-align: left;
-    text-transform: uppercase;
 }
 
 .card-footer {
@@ -906,6 +975,10 @@ footer .contact ul li a {
     width: 100%;
     background-color: #438f4b;
     margin: 15px 0;
+}
+
+span.detalhe-link{
+   font-size: 20px; 
 }
 
 /* _____________ CUSTOM  _____________ */

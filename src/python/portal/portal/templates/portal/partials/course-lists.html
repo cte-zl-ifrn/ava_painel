@@ -4,37 +4,51 @@
             <div v-for="card in {{list_name}}" class="course-listitem">
                 <div class="course-wrapper">
                     <div class="card-body">
-                        <p class="card-diario">
-                            <span v-if='card.turma'>
-                                <span class='card-turma'>[[ card.turma ]]</span>
-                                <span class='card-componente'>[[ card.componente ]]</span>
-                            </span>
-                            <span v-if='!card.turma'>[[ card.shortname ]]</span>
-                        </p>
-                        <p class="card-curso" v-if='card.curso'>
-                            [[ card.curso.nome ]]</span>
-                        </p>
-                        <h5 class="card-title">
-                            <a v-bind:href="[[ card.viewurl ]]">[[ card.fullname ]]</a>
-                        </h5>
+                        <div>
+                            <p class="card-diario">
+                                <span v-if='card.turma'>
+                                    <span class='card-turma'>[[ card.turma ]]</span>
+                                    <span class='card-componente'>[[ card.componente ]]</span>
+                                </span>
+                                <span v-if='!card.turma'>[[ card.shortname ]]</span>
+                            </p>
+                            <p class="card-curso" v-if='card.curso'>
+                                [[ card.curso.nome ]]</span>
+                            </p>
+                            <h5 class="card-title">
+                                <a v-bind:href="[[ card.viewurl ]]">[[ card.fullname ]]</a>
+                            </h5>
+                        </div>
                     </div>
                     <div class="progress bg-dark rounded-0">
                         <div class="progress-bar" :style="{ background: card.ambiente.cor }"></div>
-                        <div class="porcentagem" v-if="card.showcompletionconditions">
-                            <p class="valor_porcentagem">[[ card.progress ]]%</p>
-                        </div>
                         <div class="porcentagem-detalhe" v-on:click="favourite(card)">
                             <span type="button" class="detalhe-link">
                                 <i class="fa fa-star-o" v-if="!card.isfavourite"></i>
                                 <i class="fa fa-star" v-if="card.isfavourite"></i>
                             </span>
                         </div>
-                        {% comment %} <div class="eyes-hidden-unhidden" v-on:click="hidden(card)">
+                         <div class="eyes-hidden-unhidden" v-on:click="hidden(card)">
                             <span type="button" class="detalhe-link" id="">
                                 <i class="fa fa-eye" v-if="card.hidden"></i>
                                 <i class="fa fa-eye-slash" v-if="!card.hidden"></i>
                             </span>                            
-                        </div> {% endcomment %}
+                        </div> 
+                        <div class="porcentagem" v-if="card.showcompletionconditions">
+                            <p class="valor_porcentagem">[[ card.progress ]]%</p>
+                        </div>
+                        <!-- <div class="more-details" id="mais-detalhes-card" :class="{hide_this: isActive([[card.id]]) }">
+                            <p class="" v-on:click="addActiveClass([[card.id]])"><i class="fa fa-plus" aria-hidden="true"></i> <u >Mais detalhes</u></p>
+                        </div>
+
+                        <div class="less-hr d-none" id="menos-detalhes-hr">
+                            <hr class="hr-style">
+                            
+                        </div>
+
+                        <div class="less-details d-none" id="menos-detalhes-card">
+                            <p class=""><i class="fa fa-minus" aria-hidden="true"></i> <u>Menos detalhes</u></p>
+                        </div> -->
                     </div>
                 </div>
             </div>
