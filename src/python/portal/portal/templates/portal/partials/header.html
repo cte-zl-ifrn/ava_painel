@@ -6,23 +6,25 @@
         </div>    
         <div class="nav-navigation">
             <div class="dropdown header-user">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle btn-dropdown-user" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     <img width="56" height="56" src="{% static 'dashboard/img/user.png'  %}" />
+                    <span><h6 class="user_name">{{ user.nome_apresentacao }}</h6></span>
                 </button>
                 <ul class="dropdown-menu dropdown-user" aria-labelledby="dropdownMenuButton1">
-                    <li><h6 class="dropdown-header">{{ user.nome_apresentacao }}</h6></li>
+                    <li><span><h6 class="dropdown-header">{{ user.nome_apresentacao }}</h6></span></li>
                     <li><a class="dropdown-item" href="https://suap.ifrn.edu.br/comum/minha_conta/">Perfil no SUAP</a></li>
                   <li><a class="dropdown-item" href="https://ead.ifrn.edu.br/portal/ifrn-ead-ava/">Outros AVA</a></li>
                   <li><hr class="dropdown-divider"></li>
                   {% if user.is_superuser %}
-                    <li><h6 class="dropdown-header">Admin do Moodle</h6></li>
+                    <li><h6 class="dropdown-header-admin">Admin do Moodle</h6></li>
                     {% for ava in ambientes  %}
                         <li style='border-left: 8px solid {{ava.cor}};'><a class="dropdown-item" href="{{ava.url}}/admin/">{{ava.nome}}</a></li>
                     {% endfor %}
                   {% endif %}
                   <li><hr class="dropdown-divider"></li>
                   <div class="dropdown-header-ajuda">
-                    <li><h6 class="dropdown-header ajuda-moodle">Central de serviço SUAP</h6></li>
+                    <li><h6 class="dropdown-header central-atendimento">Central de Atendimento</h6></li>
+                    <li><a class="dropdown-item ajuda-moodle">Central de serviço SUAP</a></li>
                     <li><a class="dropdown-item ajuda-moodle" href="https://suap.ifrn.edu.br/centralservicos/selecionar_servico_abertura/producao-de-material-didatico/?tab=1-ambiente-virtual-de-aprendizagem-moodle">AVA (Moodle)</a></li>
                     <li><a class="dropdown-item ajuda-moodle" href="https://suap.ifrn.edu.br/centralservicos/selecionar_servico_abertura/ensino/">Secretaria acadêmica</a></li>
                     <li><hr class="dropdown-divider ajuda-moodle"></li>
@@ -38,7 +40,6 @@
                     <div class="dropdown">
                         <i id="dropdownMenu2" data-bs-toggle="dropdown" class="icon fa fa-comment-o fa-fw " title="messagen drawer" role="img" aria-label="messagen drawer"></i><span v-if="unread_conversations_total > 0" class="icon-count">[[unread_conversations_total]]</span>
                         <ul class="dropdown-menu menu-messages" aria-labelledby="dropdownMenu2">
-                            <span class="icone-conversa"><i class="fa fa-comment" aria-hidden="true"></i></span>
                             <h2>CONVERSAS</h2> 
                         <li v-for='atualizacao in atualizacoes'>
                             <a class="dropdown-item ambientes-list" v-bind:style="{ 'border-left': '8px solid ' + atualizacao.ambiente.cor }" v-bind:href="[[atualizacao.ambiente.conversations_url]]">[[atualizacao.ambiente.titulo]] <span>[[atualizacao.unread_conversations_count]]</a>
@@ -65,7 +66,8 @@
                     Centrais de Atendimento
                 </button>
                 <ul class="dropdown-menu dropdown-ajauda" aria-labelledby="dropdownMenuSuporte">
-                    <li><h6 class="dropdown-header">Central de serviço SUAP</h6></li>
+                    <li><h6 class="dropdown-header central-atendimento">Centrais de Atendimento</h6></li>
+                    <li><a class="dropdown-item">Central de serviço SUAP</a></li>
                     <li><a class="dropdown-item" href="https://suap.ifrn.edu.br/centralservicos/selecionar_servico_abertura/producao-de-material-didatico/?tab=1-ambiente-virtual-de-aprendizagem-moodle">AVA (Moodle)</a></li>
                     <li><a class="dropdown-item" href="https://suap.ifrn.edu.br/centralservicos/selecionar_servico_abertura/ensino/">Secretaria acadêmica</a></li>
                     <li><hr class="dropdown-divider"></li>
