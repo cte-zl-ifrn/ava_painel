@@ -71,7 +71,7 @@
                         {% include "portal/partials/course-lists.html" with list_name="praticas" list_alias="práticas" %}
                     </div>
                 </div>
-                <div id="course-listitem-isempty" v-if="!has_error && !is_filtering && diarios.length==0 && coordenacoes.length==0 && praticas.length==0">
+                <div id="search-isempty" v-if="!has_error && !is_filtering && diarios.length==0 && coordenacoes.length==0 && praticas.length==0">
                     <h3>Atenção!</h3>
                     <p>Não existem "Diários", "Salas de coordenação" ou "Práticas" que atendam ao critério de filtro informado. Para mostrar todos os diários tente limpar os filtros e no primeiro campo escolher a opção "Todas as situações".</p>
                     <p>SE ALUNO: Também é possível que a Secretaria Acadêmica ainda não tenham criado seus diários ou lhe inserido em uma sala de coodenação, neste caso, favor aguarde.</p>

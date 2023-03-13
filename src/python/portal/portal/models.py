@@ -105,6 +105,13 @@ class Ambiente(SafeDeleteModel):
             for a in Ambiente.objects.filter(active=True)
         ]
 
+    @staticmethod
+    def admins():
+        return [
+            {"id": a.id, "nome": re.subn('🟥 |🟦 |🟧 |🟨 |🟩 |🟪 ', '', a.nome)[0] , "cor": a.cor, "url": f"{a.url}/admin/"}
+            for a in Ambiente.objects.filter(active=True)
+        ]
+
 
 class Campus(SafeDeleteModel):
     suap_id = CharField(_('ID do campus no SUAP'), max_length=255, unique=True)
@@ -251,7 +258,7 @@ class Diario(SafeDeleteModel):
         campus, pkg = _validate_campus()
         try:
             retorno = requests.post(
-                f"{campus.ambiente.url}/local/suap/sync_up_enrolments.php", 
+                f"{campus.ambiente.url}/local/suap/api/sync_up_enrolments.php", 
                 data={"jsonstring": message_string},
                 headers={"Authentication": f"Token {campus.ambiente.token}"}
             )
@@ -311,6 +318,7 @@ class Diario(SafeDeleteModel):
         turma, created = Turma.objects.update_or_create(
             codigo=d['turma']['codigo'],
             defaults={
+                'suap_id': d['turma']['id'],
                 'suap_id': d['turma']['id'],
                 'campus': campus,
             }

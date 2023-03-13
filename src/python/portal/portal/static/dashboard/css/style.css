@@ -11,6 +11,7 @@
     -webkit-transition: all 100ms ease-in;
     -o-transition: all 100ms ease-in;
     transition: all 100ms ease-in;
+    
 }
 
 body {
@@ -801,7 +802,7 @@ footer {
     color: #fff;
     text-align: center;
     margin-top: 2em;
-    padding: 20px 0;
+    padding: 20px 0px;
     width: 100%;
 }
 
@@ -822,12 +823,15 @@ footer a.btn.btn-primary:hover {
 
 footer .contact i.fa {
     font-size: 1.3rem;
-    color: #fff;
+    
 }
 
 footer .contact i.fa:hover {
     font-size: 1.3rem;
-    color: #40e151;
+}
+
+.btn-link:hover{
+  color: #30672e !important;
 }
 
 footer p {
@@ -835,7 +839,7 @@ footer p {
     padding: 0;
     max-width: 1243px;
     text-align: center;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 footer a, footer a:hover {
@@ -852,13 +856,35 @@ footer a:hover {
 
 footer .contact {
     text-align: center;
+    margin: 10px;
 }
 
 footer .contact ul {
     list-style: none;
     margin: auto;
     width: fit-content;
+    display: flex;
+    
+    
 }
+footer .contact ul span{
+  margin-top: 5px;
+}
+footer .contact ul li:hover {
+    background:white;
+    
+    border-radius: 5px;
+    
+  
+   
+    
+}
+footer .contact i.fa {
+    font-size: 1.3rem;
+    min-width: 19px;
+  }
+
+
 
 footer .contact ul li {
     display: inline;
@@ -910,7 +936,7 @@ footer .contact ul li a {
 }
 footer hr{
     width: 90%;
-    margin: 32px auto;
+    margin: 24px auto;
 }
 footer p span {
     color: #359830;
@@ -922,15 +948,35 @@ a.btn.btn-primary{
     width: 200px;
 }
 
+
 @media only screen and (max-width: 600px) {
     footer {
-      padding: 10px 9px;
+      padding: 10px 20px;
     }
     footer hr{
         margin: 15px ;
     }
     .madeby{
         margin: 10px;
+    }
+    footer .contact ul {
+        display: block;
+        width: 280px;
+    }
+    footer .contact ul span {
+       display: none; 
+    }
+    footer .contact ul li:hover {
+        background:none;
+        
+        
+    
+    }
+    footer p,.madeby{
+        line-height: 22px !important;
+    }
+    .madeby br {
+        display: none;
     }
   }
 
