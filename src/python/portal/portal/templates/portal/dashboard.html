@@ -7,24 +7,24 @@
             <section>
                 <h2 id="filter-title">Filtrar diários e salas</h2>
                 <div id="grid-filter">
-                    <div>
+                    <div class="grid-item">
                         <select name="situacao" id="situacao" @change="filterCards($event)">
                             <option v-for="row in situacoes" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
-                    <div>
+                    <div class="grid-item">
                         <select name="semestre" id="semestre" @change="filterCards($event)">
                             <option selected value="">Todos os semestres</option>
                             <option v-for="row in semestres" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
-                    <div>
+                    <div class="grid-item">
                         <select name="disciplina" id="disciplina" @change="filterCards($event)">
                             <option selected value="">Todas as disciplinas</option>
                             <option v-for="row in disciplinas" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
-                    <div>
+                    <div class="grid-item">
                         <select name="curso" id="curso" @change="filterCards($event)">
                             <option selected value="">Todos os cursos</option>
                             <option v-for="row in cursos" v-bind:value="row.id">[[ row.label ]]</option>
@@ -36,18 +36,18 @@
                             <option v-for="row in arquetipos" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div> {% endcomment %}
-                    <div>
+                    <div class="grid-item">
                         <select name="ambiente" id="ambiente_id" @change="filterCards($event)">
                             <option selected value="">Todos os ambientes</option>
                             <option v-for="row in ambientes" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
-                    <div>
+                    <div class="grid-item">
                         <select name="ordenacao" id="ordenacao" @change="filterCards($event)">
                             <option v-for="row in ordenacoes" v-bind:value="row.id">[[ row.label ]]</option>
                         </select>
                     </div>
-                    <div>
+                    <div class="grid-item">
                         <input placeholder="Buscar curso..." name="q" id="q" @keyup.enter="filterCards($event)"/>
                     </div>
                 </div>
