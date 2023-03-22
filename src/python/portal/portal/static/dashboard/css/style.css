@@ -514,6 +514,54 @@ main>div>aside {
     height: 30px;
 }
 
+.sandwich {
+    position: absolute;
+    width: 50px;
+    height: 28px;
+    right: 0px;
+    margin-top: -12px;
+}
+
+.course-list .course-wrapper .progress .sandwich{
+    margin: 0;
+    /* right: 60px; */
+    top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 30px;
+}
+
+.course-list .course-wrapper .progress .sandwich .valor_sandwich{
+
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+
+}
+
+/* Dropdown content (hidden by default) */
+.sandwich-content {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    background-color: #f1f1f1;
+  }
+  
+  /* Dropdown links */
+  .sandwich-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Show the dropdown content when the button is clicked */
+  .sandwich:hover .sandwich-content {
+    display: block;
+  }
+
 .course-list .course-wrapper .progress .porcentagem .valor_porcentagem{
     color: #5E2A79;
     margin: 0;
@@ -603,6 +651,7 @@ main>div>aside {
     border-radius: 100% 100% 0 0;
     margin-top: -12px;
 }
+
 .course-list .course-wrapper .progress .eyes-hidden-unhidden {
     position: absolute;
     margin: 0;
@@ -1426,4 +1475,16 @@ and (max-width: 365px) {
     .tab-content>.active { width: 100vw; }
 }
 
+
+@media only screen and (max-width: 768px) {
+    .eyes-hidden-unhidden{
+        display: none !important;
+    }
+    .porcentagem-detalhe{
+        display: none !important;
+    }
+    .porcentagem{
+        display: none !important;
+    }
+}
 /* ===== MOBILE: END ===== */

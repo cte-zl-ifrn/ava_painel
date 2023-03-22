@@ -18,9 +18,6 @@
 		{
 			"path": "../../../../moodle__local_suap"
 		},
-		{
-			"path": "../../../../moodle__theme_maeve"
-		}
 	],
 	"settings": {}
 }
