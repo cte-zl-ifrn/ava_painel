@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 source _/functions
 
-_/$SERVICE_NAME/exec bash
+_/$SERVICE_NAME/exec sh
 

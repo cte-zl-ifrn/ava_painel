@@ -2,10 +2,22 @@
 
 source _/functions
 
-cp -r ./confs/examples ./confs/enabled
+cp -r ./confs/examples/* ./confs/enabled
 
 echo ""; echo_info "Parar o mundo"
 _/down
+
+
+if ! grep -q 'PORTAL-AVA' /etc/hosts; then
+    echo '
+
+######################################################################
+## PORTAL-AVA
+######################################################################
+127.0.0.2    ava
+
+    ' | sudo tee -a /etc/hosts
+fi
 
 for repo in 'moodle__block_suapattendance' 'moodle__local_suap' 'moodle__auth_suap' 'moodle__theme_maeve' 'moodle__image'; do
     if [[ ! -d ../$repo ]]; then

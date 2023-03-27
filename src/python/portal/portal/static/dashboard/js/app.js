@@ -48,7 +48,7 @@ export default {
         favourite: function(card) {
             const new_status = card.isfavourite ? 0 : 1;
             axios.get(
-                '/portal/api/v1/set_favourite/', {
+                '/painel/portal/api/v1/set_favourite/', {
                     params: {
                         "ava": card.ambiente.sigla,
                         "courseid": card.id,
@@ -64,7 +64,7 @@ export default {
         hidden: function(card) {
             const new_status = card.hidden ? 0 : 1;
             axios.get(
-                '/portal/api/v1/set_hidden/', {
+                '/painel/portal/api/v1/set_hidden/', {
                     params: {
                         "ava": card.ambiente.sigla,
                         "courseid": card.id,
@@ -81,7 +81,7 @@ export default {
             this.filtering();
             try {
                 axios.get(
-                    '/portal/api/v1/diarios/', {
+                    '/painel/portal/api/v1/diarios/', {
                         params: {
                             "semestre": document.getElementById('semestre').value,
                             "situacao": document.getElementById('situacao').value,

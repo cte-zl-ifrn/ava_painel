@@ -1,10 +1,7 @@
-version: '3.7'
-
 services:
 
   cache:
     image: redis:7.0.2-alpine
-    restart: always
     env_file:
       - ./confs/enabled/cache.env
     volumes:
@@ -18,124 +15,75 @@ services:
 
   db:
     image: postgres:15.1-alpine
-    restart: always
-    # ports:
-    #   - 5433:5432
     env_file:
       - ./confs/enabled/db.env
     volumes:
       # init settings, executed only on deploy
       - "./src/postgres/:/docker-entrypoint-initdb.d"
       # database data
-      - "./volumes/fakedb_data:/var/lib/postgresql/data"
+      - "./volumes/db_data:/var/lib/postgresql/data"
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "ism_user"]
+      test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 3s
       timeout: 3s
       retries: 3
       start_period: 10s
 
-  fake:
-    image: 'ifrn/suapfake:1.0.13'
-    build: src/python/fake
-    restart: always
+  nginx:
+    image: nginx:1.23.3-alpine
     ports:
-      - '8001:8000'
-    env_file:
-      - ./confs/enabled/db.env
-      - ./confs/enabled/cache.env
-      - ./confs/enabled/fake.env
+      - 80:80
     volumes:
-      - './src/python/fake:/apps/app'
-      - './volumes/fakeapp_media:/var/media'
-      - './volumes/fakeapp_static:/var/static'
-    depends_on:
-      db:
-        condition: service_healthy
-      #   healthcheck:
-      #     test: ["CMD-SHELL", "curl --silent --fail http://fakeapp:8000/health/ | grep 'Database: OK' || exit 1"]
-      #     interval: 3s
-      #     timeout: 1s
-      #     start_period: 1s
-      #     retries: 30
+      # confs
+      - ./confs/enabled/nginx.conf:/etc/nginx/conf.d/default.conf
 
   portal:
     image: 'ctezlifrn/avaportal:1.0.34'
     build: src/python/portal
-    restart: always
     ports:
-      - '8000:8000'
-      - '5678:5678'
+      - 8000:8000
     env_file:
       - ./confs/enabled/db.env
       - ./confs/enabled/cache.env
       - ./confs/enabled/portal.env
     volumes:
       - './src/python/portal:/apps/app'
-      - './volumes/portalapp_media:/var/media'
-      - './volumes/portalapp_static:/var/static'
+      - './volumes/portal_media:/var/media'
+      - './volumes/portal_static:/var/static'
     depends_on:
       cache:
         condition: service_healthy
       db:
         condition: service_healthy
-      #   healthcheck:
-      #     test: ["CMD-SHELL", "curl --silent --fail http://portalapp:8000/health/ | grep 'Database: OK' || exit 1"]
-      #     interval: 3s
-      #     timeout: 1s
-      #     start_period: 1s
-      #     retries: 30
+    # healthcheck:
+    #   test: ["CMD-SHELL", "curl --silent --fail http://ava/painel/health/ | grep 'Database: OK' || exit 1"]
+    #   interval: 3s
+    #   timeout: 1s
+    #   start_period: 1s
+    #   retries: 30
 
-  ava01:
-    image: 'ctezlifrn/moodle:4.1.2-php8.1-015'
-    build: src/php
-    restart: always
-    ports:
-      - '8011:80'
-    env_file:
-      - ./confs/enabled/db.env
-      - ./confs/enabled/cache.env
-      - ./confs/enabled/ava01.env
-    volumes:
-      # Configs
-      # - '../moodle__image/src/php/config.php:/var/www/html/config.php'
-      # Plugins
-      - '../moodle__auth_suap:/var/www/html/auth/suap'
-      - '../moodle__local_suap:/var/www/html/local/suap'
-      - '../moodle__block_suapattendance:/var/www/html/blocks/suapattendance'
-      - '../moodle__theme_maeve:/var/www/html/theme/maeve'
-      # Data
-      - './volumes/ava01_moodledata:/var/moodledata'
-    depends_on:
-      db:
-        condition: service_healthy
-      # healthcheck:
-      #   test: ["CMD-SHELL", "curl --silent --fail http://ava01:80/ | grep AVA_01 || exit 1"]
-      #   interval: 3s
-      #   timeout: 1s
-      #   start_period: 1s
-      #   retries: 30
-
-
-  cron01:
-    image: 'ctezlifrn/moodle:4.1.1-php8.0-014'
-    build: src/php
-    restart: always
-    env_file:
-      - ./confs/enabled/db.env
-      - ./confs/enabled/cache.env
-      - ./confs/enabled/ava01.env
-    volumes:
-      # Configs
-      # - '../moodle__image/src/php/config.php:/var/www/html/config.php'
-      # Plugins
-      - '../moodle__auth_suap:/var/www/html/auth/suap'
-      - '../moodle__local_suap:/var/www/html/local/suap'
-      - '../moodle__block_suapattendance:/var/www/html/blocks/suapattendance'
-      - '../moodle__theme_maeve:/var/www/html/theme/maeve'
-      # Data
-      - './volumes/ava01_moodledata:/var/moodledata'
-    # command: 
-    depends_on:
-      db:
-        condition: service_healthy
+  # moodle:
+  #   image: 'ctezlifrn/moodle:4.1.2-php8.1-015'
+  #   env_file:
+  #     - ./confs/enabled/db.env
+  #     - ./confs/enabled/cache.env
+  #     - ./confs/enabled/ava01.env
+  #   volumes:
+  #     # Configs
+  #     # - '../moodle__image/src/php/config.php:/var/www/html/config.php'
+  #     # Plugins
+  #     - '../moodle__auth_suap:/var/www/html/auth/suap'
+  #     - '../moodle__local_suap:/var/www/html/local/suap'
+  #     - '../moodle__block_suapattendance:/var/www/html/blocks/suapattendance'
+  #     - '../moodle__theme_maeve:/var/www/html/theme/maeve'
+  #     # Data
+  #     - './volumes/moodle_data:/var/moodledata'
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "curl --silent --fail http://ava/ | grep AVA_01 || exit 1"]
+  #     interval: 3s
+  #     timeout: 1s
+  #     start_period: 1s
+  #     retries: 30

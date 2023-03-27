@@ -20,35 +20,31 @@ As variáveis de ambiente no SUAP têm as seguintes definições:
 
 ## Como iniciar o desenvolvimento
 
+Este docker-compose assume que você não tenha aplicações rodando na porta 80, ou seja, pare o serviço que está na porta 80 ou faça as configurações necessárias vocês mesmo. O script `_/deploy` já cria automaticamente uma entrada no /etc/hosts, caso não exista, que aponta para localhost. Isso é necessário para simplificar o cenário de desenvolvimento local.
+
 ```bash
 mkdir ava
 cd ava
 
+
 # Baixe o projeto
 git clone git@github.com:cte-zl-ifrn/portal__ava.git portal__ava 
 
-# Baixe as dependencias
-git clone git@github.com:cte-zl-ifrn/moodle__local_suap.git moodle__local_suap 
-git clone git@github.com:cte-zl-ifrn/moodle__block_suapattendance.git moodle__block_suapattendance
-
-# Instala o sistema, um suap fake e 1 moodle para teste
 cd portal__ava
+
+# Baixa as dependencias, instala o sistema, um suap fake e 1 moodle para teste
 _/deploy
 ```
 
-> O **portal** estará disponível em http://localhost:8000/, o primeiro usuário a acessar será declarado como superusuário e poderá fazer tudo no sistema.
+> O **Portal** estará disponível em http://ava/dashboard, o primeiro usuário a acessar será declarado como superusuário e poderá fazer tudo no sistema.
 
-> O **SUAP Fake** estará disponível em http://localhost:8001/, o primeiro usuário a acessar será declarado como superusuário e poderá fazer tudo no sistema.
-
-> O **AVA ZL** estará disponível em http://localhost:8011/, o usuário/senha do administrador serão admin/admin.
-
-> O **AVA Presencial** estará disponível em http://localhost:8021/, o usuário/senha do administrador serão admin/admin.
+> O **Moodle** estará disponível em http://ava/, o usuário/senha do administrador serão admin/admin.
 
 Caso você deseje fazer debug da AVA-Portal, tente:
 
 ```bash
-_/portalapp/down
-_/portalapp/debug
+_/portal/down
+_/portal/debug
 ```
 
 ## oAuth2 do SUAP
