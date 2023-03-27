@@ -77,7 +77,7 @@ _/portalapp/debug
 
 ## Screenshot
 
-![screenshot](screenshot.png)
+![screenshot](screenshot.jpg)
 
 O projeto ficará parecido com o desenho: https://xd.adobe.com/view/5cc616ad-12e8-4e36-8574-6a80ed2d0ee4-0995/
 
