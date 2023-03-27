@@ -7,32 +7,16 @@ cp -r ./confs/examples ./confs/enabled
 echo ""; echo_info "Parar o mundo"
 _/down
 
-if [[ ! -d src/php/moodle__block_suapattendance ]]; then
-    echo ""; echo_info "Clonando o repositório do moodle__block_suapattendance"
-    git clone https://github.com/cte-zl-ifrn/moodle__block_suapattendance.git ../moodle__block_suapattendance
-    chmod -R a+x src/php/moodle__block_suapattendance
-fi
+for repo in 'moodle__block_suapattendance' 'moodle__local_suap' 'moodle__auth_suap' 'moodle__theme_maeve' 'moodle__image'; do
+    if [[ ! -d ../$repo ]]; then
+        echo "Clonando $repo"
+        git clone https://github.com/cte-zl-ifrn/$repo.git ../$repo
+    else
+        echo "Repositório $repo já foi clonado anteriormente?"
+    fi
+done
 
-if [[ ! -d src/php/moodle__local_suap ]]; then
-    echo ""; echo_info "Clonando o repositório do moodle__local_suapsync"
-    git clone https://github.com/cte-zl-ifrn/moodle__local_suap.git ../moodle__local_suap
-    chmod -R a+x src/php/moodle__local_suap
-fi
-
-if [[ ! -d src/php/moodle__auth_suap ]]; then
-    echo ""; echo_info "Clonando o repositório do moodle__auth_suap"
-    git clone https://github.com/cte-zl-ifrn/moodle__auth_suap.git ../moodle__auth_suap
-    chmod -R a+x src/php/moodle__auth_suap
-fi
-
-if [[ ! -d src/php/moodle__theme_maeve ]]; then
-    echo ""; echo_info "Clonando o repositório do moodle__theme_maeve"
-    git clone https://github.com/cte-zl-ifrn/moodle__theme_maeve.git ../moodle__theme_maeve
-    chmod -R a+x src/php/moodle__theme_maeve
-fi
-
-mkdir -p volumes/ava01_moodledata && chmod 777 volumes/ava01_moodledata
-mkdir -p volumes/ava02_moodledata && chmod 777 volumes/ava02_moodledata
+mkdir -p volumes/ava/moodledata && chmod 777 volumes/ava/moodledata
 
 echo ""; echo_info "Sobe o cache e o db em background"
 _/backs
