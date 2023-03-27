@@ -87,7 +87,7 @@ services:
       #     retries: 30
 
   ava01:
-    image: 'ctezlifrn/moodle:4.1.1-php8.0-014'
+    image: 'ctezlifrn/moodle:4.1.2-php8.1-015'
     build: src/php
     restart: always
     ports:
