@@ -28,7 +28,7 @@ for repo in 'moodle__block_suapattendance' 'moodle__local_suap' 'moodle__auth_su
     fi
 done
 
-mkdir -p volumes/ava/moodledata && chmod 777 volumes/ava/moodledata
+mkdir -p volumes/moodle_data && chmod 777 volumes/moodle_data
 
 echo ""; echo_info "Sobe o cache e o db em background"
 _/backs
