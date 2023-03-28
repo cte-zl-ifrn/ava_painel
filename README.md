@@ -36,7 +36,7 @@ cd portal__ava
 _/deploy
 ```
 
-> O **Portal** estará disponível em http://ava/dashboard, o primeiro usuário a acessar será declarado como superusuário e poderá fazer tudo no sistema.
+> O **Portal** estará disponível em http://ava/painel, o primeiro usuário a acessar será declarado como superusuário e poderá fazer tudo no sistema.
 
 > O **Moodle** estará disponível em http://ava/, o usuário/senha do administrador serão admin/admin.
 
