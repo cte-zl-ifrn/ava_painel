@@ -34,6 +34,11 @@ services:
     volumes:
       # confs
       - ./confs/enabled/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
+    depends_on:
+      - portal
+      - moodle
 
   portal:
     image: 'ctezlifrn/avaportal:1.0.34'
@@ -62,8 +67,8 @@ services:
 
   moodle:
     image: 'ctezlifrn/moodle:4.1.2-php8.1-015'
-    ports:
-      - 80:80
+    # ports:
+    #   - 80:80
     env_file:
       - ./confs/enabled/db.env
       - ./confs/enabled/cache.env
@@ -76,6 +81,7 @@ services:
       - '../moodle__local_suap:/var/www/html/local/suap'
       - '../moodle__block_suapattendance:/var/www/html/blocks/suapattendance'
       - '../moodle__theme_maeve:/var/www/html/theme/maeve'
+      - '../moodle-theme_moove:/var/www/html/theme/moove'
       # Data
       - './volumes/moodle_data:/var/moodledata'
     depends_on:
