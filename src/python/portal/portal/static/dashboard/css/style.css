@@ -144,7 +144,7 @@ ul.menu-principal {
 .header-ajuda button.btn.btn-secondary {
     background-color: transparent;
     border-color: transparent;
-    padding: 0 0 0 10px;
+    padding: 0 10px 0 10px;
 }
 
 .header-ajuda a:hover {
@@ -1478,6 +1478,49 @@ h6.central-atendimento {
 
 div#search-isempty {
     padding: 0px 30px 0px 30px;
+}
+button#dropdownMenuSuporte:hover {
+    opacity: 0.7;
+}
+
+button#dropdownMenuSuporte::after {
+    display: inline-flex !important;
+    -webkit-box-align: center;
+    align-items: center;
+    vertical-align: middle !important;
+    font-size: 10px;
+    line-height: 1.1;
+    text-decoration: none!important;
+    cursor: pointer;
+    color: white;
+    border-radius: 20px;
+    border: 3px solid #87666600;
+    content: '\f078' !important;
+    font-family: 'FontAwesome';
+    font-weight: 200;
+    width: 16px;
+    position: absolute;
+    margin: 1px 0px 0px 3px;
+}
+
+h6.central-atendimento::after {
+    display: inline-flex !important;
+    -webkit-box-align: center;
+    align-items: center;
+    vertical-align: middle !important;
+    font-size: 10px;
+    line-height: 1.1;
+    text-decoration: none!important;
+    cursor: pointer;
+    color: #1D2125;
+    border-radius: 20px;
+    border: 3px solid #87666600;
+    content: '\f077' !important;
+    font-family: 'FontAwesome';
+    font-weight: 200;
+    width: 16px;
+    position: absolute;
+    margin: -1px 0px 0px 1px;
 }
 
 /* ===== MESSAGEN: END ==== */
