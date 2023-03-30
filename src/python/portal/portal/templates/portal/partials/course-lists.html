@@ -38,12 +38,38 @@
                             <p class="valor_porcentagem">[[ card.progress ]]%</p>
                         </div>
 
-                        <div class="sandwich">
-                            <p class="valor_sandwich">&#9776</p>
-                            <div class="sandwich-content">
-                                <a href="#1">option 1</a>
-                                <a href="#1"> option 2</a>
+                        <div class="sandwich" v-on:click="sandwichToggler(card)">
+                            <p class="valor_sandwich" >&#9776</p>
+                            <!-- <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">&#9776</button>
+                                <ul class="dropdown-menu">
+                                  <li><span class="fecharSandwich"><i class="fa fa-times-circle"></i><hr></span></li>
+                                  <li><span class="ocultarSandwich"><i class="fa fa-eye-slash" v-if="!card.hidden"></i> Ocultar</span></li>
+                                  <li><span class="favoritarSandwich"><i class="fa fa-star" v-if="card.isfavourite"></i> Favoritar</span></li>
+                                </ul>
+                              </div> -->
+                            <div id="sandwich-content" class="sandwich-content">
+
+                                <span class="fecharSandwich">
+                                    <i class="fa fa-times-circle"></i>
+                                    <hr>
+                                </span>
+                                <span class="ocultarSandwich">
+                                    <i class="fa fa-eye" v-if="card.hidden"></i>
+                                    <i class="fa fa-eye-slash" v-if="!card.hidden"></i> Ocultar
+                                </span>
+                                <span class="favoritarSandwich">
+                                    <i class="fa fa-star-o" v-if="!card.isfavourite"></i>
+                                    <i class="fa fa-star" v-if="card.isfavourite"></i> Favoritar
+                                </span>
                             </div>
+                        </div>
+                        <div class="porcentagem_mobile" v-if="card.showcompletionconditions">
+                            <p class="valor_porcentagem_mobile">[[ card.progress ]]%</p>
+                        </div>
+                        <div class="progress progress-details" v-if="card.showcompletionconditions">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" :style="{ width:  card.progress + '%' }">
+                                <span>.</span>
                         </div>
 
                         <!-- <div class="more-details" id="mais-detalhes-card" :class="{hide_this: isActive([[card.id]]) }">
@@ -64,3 +90,4 @@
         </div>
     </div>
 </div>
+

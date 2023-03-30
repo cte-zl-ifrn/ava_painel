@@ -123,13 +123,71 @@ export default {
         addActiveClass(id){
             this.activeParagraph = id;
         },
+         sandwichToggler(el) {
+            document.querySelectorAll(".sandwich").forEach((card)=>{
+                card.querySelector(".valor_sandwich").addEventListener('click', ()=>{
+                    
+                      if(card.classList.contains("block")){
+                         card.querySelector('.sandwich-content').classList.remove("block");
+                    
+                      }else{
+                          card.querySelector('.sandwich-content').classList.add("block");
+                      }
+                });
+            
+                card.querySelector(".fecharSandwich").addEventListener('click', ()=>{
+            
+                         card.querySelector('.sandwich-content').classList.remove("block");
+                });
+                
+            });
+         }
     },
 }
 
 
 
 
+// document.querySelectorAll(".sandwich").forEach((card)=>{
+//     card.querySelector(".valor_sandwich").addEventListener('click', ()=>{
+        
+//           if(card.classList.contains("block")){
+//              card.querySelector('.sandwich-content').classList.remove("block");
+        
+//           }else{
+//               card.querySelector('.sandwich-content').classList.add("block");
+//           }
+//     });
 
+//     card.querySelector(".fecharSandwich").addEventListener('click', ()=>{
+
+//              card.querySelector('.sandwich-content').classList.remove("block");
+//     });
+    
+// });
+
+
+
+
+// function preventScroll(e){
+//     e.preventDefault();
+//     e.stopPropagation();
+
+//     return false;
+// }
+
+// function disable(){
+//   document.querySelector('body, html').addEventListener('wheel', preventScroll);
+// }
+
+// function enable(){
+//     document.querySelector('body, html').removeEventListener('wheel', preventScroll);
+// }
+// document.querySelector('.valor_sandwich').addEventListener('click', disable);
+
+
+
+// document.querySelector('#allow').addEventListener('click', enable);
 
 // var maisDetalhes = document.getElementsByClassName("mais-detalhes-card");
 // var lessHr = document.getElementsByClassName("menos-detalhes-hr");
@@ -160,5 +218,3 @@ export default {
 //     $("#menos-detalhes-card").addClass("d-none");
 //     $("#menos-detalhes-hr").addClass("d-none");
 // });
-
-

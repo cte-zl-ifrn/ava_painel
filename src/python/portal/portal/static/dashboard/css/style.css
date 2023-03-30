@@ -514,6 +514,20 @@ main>div>aside {
     height: 30px;
 }
 
+ .progress .porcentagem_mobile{
+    margin: 0;
+    /* right: 60px; */
+    top: 122px;
+    background-color: #ECDAFA;
+    /* border: 1px solid #dedede; */
+    display: none;
+    /* align-items: center; */
+    justify-content: center;
+    border-radius: 0px;
+    width: 35px;
+    height: 30px;
+}
+
 .sandwich {
     position: absolute;
     width: 50px;
@@ -526,11 +540,15 @@ main>div>aside {
     margin: 0;
     /* right: 60px; */
     top: 20px;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     width: 50px;
     height: 30px;
+}
+
+.course-list .course-wrapper .progress .sandwich a{
+    text-decoration: none !important;
 }
 
 .course-list .course-wrapper .progress .sandwich .valor_sandwich{
@@ -538,31 +556,91 @@ main>div>aside {
     text-align: center;
     font-size: 20px;
     font-weight: 700;
+    color: #54595E;
 
 }
 
-/* Dropdown content (hidden by default) */
-.sandwich-content {
-    display: none;
-    position: absolute;
-    z-index: 1;
-    background-color: #f1f1f1;
-  }
-  
-  /* Dropdown links */
-  .sandwich-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-  
-  /* Show the dropdown content when the button is clicked */
-  .sandwich:hover .sandwich-content {
-    display: block;
-  }
+    /* Dropdown conteúdo (escondido por default) */
+    .sandwich-content {
+        display: none;
+        position: absolute;
+        z-index: 1;
+
+        background-color: #FFFFFF;
+        border: 1px solid #DFDFDF;
+        margin-top: 65px;
+        margin-right: 104px;
+        width: 155px;
+        height: 110px;
+    }
+    
+    /* Dropdown links */
+    .sandwich-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+    .sandwich-content .fecharSandwich {
+        color: #54595E;
+        padding: 0px 16px;
+        text-decoration: none;
+        display: block;
+        font-size: 21px;
+        text-align: end;
+    }
+    .sandwich-content .fecharSandwich hr{
+        margin: 0rem 0;
+    }
+
+    .sandwich-content .ocultarSandwich {
+        color: #54595E;
+        padding: 6px 16px;
+        text-decoration: none;
+        display: block;
+    }
+    .sandwich-content .ocultarSandwich i{
+        font-size: 20px;
+    }
+
+    .sandwich-content .favoritarSandwich {
+        color: #54595E;
+        padding: 6px 16px;
+        text-decoration: none;
+        display: block;
+    }
+    .sandwich-content .favoritarSandwich i{
+        font-size: 20px;
+    }
+
+    .block{
+        display: block;
+    }
+    /* .hide{
+        display: none;
+    } */
+    
+    /* Mostra o conteúdo do dropdown, quando é clicado */
+    /* .sandwich:hover .sandwich-content {
+        display: block;
+    } */
+/* 
+    .sandwich .sandwich-content:target {
+        display: block;
+    } */
+
+
 
 .course-list .course-wrapper .progress .porcentagem .valor_porcentagem{
+    color: #5E2A79;
+    margin: 0;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 0;
+}
+
+.progress .porcentagem .valor_porcentagem_mobile{
     color: #5E2A79;
     margin: 0;
     text-align: center;
@@ -652,6 +730,15 @@ main>div>aside {
     margin-top: -12px;
 }
 
+.porcentagem_mobile {
+    position: absolute;
+    width: 50px;
+    height: 28px;
+    right: 10px;
+    border-radius: 100% 100% 0 0;
+    margin-top: -12px;
+}
+
 .course-list .course-wrapper .progress .eyes-hidden-unhidden {
     position: absolute;
     margin: 0;
@@ -683,6 +770,22 @@ main>div>aside {
 
 .more-details:hover{
     cursor: pointer;
+}
+
+.progress-details {
+    position: absolute;
+    margin: 0;
+    right: 18px;
+    top: 144px;
+    background-color: #ECDBF9 !important;
+    --bs-progress-bar-bg: #51286A !important;
+    border-radius: unset !important;
+    display: none !important;
+    align-items: center;
+    justify-content: left;
+    width: 90%;
+    height: 8px !important;
+    
 }
 
 .less-details {
@@ -1486,5 +1589,17 @@ and (max-width: 365px) {
     .porcentagem{
         display: none !important;
     }
+
+    .sandwich{
+        display: flex !important;
+    }
+
+    .porcentagem_mobile{
+        display: flex !important;
+    }
+    .progress-details{
+        display: flex !important;
+    }
 }
+
 /* ===== MOBILE: END ===== */
