@@ -1600,6 +1600,10 @@ and (max-width: 365px) {
     .progress-details{
         display: flex !important;
     }
+
+    .course-list .course-wrapper .card-body .card-title{
+        font-size: 18px;
+    }
 }
 
 /* ===== MOBILE: END ===== */
