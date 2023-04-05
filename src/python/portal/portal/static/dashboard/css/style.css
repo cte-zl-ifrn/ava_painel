@@ -144,7 +144,7 @@ ul.menu-principal {
 .header-ajuda button.btn.btn-secondary {
     background-color: transparent;
     border-color: transparent;
-    padding: 0 0 0 10px;
+    padding: 0 10px 0 10px;
 }
 
 .header-ajuda a:hover {
@@ -1414,6 +1414,12 @@ i.icon.fa.fa-comment-o.fa-fw.show {
     padding-bottom: 5px;
     padding-right: 5px;
 }
+i.icon.fa.fa-bell-o.fa-fw.show{
+margin-top: 15px;
+}
+i.icon.fa.fa-comment-o.fa-fw.show{
+margin-top: 16px;
+}
 
 span h6.dropdown-header {
     background-color: #dcdcdc;
@@ -1469,6 +1475,54 @@ h6.central-atendimento {
     margin: -48px 0px 0px 0px;
 
 }
+
+div#search-isempty {
+    padding: 0px 30px 0px 30px;
+}
+button#dropdownMenuSuporte:hover {
+    opacity: 0.7;
+}
+
+button#dropdownMenuSuporte::after {
+    display: inline-flex !important;
+    -webkit-box-align: center;
+    align-items: center;
+    vertical-align: middle !important;
+    font-size: 10px;
+    line-height: 1.1;
+    text-decoration: none!important;
+    cursor: pointer;
+    color: white;
+    border-radius: 20px;
+    border: 3px solid #87666600;
+    content: '\f078' !important;
+    font-family: 'FontAwesome';
+    font-weight: 200;
+    width: 16px;
+    position: absolute;
+    margin: 1px 0px 0px 3px;
+}
+
+h6.central-atendimento::after {
+    display: inline-flex !important;
+    -webkit-box-align: center;
+    align-items: center;
+    vertical-align: middle !important;
+    font-size: 10px;
+    line-height: 1.1;
+    text-decoration: none!important;
+    cursor: pointer;
+    color: #1D2125;
+    border-radius: 20px;
+    border: 3px solid #87666600;
+    content: '\f077' !important;
+    font-family: 'FontAwesome';
+    font-weight: 200;
+    width: 16px;
+    position: absolute;
+    margin: -1px 0px 0px 1px;
+}
+
 /* ===== MESSAGEN: END ==== */
 
 /* ===== MOBILE: BEGIN ===== */
@@ -1496,7 +1550,7 @@ and (max-width: 768px) {
 }
 
 @media only screen 
-and (min-width : 768px) 
+and (min-width : 700px) 
 and (max-width: 1024px) {
     .dropdown.header-ajuda{ display: none;}
     .dropdown-header-ajuda{ display: initial !important; }
@@ -1508,15 +1562,15 @@ and (max-width: 1024px) {
 }
 
 @media only screen 
-and (min-width : 1558px) 
+and (min-width : 1399px) 
 and (max-width: 5880px) { 
-    ul.menu-messages.show{ transform: translate3d(-220px, 45px, 0px) !important;}
+    ul.menu-messages.show{ transform: translate3d(-220px, 40px, 0px) !important;}
 }
 
 @media only screen 
-and (min-width : 1024px) 
+and (min-width : 1310px) 
 and (max-width: 5880px) { 
-    ul.menu-notifications.show{ transform: translate3d(-220px, 45px, 0px) !important;  }
+    ul.menu-notifications.show{ transform: translate3d(-220px, 40px, 0px) !important;  }
     ul.dropdown-menu.dropdown-user.show { transform: translate3d(-52px, 70px, 0px) !important; padding: 0px;}
     ul.dropdown-menu.dropdown-ajauda.show { transform: translate3d(11px, 51.8182px, 0px) !important; padding: 0px;}
 
@@ -1590,8 +1644,8 @@ and (max-width: 700px) {
     ul.menu-messages.show{ width: 225px; transform: translate3d(-8px, 40px, 0px);}
 }
 @media only screen 
-and (min-width : 768px) 
-and (max-width: 790px) {
+and (min-width : 701px) 
+and (max-width: 799px) {
     .user_name{display: none;}
     .btn-dropdown-user::after{ margin: -14px 0px 0px 0px; width: 15px; }
 }
@@ -1600,6 +1654,12 @@ and (min-width : 800px)
 and (max-width: 1024px) {
     .user_name{display: none;}
     .btn-dropdown-user::after{ margin: -14px 0px 0px 0px; width: 15px; }
+}
+@media only screen 
+and (min-width : 1023px) 
+and (max-width: 1292px) {
+    ul.dropdown-menu.dropdown-user.show { transform: translate3d(15px, 70px, 0px) !important; padding: 0px;}
+    ul.menu-notifications.show{ transform: translate3d(4px, 45px, 0px) !important;  }
 }
 
 /* ===== MOBILE: END ===== */
