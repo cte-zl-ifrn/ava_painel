@@ -56,7 +56,6 @@ MY_APPS = env_as_list('MY_APPS', [
 ])
 
 MY_APPS += ['suapfake'] if env_as_bool('SUAPFAKE', True) else []
-print(MY_APPS)
 
 THIRD_APPS = env_as_list('THIRD_APPS', [
     # 'markdownx',
