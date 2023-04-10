@@ -13,26 +13,32 @@
                 <ul class="dropdown-menu dropdown-user" aria-labelledby="dropdownMenuUser">
                     <li><span><h6 class="dropdown-header">{{ user.nome_apresentacao }}</h6></span></li>
                     <li><a class="dropdown-item" href="https://suap.ifrn.edu.br/comum/minha_conta/">Perfil no SUAP</a></li>
-                  <li><a class="dropdown-item" href="https://ead.ifrn.edu.br/portal/ifrn-ead-ava/">Outros AVA</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  {% if user.is_superuser %}
-                    <li><h6 class="dropdown-header-admin">Admin do Moodle</h6></li>
-                    {% for ava in admins  %}
-                        <li style='border-left: 8px solid {{ava.cor}};'><a class="dropdown-item" href="{{ava.url}}">{{ava.nome}}</a></li>
-                    {% endfor %}
-                  {% endif %}
-                  <li><hr class="dropdown-divider"></li>
-                  <div class="dropdown-header-ajuda">
-                    <li><h6 class="dropdown-header central-atendimento">Central de Atendimento</h6></li>
-                    <li><a class="dropdown-item ajuda-moodle">Central de serviço SUAP</a></li>
-                    <li><a class="dropdown-item ajuda-moodle" href="https://suap.ifrn.edu.br/centralservicos/selecionar_servico_abertura/producao-de-material-didatico/?tab=1-ambiente-virtual-de-aprendizagem-moodle">AVA (Moodle)</a></li>
-                    <li><a class="dropdown-item ajuda-moodle" href="https://suap.ifrn.edu.br/centralservicos/selecionar_servico_abertura/ensino/">Secretaria acadêmica</a></li>
-                    <li><hr class="dropdown-divider ajuda-moodle"></li>
-                    <li><a class="dropdown-item ajuda-moodle" href="https://ead.ifrn.edu.br/ajuda/">Central de ajuda</a></li>
-                    <li><a class="dropdown-item ajuda-moodle" href="https://ead.ifrn.edu.br/portal/ouvidoria/">Ouvidoria</a></li>
-                    <li><a class="dropdown-item ajuda-moodle" href="https://ead.ifrn.edu.br/portal/contato/">Contatos</a></li>
-                  </div>
-                  <li><a class="dropdown-item" href="{% url 'a4:logout' %}">Sair</a></li>
+                  
+                    {% if user.is_superuser %}
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item"  href="{% url 'admin:index' %}">Admin do painel</a></li>
+                        {% if admins %}
+                                <li><h6 class="dropdown-header-admin">Admin dos Moodles</h6></li>
+                            {% for ava in admins  %}
+                                <li style='border-left: 8px solid {{ava.cor}};'><a class="dropdown-item" href="{{ava.url}}">{{ava.nome}}</a></li>
+                            {% endfor %}
+                            {% else %}
+                                <li><a class="dropdown-item" href="{% url 'admin:portal_ambiente_changelist' %}">Cadastrar ambiente</a></li>
+                            {% endif %}
+                    {% endif %}
+                    <li><a class="dropdown-item" href="https://ead.ifrn.edu.br/portal/ifrn-ead-ava/">Outros AVA</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <div class="dropdown-header-ajuda">
+                        <li><h6 class="dropdown-header central-atendimento">Central de Atendimento</h6></li>
+                        <li><a class="dropdown-item ajuda-moodle">Central de serviço SUAP</a></li>
+                        <li><a class="dropdown-item ajuda-moodle" href="https://suap.ifrn.edu.br/centralservicos/selecionar_servico_abertura/producao-de-material-didatico/?tab=1-ambiente-virtual-de-aprendizagem-moodle">AVA (Moodle)</a></li>
+                        <li><a class="dropdown-item ajuda-moodle" href="https://suap.ifrn.edu.br/centralservicos/selecionar_servico_abertura/ensino/">Secretaria acadêmica</a></li>
+                        <li><hr class="dropdown-divider ajuda-moodle"></li>
+                        <li><a class="dropdown-item ajuda-moodle" href="https://ead.ifrn.edu.br/ajuda/">Central de ajuda</a></li>
+                        <li><a class="dropdown-item ajuda-moodle" href="https://ead.ifrn.edu.br/portal/ouvidoria/">Ouvidoria</a></li>
+                        <li><a class="dropdown-item ajuda-moodle" href="https://ead.ifrn.edu.br/portal/contato/">Contatos</a></li>
+                    </div>
+                    <li><a class="dropdown-item" href="{% url 'a4:logout' %}">Sair</a></li>
               </ul>
             </div>
             <div class=".navbar-nav">
