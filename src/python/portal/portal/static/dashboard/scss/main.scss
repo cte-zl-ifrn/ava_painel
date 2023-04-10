@@ -1,0 +1,534 @@
+/* ===== MAIN: BEGIN ===== */
+
+main {
+    text-align: center;
+    min-height: auto;
+}
+
+main>div {
+    max-width: 1243px;
+    height: 100%;
+    margin: 0 auto;
+    /* display: grid; */
+    color: #565656;
+    /* grid-template-rows: 90px 100px 200px 60px; */
+    grid-template-columns: 280px repeat(3, 1fr) 280px;
+    grid-gap: 14px;
+    grid-template-areas: "a a a a b" "a a a a b" "a a a a b";
+    min-height: auto;
+}
+
+
+.tab-menu>.nav-tabs {
+    border-bottom: 2px solid #438f4b;
+}
+
+.tab-menu>.nav-tabs>.nav-link {
+    color: #565656;
+    text-transform: uppercase;
+    background-color: #dfdfdf;
+    border-color: transparent transparent #438f4b;
+    border: 0px solid;
+    border-radius: 0;
+    margin-right: 2px;
+    margin-bottom: 0px;
+}
+
+.tab-menu>.nav-tabs>.nav-link.active {
+    color: #fff;
+    background-color: #438f4b;
+}
+
+
+main>div>section {
+    /* grid-column: 1/6; */
+    margin-top: 40px;
+}
+
+main>div>aside {
+    grid-column: 5/5;
+    grid-area: b;
+    background-color: #efefef;
+}
+
+.nav-tabs {
+    margin: 0px 28px;
+}
+
+#filter-title {
+    margin: 0 30px;
+    font-size: 17pt;
+    font-weight: 300;
+    /* border-bottom: 2px solid #438f4b;*/
+}
+
+
+/* ===== MAIN - GRID: BEGIN ===== */
+
+#grid-header {
+    border-bottom: 2px #438f4b solid;
+    margin: 0 20px;
+}
+
+#grid-filter {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 10px 20px;
+}
+
+/* #grid-filter>div:first-child {
+    grid-column: 1 / 4;
+} */
+#grid-filter>div:last-child {
+    grid-column: 3 / 5;
+}
+
+#grid-filter>div {
+    overflow: hidden;
+    justify-content: flex-start;
+    /* display: flex; */
+    margin: 8px;
+    /* border: 1px #dfd7d7 solid; */
+}
+
+#grid-filter>div>select,
+#grid-filter>div>input {
+    width: 100%;
+    height: 40px;
+    font-style: normal;
+    font-weight: 200;
+    font-size: 16px;
+    line-height: 22px;
+    color: #565656;
+    text-align: left;
+    border: 1px #DBDBDB solid;
+    background-color: #fff;
+    padding: 0.25em 0.5em;
+    background-image: linear-gradient(to top, #f9f9f9, #fff 33%)
+}
+
+#grid-filter>h4 {
+    font-size: 14px;
+    height: 20px;
+    margin-left: 10px;
+    margin-bottom: -5px;
+}
+
+
+/* ===== MAIN - GRID: END ===== */
+
+
+/* ===== MAIN - CARD: BEGIN ===== */
+
+#search-error {
+    margin: 2em 3em 3em 3em;
+}
+
+.course-list {
+    margin: 0 20px;
+}
+
+.course-list .course-wrapper {
+    flex-direction: row-reverse;
+    /*box-shadow: 2px 2px 5px 0 rgb(0 0 0 / 5%);*/
+    box-shadow: none;
+}
+
+.course-list .course-wrapper .progress.bg-dark.rounded-0 {
+    width: 20px;
+    min-width: 20px;
+    height: auto;
+}
+
+.course-list .course-wrapper .card-body {
+    border: 1px solid #dedede;
+    padding: 10px 80px 10px 10px;
+}
+
+.course-list .course-wrapper .card-body .card-diario {
+    margin: 0;
+}
+
+.course-list .course-wrapper .card-body .card-title {
+    margin: 0;
+    font-weight: 300;
+}
+
+.course-list .course-wrapper .card-body .card-title>a {
+    color: #565656;
+    text-decoration: none;
+}
+
+.course-list .course-wrapper .card-turma {
+    color: #222222;
+    font-weight: 900;
+    font-size: 120%;
+}
+
+.course-list .course-wrapper .card-componente {
+    font-weight: 900;
+    font-size: 90%;
+    padding-left: 10px;
+}
+
+.course-list .course-wrapper .card-curso {
+    font-size: 0.9rem;
+    font-style: italic;
+    padding: 0;
+    margin: 0;
+}
+
+.course-list .course-wrapper .progress .porcentagem-detalhe {
+    margin: 0;
+    right: 10px;
+    top: 13px;
+    background-color: transparent;
+    border: 1px solid #dedede;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    width: 40px;
+    height: 30px;
+}
+
+.course-list .course-wrapper .progress .porcentagem-detalhe:hover {
+    background-color: #438f4b;
+    border: 1px solid #438f4b;
+
+}
+
+.course-list .course-wrapper .progress .porcentagem-detalhe:hover>a {
+    color: #fff;
+}
+
+.course-list .course-wrapper .progress .porcentagem-detalhe .detalhe-link {
+    font-size: 14px;
+    font-weight: 200;
+    color: #aaa;
+    transform: translateY(-1px);
+}
+
+.course-list .course-wrapper .progress .porcentagem {
+    margin: 0;
+    right: 60px;
+    top: 13px;
+    background-color: transparent;
+    border: 1px solid #dedede;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    width: 40px;
+    height: 30px;
+}
+
+.course-list .course-wrapper .progress .porcentagem .valor_porcentagem {
+    color: #a0a0a0;
+    margin: 0;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 0;
+}
+
+#search-isempty,
+#search-error {
+    margin: 0px 30px;
+    padding: 10px;
+    background: #fff;
+    border: 1px #DBDBDB solid;
+}
+
+#course-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* background-color: #2196F3; */
+    /* padding: 10px; */
+    grid-area: a;
+    margin: 0 20px;
+}
+
+.course-card {
+    justify-content: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.course-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: auto;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px #efefef solid;
+    font-size: 30px;
+    text-align: center;
+    margin: 10px;
+    position: relative;
+    box-shadow: 0 9px 30px 0 rgba(0,0,0,0.05%);
+}
+
+.icon_ambiente {
+    position: absolute;
+    left: 1.0em;
+    top: 0px;
+    width: 0;
+    height: 44px;
+    border-right: 21px solid silver;
+    border-left: 22px solid silver;
+    border-bottom: 12px solid transparent;
+}
+
+.ambiente_card {
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    margin-left: -20px;
+    margin-top: 5px;
+    width: 40px;
+    text-align: center;
+    position: initial;
+}
+
+.progress.bg-dark.rounded-0 {
+    /* margin-top: -5px; */
+    border: none;
+    background-color: transparent;
+    /* max-width: 288px; */
+}
+
+.progress-bar {
+    width: 100%;
+}
+
+.porcentagem {
+    position: absolute;
+    width: 50px;
+    height: 28px;
+    right: 10px;
+    border-radius: 100% 100% 0 0;
+    margin-top: -12px;
+}
+
+.course-list .course-wrapper .progress .eyes-hidden-unhidden {
+    position: absolute;
+    margin: 0;
+    right: 9px;
+    top: 13px;
+    background-color: transparent;
+    border: 1px solid #dedede;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    width: 40px;
+    height: 30px;
+}
+
+.course-list .course-wrapper .progress .eyes-hidden-unhidden:hover {
+    background-color: #30672e;
+    color: #808080;
+}
+
+.porcentagem-detalhe {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    right: 0.7em;
+    margin-top: -15px;
+}
+
+.hidden {
+    margin-left: 300px !important;
+}
+
+
+.card-image {
+    height: 140px;
+    background-size: auto;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+    color: var(--bs-card-color);
+    text-align: left;
+    padding-bottom: 5px !important;
+    background-color: #FFF;
+}
+
+.card-diario {
+    width: auto;
+    color: #9ca6a9;
+    text-align-last: auto;
+    text-align: left;
+    margin-left: -6px;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 4px;
+}
+
+.card-title {
+    margin-left: -6px;
+    font-style: normal;
+    font-weight: 200;
+    font-size: 14px;
+    line-height: 22px;
+    color: #565656;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.card-footer {
+    border: none;
+    border-top: none !important;
+    background-color: #fff !important;
+}
+
+.flex {
+    display: flex;
+    padding: 0px 0px 0px 1px;
+    width: auto;
+    margin-left: -6px;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    max-width: 287px;
+}
+
+.flex-auto {
+    flex: auto;
+    padding: 0px 2px 0px 3px;
+}
+
+a.btn.btn-primary {
+    border-radius: 0px;
+    font-size: 0.8rem;
+    background-color: #327FDA;
+    border-color: #327FDA;
+    padding: 0.375rem 1.75rem;
+}
+
+button.btn.btn-secondary {
+    border-radius: 0px;
+    font-size: 0.8rem;
+    background-color: #808080;
+    border-color: #808080;
+    padding: 0.375rem 1.75rem;
+}
+
+
+/* ===== MAIN - CARD: END ===== */
+
+
+/* ===== MAIN - ASIDES - DETAIL: BEGIN ===== */
+
+#detalhes-header>div {
+    font-size: 13px;
+    /* border-bottom: 2px #438f4b solid; */
+    /*padding: 10px;*/
+}
+
+div#detalhes-header>h1 {
+    /*font-size: 22px;*/
+    height: 68px;
+    border-bottom: 2px #438f4b solid;
+}
+
+div.dt-text,
+p.dt-text {
+    padding-bottom: 9px;
+}
+
+.ambiente_titulo {
+    font-size: 20px;
+    margin-bottom: 0px;
+    background-color: silver;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 24px;
+    ;
+}
+
+img.img-fluid {
+    padding-bottom: 0px;
+    /* max-width: 288px; */
+    max-height: 140px;
+}
+
+a.btn.btn-primary.destaque {
+    display: block;
+    margin: 0 15px;
+}
+
+p.card-diario.destaque {
+    margin: 0 15px;
+    margin-top: 12px;
+}
+
+p.card-title.destaque {
+    margin: 0 15px 10px;
+}
+
+img.img-fluid.destaque {
+    width: 280px;
+    max-height: 140px;
+}
+
+/* ===== MAIN - ASIDES -  DEATIL: END ===== */
+
+
+/* ===== MAIN - ASIDES - INFOR: BEGIN ===== */
+
+ul#informativos {
+    margin-top: 30px;
+    padding: 0px 10px 0px 10px;
+}
+
+ul#informativos>li {
+    text-align: justify;
+    font-size: 13px;
+    text-decoration: underline;
+    list-style-type: none;
+}
+
+ul#informativos>li>a {
+    font-size: 14px;
+    text-decoration: none;
+    color: #5b5656;
+}
+
+
+/* ===== MAIN - MOBILE: BEGIN ===== */
+
+@media only screen and (min-width : 321px) and (max-width: 768px) {
+    main>div {
+        display: contents;
+    }
+
+    #grid-filter {
+        display: block;
+    }
+
+    #grid-filter>div {
+        width: auto;
+        max-width: none;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #grid-filter {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .course-list {
+        margin: 0 20px;
+        width: calc(100vw - 50px);
+    }
+
+    .tab-content>.active {
+        width: 100vw;
+    }
+}
+
+/* ===== MAIN - MOBILE: END ===== */

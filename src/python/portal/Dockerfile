@@ -1,8 +1,8 @@
-FROM python:3.11.1-slim-bullseye
+FROM python:3.11.2-slim-bullseye
 
 ENV PYTHONUNBUFFERED 1
 
-RUN apt update && apt -y install curl 
+RUN apt update && apt upgrade -y && apt -y install curl 
 
 ADD requirements.txt /
 

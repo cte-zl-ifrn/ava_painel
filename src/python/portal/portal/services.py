@@ -1,15 +1,14 @@
 import logging
 import concurrent
 import re
-from enum import Enum
-from typing import Dict, List, Union, Any
-from ninja import NinjaAPI
-from django.contrib.admin.views.decorators import staff_member_required
-from datetime import datetime
-from sc4net import get, get_json
-from .models import Ambiente, Arquetipo, Situacao, Ordenacao, Visualizacao, Curso
-from django.shortcuts import get_object_or_404
+import json
 import sentry_sdk
+from typing import Dict, List, Union, Any
+from datetime import datetime
+from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import get_object_or_404
+from sc4net import get
+from .models import Ambiente, Arquetipo, Situacao, Ordenacao, Visualizacao, Curso
 
 
 CODIGO_TURMA_REGEX = re.compile('^(\d\d\d\d\d)\.(\d*)\.(\d*)\.(..)\.(.*)$')
@@ -43,6 +42,12 @@ CODIGO_PRATICA_SUFIXO_INDEX = 2
 
 CURSOS_CACHE = {}
 
+
+def get_json_api(ava: Ambiente, url: str, **params: dict):
+    content = get(f"{ava.base_api_url}/{url}?{querystring}", headers={'Authentication': f'Token {ava.token}'})
+    logging.debug(content)
+    return json.loads(content)
+    
 
 def _merge_curso(diario: dict, codigo_curso: str):
     if codigo_curso not in CURSOS_CACHE and CURSOS_CACHE.get(codigo_curso, None) is None:
@@ -81,11 +86,9 @@ def _get_diarios(params: Dict[str, Any]):
         ambiente = params["ambiente"]
         ambientedict = {"ambiente": {"titulo": ambiente.nome, "sigla": ambiente.sigla, "cor": ambiente.cor}}
 
-        querystrings = [f'{k}={v}' if v else "" for k, v in params.items() if k not in ['ambiente', 'results'] and v is not None]
+        querystrings = {k:v for k, v in params.items() if k not in ['ambiente', 'results']}
 
-        base_url = ambiente.url if ambiente.url[-1:] != '/' else ambiente.url[:-1]
-        url = f'{base_url}/local/suap/api/get_diarios.php?' + "&".join(querystrings)
-        result = get_json(url)
+        result = get_json_api(ambiente, 'get_diarios.php', **querystrings)
         
         for k, v in params['results'].items():
             if k in result:
@@ -95,6 +98,7 @@ def _get_diarios(params: Dict[str, Any]):
                     params['results'][k] += result[k] or []
                     
     except Exception as e:
+        logging.error(e)
         sentry_sdk.capture_exception(e)
 
 
@@ -170,9 +174,9 @@ def get_atualizacoes_counts(username: str) -> dict:
         try:
             ava = params["ava"]
 
-            counts = get_json(f'{ava.base_api_url}/get_atualizacoes_counts.php?username={params["username"]}')
+            counts = get_json_api(ava, 'get_atualizacoes_counts.php', username=params["username"])
             counts["ambiente"] = {
-                "titulo": ava.nome, 
+                "titulo": re.subn('🟥 |🟦 |🟧 |🟨 |🟩 |🟪 ', '', ava.nome)[0],
                 "sigla": ava.sigla, 
                 "cor": ava.cor, 
                 "notifications_url": f"{ava.base_url}/message/output/popup/notifications.php",
@@ -195,21 +199,11 @@ def get_atualizacoes_counts(username: str) -> dict:
     return results
 
 
-    return [
-        {
-            "error": False,
-            "data": {
-                "conversations": [{"id": 107, "name": "", "subname": None, "imageurl": None, "type": 1, "membercount": 2, "ismuted": False, "isfavourite": False, "isread": False, "unreadcount": 1, "members": [{"id": 5, "fullname": "Kelson da Costa Medeiros", "profileurl": "https:\/\/teste.ava.ifrn.edu.br\/gui\/user\/profile.php?id=5", "profileimageurl": "https:\/\/teste.ava.ifrn.edu.br\/gui\/pluginfile.php\/22\/user\/icon\/moove\/f1?rev=457", "profileimageurlsmall": "https:\/\/teste.ava.ifrn.edu.br\/gui\/pluginfile.php\/22\/user\/icon\/moove\/f2?rev=457", "isonline": True, "showonlinestatus": True, "isblocked": False, "iscontact": False, "isdeleted": False, "canmessageevenifblocked": True, "canmessage": False, "requirescontact": False, "contactrequests": []}], "messages":[{"id": 1, "useridfrom": 5, "text": "<p>teste<\/p>", "timecreated": 1669392466}], "candeletemessagesforallusers": False}]
-            }
-        }
-    ]
-
-
 def set_favourite_course(username: str, ava: str, courseid: int, favourite: int) -> dict:
     ava = get_object_or_404(Ambiente, sigla=ava)
-    return get_json(f'{ava.base_api_url}/set_favourite_course.php?username={username}&courseid={courseid}&favourite={favourite}')
+    return get_json_api(ava, 'set_favourite_course.php', username=username, courseid=courseid, favourite=favourite)
 
 
 def set_hidden_course(username: str, ava: str, courseid: int, hidden: int) -> dict:
     ava = get_object_or_404(Ambiente, sigla=ava)
-    return get_json(f'{ava.base_api_url}/set_hidden_course.php?username={username}&courseid={courseid}&hidden={hidden}')
+    return get_json_api(ava, 'set_hidden_course.php', username=username, courseid=courseid, hidden=hidden)

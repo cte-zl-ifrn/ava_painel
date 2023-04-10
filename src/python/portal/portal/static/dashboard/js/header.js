@@ -15,7 +15,7 @@ export default {
     methods: {
         showAtualizacoes: function() {
             axios.get(
-                '/portal/api/v1/atualizacoes_counts/', {params: {}}
+                '/painel/portal/api/v1/atualizacoes_counts/', {params: {}}
             ).then(response => {
                 Object.assign(this, response.data);
             });

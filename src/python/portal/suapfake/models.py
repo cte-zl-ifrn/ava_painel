@@ -71,8 +71,8 @@ class Diario(Model):
     pacote_recebido = JSONField(_('pacote recebido'), null=True, blank=True)
     
     class Meta:
-        verbose_name = _("diário")
-        verbose_name_plural = _("diários")
+        verbose_name = _("diário fake")
+        verbose_name_plural = _("diários fake")
         ordering = ['id']
 
     def __str__(self):

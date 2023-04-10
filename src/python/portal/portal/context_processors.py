@@ -19,8 +19,10 @@ def layout_settings(request: HttpRequest) -> dict:
         "layout_has_auth_remembering": True,
         "last_startup": settings.LAST_STARTUP,
         "portal_version": settings.PORTAL_VERSION,
+        "gtag": settings.GTAG_CODE if hasattr(settings, 'GTAG_CODE') else False,
         "layout_auto_page_title": request.path.lower().replace("/", " ").lstrip().title(),
-        "ambientes": Ambiente.objects.filter(active=True)
+        "ambientes": Ambiente.objects.filter(active=True),
+        "admins": Ambiente.admins(),
     }
 
 
