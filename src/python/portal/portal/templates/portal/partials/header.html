@@ -8,10 +8,10 @@
             <div class="dropdown header-user">
                 <button class="btn btn-secondary dropdown-toggle btn-dropdown-user" type="button" id="dropdownMenuUser" data-bs-toggle="dropdown" aria-expanded="false">
                     <img width="56" height="56" src="{% static 'dashboard/img/user.png'  %}" />
-                    <span><h6 class="user_name">{{ user.nome_apresentacao }}</h6></span>
+                    <span><h6 class="user_name">{{ nome_usuario }}</h6></span>
                 </button>
                 <ul class="dropdown-menu dropdown-user" aria-labelledby="dropdownMenuUser">
-                    <li><span><h6 class="dropdown-header">{{ user.nome_apresentacao }}</h6></span></li>
+                    <li><span><h6 class="dropdown-header">{{ nome_usuario }}</h6></span></li>
                     <li><a class="dropdown-item" href="https://suap.ifrn.edu.br/comum/minha_conta/">Perfil no SUAP</a></li>
                     <li><a class="dropdown-item" href="https://ead.ifrn.edu.br/portal/ifrn-ead-ava/">Outros AVA</a></li>
                   
