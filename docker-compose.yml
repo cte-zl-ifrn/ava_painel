@@ -38,7 +38,7 @@ services:
       - 80:80
     depends_on:
       - portal
-      - moodle
+      - ava
 
   portal:
     image: 'ctezlifrn/avaportal:1.0.34'
@@ -65,14 +65,14 @@ services:
     #   start_period: 1s
     #   retries: 30
 
-  moodle:
+  ava:
     image: 'ctezlifrn/moodle:4.1.2-php8.1-015'
-    # ports:
-    #   - 80:80
+    ports:
+      - 8080:80
     env_file:
       - ./confs/enabled/db.env
       - ./confs/enabled/cache.env
-      - ./confs/enabled/moodle.env
+      - ./confs/enabled/ava.env
     volumes:
       # Configs
       # - '../moodle__image/src/php/config.php:/var/www/html/config.php'
