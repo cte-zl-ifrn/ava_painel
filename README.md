@@ -75,7 +75,7 @@ _/portal/debug
 
 ![screenshot](screenshot.jpg)
 
-O projeto ficará parecido com o desenho: https://xd.adobe.com/view/5cc616ad-12e8-4e36-8574-6a80ed2d0ee4-0995/
+O projeto ficará parecido com o desenho: https://xd.adobe.com/view/00dc014e-8919-47ad-ab16-74ac81ca0c2a-558f/
 
 ## Plugins previstos
 
