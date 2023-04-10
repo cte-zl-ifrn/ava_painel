@@ -2,6 +2,7 @@ from typing import Sequence, Union, Callable, Any
 from django.utils.translation import gettext as _
 from django.contrib.admin import ModelAdmin, register, site, display 
 from django.contrib.auth.models import Group
+from django.utils.safestring import mark_safe
 from .models import Usuario, Grupo
 
 
@@ -15,11 +16,15 @@ class GrupoAdmin(ModelAdmin):
 
 @register(Usuario)
 class UsuarioAdmin(ModelAdmin):
-    list_display = ('username', 'nome_apresentacao', 'email', 'email_secundario', 'tipo', 'auth')
-    list_filter = ('tipo', 'polo__nome', 'campus__sigla')
+    list_display = ['username', 'nome_apresentacao', 'email', 'tipo', 'auth', 'actions']
+    list_filter = ['tipo', 'is_superuser', 'is_active', 'is_staff', 'polo__nome', 'campus__sigla']
+    search_fields = ['username', 'nome_apresentacao', 'email', 'email_secundario']
     fieldsets = [
+        (_('Identificação'),
+         {"fields": ['nome_civil', 'nome_social', 'username'],
+          "description": _("Identifica o usuário.")}),
         (_('Autorização e autenticação'),
-         {"fields": [('nome_civil', 'nome_social'), ('username', 'tipo'), ('is_active', 'is_superuser')],
+         {"fields": ['tipo', ('is_active', 'is_staff', 'is_superuser')],
           "description": _("Controla a identidade do usuário nos sistemas, qual seu papel e quais suas autorizações.")}),
         (_('Aluno'), 
          {"fields": [('campus', 'polo')], 
@@ -36,10 +41,17 @@ class UsuarioAdmin(ModelAdmin):
 
     @display
     def auth(self, obj):        
-        result = ""
-        if obj.is_staff:
-            result += _('Colaborador superusuário ') if obj.is_superuser else _('Colaborador ')
-        else:
-            result += _('Usuário ')
-        result += _('(Ativo)') if obj.is_active else _('(Inativo)')
-        return result
+        result = '<img src="/painel/static/admin/img/icon-yes.svg" alt="True"> ' if obj.is_active else '<img src="/painel/static/admin/img/icon-no.svg" alt="False"> '
+        result += _('Colaborador') if obj.is_staff else _('Usuário')
+        result += " " + _('superusuário') if obj.is_staff else ""
+        # result += _('(Ativo)') if obj.is_active else _('(Inativo)')
+        
+        return mark_safe(result)
+
+    @display
+    def actions(self, obj):        
+        result = '<img src="/painel/static/admin/img/icon-yes.svg" alt="True"> ' if obj.is_active else '<img src="/painel/static/admin/img/icon-no.svg" alt="False"> '
+        result += _('Colaborador') if obj.is_staff else _('Usuário')
+        result += " " + _('superusuário') if obj.is_staff else ""
+        # result += _('(Ativo)') if obj.is_active else _('(Inativo)')
+        return mark_safe(result)

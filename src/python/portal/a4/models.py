@@ -39,7 +39,7 @@ class Usuario(AbstractUser):
     campus = ForeignKey('portal.Campus', on_delete=PROTECT, verbose_name=_("campus do aluno"), null=True, blank=True)
     curso = ForeignKey('portal.Curso', on_delete=PROTECT, verbose_name=_("curso do aluno"), null=True, blank=True)
     polo = ForeignKey('portal.Polo', on_delete=PROTECT, verbose_name=_("pólo do aluno"), null=True, blank=True)
-    first_login = DateTimeField(_('first login'), blank=True, null=True)    
+    first_login = DateTimeField(_('first login'), blank=True, null=True)
 
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'username'
