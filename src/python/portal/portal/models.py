@@ -73,8 +73,12 @@ class Ambiente(SafeDeleteModel):
         return f"<span style='background: {color}; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>{color}</span>"
     sigla = CharField(_('sigla do ambiente'), max_length=255, unique=True,
                     help_text=mark_safe(f"Esta é a sigla que vai aparecer no dashboard"))
-    cor = CharField(_('cor do ambiente'), max_length=255,
-                    help_text=mark_safe(f"Escolha uma cor em RGB. Ex.: {_c('#a154d0')} {_c('#438f4b')} {_c('#c90c0f')} {_c('#c90c0f')}"))
+    cor_mestra = CharField(_('cor mestra'), max_length=255,
+                    help_text=mark_safe(f"Escolha uma cor em RGB. Ex.: {_c('#a04ed0')} {_c('#396ba7')} {_c('#559c1a')} {_c('#fabd57')} {_c('#fd7941')} {_c('#f54f3b')}"))
+    cor_degrade = CharField(_('cor do degradê'), max_length=255,
+                    help_text=mark_safe(f"Escolha uma cor em RGB. Ex.: {_c('#53296d')} {_c('#203d60')} {_c('#315810')} {_c('#ae8133')} {_c('#d05623')} {_c('#fd7941')}"))
+    cor_progresso = CharField(_('cor do progresso'), max_length=255,
+                    help_text=mark_safe(f"Escolha uma cor em RGB. Ex.: {_c('#ecdafa')} {_c('#b4d0f2')} {_c('#d2f4b7')} {_c('#ffebca')} {_c('#ffd1be')} {_c('#ffbab2')}"))
     nome = CharField(_('nome do ambiente'), max_length=255)
     url = CharField(_('URL'), max_length=255)
     token = CharField(_('token'), max_length=255)
@@ -101,14 +105,21 @@ class Ambiente(SafeDeleteModel):
     @staticmethod
     def as_dict():
         return [
-            {"id": a.id, "label": a.nome, "sigla": a.sigla, "style": f"background-color: {a.cor}"}
+            {"id": a.id, "label": a.nome, "sigla": a.sigla, "style": f"background-color: {a.cor_mestra}"}
             for a in Ambiente.objects.filter(active=True)
         ]
 
     @staticmethod
     def admins():
         return [
-            {"id": a.id, "nome": re.subn('🟥 |🟦 |🟧 |🟨 |🟩 |🟪 ', '', a.nome)[0] , "cor": a.cor, "url": f"{a.url}/admin/"}
+            {
+                "id": a.id,
+                "nome": re.subn('🟥 |🟦 |🟧 |🟨 |🟩 |🟪 ', '', a.nome)[0], 
+                "cor_mestra": a.cor_mestra, 
+                "cor_degrade": a.cor_degrade, 
+                "cor_progresso": a.cor_progresso, 
+                "url": f"{a.url}/admin/"
+            }
             for a in Ambiente.objects.filter(active=True)
         ]
 

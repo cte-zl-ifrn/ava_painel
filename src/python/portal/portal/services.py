@@ -44,6 +44,7 @@ CURSOS_CACHE = {}
 
 
 def get_json_api(ava: Ambiente, url: str, **params: dict):
+    querystring = "&".join([f'{k}={v}' for k, v in params.items() if v])
     content = get(f"{ava.base_api_url}/{url}?{querystring}", headers={'Authentication': f'Token {ava.token}'})
     logging.debug(content)
     return json.loads(content)
@@ -84,7 +85,15 @@ def _merge_diario(diario: dict, ambiente: dict):
 def _get_diarios(params: Dict[str, Any]):
     try:
         ambiente = params["ambiente"]
-        ambientedict = {"ambiente": {"titulo": ambiente.nome, "sigla": ambiente.sigla, "cor": ambiente.cor}}
+        ambientedict = {
+            "ambiente": {
+                "titulo": ambiente.nome, 
+                "sigla": ambiente.sigla, 
+                "cor_mestra": ambiente.cor_mestra, 
+                "cor_degrade": ambiente.cor_degrade, 
+                "cor_progresso": ambiente.cor_progresso
+            }
+        }
 
         querystrings = {k:v for k, v in params.items() if k not in ['ambiente', 'results']}
 
@@ -178,7 +187,9 @@ def get_atualizacoes_counts(username: str) -> dict:
             counts["ambiente"] = {
                 "titulo": re.subn('🟥 |🟦 |🟧 |🟨 |🟩 |🟪 ', '', ava.nome)[0],
                 "sigla": ava.sigla, 
-                "cor": ava.cor, 
+                "cor_mestra": ava.cor_mestra, 
+                "cor_degrade": ava.cor_degrade, 
+                "cor_progresso": ava.cor_progresso, 
                 "notifications_url": f"{ava.base_url}/message/output/popup/notifications.php",
                 "conversations_url": f"{ava.base_url}/message/",
             }

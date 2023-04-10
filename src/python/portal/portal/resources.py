@@ -13,7 +13,7 @@ DEFAULT_DATETIME_FORMAT_WIDGET = DateTimeWidget(format=DEFAULT_DATETIME_FORMAT)
 class AmbienteResource(ModelResource):
     class Meta:
         model = Ambiente
-        export_order = ('sigla', 'nome', 'url', 'token', 'cor', 'active')
+        export_order = ('sigla', 'nome', 'url', 'token', 'cor_mestra', 'cor_degrade', 'cor_progresso', 'active')
         import_id_fields = ('sigla',)
         fields = export_order
         skip_unchanged = True
