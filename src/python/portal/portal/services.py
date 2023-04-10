@@ -43,8 +43,8 @@ CODIGO_PRATICA_SUFIXO_INDEX = 2
 CURSOS_CACHE = {}
 
 
-def get_json_api(ava: Ambiente, url: str):
-    content = get(url, headers={'Authentication': f'Token {ava.token}'})
+def get_json_api(ava: Ambiente, url: str, **params: dict):
+    content = get(f"{ava.base_api_url}/{url}?{querystring}", headers={'Authentication': f'Token {ava.token}'})
     logging.debug(content)
     return json.loads(content)
     
@@ -86,9 +86,9 @@ def _get_diarios(params: Dict[str, Any]):
         ambiente = params["ambiente"]
         ambientedict = {"ambiente": {"titulo": ambiente.nome, "sigla": ambiente.sigla, "cor": ambiente.cor}}
 
-        querystrings = [f'{k}={v}' if v else "" for k, v in params.items() if k not in ['ambiente', 'results'] and v is not None]
+        querystrings = {k:v for k, v in params.items() if k not in ['ambiente', 'results']}
 
-        result = get_json_api(ambiente, '/get_diarios.php?' + "&".join(querystrings))
+        result = get_json_api(ambiente, 'get_diarios.php', **querystrings)
         
         for k, v in params['results'].items():
             if k in result:
@@ -174,7 +174,7 @@ def get_atualizacoes_counts(username: str) -> dict:
         try:
             ava = params["ava"]
 
-            counts = get_json_api(ava, f'/get_atualizacoes_counts.php?username={params["username"]}')
+            counts = get_json_api(ava, 'get_atualizacoes_counts.php', username=params["username"])
             counts["ambiente"] = {
                 "titulo": re.subn('🟥 |🟦 |🟧 |🟨 |🟩 |🟪 ', '', ava.nome)[0],
                 "sigla": ava.sigla, 
@@ -201,9 +201,9 @@ def get_atualizacoes_counts(username: str) -> dict:
 
 def set_favourite_course(username: str, ava: str, courseid: int, favourite: int) -> dict:
     ava = get_object_or_404(Ambiente, sigla=ava)
-    return get_json_api(ava, f'/set_favourite_course.php?username={username}&courseid={courseid}&favourite={favourite}')
+    return get_json_api(ava, 'set_favourite_course.php', username=username, courseid=courseid, favourite=favourite)
 
 
 def set_hidden_course(username: str, ava: str, courseid: int, hidden: int) -> dict:
     ava = get_object_or_404(Ambiente, sigla=ava)
-    return get_json_api(ava, f'/set_hidden_course.php?username={username}&courseid={courseid}&hidden={hidden}')
+    return get_json_api(ava, 'set_hidden_course.php', username=username, courseid=courseid, hidden=hidden)
