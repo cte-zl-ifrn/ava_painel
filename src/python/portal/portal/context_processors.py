@@ -5,14 +5,23 @@ from django.conf import settings
 from django.http import HttpRequest
 from django.urls import reverse
 from portal.models import Ambiente
+from a4.models import Usuario
 
 def layout_settings(request: HttpRequest) -> dict:
+    personificando = request.session.get('usuario_personificado', None) is not None
+    if personificando:
+        personificado = Usuario.objects.filter(username=request.session.get('usuario_personificado')).first()
+        nome_usuario = personificado.nome_apresentacao if personificado.nome_apresentacao is not None and personificado.nome_apresentacao != '' else personificado.username
+    else:
+        nome_usuario = request.user.nome_apresentacao
     return {
         "site_title": "Portal",
         "layout_home_url_name": "portal:dashboard",
         "layout_register_url_name": "portal:register",
         "layout_term_of_use_url_name": "portal:term_of_use",
         "layout_site_name": "Portal",
+        "nome_usuario": nome_usuario,
+        "personificando": personificando,
         # "layout_has_navbar_search": True,
         # "layout_has_fullscreen_toggler": True,
         # "layout_has_customizer": True,
