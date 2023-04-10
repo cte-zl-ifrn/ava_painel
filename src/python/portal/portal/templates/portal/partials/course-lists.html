@@ -34,7 +34,7 @@
                                 <i class="fa fa-eye-slash" v-if="!card.hidden"></i>
                             </span>                            
                         </div> 
-                        <div class="porcentagem" v-if="card.showcompletionconditions">
+                        <div class="porcentagem" v-if="card.showcompletionconditions" :style="{ background: card.ambiente.cor }">
                             <p class="valor_porcentagem">[[ card.progress ]]%</p>
                         </div>
 
