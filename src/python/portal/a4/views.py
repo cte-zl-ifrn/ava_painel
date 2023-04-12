@@ -4,7 +4,7 @@ import urllib
 import requests
 from django.conf import settings
 from django.contrib import auth
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.core.exceptions import ValidationError
 from django.http import HttpRequest, HttpResponse
 from .models import Usuario
@@ -48,32 +48,54 @@ def authenticate(request: HttpRequest) -> HttpResponse:
     
     username = response_data['identificacao']
     user = Usuario.objects.filter(username=username).first()
+    defaults = {
+        'nome_registro': response_data.get('nome_registro'),
+        'nome_social': response_data.get('nome_social'),
+        'nome_usual': response_data.get('nome_usual'),
+        'nome': response_data.get('nome'),
+        'first_name': response_data.get('primeiro_nome'),
+        'last_name': response_data.get('ultimo_nome'),
+        'email': response_data.get('email_preferencial'),
+        'email_corporativo': response_data.get('email'),
+        'email_google_classroom': response_data.get('email_google_classroom'),
+        'email_academico': response_data.get('email_academico'),
+        'email_secundario': response_data.get('email_secundario'),
+        'campus': Campus.objects.filter(sigla=response_data.get('campus')).first(),
+        'polo': Polo.objects.filter(suap_id=response_data.get('polo')).first(),
+        'foto': response_data.get('foto'),
+        'tipo_usuario': response_data.get('tipo_usuario')
+    }
     if user is None:
         is_superuser = Usuario.objects.count() == 0
-        user = Usuario.objects.create(
-            username=username,
-            nome_civil='-',
-            nome_social='-',
-            nome_apresentacao=response_data.get('nome'),
-            first_name = response_data.get('primeiro_nome'),
-            last_name = response_data.get('ultimo_nome'),
-            email=response_data.get('email_preferencial'),
-            email_corporativo=response_data.get('email'),
-            email_escolar=response_data.get('email_google_classroom'),
-            email_academico=response_data.get('email_academico'),
-            email_secundario=response_data.get('email_secundario'),
-            campus=Campus.objects.filter(sigla=response_data.get('campus')).first(),
-            polo=Polo.objects.filter(suap_id=response_data.get('polo')).first(),
-            tipo=Usuario.Tipo.get_by_length(len(username)),
-            # status=response_data.get('status'),
-            is_superuser=is_superuser,
-            is_staff=is_superuser,
-        )
-        
+        user = Usuario.objects.create(username=username, is_superuser=is_superuser, is_staff=is_superuser, **defaults)
+    else:
+        Usuario.objects.filter(username=username).update(**defaults)
     auth.login(request, user)
-    return redirect('/')
+    return redirect('portal:dashboard')
 
 
 def logout(request: HttpRequest) -> HttpResponse:
     auth.logout(request)
     return render(request, "a4/logout.html")
+
+
+def personificar(request: HttpRequest, username: str):
+    if not request.user.is_superuser:
+        raise ValidationError('Só super usuários podem personificar')
+    if 'usuario_personificado' in request.session:
+        raise ValidationError('Você já está personificando um usuário')
+
+    u = get_object_or_404(Usuario, username=username)
+    if u.is_superuser:
+        raise ValidationError('Ninguém pode personificar um super usuário')
+
+    request.session['usuario_personificado'] = username
+    return redirect('portal:dashboard')
+
+def despersonificar(request: HttpRequest) -> HttpResponse:
+    if not request.user.is_superuser:
+        raise ValidationError("Você não é um super usuário.")
+    if 'usuario_personificado' not in request.session:
+        raise ValidationError('Você não está personificando um usuário.')
+    del request.session['usuario_personificado']
+    return redirect('portal:dashboard')

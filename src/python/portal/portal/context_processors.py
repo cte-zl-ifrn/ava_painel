@@ -5,15 +5,16 @@ from django.conf import settings
 from django.http import HttpRequest
 from django.urls import reverse
 from portal.models import Ambiente
-from a4.models import Usuario
+from a4.models import logged_user
+
 
 def layout_settings(request: HttpRequest) -> dict:
-    personificando = request.session.get('usuario_personificado', None) is not None
-    if personificando:
-        personificado = Usuario.objects.filter(username=request.session.get('usuario_personificado')).first()
-        nome_usuario = personificado.nome_apresentacao if personificado.nome_apresentacao is not None and personificado.nome_apresentacao != '' else personificado.username
+    usuario_personificado = request.session.get('usuario_personificado', None)
+    personificando = usuario_personificado is not None and usuario_personificado != ''
+    if request.user.is_authenticated:
+        nome_usuario = logged_user(request).show_name
     else:
-        nome_usuario = request.user.nome_apresentacao
+        nome_usuario = 'Anônimo'
     return {
         "site_title": "Portal",
         "layout_home_url_name": "portal:dashboard",
