@@ -20,12 +20,12 @@ class GrupoAdmin(ModelAdmin):
 
 @register(Usuario)
 class UsuarioAdmin(ModelAdmin):
-    list_display = ['username', 'nome_usual', 'email', 'tipo_usuario', 'auth', 'acoes']
+    list_display = ['username', 'photo', 'nome_usual', 'email', 'tipo_usuario', 'auth', 'acoes']
     list_filter = ['tipo_usuario', 'is_superuser', 'is_active', 'is_staff', 'polo__nome', 'campus__sigla']
     search_fields = ['username', 'nome_usual', 'email', 'email_secundario']
     fieldsets = [
         (_('Identificação'),
-          {"fields": ['username', 'nome_usual', 'nome_registro', 'nome_social'],
+          {"fields": ['username', 'nome_usual', 'nome_registro', 'nome_social', 'foto'],
            "description": _("Identifica o usuário.")}),
         (_('Autorização e autenticação'),
           {"fields": ['tipo_usuario', ('is_active', 'is_staff', 'is_superuser')],
@@ -49,6 +49,10 @@ class UsuarioAdmin(ModelAdmin):
         result += _('Colaborador') if obj.is_staff else _('Usuário')
         result += " " + _('superusuário') if obj.is_staff else ""
         return mark_safe(result)
+
+    @display
+    def photo(self, obj):        
+        return mark_safe(f'<img width="56" height="56" src="{obj.foto_url}" />')
 
     @display(description=_('Ações'))
     def acoes(self, obj):

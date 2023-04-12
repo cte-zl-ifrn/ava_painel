@@ -1,16 +1,15 @@
 from django.utils.translation import gettext as _
+from django.conf import settings
 from django.db.models import ForeignKey, PROTECT, CharField, DateTimeField, EmailField
-from django_better_choices import Choices
 from django.http import HttpRequest
 from django.contrib.auth.models import AbstractUser, Group
+from django_better_choices import Choices
 
 
 def logged_user(request: HttpRequest):
     username = request.session.get('usuario_personificado', request.user.username)
     user = Usuario.objects.filter(username=username).first()
-    if not user.is_authenticated or not user.is_active:
-        raise ValidationError('Você não está autenticado ou não está ativo')
-    return user
+    return user if user is not None and user.is_authenticated and user.is_active else usuario_anonimo
 
 
 class Grupo(Group):
@@ -51,3 +50,33 @@ class Usuario(AbstractUser):
     @property
     def show_name(self):
         return self.nome_usual if self.nome_usual is not None and self.nome_usual != '' else self.username
+
+    @property
+    def foto_url(self):
+        return f'{settings.SUAP_BASE_URL}{self.foto}' if self.foto else f'{settings.STATIC_URL}dashboard/img/user.png'
+
+class UsuarioAnonimo():
+    username = "anonimo"
+    nome_registro = "Anônimo"
+    nome_social = "Anônimo"
+    nome_usual = "Anônimo"
+    nome = "Anônimo"
+    show_name = "Anônimo"
+    tipo_usuario = "Anônimo"
+    foto = None
+    email = None
+    email_secundario = None
+    email_corporativo = None
+    email_google_classroom = None
+    email_academico = None
+    campus = None
+    curso = None
+    polo = None
+    first_login = None
+    is_authenticated = False
+    is_active = False
+
+    def __str__(self):
+        return self.show_name
+
+usuario_anonimo = UsuarioAnonimo()

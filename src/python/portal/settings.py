@@ -230,11 +230,13 @@ LOGOUT_REDIRECT_URL = env("DJANGO_LOGOUT_REDIRECT_URL", LOGIN_REDIRECT_URL)
 AUTH_USER_MODEL = env('DJANGO_AUTH_USER_MODEL', 'a4.Usuario')
 GO_TO_HTTPS = env_as_bool('GO_TO_HTTPS', False)
 
+SUAP_BASE_URL = env('SUAP_BASE_URL', 'https://suap.ifrn.edu.br')
+
 OAUTH = {
     'REDIRECT_URI': env('SUAP_REDIRECT_URI', 'http://localhost:8000/authenticate/'),
     'CLIENTE_ID': env('SUAP_CLIENTE_ID', 'change me on confs/enabled/app.env'),
     'CLIENT_SECRET': env('SUAP_CLIENT_SECRET', 'change me on confs/enabled/app.env'),
-    'BASE_URL': env('SUAP_BASE_URL', 'https://suap.ifrn.edu.br'),
+    'BASE_URL': SUAP_BASE_URL,
     'VERIFY_SSL': env('SUAP_VERIFY_SSL', False),
 }
 
