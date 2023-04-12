@@ -57,15 +57,15 @@ header {
 
 .header-brand {
     background-image: url(../img/ifrnLogo.svg);
-    width: 142px;
-    height: 76px;
+    width: 178px;
+    height: 56px;
     background-repeat: no-repeat;
     background-position: left;
     float: left;
     position: sticky;
     top: 0;
     z-index: 10;
-    margin: 15px 15px 0 22px;
+    margin: 22px 15px 0 22px;
 }
 
 .navbar-header {
@@ -131,7 +131,7 @@ ul.menu-principal {
 
 .header-ajuda {
     float: right;
-    height: 76px;
+    height: 80px;
     margin-top: 10px;
     margin-right: 5px;
 }
@@ -1875,17 +1875,13 @@ and (max-width: 465px) {
 and (min-width : 280px) 
 and (max-width: 360px) {
     ul.menu-notifications.show{ width: 225px; transform: translate3d(-140px, 65px, 0px); }
-    .header-brand{
-        margin: 17px 1px 0 4px;
-    }
+    .header-brand{margin: 20px 0px 0 4px; width: 174px; height: 55px;}
 }
 @media only screen 
 and (min-width : 361px) 
 and (max-width: 375px) {
     ul.menu-notifications.show{ width: 225px; transform: translate3d(-140px, 65px, 0px); }
-    .header-brand{
-        margin: 17px 1px 0 4px;
-    }
+    .header-brand{margin: 20px 0px 0 4px; width: 174px; height: 55px;}
 }
 
 @media only screen 
@@ -1893,10 +1889,7 @@ and (min-width : 280px)
 and (max-width: 375px) {
     ul.menu-notifications.show{ width: 200px; transform: translate3d(-140px, 65px, 0px) ; }
     ul.menu-messages.show{ width: 220px; transform: translate3d(-120px, 40px, 0px);}
-    .header-brand{
-        margin: 12px 0px 0 4px;
-        width: 130px;
-    }
+    .header-brand{margin: 20px 0px 0 4px; width: 174px; height: 55px;}
 }
 
 @media screen and (max-width: 480px) {
