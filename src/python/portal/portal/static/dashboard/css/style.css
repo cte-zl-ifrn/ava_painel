@@ -5,7 +5,7 @@
     padding: 0;
     /* box-sizing: border-box; */
     text-align: left;
-    font-family: 'Open Sans', 'Roboto', Helvetica, Arial, sans-serif;
+    font-family: 'Noto Sans', Helvetica, Arial, sans-serif;
 
     -moz-transition: all 100ms ease-in;
     -webkit-transition: all 100ms ease-in;
@@ -26,7 +26,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Montserrat', 'Roboto', Helvetica, Arial, sans-serif;
+    font-family: 'Noto Sans', Helvetica, Arial, sans-serif;
     font-weight: 400;
     margin-bottom: 10px;
 }
@@ -151,6 +151,7 @@ ul.menu-principal {
     border-color: transparent;
     padding: 0 10px 0 10px;
     margin-right: 5px;
+    font-size: 0.8rem;  
 }
 
 .header-ajuda a:hover {
@@ -442,9 +443,41 @@ main>div>aside {
     margin: 0;
 }
 
+.course-wrapper {
+    border-width: 1px;
+    border-style: solid;
+    margin-top: 15px;
+    padding-right: 15px;
+}
+
+.course-progressbar {
+    height: 4px;
+    border-left-style: solid;
+    border-left-width: 8px;
+}
+
+.course-body {
+    display: flex;
+}
+
+.course-degrade{
+    width: 8px;
+    height: 100%;
+    min-height: 120px;
+}
+
+.curso-dados {
+    width: calc(100% - 68px);
+    display: table-cell;
+}
+
+.curso-acoes {
+    width: 60px;
+    min-width: 60px;
+}
+
+/*
 .course-list .course-wrapper{
-    /* flex-direction: row-reverse; */
-    /*box-shadow: 2px 2px 5px 0 rgb(0 0 0 / 5%);*/
     box-shadow: none;
     display: block;
     min-height: 128px;
@@ -520,7 +553,6 @@ main>div>aside {
 }
 .course-list .course-wrapper .progress .porcentagem{
     margin: 0;
-    /* right: 60px; */
     top: 4px;
     border-width: 0;
     display: flex;
@@ -537,14 +569,11 @@ main>div>aside {
     opacity: .50;
 }
 
- .progress .porcentagem_mobile{
+.progress .porcentagem_mobile{
     margin: 0;
-    /* right: 60px; */
     top: 122px;
     background-color: #ECDAFA;
-    /* border: 1px solid #dedede; */
     display: none;
-    /* align-items: center; */
     justify-content: center;
     border-radius: 0px;
     width: 35px;
@@ -561,7 +590,6 @@ main>div>aside {
 
 .course-list .course-wrapper .progress .sandwich{
     margin: 0;
-    /* right: 60px; */
     top: 20px;
     display: none;
     align-items: center;
@@ -583,76 +611,63 @@ main>div>aside {
 
 }
 
-    /* Dropdown conteúdo (escondido por default) */
-    .sandwich-content {
-        display: none;
-        position: absolute;
-        z-index: 1;
+.sandwich-content {
+    display: none;
+    position: absolute;
+    z-index: 1;
 
-        background-color: #FFFFFF;
-        border: 1px solid #DFDFDF;
-        margin-top: 65px;
-        margin-right: 104px;
-        width: 155px;
-        height: 110px;
-    }
-    
-    /* Dropdown links */
-    .sandwich-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-    }
-    .sandwich-content .fecharSandwich {
-        color: #54595E;
-        padding: 0px 16px;
-        text-decoration: none;
-        display: block;
-        font-size: 21px;
-        text-align: end;
-    }
-    .sandwich-content .fecharSandwich hr{
-        margin: 0rem 0;
-    }
+    background-color: #FFFFFF;
+    border: 1px solid #DFDFDF;
+    margin-top: 65px;
+    margin-right: 104px;
+    width: 155px;
+    height: 110px;
+}
 
-    .sandwich-content .ocultarSandwich {
-        color: #54595E;
-        padding: 6px 16px;
-        text-decoration: none;
-        display: block;
-    }
-    .sandwich-content .ocultarSandwich i{
-        font-size: 20px;
-    }
+.sandwich-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.sandwich-content .fecharSandwich {
+    color: #54595E;
+    padding: 0px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 21px;
+    text-align: end;
+}
+.sandwich-content .fecharSandwich hr{
+    margin: 0rem 0;
+}
 
-    .sandwich-content .favoritarSandwich {
-        color: #54595E;
-        padding: 6px 16px;
-        text-decoration: none;
-        display: block;
-    }
-    .sandwich-content .favoritarSandwich i{
-        font-size: 20px;
-    }
+.sandwich-content .ocultarSandwich {
+    color: #54595E;
+    padding: 6px 16px;
+    text-decoration: none;
+    display: block;
+}
+.sandwich-content .ocultarSandwich i{
+    font-size: 20px;
+}
 
-    .block{
-        display: block;
-    }
-    /* .hide{
-        display: none;
-    } */
-    
-    /* Mostra o conteúdo do dropdown, quando é clicado */
-    /* .sandwich:hover .sandwich-content {
-        display: block;
-    } */
-/* 
-    .sandwich .sandwich-content:target {
-        display: block;
-    } */
+.sandwich-content .favoritarSandwich {
+    color: #54595E;
+    padding: 6px 16px;
+    text-decoration: none;
+    display: block;
+}
+.sandwich-content .favoritarSandwich i{
+    font-size: 20px;
+}
 
-
+.block{
+    display: block;
+}
+.sandwich .sandwich-content:target {
+    display: block;
+} 
 
 .course-list .course-wrapper .progress .porcentagem .valor_porcentagem{
     color: #5E2A79;
@@ -682,8 +697,6 @@ main>div>aside {
 #course-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    /* background-color: #2196F3; */
-    /* padding: 10px; */
     grid-area: a;
     margin: 0 20px;
 }
@@ -734,10 +747,8 @@ main>div>aside {
 }
 
 .progress.bg-dark.rounded-0 {
-    /* margin-top: -5px; */
     border: none;
     background-color: transparent;
-    /* max-width: 288px; */
 }
 
 .progress-bar {
@@ -938,7 +949,7 @@ button.btn.btn-secondary {
     border-color: #808080;
     padding: 0.375rem 1.75rem;
 }
-
+*/
 
 /* ===== MAIN - CARD: END ===== */
 
@@ -1230,7 +1241,7 @@ a.btn.btn-primary{
 /* ############# CUSTOM  ############# */
 
 .titulo {
-    font-family: 'Montserrat Light';
+    font-family: 'Noto Sans', Helvetica, Arial, sans-serif;
     font-size: 24px;
     font-weight: 400;
     line-height: 29px;
@@ -1240,7 +1251,7 @@ a.btn.btn-primary{
 }
 
 .subtitulo {
-    font-family: 'Montserrat Light';
+    font-family: 'Noto Sans', Helvetica, Arial, sans-serif;
     font-size: 18px;
     font-weight: 400;
     line-height: 22px;
@@ -1338,7 +1349,7 @@ li {
     margin-left: 50px;
     color: #eee;
     font-size: 20px;
-    font-family: monospace;
+    font-family: 'Noto Sans', Helvetica, Arial, sans-serif;
 }
 .notifications{
     width: 300px;
@@ -1351,7 +1362,7 @@ li {
 .menu-notifications h2{
     padding: 10px;
     height: 35px;
-    font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-32) var(--unnamed-font-family-noto-sans);
+    font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-32) 'Noto Sans', Helvetica, Arial, sans-serif;
     text-align: left;
     letter-spacing: 1.6px;
     color: #1D2125;
@@ -1499,7 +1510,7 @@ li {
     margin-left: 50px;
     color: #eee;
     font-size: 20px;
-    font-family: monospace;
+    font-family: 'Noto Sans', Helvetica, Arial, sans-serif;
 }
 .messages{
     width: 300px;
@@ -1512,7 +1523,7 @@ li {
 .menu-messages h2{
     padding: 10px 10px 10px 10px;
     height: 35px;
-    font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-32) var(--unnamed-font-family-noto-sans);
+    font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-medium) var(--unnamed-font-size-13)/var(--unnamed-line-spacing-32) 'Noto Sans', Helvetica, Arial, sans-serif;
     text-align: left;
     letter-spacing: 1.6px;
     color: #1D2125;
@@ -1639,7 +1650,8 @@ ul.dropdown-user {
 h6.dropdown-header.central-atendimento {
     padding-right: 24px;
     font-size: 0.8rem;
-    font-family: "Open sans";
+    font-family: 'Noto Sans', Helvetica, Arial, sans-serif;
+    font-weight: 500;
 }
 i#dropdownMenu2 {
     width: 30px;
@@ -1677,7 +1689,8 @@ margin-top: 16px;
 span h6.dropdown-header {
     background-color: #dcdcdc;
     color: #1D2125;
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 0.8rem;
     text-align: end;
     padding: 5px;
     border-top-right-radius: 5px;
@@ -1685,7 +1698,7 @@ span h6.dropdown-header {
 }
 
 h6.user_name {
-    font-size: 14px;
+    font-size: 0.8rem;
 }
 .dropdown-item:focus, .dropdown-item:hover {
     background-color: #ecfaf3 !important;
