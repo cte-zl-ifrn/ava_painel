@@ -381,14 +381,10 @@ class Diario(SafeDeleteModel):
             usuario, created = Usuario.objects.update_or_create(
                 username=username,
                 defaults={
-                    'nome_civil': p['nome'],
-                    'email': p['email'],
-                    # 'email_escolar': p['email_escolar'],
-                    # 'email_academico': p['email_academico'],
-                    'email_secundario': p.get('email_secundario', None),
+                    'nome_registro': p['nome'],
+                    # 'email': p['email'],
+                    # 'email_secundario': p.get('email_secundario', None),
                     'is_active': is_active,
-                    'tipo': Usuario.Tipo.get_by_length(len(username)),
-                    # 'campus': campus if papel == Arquetipo.ALUNO else None,
                     'polo': polo,
                     'curso': curso if papel == Arquetipo.ALUNO else None,
                 }
