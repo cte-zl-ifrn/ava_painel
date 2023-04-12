@@ -26,7 +26,7 @@
                         {% endif %}
                         <li style='border-left: 8px solid #000;'><a class="dropdown-item"  href="{% url 'admin:index' %}">Admin</a></li>
                     {% endif %}
-                    <div class="dropdown-header-ajauda">
+                    <div class="dropdown-header-ajuda">
                         <li><hr class="dropdown-divider"></li>
                         <li><h6 class="dropdown-header central-atendimento">Central de Atendimento</h6></li>
                         <li><a class="dropdown-item ajuda-moodle">Central de serviço SUAP</a></li>
@@ -37,6 +37,9 @@
                         <li><a class="dropdown-item ajuda-moodle" href="https://ead.ifrn.edu.br/portal/contato/">Contatos</a></li>
                     </div>
                     <li><hr class="dropdown-divider"></li>
+                    {% if personificando %}
+                        <li><a class="dropdown-item" href="{% url 'a4:despersonificar' %}">Voltar a ser {{ user.show_name }}</a></li>
+                    {% endif %}
                     <li><a class="dropdown-item" href="{% url 'a4:logout' %}">Sair</a></li>
               </ul>
             </div>

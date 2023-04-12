@@ -150,6 +150,7 @@ ul.menu-principal {
     background-color: transparent;
     border-color: transparent;
     padding: 0 10px 0 10px;
+    margin-right: 5px;
 }
 
 .header-ajuda a:hover {
@@ -440,12 +441,13 @@ main>div>aside {
 .course-list {
     margin: 0;
 }
+
 .course-list .course-wrapper{
     /* flex-direction: row-reverse; */
     /*box-shadow: 2px 2px 5px 0 rgb(0 0 0 / 5%);*/
     box-shadow: none;
-    display: flex;
-    flex-wrap: wrap;
+    display: block;
+    min-height: 128px;
 }
 .course-list .course-wrapper .progress.bg-dark.rounded-0{
     width: 20px;
@@ -1625,14 +1627,19 @@ a.dropdown-item.ambientes-list {
     font-weight: 600;
 }
 ul.dropdown-ajauda {
-    top: -25px !important;
-    margin-left: -35px !important;
+    top: -31px !important;
+    margin-left: -14px !important;
 }
 ul.dropdown-user {
     inset: 0px auto auto -38px;
 }
 .dropdown-header-ajuda {
     display: none;
+}
+h6.dropdown-header.central-atendimento {
+    padding-right: 24px;
+    font-size: 0.8rem;
+    font-family: "Open sans";
 }
 i#dropdownMenu2 {
     width: 30px;
@@ -1721,6 +1728,10 @@ h6.central-atendimento {
     margin: -48px 0px 0px 0px;
 
 }
+
+.btn-dropdown-user.show::after,
+.btn-dropdown-user.show > span 
+{ display: none !important; }
 
 div#search-isempty {
     padding: 0px 30px 0px 30px;
@@ -1825,9 +1836,10 @@ and (max-width: 5880px) {
     ul.dropdown-menu.dropdown-user.show { 
         /* transform: translate3d(-52px, 70px, 0px) !important; */
         padding: 0px;
-        top: -33px !important;
-        margin-left: -135px !important;
+        top: -8px !important;
+        margin-left: -185px !important;
         transition: none;
+        width: 250px;
     }
     ul.dropdown-menu.dropdown-ajauda.show { transform: translate3d(11px, 51.8182px, 0px) !important; padding: 0px;}
 
