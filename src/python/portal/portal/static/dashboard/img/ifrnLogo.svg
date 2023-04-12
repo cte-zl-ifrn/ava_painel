@@ -16,6 +16,6 @@
     </g>
     <text id="Campus_Natal-Zona_Leste" data-name="Campus Natal-Zona Leste" transform="translate(49.057 52.943)" fill="#fff" font-size="10" font-family="OpenSans, Open Sans"><tspan x="0" y="0">Campus Natal-Zona Leste</tspan></text>
     <text id="Rio_Grande_do_Norte" data-name="Rio Grande do Norte" transform="translate(49.057 39.943)" fill="#fff" font-size="10" font-family="OpenSans, Open Sans"><tspan x="0" y="0">Rio Grande do Norte</tspan></text>
-    <text id="INSTITUTO_FEDERAL" data-name="INSTITUTO FEDERAL" transform="translate(49 25.943)" fill="#fff" font-size="13" font-family="OpenSans-Bold, Open Sans" font-weight="700"><tspan x="0" y="0">INSTITUTO FEDERAL</tspan></text>
+    <text id="INSTITUTO_FEDERAL" data-name="INSTITUTO FEDERAL" transform="translate(49 25.943)" fill="#fff" font-size="12" font-family="OpenSans-Bold, Open Sans" font-weight="700"><tspan x="0" y="0">INSTITUTO FEDERAL</tspan></text>
   </g>
 </svg>
