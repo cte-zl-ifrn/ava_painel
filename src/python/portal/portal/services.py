@@ -56,6 +56,8 @@ def _merge_curso(diario: dict, codigo_curso: str):
     curso = CURSOS_CACHE.get(codigo_curso, None)
     if curso is not None:
         diario['curso'] = {'codigo': curso.codigo, 'nome': curso.nome}
+    else:
+        diario['curso'] = {'codigo': codigo_curso, 'nome': f'Curso: {codigo_curso}'}
 
 
 def _merge_turma(diario: dict, codigo_turma: tuple):
