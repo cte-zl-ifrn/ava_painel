@@ -1,18 +1,23 @@
-from django.conf import settings
 from sys import breakpointhook
-from django.utils.translation import gettext as _
 from django.conf import settings
+from django.utils.translation import gettext as _
 from django.http import HttpRequest
 from django.urls import reverse
 from portal.models import Ambiente
+from a4.models import logged_user
+
 
 def layout_settings(request: HttpRequest) -> dict:
+    usuario_personificado = request.session.get('usuario_personificado', None)
     return {
         "site_title": "Portal",
         "layout_home_url_name": "portal:dashboard",
         "layout_register_url_name": "portal:register",
         "layout_term_of_use_url_name": "portal:term_of_use",
         "layout_site_name": "Portal",
+        "logged_user": logged_user(request),
+        "suap_base_url": settings.SUAP_BASE_URL,
+        "personificando": usuario_personificado is not None,
         # "layout_has_navbar_search": True,
         # "layout_has_fullscreen_toggler": True,
         # "layout_has_customizer": True,

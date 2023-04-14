@@ -2,39 +2,30 @@
     <div id="course-views">
         <div class="course-list">
             <div v-for="card in {{list_name}}" class="course-listitem">
-                <div class="course-wrapper">
-                    <div class="card-body">
-                        <p class="card-diario">
-                            <span v-if='card.turma'>
-                                <span class='card-turma'>[[ card.turma ]]</span>
-                                <span class='card-componente'>[[ card.componente ]]</span>
-                            </span>
-                            <span v-if='!card.turma'>[[ card.shortname ]]</span>
-                        </p>
-                        <p class="card-curso" v-if='card.curso'>
-                            [[ card.curso.nome ]]</span>
-                        </p>
-                        <h5 class="card-title">
-                            <a v-bind:href="[[ card.viewurl ]]">[[ card.fullname ]]</a>
-                        </h5>
+                <div class="course-wrapper" :style="{ borderColor: card.ambiente.cor_degrade }">
+                    <div class="course-progressbar" :style="{ borderColor: card.ambiente.cor_mestra, backgroundColor: card.ambiente.cor_progresso }">
+                        <div :style="{ backgroundColor: card.ambiente.cor_mestra, width: card.progress + '%', height: 100 + '%' }"></div>
                     </div>
-                    <div class="progress bg-dark rounded-0">
-                        <div class="progress-bar" :style="{ background: card.ambiente.cor }"></div>
-                        <div class="porcentagem" v-if="card.showcompletionconditions">
-                            <p class="valor_porcentagem">[[ card.progress ]]%</p>
+                    <div class="course-body">
+                        <div class="course-degrade" v-bind:title="card.ambiente.titulo" :style="{ background: 'linear-gradient(0deg, ' + card.ambiente.cor_degrade + ' 0%, ' + card.ambiente.cor_mestra + ' 100%)' }" ></div>
+                        <div class="course-dados">
+                            <div class="course-codigo">
+                                <span v-if='card.turma'><span class='course-turma'>[[ card.turma ]]</span><span class='course-componente'>[[ card.componente ]]</span></span>
+                                <span v-else class='course-shortname'>[[ card.shortname ]]</span>
+                            </div>
+                            <div class='course-curso'><span v-if='card.curso'>[[ card.curso.nome ]]</span><span v-else>-</span></div>
+                            <div class='course-disciplina'><a v-bind:href="[[ card.viewurl ]]">[[ card.fullname ]]</a></div>
                         </div>
-                        <div class="porcentagem-detalhe" v-on:click="favourite(card)">
-                            <span type="button" class="detalhe-link">
-                                <i class="fa fa-star-o" v-if="!card.isfavourite"></i>
-                                <i class="fa fa-star" v-if="card.isfavourite"></i>
-                            </span>
+                        <div class="course-acoes">
+                            <div v-if="card.showcompletionconditions"class="course-progresso" :style="{ backgroundColor: card.ambiente.cor_progresso , borderColor: card.ambiente.cor_progresso + ' !important' }">[[ card.progress ]]%</div>
+                            <div v-else class="course-progresso" style="background-color: #f2f3f5; color: #f2f3f5;">[[ card.progress ]]%</div>
+                            <div v-on:click="favourite(card)" type="button" class="course-acao course-favourite" title="Favoritar este diário para mim">
+                                <i class="fa fa-star-o" v-if="!card.isfavourite"></i><i class="fa fa-star" v-else></i>
+                            </div>
+                            <div v-on:click="visible(card)" type="button" class="course-acao course-visible" title="Ocultar este diário para os alunos">
+                                <i class="fa fa-eye" v-if='card.visible == "1"'></i><i class="fa fa-eye-slash" v-else></i>
+                            </div>     
                         </div>
-                        {% comment %} <div class="eyes-hidden-unhidden" v-on:click="hidden(card)">
-                            <span type="button" class="detalhe-link" id="">
-                                <i class="fa fa-eye" v-if="card.hidden"></i>
-                                <i class="fa fa-eye-slash" v-if="!card.hidden"></i>
-                            </span>                            
-                        </div> {% endcomment %}
                     </div>
                 </div>
             </div>

@@ -34,6 +34,7 @@ services:
     volumes:
       # confs
       - ./confs/enabled/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./src/nginx/error_pages:/usr/share/nginx/error_pages
     ports:
       - 80:80
     depends_on:

@@ -44,6 +44,7 @@ CURSOS_CACHE = {}
 
 
 def get_json_api(ava: Ambiente, url: str, **params: dict):
+    querystring = "&".join([f'{k}={v}' for k, v in params.items() if v])
     content = get(f"{ava.base_api_url}/{url}?{querystring}", headers={'Authentication': f'Token {ava.token}'})
     logging.debug(content)
     return json.loads(content)
@@ -55,6 +56,8 @@ def _merge_curso(diario: dict, codigo_curso: str):
     curso = CURSOS_CACHE.get(codigo_curso, None)
     if curso is not None:
         diario['curso'] = {'codigo': curso.codigo, 'nome': curso.nome}
+    else:
+        diario['curso'] = {'codigo': codigo_curso, 'nome': f'Curso: {codigo_curso}'}
 
 
 def _merge_turma(diario: dict, codigo_turma: tuple):
@@ -84,7 +87,15 @@ def _merge_diario(diario: dict, ambiente: dict):
 def _get_diarios(params: Dict[str, Any]):
     try:
         ambiente = params["ambiente"]
-        ambientedict = {"ambiente": {"titulo": ambiente.nome, "sigla": ambiente.sigla, "cor": ambiente.cor}}
+        ambientedict = {
+            "ambiente": {
+                "titulo": ambiente.nome, 
+                "sigla": ambiente.sigla, 
+                "cor_mestra": ambiente.cor_mestra, 
+                "cor_degrade": ambiente.cor_degrade, 
+                "cor_progresso": ambiente.cor_progresso
+            }
+        }
 
         querystrings = {k:v for k, v in params.items() if k not in ['ambiente', 'results']}
 
@@ -103,18 +114,18 @@ def _get_diarios(params: Dict[str, Any]):
 
 
 def get_diarios(
-    username: str,
-    semestre: str = None,
-    situacao: str = None,
-    ordenacao: str = None,
-    disciplina: str = None,
-    curso: str = None,
-    arquetipo: str = None,
-    ambiente: str = None,
-    q: str = None,
-    page: int = 1,
-    page_size: int = 21,
-) -> dict:
+        username: str,
+        semestre: str = None,
+        situacao: str = None,
+        ordenacao: str = None,
+        disciplina: str = None,
+        curso: str = None,
+        arquetipo: str = None,
+        ambiente: str = None,
+        q: str = None,
+        page: int = 1,
+        page_size: int = 21,
+    ) -> dict:
 
     results = {
         "semestres": [],
@@ -178,7 +189,9 @@ def get_atualizacoes_counts(username: str) -> dict:
             counts["ambiente"] = {
                 "titulo": re.subn('🟥 |🟦 |🟧 |🟨 |🟩 |🟪 ', '', ava.nome)[0],
                 "sigla": ava.sigla, 
-                "cor": ava.cor, 
+                "cor_mestra": ava.cor_mestra, 
+                "cor_degrade": ava.cor_degrade, 
+                "cor_progresso": ava.cor_progresso, 
                 "notifications_url": f"{ava.base_url}/message/output/popup/notifications.php",
                 "conversations_url": f"{ava.base_url}/message/",
             }
@@ -204,6 +217,6 @@ def set_favourite_course(username: str, ava: str, courseid: int, favourite: int)
     return get_json_api(ava, 'set_favourite_course.php', username=username, courseid=courseid, favourite=favourite)
 
 
-def set_hidden_course(username: str, ava: str, courseid: int, hidden: int) -> dict:
+def set_visible_course(username: str, ava: str, courseid: int, visible: int) -> dict:
     ava = get_object_or_404(Ambiente, sigla=ava)
-    return get_json_api(ava, 'set_hidden_course.php', username=username, courseid=courseid, hidden=hidden)
+    return get_json_api(ava, 'set_visible_course.php', username=username, courseid=courseid, visible=str(visible))

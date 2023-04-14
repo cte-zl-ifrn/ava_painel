@@ -31,6 +31,7 @@ export default {
             salas: [],
             has_error: false,
             is_filtering: true,
+            activeParagraph: null,
         }
     },
     mounted() {
@@ -38,9 +39,6 @@ export default {
         this.filterCards();
     },
     methods: {
-        detailme: function(card) {
-            this.destaque = card;
-        },
         formatDate: function(dateString) {
             const date = new Date(dateString);
             return new Intl.DateTimeFormat('default', { dateStyle: 'long' }).format(date);
@@ -61,18 +59,18 @@ export default {
                 console.log(error);
             });
         },
-        hidden: function(card) {
-            const new_status = card.hidden ? 0 : 1;
+        visible: function(card) {
+            const new_status = parseInt(card.visible) ? 0 : 1;
             axios.get(
-                '/painel/portal/api/v1/set_hidden/', {
+                '/painel/portal/api/v1/set_visible/', {
                     params: {
                         "ava": card.ambiente.sigla,
                         "courseid": card.id,
-                        "hidden": new_status,
+                        "visible": new_status,
                     }
                 }
             ).then(response => {
-                card.hidden = new_status == 1;
+                card.visible = new_status == 1;
             }).catch(error => {
                 console.log(error);
             });

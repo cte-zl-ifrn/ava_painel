@@ -1,6 +1,7 @@
 from django.utils.translation import gettext as _
 from django.db.models import Model
 from django.contrib.admin import register, display, StackedInline, TabularInline
+from django.utils.safestring import mark_safe
 from import_export.admin import ImportExportMixin, ExportActionMixin
 from simple_history.admin import SimpleHistoryAdmin
 from safedelete.admin import SafeDeleteAdmin, SafeDeleteAdminFilter
@@ -35,18 +36,24 @@ class BaseModelAdmin(BaseModelAdminMixin, SafeDeleteAdmin, SimpleHistoryAdmin):
 
 @register(Ambiente)
 class AmbienteAdmin(BaseModelAdmin):
-    list_display = ['nome', 'sigla', 'url', 'active']
+    list_display = ['nome', 'cores', 'url', 'active']
     history_list_display = list_display
     field_to_highlight = list_display[0]
     search_fields = ['nome', 'sigla', 'url']
     list_filter = ['active',] + BaseModelAdmin.list_filter
     fieldsets = [
-        (_("Nome"), {"fields": ['nome']}),
-        (_("Dashboard"), {"fields": [('sigla', 'cor')]}),
-        (_("Integração"), {"fields": [('active', 'url', 'token')]})
+        (_("Identificação"), {"fields": ['nome', 'sigla']}),
+        (_("Cores do ambiente"), {"fields": ['cor_mestra', 'cor_degrade', 'cor_progresso']}),
+        (_("Integração"), {"fields": ['active', 'url', 'token']})
     ]
     inlines = [CampusInline]
     resource_classes = [AmbienteResource]
+
+    @display(description="Cores")
+    def cores(self, obj):
+        return mark_safe(f"<span style='background: {obj.cor_mestra};'>&nbsp;&nbsp;&nbsp;</span>" +
+                           f"<span style='background: {obj.cor_degrade};'>&nbsp;&nbsp;&nbsp;</span>" + 
+                           f"<span style='background: {obj.cor_progresso};'>&nbsp;&nbsp;&nbsp;</span>")
 
 
 @register(Campus)
@@ -97,7 +104,7 @@ class PoloAdmin(BaseModelAdmin):
 
 
 @register(Inscricao)
-class InscricaoAdfmin(BaseModelAdmin):
+class InscricaoAdmin(BaseModelAdmin):
     list_display = ['diario', 'usuario', 'papel', 'polo', 'active']
     list_filter = ['active', 'papel', 'polo'] + BaseModelAdmin.list_filter
     search_fields =  ['diario__codigo', 'usuario__username']

@@ -35,6 +35,12 @@ else
     echo "Repositório $repo já foi clonado anteriormente?"
 fi
 
+if [[ ! -d src/php/moodle__auth_suap ]]; then
+    echo ""; echo_info "Clonando o repositório do moodle__auth_suap"
+    git clone https://github.com/cte-zl-ifrn/moodle__auth_suap.git ../moodle__auth_suap
+    chmod -R a+x src/php/moodle__auth_suap
+fi
+
 mkdir -p volumes/moodle_data && chmod 777 volumes/moodle_data
 
 echo ""; echo_info "Sobe o cache e o db em background"
