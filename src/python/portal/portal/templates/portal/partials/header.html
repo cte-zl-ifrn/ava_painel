@@ -2,40 +2,40 @@
 <header id="header">
     <div class="header-wrapper">
         <div class="header-brand">
-            <a href="{% url "portal:dashboard" %}"></a>
+            <a href="{% url "portal:dashboard" %}" aria-label='Voltar para o início'></a>
         </div>    
         <div class="nav-navigation">
             <div class="dropdown header-user">
-                <button class="btn btn-secondary dropdown-toggle btn-dropdown-user" type="button" id="dropdownMenuUser" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img width="56" height="56" src="{{ logged_user.foto_url }}" />
+                <button class="btn btn-secondary dropdown-toggle btn-dropdown-user" type="button" id="dropdownMenuUser" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Menu usuário">
+                    <img width="56" height="56" src="{{ logged_user.foto_url }}" alt='Foto do usuário' />
                     <span><h6 class="user_name">{{ logged_user.show_name }}</h6></span>
                 </button>
                 <ul class="dropdown-menu dropdown-user" aria-labelledby="dropdownMenuUser">
                     <li><span><h6 class="dropdown-header">{{ logged_user.show_name }}</h6></span></li>
                     <li><a class="dropdown-item" href="https://suap.ifrn.edu.br/comum/minha_conta/">Perfil no SUAP</a></li>
                     <li><a class="dropdown-item" href="https://ead.ifrn.edu.br/portal/ifrn-ead-ava/">Outros AVA</a></li>
-                  
-                    {% if user.is_superuser %}
-                        <li><hr class="dropdown-divider"></li>
-                        {% if admins %}
-                            {% for ava in admins  %}
-                                <li style='border-left: 8px solid {{ava.cor_mestra}};'><a class="dropdown-item" href="{{ava.url}}">{{ava.nome}}</a></li>
-                            {% endfor %}
-                        {% else %}
-                                <li><a class="dropdown-item" href="{% url 'admin:portal_ambiente_changelist' %}">Cadastrar ambiente</a></li>
+
+                    {% if not personificando %}
+                        {% if user.is_superuser %}
+                            <li><hr class="dropdown-divider"></li>
+                            {% if admins %}
+                                {% for ava in admins  %}
+                                    <li style='border-left: 8px solid {{ava.cor_mestra}};'><a class="dropdown-item" href="{{ava.url}}">{{ava.nome}}</a></li>
+                                {% endfor %}
+                            {% else %}
+                                    <li><a class="dropdown-item" href="{% url 'admin:portal_ambiente_changelist' %}">Cadastrar ambiente</a></li>
+                            {% endif %}
+                            <li style='border-left: 8px solid #000;'><a class="dropdown-item"  href="{% url 'admin:index' %}">Admin</a></li>
                         {% endif %}
-                        <li style='border-left: 8px solid #000;'><a class="dropdown-item"  href="{% url 'admin:index' %}">Admin</a></li>
                     {% endif %}
-                    <div class="dropdown-header-ajuda">
-                        <li><hr class="dropdown-divider"></li>
-                        <li><h6 class="dropdown-header central-atendimento">Central de Atendimento</h6></li>
-                        <li><a class="dropdown-item ajuda-moodle">Central de serviço SUAP</a></li>
-                        <li><a class="dropdown-item ajuda-moodle" href="https://suap.ifrn.edu.br/centralservicos/selecionar_servico_abertura/producao-de-material-didatico/?tab=1-ambiente-virtual-de-aprendizagem-moodle">AVA (Moodle)</a></li>
-                        <li><a class="dropdown-item ajuda-moodle" href="https://suap.ifrn.edu.br/centralservicos/selecionar_servico_abertura/ensino/">Secretaria acadêmica</a></li>
-                        <li><a class="dropdown-item ajuda-moodle" href="https://ead.ifrn.edu.br/ajuda/">Central de ajuda</a></li>
-                        <li><a class="dropdown-item ajuda-moodle" href="https://ead.ifrn.edu.br/portal/ouvidoria/">Ouvidoria</a></li>
-                        <li><a class="dropdown-item ajuda-moodle" href="https://ead.ifrn.edu.br/portal/contato/">Contatos</a></li>
-                    </div>
+                    <li class="mobile-only"><hr class="dropdown-divider"></li>
+                    <li class="mobile-only"><h6 class="dropdown-header central-atendimento">Centrais de atendimento</h6></li>
+                    <li class="mobile-only"><a class="dropdown-item ajuda-moodle" target="_blank" href="http://bit.ly/3odPfis">Ajuda sobre assuntos acadêmicos</a></li>
+                    <li class="mobile-only"><a class="dropdown-item ajuda-moodle" target="_blank" href="http://bit.ly/3KXiQEH">Ajuda sobre o SUAP</a></li>
+                    <li class="mobile-only"><a class="dropdown-item ajuda-moodle" target="_blank" href="http://bit.ly/41734xv">Ajuda sobre um AVA</a></li>
+                    <li class="mobile-only"><a class="dropdown-item ajuda-moodle" target="_blank" href="http://bit.ly/3KXQHyq">Ir para a Central de Ajuda</a></li>
+                    <li class="mobile-only"><a class="dropdown-item ajuda-moodle" target="_blank" href="http://bit.ly/3o8Fwd7">Falar com a Ouvidoria</a></li>
+                    <li class="mobile-only"><a class="dropdown-item ajuda-moodle" target="_blank" href="http://bit.ly/40aQDzN">Ver lista de contatos</a></li>
                     <li><hr class="dropdown-divider"></li>
                     {% if personificando %}
                         <li><a class="dropdown-item" href="{% url 'a4:despersonificar' %}">Voltar a ser {{ user.show_name }}</a></li>
@@ -48,7 +48,7 @@
                     <div class="dropdown">
                         <i id="dropdownConversations" data-bs-toggle="dropdown" class="icon fa fa-comment-o fa-fw " title="messagen drawer" role="img" aria-label="messagen drawer"></i><span v-if="unread_conversations_total > 0" class="icon-count">[[unread_conversations_total]]</span>
                         <ul class="dropdown-menu menu-messages" aria-labelledby="dropdownConversations">
-                            <h2>CONVERSAS</h2> 
+                            <li><h2>CONVERSAS</h2></li>
                             <li v-for='atualizacao in atualizacoes'>
                                 <a class="dropdown-item ambientes-list" v-bind:style="{ 'border-left': '8px solid ' + atualizacao.ambiente.cor_mestra }" v-bind:href="[[atualizacao.ambiente.conversations_url]]">[[atualizacao.ambiente.titulo]] <span>[[atualizacao.unread_conversations_count]]</a>
                             </li>
@@ -61,11 +61,11 @@
                 <div class="dropdown">
                     <i id="dropdownMenuNotifications" data-bs-toggle="dropdown" class="icon fa fa-bell-o fa-fw" title="messagen drawer" role="img" aria-label="messagen drawer"></i><span v-if="unread_notification_total > 0"  class="icon-count">[[unread_notification_total]]</span>
                     <ul class="dropdown-menu menu-notifications" aria-labelledby="dropdownMenuNotifications">
-                        <h2>NOTIFICAÇÕES</h2> 
-                    <li v-for='atualizacao in atualizacoes'>
-                        <a class="dropdown-item ambientes-list" v-bind:style="{ 'border-left': '8px solid ' + atualizacao.ambiente.cor }" v-bind:href="[[atualizacao.ambiente.conversations_url]]">[[atualizacao.ambiente.titulo]] <span>[[atualizacao.unread_popup_notification_count]]</a>
-                    </li>
-                    <li><a class="dropdown-item notifications-all">Total de [[unread_notification_total]] mensagens.</a></li>
+                        <li><h2>NOTIFICAÇÕES</h2></li>
+                        <li v-for='atualizacao in atualizacoes'>
+                            <a class="dropdown-item ambientes-list" v-bind:style="{ 'border-left': '8px solid ' + atualizacao.ambiente.cor }" v-bind:href="[[atualizacao.ambiente.conversations_url]]">[[atualizacao.ambiente.titulo]] <span>[[atualizacao.unread_popup_notification_count]]</a>
+                        </li>
+                        <li><a class="dropdown-item notifications-all">Total de [[unread_notification_total]] mensagens.</a></li>
                     </ul>
                 </div> 
             </div>
@@ -75,13 +75,13 @@
                 </button>
                 <ul class="dropdown-menu dropdown-ajauda" aria-labelledby="dropdownMenuSuporte">
                     <li><h6 class="dropdown-header central-atendimento">Centrais de Atendimento</h6></li>
-                    <li><a class="dropdown-item">Central de serviço SUAP</a></li>
-                    <li><a class="dropdown-item" href="https://suap.ifrn.edu.br/centralservicos/selecionar_servico_abertura/producao-de-material-didatico/?tab=1-ambiente-virtual-de-aprendizagem-moodle">AVA (Moodle)</a></li>
-                    <li><a class="dropdown-item" href="https://suap.ifrn.edu.br/centralservicos/selecionar_servico_abertura/ensino/">Secretaria acadêmica</a></li>
+                    <li><a class="dropdown-item" target="_blank" href="http://bit.ly/3odPfis">Secretaria acadêmica</a></li>
+                    <li><a class="dropdown-item" target="_blank" href="http://bit.ly/3KXiQEH">Central de serviço SUAP</a></li>
+                    <li><a class="dropdown-item" target="_blank" href="http://bit.ly/41734xv">AVA (Moodle)</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="https://ead.ifrn.edu.br/ajuda/">Central de ajuda</a></li>
-                    <li><a class="dropdown-item" href="https://ead.ifrn.edu.br/portal/ouvidoria/">Ouvidoria</a></li>
-                    <li><a class="dropdown-item" href="https://ead.ifrn.edu.br/portal/contato/">Contatos</a></li>
+                    <li><a class="dropdown-item" target="_blank" href="http://bit.ly/3KXQHyq">Central de ajuda</a></li>
+                    <li><a class="dropdown-item" target="_blank" href="http://bit.ly/3o8Fwd7">Ouvidoria</a></li>
+                    <li><a class="dropdown-item" target="_blank" href="http://bit.ly/40aQDzN">Contatos</a></li>
                 </ul>
             </div>
         </div>
