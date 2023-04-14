@@ -114,18 +114,18 @@ def _get_diarios(params: Dict[str, Any]):
 
 
 def get_diarios(
-    username: str,
-    semestre: str = None,
-    situacao: str = None,
-    ordenacao: str = None,
-    disciplina: str = None,
-    curso: str = None,
-    arquetipo: str = None,
-    ambiente: str = None,
-    q: str = None,
-    page: int = 1,
-    page_size: int = 21,
-) -> dict:
+        username: str,
+        semestre: str = None,
+        situacao: str = None,
+        ordenacao: str = None,
+        disciplina: str = None,
+        curso: str = None,
+        arquetipo: str = None,
+        ambiente: str = None,
+        q: str = None,
+        page: int = 1,
+        page_size: int = 21,
+    ) -> dict:
 
     results = {
         "semestres": [],
@@ -217,6 +217,6 @@ def set_favourite_course(username: str, ava: str, courseid: int, favourite: int)
     return get_json_api(ava, 'set_favourite_course.php', username=username, courseid=courseid, favourite=favourite)
 
 
-def set_hidden_course(username: str, ava: str, courseid: int, hidden: int) -> dict:
+def set_visible_course(username: str, ava: str, courseid: int, visible: int) -> dict:
     ava = get_object_or_404(Ambiente, sigla=ava)
-    return get_json_api(ava, 'set_hidden_course.php', username=username, courseid=courseid, hidden=hidden)
+    return get_json_api(ava, 'set_visible_course.php', username=username, courseid=courseid, visible=str(visible))

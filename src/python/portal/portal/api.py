@@ -3,7 +3,7 @@ from ninja import NinjaAPI
 from django.contrib.admin.views.decorators import staff_member_required
 from django.conf import settings
 from django.http import HttpRequest
-from .services import get_diarios, get_atualizacoes_counts, set_favourite_course, set_hidden_course
+from .services import get_diarios, get_atualizacoes_counts, set_favourite_course, set_visible_course
 from .models import Arquetipo
 from a4.models import logged_user
 
@@ -48,7 +48,7 @@ def set_favourite(request: HttpRequest, ava: str, courseid: int, favourite: int)
     return set_favourite_course(logged_user(request).username, ava, courseid, favourite)
 
 
-@api.get("/set_hidden/")
-def set_hidden(request: HttpRequest, ava: str, courseid: int, hidden: int):
-    return set_hidden_course(logged_user(request).username, ava, courseid, hidden)
+@api.get("/set_visible/")
+def set_visible(request: HttpRequest, ava: str, courseid: int, visible: int):
+    return set_visible_course(logged_user(request).username, ava, courseid, visible)
 
