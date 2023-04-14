@@ -17,7 +17,7 @@ def layout_settings(request: HttpRequest) -> dict:
         "layout_site_name": "Portal",
         "logged_user": logged_user(request),
         "suap_base_url": settings.SUAP_BASE_URL,
-        "personificando": usuario_personificado is not None and usuario_personificado != '',
+        "personificando": usuario_personificado is not None,
         # "layout_has_navbar_search": True,
         # "layout_has_fullscreen_toggler": True,
         # "layout_has_customizer": True,
