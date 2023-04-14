@@ -6,11 +6,12 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>IFRN - Portal</title>
+    <title>Portal AVA - IFRN</title>
 
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    
+    <meta name="description" content="Painel de diários de cursos EaD do IFRN">
+
     {% if gtag %}
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id={{gtag}}"></script>
@@ -32,24 +33,15 @@
     <link href='//fonts.googleapis.com/css?family=Roboto:400,700,500' rel='stylesheet' type='text/css' />
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css" />
     -->
-    <link href="//fonts.googleapis.com/css?family=Noto+Sans:300,400,500,700,900" rel="stylesheet" type="text/css" >
+    <link href="//fonts.googleapis.com/css?family=Noto+Sans:400,500,600,700" rel="stylesheet" type="text/css" >
 
-        <!-- Theme CSS -->
+    <!-- Theme CSS -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="{% static 'dashboard/css/style.css' %}?last_startup={{last_startup}}" />
     <link href="//cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
     
     <script src="{% static 'dashboard/js/jquery-3.6.0.min.js' %}"></script>    
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://unpkg.com/vue@3.2.37/dist/vue.global.prod.js"></script>
-    <script type="module">
-        import ava_dashboard from "{% static 'dashboard/js/app.js' %}?last_startup={{last_startup}}";      
-        Vue.createApp(ava_dashboard).mount("#app");
-
-        import ava_header from "{% static 'dashboard/js/header.js' %}?last_startup={{last_startup}}";
-        Vue.createApp(ava_header).mount("#header");
-    </script>
 </head>
 
 <body>
@@ -102,7 +94,7 @@
                         </select>
                     </div>
                     <div class="grid-item">
-                        <input placeholder="Buscar curso..." name="q" id="q" @keyup.enter="filterCards($event)"/>
+                        <input placeholder="Buscar diário..." name="q" id="q" @keyup.enter="filterCards($event)"/>
                     </div>
                 </div>
                 <div id="search-list" v-show="diarios.length!=0 || coordenacoes.length!=0 || praticas.length!=0">
@@ -112,7 +104,7 @@
                                 Diários
                             </button>
                             <button class="nav-link" id="nav-coordenacoes-tab" data-bs-toggle="tab" data-bs-target="#nav-coordenacoes" type="button" role="tab" aria-controls="nav-coordenacoes" aria-selected="false" v-if="coordenacoes.length!=0">
-                                Salas das coordenações
+                                <span class="desktop-only">Salas das </span>Coordenações
                             </button>
                             <button class="nav-link" id="nav-praticas-tab" data-bs-toggle="tab" data-bs-target="#nav-praticas" type="button" role="tab" aria-controls="nav-praticas" aria-selected="false" v-if="praticas.length!=0">
                                 Práticas
@@ -148,7 +140,15 @@
     </main>
 
     {% include 'portal/partials/footer.html' %}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3.2.37/dist/vue.global.prod.js"></script>
+    <script type="module">
+        import ava_dashboard from "{% static 'dashboard/js/app.js' %}?last_startup={{last_startup}}";      
+        Vue.createApp(ava_dashboard).mount("#app");
 
+        import ava_header from "{% static 'dashboard/js/header.js' %}?last_startup={{last_startup}}";
+        Vue.createApp(ava_header).mount("#header");
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script> 
 
