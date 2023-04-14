@@ -10,120 +10,24 @@
                         <div class="course-degrade" v-bind:title="card.ambiente.titulo" :style="{ background: 'linear-gradient(0deg, ' + card.ambiente.cor_degrade + ' 0%, ' + card.ambiente.cor_mestra + ' 100%)' }" ></div>
                         <div class="course-dados">
                             <div class="course-codigo">
-                                <span v-if='card.turma'>
-                                    <span class='course-turma'>[[ card.turma ]]</span>
-                                    <span class='course-componente'>[[ card.componente ]]</span>
-                                </span>
+                                <span v-if='card.turma'><span class='course-turma'>[[ card.turma ]]</span><span class='course-componente'>[[ card.componente ]]</span></span>
                                 <span v-else class='course-shortname'>[[ card.shortname ]]</span>
                             </div>
                             <div class='course-curso'><span v-if='card.curso'>[[ card.curso.nome ]]</span><span v-else>-</span></div>
                             <div class='course-disciplina'><a v-bind:href="[[ card.viewurl ]]">[[ card.fullname ]]</a></div>
                         </div>
                         <div class="course-acoes">
-                            <div v-if="card.showcompletionconditions" class="course-progresso" :style="{ backgroundColor: card.ambiente.cor_progresso }">[[ card.progress ]]%</div>
+                            <div v-if="card.showcompletionconditions"class="course-progresso" :style="{ backgroundColor: card.ambiente.cor_progresso , borderColor: card.ambiente.cor_progresso + ' !important' }">[[ card.progress ]]%</div>
                             <div v-else class="course-progresso" style="background-color: #f2f3f5; color: #f2f3f5;">[[ card.progress ]]%</div>
-                            <div class="course-acao course-favourite" v-on:click="favourite(card)">
-                                <span type="button" class="detalhe-link">
-                                    <i class="fa fa-star-o" v-if="!card.isfavourite"></i>
-                                    <i class="fa fa-star" v-else></i>
-                                </span>
+                            <div class="course-acao course-favourite" v-on:click="favourite(card)" title="Favoritar este diário para mim">
+                                <span type="button" class="detalhe-link"><i class="fa fa-star-o" v-if="!card.isfavourite"></i><i class="fa fa-star" v-else></i></span>
                             </div>
-                            <div class="course-acao course-visible" v-on:click="visible(card)">
-                                <span type="button" class="detalhe-link" id="">
-                                    <i class="fa fa-eye" v-if="card.visible"></i>
-                                    <i class="fa fa-eye-slash" v-else></i>
-                                </span>                            
+                            <div class="course-acao course-visible" v-on:click="visible(card)" title="Ocultar este diário para os alunos">
+                                <span type="button" class="detalhe-link" id=""><i class="fa fa-eye" v-if="card.visible"></i><i class="fa fa-eye-slash" v-else></i></span>
                             </div>     
                         </div>
                     </div>
                 </div>
-
-                {% comment %}
-                <div class="course-wrapper">
-                    <div class="card-body">
-                        <div>
-                            <p class="card-diario">
-                                <span v-if='card.turma'>
-                                    <span class='card-turma'>[[ card.turma ]]</span>
-                                    <span class='card-componente'>[[ card.componente ]]</span>
-                                </span>
-                                <span v-if='!card.turma'>[[ card.shortname ]]</span>
-                            </p>
-                            <p class="card-curso" v-if='card.curso'>
-                                [[ card.curso.nome ]]</span>
-                            </p>
-                            <h5 class="card-title">
-                                <a v-bind:href="[[ card.viewurl ]]">[[ card.fullname ]]</a>
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="progress bg-dark rounded-0">
-                        <div class="progress-bar" :style="{ background: card.ambiente.cor }"></div>
-                        <div class="porcentagem-detalhe" v-on:click="favourite(card)">
-                            <span type="button" class="detalhe-link">
-                                <i class="fa fa-star-o" v-if="!card.isfavourite"></i>
-                                <i class="fa fa-star" v-if="card.isfavourite"></i>
-                            </span>
-                        </div>
-                         <div class="eyes-hidden-unhidden" v-on:click="hidden(card)">
-                            <span type="button" class="detalhe-link" id="">
-                                <i class="fa fa-eye" v-if="card.hidden"></i>
-                                <i class="fa fa-eye-slash" v-if="!card.hidden"></i>
-                            </span>                            
-                        </div> 
-                        <div class="porcentagem" v-if="card.showcompletionconditions" :style="{ background: card.ambiente.cor }">
-                            <p class="valor_porcentagem">[[ card.progress ]]%</p>
-                        </div>
-
-                        <div class="sandwich" v-on:click="sandwichToggler(card)">
-                            <p class="valor_sandwich" >&#9776</p>
-                            <!-- <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">&#9776</button>
-                                <ul class="dropdown-menu">
-                                  <li><span class="fecharSandwich"><i class="fa fa-times-circle"></i><hr></span></li>
-                                  <li><span class="ocultarSandwich"><i class="fa fa-eye-slash" v-if="!card.hidden"></i> Ocultar</span></li>
-                                  <li><span class="favoritarSandwich"><i class="fa fa-star" v-if="card.isfavourite"></i> Favoritar</span></li>
-                                </ul>
-                              </div> -->
-                            <div id="sandwich-content" class="sandwich-content">
-
-                                <span class="fecharSandwich">
-                                    <i class="fa fa-times-circle"></i>
-                                    <hr>
-                                </span>
-                                <span class="ocultarSandwich">
-                                    <i class="fa fa-eye" v-if="card.hidden"></i>
-                                    <i class="fa fa-eye-slash" v-if="!card.hidden"></i> Ocultar
-                                </span>
-                                <span class="favoritarSandwich">
-                                    <i class="fa fa-star-o" v-if="!card.isfavourite"></i>
-                                    <i class="fa fa-star" v-if="card.isfavourite"></i> Favoritar
-                                </span>
-                            </div>
-                        </div>
-                        <div class="porcentagem_mobile" v-if="card.showcompletionconditions">
-                            <p class="valor_porcentagem_mobile">[[ card.progress ]]%</p>
-                        </div>
-                        <div class="progress progress-details" v-if="card.showcompletionconditions">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" :style="{ width:  card.progress + '%' }">
-                                <span>.</span>
-                        </div>
-
-                        <!-- <div class="more-details" id="mais-detalhes-card" :class="{hide_this: isActive([[card.id]]) }">
-                            <p class="" v-on:click="addActiveClass([[card.id]])"><i class="fa fa-plus" aria-hidden="true"></i> <u >Mais detalhes</u></p>
-                        </div>
-
-                        <div class="less-hr d-none" id="menos-detalhes-hr">
-                            <hr class="hr-style">
-                            
-                        </div>
-
-                        <div class="less-details d-none" id="menos-detalhes-card">
-                            <p class=""><i class="fa fa-minus" aria-hidden="true"></i> <u>Menos detalhes</u></p>
-                        </div> -->
-                    </div>
-                </div>
-                {% endcomment %}
             </div>
         </div>
     </div>
