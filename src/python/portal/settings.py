@@ -25,25 +25,14 @@ logging.config.dictConfig({
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-        'console': {
-            'format': '%(asctime)s %(levelname)s [%(name)s:%(lineno)s] %(module)s %(process)d %(thread)d %(message)s',
-        },
+        'console': { 'format': '%(asctime)s %(levelname)s [%(name)s:%(lineno)s] %(module)s %(process)d %(thread)d %(message)s' },
     },
     'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'console',
-        },
+        'console': { 'class': 'logging.StreamHandler', 'formatter': 'console' },
     },
     'loggers': {
-        'parso': {
-            'level': 'WARNING',
-            'handlers': ['console',],
-        },
-        '': {
-            'level': LOGLEVEL,
-            'handlers': ['console',],
-        },
+        'parso': { 'level': 'WARNING', 'handlers': ['console'] },
+        '': { 'level': LOGLEVEL, 'handlers': ['console'] },
     },
 })
 
@@ -231,25 +220,26 @@ AUTH_USER_MODEL = env('DJANGO_AUTH_USER_MODEL', 'a4.Usuario')
 GO_TO_HTTPS = env_as_bool('GO_TO_HTTPS', False)
 
 SUAP_BASE_URL = env('SUAP_BASE_URL', 'https://suap.ifrn.edu.br')
-
 OAUTH = {
-    'REDIRECT_URI': env('SUAP_REDIRECT_URI', 'http://localhost:8000/authenticate/'),
+    'REDIRECT_URI': env('SUAP_REDIRECT_URI', 'http://ava/painel/authenticate/'),
     'CLIENTE_ID': env('SUAP_CLIENTE_ID', 'change me on confs/enabled/app.env'),
     'CLIENT_SECRET': env('SUAP_CLIENT_SECRET', 'change me on confs/enabled/app.env'),
     'BASE_URL': SUAP_BASE_URL,
     'VERIFY_SSL': env('SUAP_VERIFY_SSL', False),
 }
-
-AUTHENTICATION_BACKENDS = (
-    # 'a4.backends.SuapOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
-)
+AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
 
 SUAP_EAD_KEY = env('SUAP_EAD_KEY', 'changeme')
 SUAP_PORTAL_FAKEUSER = env('SUAP_PORTAL_FAKEUSER', None)
 
+CORS_ORIGIN_ALLOW_ALL =  env_as_bool('DJANGO_CORS_ORIGIN_ALLOW_ALL', True) 
+CORS_ALLOWED_ORIGINS = env_as_list('DJANGO_CORS_ALLOWED_ORIGINS', [SUAP_BASE_URL])
+CSRF_TRUSTED_ORIGINS = env_as_list('DJANGO_CSRF_TRUSTED_ORIGINS', [])
+
 LAST_STARTUP = int(datetime.timestamp(datetime.now())*1000)
 
+
+# Observabilidade
 if env('SENTRY_DNS', None):
     sentry_sdk.init(
         dsn=env('SENTRY_DNS'),
@@ -285,15 +275,3 @@ if env('SENTRY_DNS', None):
         # transport=,
         # shutdown_timeout=env_as_int('SENTRY_SHUTDOWN_TIMEOUT', 2),
     )
-
-
-
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOWED_ORIGINS = [
-    "https://suap.ifrn.edu.br/accounts/logout/",
-    "http://localhost:8000",
-    "https://ava.ifrn.edu.br",
-    "http://ava.ifrn.edu.br",
-]
-
-CSRF_TRUSTED_ORIGINS=['https://ava.ifrn.edu.br', 'http://ava.ifrn.edu.br']
