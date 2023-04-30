@@ -26,7 +26,7 @@ django-sass==1.1.0
 
 # Database
 psycopg2-binary==2.9.6
-psycopg[binary,pool]==3.1.8
+# psycopg[binary,pool]==3.1.8
 
 # Image
 pillow==9.5.0
