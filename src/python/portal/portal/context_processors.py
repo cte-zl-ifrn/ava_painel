@@ -10,11 +10,11 @@ from a4.models import logged_user
 def layout_settings(request: HttpRequest) -> dict:
     usuario_personificado = request.session.get("usuario_personificado", None)
     return {
-        "site_title": "Portal",
+        "site_title": "Painel AVA",
         "layout_home_url_name": "portal:dashboard",
         "layout_register_url_name": "portal:register",
         "layout_term_of_use_url_name": "portal:term_of_use",
-        "layout_site_name": "Painel",
+        "layout_site_name": "Painel AVA",
         "logged_user": logged_user(request),
         "suap_base_url": settings.SUAP_BASE_URL,
         "personificando": usuario_personificado is not None,
