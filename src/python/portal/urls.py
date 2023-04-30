@@ -10,7 +10,7 @@ admin.site.site_header = admin.site.site_title
 
 urlpatterns = [
     path(
-        f"{settings.ROOT_URL_PATH}/",
+        f"{settings.ROOT_URL_PATH}",
         include(
             [
                 path("admin/login/", RedirectView.as_view(url="/login/")),
@@ -29,7 +29,6 @@ if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 else:
-    # exit()
     urlpatterns += [
         re_path("media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
         re_path("static/(?P<path>.*)$", serve, {"document_root": settings.STATIC_ROOT}),
@@ -39,5 +38,5 @@ if settings.DEBUG:
     import debug_toolbar
 
     urlpatterns.append(
-        path(f"{settings.ROOT_URL_PATH}/__debug__/", include(debug_toolbar.urls))
+        path(f"{settings.ROOT_URL_PATH}__debug__/", include(debug_toolbar.urls))
     )
