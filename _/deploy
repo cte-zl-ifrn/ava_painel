@@ -28,9 +28,12 @@ for repo in 'moodle__block_suapattendance' 'moodle__local_suap' 'moodle__auth_su
     fi
 done
 
-if [[ ! -d ../moodle-theme_moove ]]; then
-    echo "Clonando $repo"
-    git clone https://github.com/willianmano/moodle-theme_moove.git ../moodle-theme_moove
+if [[ ! -d ../moodle__theme_moove ]]; then
+    echo "Baixando o $repo"
+    wget https://moodle.org/plugins/download.php/28087/theme_moove_moodle41_2022112801.zip \
+    && unzip theme_moove_moodle41_2022112801.zip -d ../ \
+    && mv ../moove ../moodle__theme_moove \
+    && rm theme_moove_moodle41_2022112801.zip
 else
     echo "Repositório $repo já foi clonado anteriormente?"
 fi
