@@ -5,4 +5,4 @@ from django.apps import AppConfig
 class PortalConfig(AppConfig):
     name = "portal"
     verbose_name = "Portal"
-    icon = ""
+    icon = "fa fa-edit"
