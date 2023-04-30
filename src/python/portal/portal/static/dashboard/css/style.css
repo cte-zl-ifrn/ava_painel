@@ -72,6 +72,9 @@ h6 {
     margin-right: 30px;
 }
 
+.mobile-only {
+    display: none;
+}
 
 /* ===== HEADER: BEGIN ===== */
 
@@ -1322,6 +1325,7 @@ ul.menu-messages.show {
     padding: 0;
     margin-top: 24px !important;
     margin-right: -16px !important;
+    transform: translate3d(-14em, 21px, 0px) !important;
 }
 
 ul.menu-notifications.show {
@@ -1333,6 +1337,7 @@ ul.menu-notifications.show {
     border-radius: inherit;
     margin-top: 24px !important;
     padding: 0;
+    transform: translate3d(-14em, 21px, 0px) !important;
 }
 
 a.notifications-all,
@@ -1353,8 +1358,21 @@ ul.dropdown-ajuda {
     margin-left: -14px !important;
 }
 
+ul.dropdown-menu.dropdown-ajuda.show {
+    transform: translate3d(11px, 51.8182px, 0px) !important;
+    padding: 0px;
+}
+
 ul.dropdown-user {
     inset: 0px auto auto -38px;
+}
+
+ul.dropdown-menu.dropdown-user.show {
+    padding: 0px;
+    top: 1px !important;
+    margin-left: -185px !important;
+    transition: none;
+    width: 260px;
 }
 
 .dropdown-header-ajuda {
@@ -1475,11 +1493,6 @@ h6.central-atendimento {
 
 }
 
-/* .btn-dropdown-user.show::after,
-.btn-dropdown-user.show>span {
-    display: none !important;
-} */
-
 div#search-isempty {
     padding: 0px 30px 0px 30px;
 }
@@ -1533,7 +1546,23 @@ h6.central-atendimento::after {
 
 /* ===== MOBILE: BEGIN ===== */
 
-@media only screen and (min-width : 280px) and (max-width: 768px) {
+@media only screen and (max-width: 432px) {
+    .header-brand {
+        width: 48px;
+    }
+
+    .header-ajuda {
+        display: none;
+    }
+
+    .mobile-only {
+        display: block;
+    }
+
+    ul.menu-messages.show {
+        transform: translate3d(-1em, 21px, 0px) !important;
+    }
+
     #grid-filter {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -1545,285 +1574,50 @@ h6.central-atendimento::after {
     #grid-filter>div {
         margin: 4px;
     }
+}
 
-    .desktop-only {
+@media only screen and (min-width : 433px) and (max-width: 629px) {
+    .header-ajuda {
         display: none;
     }
 
-    #app>div>section {
-        margin-left: 15px;
-        margin-right: 15px;
+    .mobile-only {
+        display: block;
     }
 
-    .tab-menu>.nav-tabs>.nav-link {
-        text-transform: unset;
+    ul.menu-notifications.show {
+        transform: translate3d(-0em, 21px, 0px) !important;
     }
 
-    main>div>aside {
-        display: none;
+    ul.menu-messages.show {
+        transform: translate3d(-1em, 21px, 0px) !important;
+    }
+}
+
+@media only screen and (max-width : 720px) {
+    #grid-filter {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    ul.menu-principal {
-        width: 415px
-    }
-
-    #grid-header>div {
-        display: none;
-    }
-
-    a.page-scroll.barra {
-        display: none;
-    }
-
-    a.page-scroll.area_aluno {
-        width: auto;
-        display: contents;
-        font-size: 12px;
-    }
-
-    main>div {
-        display: contents;
+    #grid-filter>div:last-child {
+        grid-column: 1 / 3;
     }
 
     #grid-filter>div {
-        width: auto;
-        max-width: none;
-    }
-
-    #grid-header {
-        margin: 50px 0px 5px 0px;
-        width: auto;
-        padding-left: 20px;
-    }
-
-    span.user_nome {
-        display: none;
-    }
-
-    .dropdown.header-ajuda {
-        display: none;
-    }
-
-    .dropdown-header-ajuda {
-        display: initial !important;
-    }
-
-    .user_name {
-        display: none;
-    }
-
-    .header-user img {
-        margin: 17px auto 9px auto;
-    }
-
-    ;
-
-    ul.dropdown-menu.dropdown-user.show {
-        transform: translate3d(4px, 71px, 0px);
-    }
-
-    .btn-dropdown-user::after {
-        margin: -22px 0px 0px 0px;
-        width: 15px;
-    }
-
-    h6.central-atendimento {
-        border-top-left-radius: inherit;
-        border-top-right-radius: inherit;
-        background-color: unset;
+        margin: 4px;
     }
 }
 
-@media only screen and (min-width : 700px) and (max-width: 1024px) {
-    .dropdown.header-ajuda {
-        display: none;
-    }
-
-    .dropdown-header-ajuda {
-        display: initial !important;
-    }
-
-    .header-user img {
-        margin: 6px auto 0px auto;
-    }
-
-    .header-user {
-        top: 8px;
-    }
-
-    ul.dropdown-user {
-        inset: 0px auto auto -130px !important;
-    }
-
-    h6.central-atendimento {
-        border-top-left-radius: inherit;
-        border-top-right-radius: inherit;
-    }
-
-    ul.dropdown-menu.dropdown-user.show {
-        padding: 0;
-    }
-}
-
-@media only screen and (min-width : 465px) and (max-width: 1310px) {
+@media only screen and (min-width : 630px) and (max-width: 1346px) {
     ul.menu-notifications.show {
-        transform: translate3d(17px, 65px, 0px);
+        transform: translate3d(-0em, 21px, 0px) !important;
     }
 }
 
-@media only screen and (min-width : 366px) and (max-width: 465px) {
-    ul.menu-notifications.show {
-        width: 225px;
-        transform: translate3d(18px, 65px, 0px);
-    }
 
+@media only screen and (min-width : 630px) and (max-width: 1445px) {
     ul.menu-messages.show {
-        width: 225px;
-        transform: translate3d(-8px, 40px, 0px);
-    }
-}
-
-@media only screen and (min-width : 280px) and (max-width: 360px) {
-    ul.menu-notifications.show {
-        width: 225px;
-        transform: translate3d(-140px, 65px, 0px);
-    }
-
-    .header-brand {
-        margin: 20px 0px 0 16px;
-        width: 49px;
-        height: 60px;
-    }
-}
-
-@media only screen and (min-width : 361px) and (max-width: 375px) {
-    ul.menu-notifications.show {
-        width: 225px;
-        transform: translate3d(-140px, 65px, 0px);
-    }
-
-    .header-brand {
-        margin: 20px 0px 0 16px;
-        width: 49px;
-        height: 60px;
-    }
-}
-
-@media only screen and (min-width : 280px) and (max-width: 375px) {
-    ul.menu-notifications.show {
-        width: 200px;
-        transform: translate3d(-140px, 65px, 0px);
-    }
-
-    ul.menu-messages.show {
-        width: 220px;
-        transform: translate3d(-120px, 40px, 0px);
-    }
-
-    .header-brand {
-        margin: 20px 0px 0 16px;
-        width: 49px;
-        height: 60px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    ul.dropdown-menu.dropdown-user.show {
-        transform: translate3d(4px, 70px, 0px);
-        padding: 0;
-    }
-
-    h6.central-atendimento {
-        border-top-left-radius: 0px;
-        border-top-right-radius: 0px;
-    }
-
-}
-
-@media only screen and (min-width : 490px) and (max-width: 700px) {
-    ul.dropdown-menu.dropdown-user.show {
-        transform: translate3d(4px, 70px, 0px);
-        padding: 0;
-    }
-
-    h6.central-atendimento {
-        border-top-left-radius: 0px;
-        border-top-right-radius: 0px;
-    }
-
-    ul.menu-notifications.show {
-        width: 225px;
-        transform: translate3d(18px, 65px, 0px);
-    }
-
-    ul.menu-messages.show {
-        width: 225px;
-        transform: translate3d(-8px, 40px, 0px);
-    }
-}
-
-@media only screen and (min-width : 701px) and (max-width: 799px) {
-    .user_name {
-        display: none;
-    }
-
-    .btn-dropdown-user::after {
-        margin: -14px 0px 0px 0px;
-        width: 15px;
-    }
-}
-
-@media only screen and (min-width : 800px) and (max-width: 1023px) {
-    .user_name {
-        display: none;
-    }
-
-    .btn-dropdown-user::after {
-        margin: -14px 0px 0px 0px;
-        width: 15px;
-    }
-}
-
-@media only screen and (min-width : 1024px) and (max-width: 1292px) {
-    ul.dropdown-menu.dropdown-user.show {
-        transform: translate3d(15px, 70px, 0px) !important;
-        padding: 0px;
-    }
-
-    ul.menu-notifications.show {
-        transform: translate3d(4px, 45px, 0px) !important;
-    }
-
-    .mobile-only {
-        display: none;
-    }
-}
-
-@media only screen and (min-width : 1293px) and (max-width: 5880px) {
-    ul.menu-messages.show {
-        transform: translate3d(-15px, 21px, 0px) !important;
-    }
-
-    .mobile-only {
-        display: none;
-    }
-
-    ul.menu-notifications.show {
-        transform: translate3d(-0px, 21px, 0px) !important;
-    }
-
-    ul.dropdown-menu.dropdown-user.show {
-        /* transform: translate3d(-52px, 70px, 0px) !important; */
-        padding: 0px;
-        top: -8px !important;
-        margin-left: -185px !important;
-        transition: none;
-        width: 250px;
-    }
-
-    ul.dropdown-menu.dropdown-ajuda.show {
-        transform: translate3d(11px, 51.8182px, 0px) !important;
-        padding: 0px;
+        transform: translate3d(-1em, 21px, 0px) !important;
     }
 }
 
