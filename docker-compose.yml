@@ -7,7 +7,7 @@ services:
     volumes:
       - "./volumes/cache_data:/data"
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]      
+      test: [ "CMD", "redis-cli", "ping" ]
       interval: 3s
       timeout: 3s
       retries: 3
@@ -23,7 +23,7 @@ services:
       # database data
       - "./volumes/db_data:/var/lib/postgresql/data"
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "postgres"]
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
       interval: 3s
       timeout: 3s
       retries: 3
@@ -43,7 +43,10 @@ services:
 
   portal:
     image: 'ctezlifrn/avaportal:1.0.34'
-    build: src/python/portal
+    build:
+      context: src/python/portal
+      additional_contexts:
+        django-adminlte3: ../django-adminlte3
     ports:
       - 8000:8000
     env_file:
@@ -51,6 +54,7 @@ services:
       - ./confs/enabled/cache.env
       - ./confs/enabled/portal.env
     volumes:
+      - '../django-adminlte3:/app/django-adminlte3'
       - './src/python/portal:/apps/app'
       - './volumes/portal_media:/var/media'
       - './volumes/portal_static:/var/static'
@@ -89,7 +93,11 @@ services:
       db:
         condition: service_healthy
     healthcheck:
-      test: ["CMD-SHELL", "curl --silent --fail http://ava/ | grep AVA_01 || exit 1"]
+      test:
+        [
+          "CMD-SHELL",
+          "curl --silent --fail http://ava/ | grep AVA_01 || exit 1"
+        ]
       interval: 3s
       timeout: 1s
       start_period: 1s
