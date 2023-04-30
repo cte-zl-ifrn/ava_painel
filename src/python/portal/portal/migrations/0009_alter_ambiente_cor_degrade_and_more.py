@@ -4,20 +4,27 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('portal', '0008_remove_ambiente_cor_remove_ambiente_cor_sutil_and_more'),
+        ("portal", "0008_remove_ambiente_cor_remove_ambiente_cor_sutil_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='ambiente',
-            name='cor_degrade',
-            field=models.CharField(help_text="Escolha uma cor em RGB. Ex.: <span style='background: #53296d; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#53296d</span> <span style='background: #203d60; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#203d60</span> <span style='background: #315810; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#315810</span> <span style='background: #ae8133; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#ae8133</span> <span style='background: #d05623; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#d05623</span> <span style='background: #fd7941; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#fd7941</span>", max_length=255, verbose_name='cor degradê do ambiente'),
+            model_name="ambiente",
+            name="cor_degrade",
+            field=models.CharField(
+                help_text="Escolha uma cor em RGB. Ex.: <span style='background: #53296d; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#53296d</span> <span style='background: #203d60; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#203d60</span> <span style='background: #315810; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#315810</span> <span style='background: #ae8133; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#ae8133</span> <span style='background: #d05623; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#d05623</span> <span style='background: #fd7941; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#fd7941</span>",
+                max_length=255,
+                verbose_name="cor degradê do ambiente",
+            ),
         ),
         migrations.AlterField(
-            model_name='historicalambiente',
-            name='cor_degrade',
-            field=models.CharField(help_text="Escolha uma cor em RGB. Ex.: <span style='background: #53296d; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#53296d</span> <span style='background: #203d60; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#203d60</span> <span style='background: #315810; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#315810</span> <span style='background: #ae8133; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#ae8133</span> <span style='background: #d05623; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#d05623</span> <span style='background: #fd7941; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#fd7941</span>", max_length=255, verbose_name='cor degradê do ambiente'),
+            model_name="historicalambiente",
+            name="cor_degrade",
+            field=models.CharField(
+                help_text="Escolha uma cor em RGB. Ex.: <span style='background: #53296d; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#53296d</span> <span style='background: #203d60; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#203d60</span> <span style='background: #315810; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#315810</span> <span style='background: #ae8133; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#ae8133</span> <span style='background: #d05623; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#d05623</span> <span style='background: #fd7941; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>#fd7941</span>",
+                max_length=255,
+                verbose_name="cor degradê do ambiente",
+            ),
         ),
     ]

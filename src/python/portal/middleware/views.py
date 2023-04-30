@@ -8,26 +8,30 @@ from sentry_sdk import capture_exception
 from portal.models import Diario, h2d, SyncError
 from middleware.models import Solicitacao
 
+
 def raise_error(request, error):
     event_id = capture_exception(error)
     try:
-        message_string = request.body.decode('utf-8')
+        message_string = request.body.decode("utf-8")
     except:
         message_string = request.body
     solicitacao = Solicitacao.objects.create(
         status=Solicitacao.Status.FALHA,
-        campus=error.campus if 'campus' in dir(error) else None,
+        campus=error.campus if "campus" in dir(error) else None,
         status_code=error.code,
-        
         requisicao_header=h2d(request),
         requisicao=message_string,
-        
         resposta_header=h2d(error.retorno) if error.retorno else None,
-        resposta=error.retorno.text if error.retorno else None
+        resposta=error.retorno.text if error.retorno else None,
     )
-    
-    error_json = {"error": error.message, "code": error.code, "solicitacao_id": solicitacao.id, 'event_id': event_id}
-        
+
+    error_json = {
+        "error": error.message,
+        "code": error.code,
+        "solicitacao_id": solicitacao.id,
+        "event_id": event_id,
+    }
+
     return JsonResponse(error_json, status=error.code)
 
 
@@ -35,18 +39,23 @@ def raise_error(request, error):
 @transaction.atomic
 def moodle_suap(request):
     try:
-        if not hasattr(settings, 'SUAP_EAD_KEY'):
-            raise SyncError("Você se esqueceu de configurar a settings 'SUAP_EAD_KEY'.", 428)
-        
-        if 'HTTP_AUTHENTICATION' not in request.META:
+        if not hasattr(settings, "SUAP_EAD_KEY"):
+            raise SyncError(
+                "Você se esqueceu de configurar a settings 'SUAP_EAD_KEY'.", 428
+            )
+
+        if "HTTP_AUTHENTICATION" not in request.META:
             raise SyncError("Envie o token de autenticação no header.", 431)
 
-        if f"Token {settings.SUAP_EAD_KEY}" != request.META['HTTP_AUTHENTICATION']:
-            raise SyncError("Você enviou um token de auteticação diferente do que tem na settings 'SUAP_EAD_KEY'.", 403)
+        if f"Token {settings.SUAP_EAD_KEY}" != request.META["HTTP_AUTHENTICATION"]:
+            raise SyncError(
+                "Você enviou um token de auteticação diferente do que tem na settings 'SUAP_EAD_KEY'.",
+                403,
+            )
 
-        if request.method == 'POST':
+        if request.method == "POST":
             try:
-                message_string = request.body.decode('utf-8')
+                message_string = request.body.decode("utf-8")
             except:
                 return SyncError("Erro ao decodificar o JSON", 502)
             return JsonResponse(Diario.sync(message_string, h2d(request)))
@@ -55,4 +64,4 @@ def moodle_suap(request):
         return raise_error(request, e)
     except Exception as e:
         event_id = capture_exception(e)
-        return JsonResponse({"error": str(e), "code": 500, 'event_id': event_id})
+        return JsonResponse({"error": str(e), "code": 500, "event_id": event_id})

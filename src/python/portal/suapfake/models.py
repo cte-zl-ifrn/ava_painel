@@ -3,23 +3,17 @@ from django.utils.translation import gettext as _
 from django.conf import settings
 from django.db.models import Model, CharField, JSONField
 
+
 def get_default_pacote():
     return {
-        "campus": {
-            "id": 1,
-            "descricao": "Campus EaD",
-            "sigla": "EAD"
-        },
+        "campus": {"id": 1, "descricao": "Campus EaD", "sigla": "EAD"},
         "curso": {
             "id": 1,
             "codigo": "00001",
             "nome": "Tecnologia em Redes de Computadores",
-            "descricao": "Tecnologia em Redes de Computadores - Nome Completo do Campus"
+            "descricao": "Tecnologia em Redes de Computadores - Nome Completo do Campus",
         },
-        "turma": {
-            "id": 1,
-            "codigo": "20221.6.00001.1E"
-        },
+        "turma": {"id": 1, "codigo": "20221.6.00001.1E"},
         "componente": {
             "id": 1,
             "sigla": "TEC.0001",
@@ -28,14 +22,14 @@ def get_default_pacote():
             "periodo": None,
             "tipo": 1,
             "optativo": False,
-            "qtd_avaliacoes": 2
+            "qtd_avaliacoes": 2,
         },
         "diario": {
             "id": 1,
             "situacao": "Aberto",
             "descricao": "Bancos de Dados",
             "descricao_historico": "Bancos de Dados",
-            "sigla": "TEC.0001"
+            "sigla": "TEC.0001",
         },
         "professores": [
             {
@@ -45,7 +39,7 @@ def get_default_pacote():
                 "email": "nome.sobrenome@ifrn.edu.br",
                 "email_secundario": "nome.sobrenome@gmail.com",
                 "status": "ativo",
-                "tipo": "Principal"
+                "tipo": "Principal",
             }
         ],
         "alunos": [
@@ -56,24 +50,22 @@ def get_default_pacote():
                 "email": "nome.compelto@academico.ifrn.edu.br",
                 "email_secundario": "nome.completo@hotmail.com",
                 "situacao": "ativo",
-                "polo": {
-                    'id': 1,
-                    'nome': 'Pólo Assú'
-                }
+                "polo": {"id": 1, "nome": "Pólo Assú"},
             }
-        ]
+        ],
     }
+
 
 class Diario(Model):
     # suap_id = CharField(_('ID do diário no SUAP'), max_length=255, unique=True)
     # codigo = CharField(_('código do diário'), max_length=255, unique=True)
-    pacote_enviado = JSONField(_('pacote a enviar/enviado'), default=get_default_pacote)
-    pacote_recebido = JSONField(_('pacote recebido'), null=True, blank=True)
-    
+    pacote_enviado = JSONField(_("pacote a enviar/enviado"), default=get_default_pacote)
+    pacote_recebido = JSONField(_("pacote recebido"), null=True, blank=True)
+
     class Meta:
         verbose_name = _("diário fake")
         verbose_name_plural = _("diários fake")
-        ordering = ['id']
+        ordering = ["id"]
 
     def __str__(self):
         return f'{self.pacote_enviado["turma"]["codigo"]}.{self.pacote_enviado["diario"]["sigla"]}'

@@ -9,5 +9,5 @@ app_name = PortalConfig.name
 
 urlpatterns = [
     path("portal/api/v1/", api.urls),
-    path('', dashboard, name="dashboard"),
+    path("", dashboard, name="dashboard"),
 ]

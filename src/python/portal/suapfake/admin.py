@@ -10,7 +10,7 @@ from django.contrib.admin.utils import flatten_fieldsets, unquote
 from django.contrib.admin import helpers
 from django.forms.formsets import all_valid
 from django.core.exceptions import PermissionDenied
-from django.utils.html import format_html 
+from django.utils.html import format_html
 from django.urls import path, reverse
 from django.views.generic import RedirectView
 from django.template.response import SimpleTemplateResponse, TemplateResponse
@@ -21,16 +21,16 @@ import requests
 
 @admin.register(Diario)
 class DiarioAdmin(admin.ModelAdmin):
-    list_display = ['codigo_diario', 'acoes']
-    readonly_fields = ['pacote_recebido']
+    list_display = ["codigo_diario", "acoes"]
+    readonly_fields = ["pacote_recebido"]
 
     def codigo_diario(self, obj):
         return f"{obj}"
 
     def acoes(self, obj):
         if obj.pacote_recebido:
-            if 'url' in obj.pacote_recebido:
-                url = obj.pacote_recebido['url']
+            if "url" in obj.pacote_recebido:
+                url = obj.pacote_recebido["url"]
                 return format_html(
                     f'<a style="border: 1px solid black; padding: 0 5px; background: silver; color: black; margin: 0 5px 0 0;" href="{reverse("admin:suapfake_diario_sync", args=[obj.id])}">Sincronizar</a>'
                     f'<a style="border: 1px solid black; padding: 0 5px; background: aquamarine; color: black; margin: 0 5px 0 0;" href="{url}">Acessar AVA</a>'
@@ -45,9 +45,9 @@ class DiarioAdmin(admin.ModelAdmin):
                 f'<a style="border: 1px solid black; padding: 0 5px; background: silver; color: black; margin: 0 5px 0 0;" href="{reverse("admin:suapfake_diario_sync", args=[obj.id])}">Sincronizar</a>'
             )
 
-    acoes.short_description = 'Ações'
+    acoes.short_description = "Ações"
     acoes.allow_tags = True
-    
+
     def get_urls(self):
         def wrap(view):
             def wrapper(*args, **kwargs):
@@ -55,9 +55,14 @@ class DiarioAdmin(admin.ModelAdmin):
 
             wrapper.model_admin = self
             return update_wrapper(wrapper, view)
+
         info = self.model._meta.app_label, self.model._meta.model_name
-        return [ 
-            path( "<path:object_id>/sync_moodle/", wrap(self.sync_view), name="%s_%s_sync" % info) 
+        return [
+            path(
+                "<path:object_id>/sync_moodle/",
+                wrap(self.sync_view),
+                name="%s_%s_sync" % info,
+            )
         ] + super().get_urls()
 
     def sync_view(self, request, object_id, form_url="", extra_context=None):
@@ -67,16 +72,18 @@ class DiarioAdmin(admin.ModelAdmin):
             raise Exception(f"Erro ao tentar sincronizar. Diário não localizado.")
         try:
             response = requests.post(
-                url=settings.MOODLE_SYNC_URL, 
-                json=diario.pacote_enviado, 
-                headers={'AUTHENTICATION': f'Token {settings.MOODLE_SYNC_TOKEN}'}
+                url=settings.MOODLE_SYNC_URL,
+                json=diario.pacote_enviado,
+                headers={"AUTHENTICATION": f"Token {settings.MOODLE_SYNC_TOKEN}"},
             )
         except Exception as e:
             raise Exception(f"Erro ao tentar sincronizar. Resposta inválida: {e}")
-            
+
         try:
             diario.pacote_recebido = json.loads(response.content)
             diario.save()
-            return redirect('admin:suapfake_diario_changelist')
+            return redirect("admin:suapfake_diario_changelist")
         except Exception as e:
-            raise Exception(f"Erro ao tentar sincronizar. Não foi possível converter para JSON. {response.content}")
+            raise Exception(
+                f"Erro ao tentar sincronizar. Não foi possível converter para JSON. {response.content}"
+            )

@@ -5,14 +5,15 @@ from django.db import connection
 
 def health(request):
     debug = "FAIL (are active)" if settings.DEBUG else "OK"
-    
+
     try:
         connection.connect()
         connection_result = "OK"
     except:
         connection_result = "FAIL"
 
-    return HttpResponse(f"""
+    return HttpResponse(
+        f"""
         <pre>
             Reverse proxy: OK.
             Django: OK.
@@ -22,4 +23,5 @@ def health(request):
             LDAP: Not tested.
             Debug: {debug}.
         </pre>
-        """)
+        """
+    )

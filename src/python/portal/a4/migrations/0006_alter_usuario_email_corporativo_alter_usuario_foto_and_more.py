@@ -4,40 +4,54 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('a4', '0005_usuario_foto_alter_usuario_email_google_classroom_and_more'),
+        ("a4", "0005_usuario_foto_alter_usuario_email_google_classroom_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='usuario',
-            name='email_corporativo',
-            field=models.EmailField(blank=True, max_length=254, null=True, verbose_name='e-Mail corporativo'),
+            model_name="usuario",
+            name="email_corporativo",
+            field=models.EmailField(
+                blank=True, max_length=254, null=True, verbose_name="e-Mail corporativo"
+            ),
         ),
         migrations.AlterField(
-            model_name='usuario',
-            name='foto',
-            field=models.CharField(blank=True, max_length=255, null=True, verbose_name='URL da foto'),
+            model_name="usuario",
+            name="foto",
+            field=models.CharField(
+                blank=True, max_length=255, null=True, verbose_name="URL da foto"
+            ),
         ),
         migrations.AlterField(
-            model_name='usuario',
-            name='nome',
-            field=models.CharField(blank=True, max_length=255, null=True, verbose_name='nome no SUAP'),
+            model_name="usuario",
+            name="nome",
+            field=models.CharField(
+                blank=True, max_length=255, null=True, verbose_name="nome no SUAP"
+            ),
         ),
         migrations.AlterField(
-            model_name='usuario',
-            name='nome_social',
-            field=models.CharField(blank=True, max_length=255, null=True, verbose_name='nome social'),
+            model_name="usuario",
+            name="nome_social",
+            field=models.CharField(
+                blank=True, max_length=255, null=True, verbose_name="nome social"
+            ),
         ),
         migrations.AlterField(
-            model_name='usuario',
-            name='nome_usual',
-            field=models.CharField(blank=True, max_length=255, null=True, verbose_name='nome de apresentação'),
+            model_name="usuario",
+            name="nome_usual",
+            field=models.CharField(
+                blank=True,
+                max_length=255,
+                null=True,
+                verbose_name="nome de apresentação",
+            ),
         ),
         migrations.AlterField(
-            model_name='usuario',
-            name='tipo_usuario',
-            field=models.CharField(blank=True, max_length=255, null=True, verbose_name='tipo'),
+            model_name="usuario",
+            name="tipo_usuario",
+            field=models.CharField(
+                blank=True, max_length=255, null=True, verbose_name="tipo"
+            ),
         ),
     ]

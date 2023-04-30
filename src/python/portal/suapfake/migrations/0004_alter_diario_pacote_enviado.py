@@ -5,15 +5,17 @@ import suapfake.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('suapfake', '0003_alter_diario_pacote_enviado'),
+        ("suapfake", "0003_alter_diario_pacote_enviado"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='diario',
-            name='pacote_enviado',
-            field=models.JSONField(default=suapfake.models.get_default_pacote, verbose_name='pacote a enviar/enviado'),
+            model_name="diario",
+            name="pacote_enviado",
+            field=models.JSONField(
+                default=suapfake.models.get_default_pacote,
+                verbose_name="pacote a enviar/enviado",
+            ),
         ),
     ]

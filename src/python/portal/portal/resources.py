@@ -6,26 +6,39 @@ from import_export.widgets import ForeignKeyWidget, DateTimeWidget
 from .models import Ambiente, Campus, Curso
 
 
-DEFAULT_DATETIME_FORMAT = '%d/%m/%Y %H:%M:%S'
+DEFAULT_DATETIME_FORMAT = "%d/%m/%Y %H:%M:%S"
 DEFAULT_DATETIME_FORMAT_WIDGET = DateTimeWidget(format=DEFAULT_DATETIME_FORMAT)
 
 
 class AmbienteResource(ModelResource):
     class Meta:
         model = Ambiente
-        export_order = ('sigla', 'nome', 'url', 'token', 'cor_mestra', 'cor_degrade', 'cor_progresso', 'active')
-        import_id_fields = ('sigla',)
+        export_order = (
+            "sigla",
+            "nome",
+            "url",
+            "token",
+            "cor_mestra",
+            "cor_degrade",
+            "cor_progresso",
+            "active",
+        )
+        import_id_fields = ("sigla",)
         fields = export_order
         skip_unchanged = True
 
 
 class CampusResource(ModelResource):
-    ambiente = Field(attribute='ambiente', column_name='sigla_ambiente', widget=ForeignKeyWidget(Ambiente, field='sigla'))
-    
+    ambiente = Field(
+        attribute="ambiente",
+        column_name="sigla_ambiente",
+        widget=ForeignKeyWidget(Ambiente, field="sigla"),
+    )
+
     class Meta:
         model = Campus
-        export_order = ('sigla', 'descricao', 'ambiente', 'suap_id', 'active')
-        import_id_fields = ('sigla',)
+        export_order = ("sigla", "descricao", "ambiente", "suap_id", "active")
+        import_id_fields = ("sigla",)
         fields = export_order
         skip_unchanged = True
 
@@ -33,8 +46,8 @@ class CampusResource(ModelResource):
 class CursoResource(ModelResource):
     class Meta:
         model = Curso
-        export_order = ('codigo', 'nome', 'descricao', 'suap_id')
-        import_id_fields = ('codigo',)
+        export_order = ("codigo", "nome", "descricao", "suap_id")
+        import_id_fields = ("codigo",)
         fields = export_order
         skip_unchanged = True
 
@@ -80,7 +93,7 @@ class CursoResource(ModelResource):
 #     aceitou_termo_uso_em = Field(attribute='aceitou_termo_uso_em', column_name='aceitou_termo_uso_em', widget=DEFAULT_DATETIME_FORMAT_WIDGET)
 #     membro_da_equipe = Field(attribute='is_staff', column_name='membro_da_equipe')
 #     ativo = Field(attribute='is_active', column_name='ativo')
- 
+
 #     class Meta:
 #         model = Usuario
 #         export_order = ('cpf', 'email', 'nome_completo', 'cadastrado_em', 'primeiro_login_em', 'ultimo_login_em', 'aceitou_termo_uso_em', 'ativo', 'membro_da_equipe')
@@ -112,7 +125,7 @@ class CursoResource(ModelResource):
 #     class Meta:
 #         model = Aluno
 #         export_order = ('usuario', 'nome_completo', 'email', 'cadastrado_em', 'primeiro_login_em', 'ultimo_login_em', 'aceitou_termo_uso_em')
-    
+
 
 # class RepresentanteResource(UsuarioMixin):
 #     papel = Field(attribute='papel', column_name='papel', )
@@ -120,7 +133,7 @@ class CursoResource(ModelResource):
 
 #     def get_import_fields(self):
 #         return [field for fieldname, field in self.fields.items() if fieldname in ('instituicao', 'papel', 'instituicao', 'usuario')]
-    
+
 #     class Meta:
 #         model = Representante
 #         export_order = ('papel', 'instituicao') + UsuarioMixin.Meta.export_order

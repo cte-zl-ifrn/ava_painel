@@ -4,26 +4,42 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Diario',
+            name="Diario",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('suap_id', models.CharField(max_length=255, unique=True, verbose_name='ID do diário no SUAP')),
-                ('codigo', models.CharField(max_length=255, unique=True, verbose_name='código do diário')),
-                ('pacote_enviado', models.JSONField(verbose_name='pacote enviado')),
-                ('pacote_recebido', models.JSONField(verbose_name='pacote recebido')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "suap_id",
+                    models.CharField(
+                        max_length=255, unique=True, verbose_name="ID do diário no SUAP"
+                    ),
+                ),
+                (
+                    "codigo",
+                    models.CharField(
+                        max_length=255, unique=True, verbose_name="código do diário"
+                    ),
+                ),
+                ("pacote_enviado", models.JSONField(verbose_name="pacote enviado")),
+                ("pacote_recebido", models.JSONField(verbose_name="pacote recebido")),
             ],
             options={
-                'verbose_name': 'diário',
-                'verbose_name_plural': 'diários',
-                'ordering': ['codigo'],
+                "verbose_name": "diário",
+                "verbose_name_plural": "diários",
+                "ordering": ["codigo"],
             },
         ),
     ]

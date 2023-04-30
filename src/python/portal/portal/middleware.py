@@ -18,18 +18,21 @@ class GoToHTTPSMiddleware(MiddlewareMixin):
         The RP need to inform HTTP_X_FORWARDED_PROTO and HTTP_X_FORWARDED_HOST.
         If RP dont inform HTTP_X_FORWARDED_PROTO http will be assumed.
     """
+
     def process_request(self, request):
         meta = request.META
 
-        if not getattr(settings, 'GO_TO_HTTPS', False):
+        if not getattr(settings, "GO_TO_HTTPS", False):
             return None
-        
-        host = meta['HTTP_X_FORWARDED_HOST'] or request.get_host()
+
+        host = meta["HTTP_X_FORWARDED_HOST"] or request.get_host()
         url = "https://%s%s" % (host, request.get_full_path())
 
-        if 'HTTP_X_FORWARDED_PROTO' in meta and meta['HTTP_X_FORWARDED_PROTO'] == 'http':
+        if (
+            "HTTP_X_FORWARDED_PROTO" in meta
+            and meta["HTTP_X_FORWARDED_PROTO"] == "http"
+        ):
             return HttpResponseRedirect(url)
 
-        if 'HTTP_X_FORWARDED_PROTO' not in meta:
+        if "HTTP_X_FORWARDED_PROTO" not in meta:
             return HttpResponseRedirect(url)
-

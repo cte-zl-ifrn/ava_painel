@@ -7,5 +7,5 @@ app_name = MiddlewareConfig.name
 
 
 urlpatterns = [
-    path('api/moodle_suap/', moodle_suap, name="api_moodle_suap"),
+    path("api/moodle_suap/", moodle_suap, name="api_moodle_suap"),
 ]

@@ -4,14 +4,17 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('suapfake', '0004_alter_diario_pacote_enviado'),
+        ("suapfake", "0004_alter_diario_pacote_enviado"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='diario',
-            options={'ordering': ['id'], 'verbose_name': 'diário fake', 'verbose_name_plural': 'diários fake'},
+            name="diario",
+            options={
+                "ordering": ["id"],
+                "verbose_name": "diário fake",
+                "verbose_name_plural": "diários fake",
+            },
         ),
     ]

@@ -4,16 +4,20 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('portal', '0001_initial'),
+        ("portal", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='ambiente',
-            name='cor',
-            field=models.CharField(default='#438f4b', help_text="Escolha uma cor em RGB. Ex.: <span style='#a154d0'>#a154d0</span>, <span style='#438f4b'>#438f4b</span>, <span style='#c90c0f'>#c90c0f</span>, etc ", max_length=255, verbose_name='cor do ambiente'),
+            model_name="ambiente",
+            name="cor",
+            field=models.CharField(
+                default="#438f4b",
+                help_text="Escolha uma cor em RGB. Ex.: <span style='#a154d0'>#a154d0</span>, <span style='#438f4b'>#438f4b</span>, <span style='#c90c0f'>#c90c0f</span>, etc ",
+                max_length=255,
+                verbose_name="cor do ambiente",
+            ),
             preserve_default=False,
         ),
     ]
