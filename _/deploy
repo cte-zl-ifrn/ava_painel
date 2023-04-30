@@ -19,7 +19,7 @@ if ! grep -q 'PORTAL-AVA' /etc/hosts; then
     ' | sudo tee -a /etc/hosts
 fi
 
-for repo in 'moodle__block_suapattendance' 'moodle__local_suap' 'moodle__auth_suap' 'moodle__theme_maeve' 'moodle__image'; do
+for repo in 'moodle__block_suapattendance' 'moodle__local_suap' 'moodle__auth_suap' 'moodle__image' 'moodle__theme_moove'; do
     if [[ ! -d ../$repo ]]; then
         echo "Clonando $repo"
         git clone https://github.com/cte-zl-ifrn/$repo.git ../$repo
@@ -27,16 +27,6 @@ for repo in 'moodle__block_suapattendance' 'moodle__local_suap' 'moodle__auth_su
         echo "Repositório $repo já foi clonado anteriormente?"
     fi
 done
-
-if [[ ! -d ../moodle__theme_moove ]]; then
-    echo "Baixando o $repo"
-    wget https://moodle.org/plugins/download.php/28087/theme_moove_moodle41_2022112801.zip \
-    && unzip theme_moove_moodle41_2022112801.zip -d ../ \
-    && mv ../moove ../moodle__theme_moove \
-    && rm theme_moove_moodle41_2022112801.zip
-else
-    echo "Repositório $repo já foi clonado anteriormente?"
-fi
 
 if [[ ! -d ../django-adminlte3 ]]; then
     echo "Clonando $repo"
