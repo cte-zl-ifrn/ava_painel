@@ -96,6 +96,9 @@ class Usuario(AbstractUser):
         )
 
 
+Usuario._meta.icon = "fa fa-user"
+
+
 class UsuarioAnonimo:
     username = "anonimo"
     nome_registro = "Anônimo"
