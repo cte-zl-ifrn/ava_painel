@@ -3,6 +3,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+src/postgres/zzz-backup.sql
 
 # C extensions
 *.so
