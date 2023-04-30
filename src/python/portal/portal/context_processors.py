@@ -14,7 +14,7 @@ def layout_settings(request: HttpRequest) -> dict:
         "layout_home_url_name": "portal:dashboard",
         "layout_register_url_name": "portal:register",
         "layout_term_of_use_url_name": "portal:term_of_use",
-        "layout_site_name": "Portal",
+        "layout_site_name": "Painel",
         "logged_user": logged_user(request),
         "suap_base_url": settings.SUAP_BASE_URL,
         "personificando": usuario_personificado is not None,
