@@ -126,11 +126,3 @@ class InscricaoAdmin(BaseModelAdmin):
     list_display = ["diario", "usuario", "papel", "polo", "active"]
     list_filter = ["active", "papel", "polo"] + BaseModelAdmin.list_filter
     search_fields = ["diario__codigo", "usuario__username"]
-
-    class Meta:
-        verbose_name = _("inscrição")
-        verbose_name_plural = _("inscrições")
-        ordering = ["diario", "usuario"]
-
-    def __str__(self):
-        return f"{self.diario} - {self.usuario}"
