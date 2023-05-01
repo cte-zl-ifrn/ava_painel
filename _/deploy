@@ -19,23 +19,25 @@ if ! grep -q 'PORTAL-AVA' /etc/hosts; then
     ' | sudo tee -a /etc/hosts
 fi
 
+pwd=`pwd`
 for repo in 'moodle__block_suapattendance' 'moodle__local_suap' 'moodle__auth_suap' 'moodle__image' 'moodle__theme_moove'; do
     if [[ ! -d ../$repo ]]; then
         echo "Clonando $repo"
         git clone https://github.com/cte-zl-ifrn/$repo.git ../$repo
+        cd ../$repo
+        git checkout ctezlifrn 
+        cd $pwd
     else
         echo "Repositório $repo já foi clonado anteriormente?"
     fi
 done
 
 if [[ ! -d ../django-adminlte3 ]]; then
-    echo "Clonando $repo"
+    echo "Clonando django-adminlte3"
     git clone https://github.com/kelsoncm/django-adminlte3.git ../django-adminlte3
 else
-    echo "Repositório $repo já foi clonado anteriormente?"
+    echo "Repositório django-adminlte3 já foi clonado anteriormente?"
 fi
-
-
 
 mkdir -p volumes/moodle_data && chmod 777 volumes/moodle_data
 
