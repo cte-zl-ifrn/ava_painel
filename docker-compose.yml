@@ -71,7 +71,8 @@ services:
       #   retries: 30
 
   ava:
-    image: registry.gitlab.com/zl-installs/zl-ava-installs/moodle:moodle4.1.3-php8.1-release001.039
+    image: ctezlifrn/moodle:moodle4.1.3-php8.1-release001
+    # image: registry.gitlab.com/zl-installs/zl-ava-installs/moodle:moodle4.1.3-php8.1-release001.041
     ports:
       - 8080:80
     env_file:
@@ -85,7 +86,7 @@ services:
       - '../moodle__auth_suap:/var/www/html/auth/suap'
       - '../moodle__local_suap:/var/www/html/local/suap'
       - '../moodle__block_suapattendance:/var/www/html/blocks/suapattendance'
-      - '../moodle__theme_moove:/var/www/html/theme/moove'
+      # - '../moodle__theme_moove:/var/www/html/theme/moove'
       # Data
       - './volumes/moodle_data:/var/moodledata'
     depends_on:
