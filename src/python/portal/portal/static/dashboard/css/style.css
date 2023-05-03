@@ -3,8 +3,9 @@
 * {
     margin: 0;
     padding: 0;
+    /* box-sizing: border-box; */
     text-align: left;
-    font-family: var(--unnamed-font-family-noto-sans);
+    font-family: 'Noto Sans', Helvetica, Arial, sans-serif;
 
     -moz-transition: all 100ms ease-in;
     -webkit-transition: all 100ms ease-in;
@@ -15,8 +16,8 @@
 
 body {
     min-height: 100%;
-    background: var(--background-body) !important;
-    color: var(--escuro-primario) !important;
+    background: #f2f3f5 !important;
+    color: #565656;
 }
 
 h1,
@@ -25,7 +26,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: var(--unnamed-font-family-noto-sans);
+    font-family: 'Noto Sans', Helvetica, Arial, sans-serif;
     font-weight: 400;
     margin-bottom: 10px;
 }
@@ -37,48 +38,31 @@ h6 {
 
 :root {
     /* Colors: */
-    --vermelho-terciario: #FFBAB2;
-    --vermelho-primario: #FC0D1B;
-    --vermelho-secundario: #A20A0A;
-    --laranja-terciario: #FFD1BE;
-    --laranja-primario: #FD7941;
-    --laranja-secundario: #D14507;
-    --amarelo-terciario: #FFEBCA;
-    --amarelo-primario: #FABD57;
-    --amarelo-secundario: #AE8133;
-    --verde-terciario: #D2F4B7;
-    --verde-primario: #61C924;
-    --verde-secundario: #347932;
-    --verde-botao: #31872D;
-    --azul-terciario: #B4D0F2;
-    --azul-primario: #0F6CBF;
-    --azul-secundario: #203D60;
-    --roxo-secundario: #53296D;
-    --roxo-primario: #A04ED0;
-    --roxo-terciario: #ECDAFA;
-    --escuro-primario: #1D2125;
-    --cinza-primario: #7D848B;
-    --cinza-secundario: #54595E;
-    --cinza-terciario: #DFDFDF;
-    --branco-primario: #FFFFFF;
-    --header-color: #363940;
-    --background-color: #FAFAFA;
-    --background-body: #F2F3F5 ;
+    --unnamed-color-347932: #347932;
+    --unnamed-color-7d848b: #7D848B;
+    --unnamed-color-1d2125: #1D2125;
+    --unnamed-color-0f6cbf: #0F6CBF;
+    --unnamed-color-ffffff: #FFFFFF;
+    --unnamed-color-dfdfdf: #DFDFDF;
 
     /* Font/text values */
-    --unnamed-font-family-noto-sans: 'Noto Sans';
+    --unnamed-font-family-noto-sans: Noto Sans;
     --unnamed-font-style-normal: normal;
-    --unnamed-font-weight-600: 600px;
-    --unnamed-font-weight-medium: medium;
-    --unnamed-font-weight-normal: normal;
     --unnamed-font-weight-bold: bold;
-    --unnamed-font-size-9: 9px;
+    --unnamed-font-weight-medium: medium;
+    --unnamed-font-size-12: 12px;
     --unnamed-font-size-14: 14px;
     --unnamed-font-size-16: 16px;
-    --unnamed-font-size-24: 24px;
+    --unnamed-font-size-18: 18px;
+    --unnamed-font-size-20: 20px;
+    --unnamed-font-size-22: 22px;
+    --unnamed-font-size-32: 32px;
     --unnamed-font-size-40: 40px;
     --unnamed-character-spacing-0: 0px;
-    --unnamed-line-spacing-22: 22px;
+    --unnamed-character-spacing-0-8: 0.8px;
+    --unnamed-line-spacing-21: 21px;
+    --unnamed-line-spacing-26: 26px;
+    --unnamed-line-spacing-32: 32px;
     --unnamed-text-transform-uppercase: uppercase;
 }
 
@@ -95,7 +79,7 @@ h6 {
 /* ===== HEADER: BEGIN ===== */
 
 header {
-    background-color: var(--header-color);
+    background-color: #363940;
     height: 80px;
     width: 100%;
 }
@@ -136,7 +120,7 @@ ul.menu-principal {
     top: -9px;
     height: 42px;
     /* width: 472px; */
-    background-color: var(--branco-primario);
+    background-color: #ffff;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     border-radius: 0px 0px 0.65rem 0.65rem;
     display: inline-flex;
@@ -159,7 +143,7 @@ ul.menu-principal {
 .header-user a:hover,
 .header-user a:active {
     text-decoration: none !important;
-    color: var(--escuro-primario);
+    color: #1D2125;
     display: inline-block;
     text-align: left;
     font-size: 90%;
@@ -186,14 +170,14 @@ ul.menu-principal {
     height: 60px;
     margin: 10px 0 0 0;
     padding: 17px 10px;
-    border-right: 1px solid var(--branco-primario);
+    border-right: 1px solid #fff;
 }
 
 .header-ajuda a,
 .header-ajuda a:hover,
 .header-ajuda a:active {
     text-decoration: none !important;
-    color: var(--escuro-primario);
+    color: #1D2125;
     display: inline-block;
     text-align: left;
     font-size: 90%;
@@ -213,7 +197,7 @@ ul.menu-principal {
 
 a.page-scroll.area_aluno {
     color: #5bc266;
-    font-size: var(--unnamed-font-size-14);
+    font-size: 14px;
     font-weight: 600;
 }
 
@@ -232,7 +216,7 @@ a.page-scroll {
 }
 
 #grid-header>div {
-    font-size: var(--unnamed-font-size-14);
+    font-size: 14px;
     padding-bottom: 10px;
 }
 
@@ -260,7 +244,7 @@ a.page-scroll {
 }
 
 #mosaic-loader>.cell {
-    --cell-color: var(--branco-primario);
+    --cell-color: white;
     flex: 0 0 var(--cell-size);
     margin: var(--cell-spacing);
     background-color: transparent;
@@ -392,9 +376,9 @@ main {
 
 #dashboard-title {
     padding-bottom: 10px;
-    border-bottom: 3px solid var(--cinza-terciario);
+    border-bottom: 3px solid #dfdfdf;
     margin: 0 8px 20px 8px;
-    color: var(--escuro-primario);
+    color: #1d2125;
     font-weight: 700;
 }
 
@@ -421,14 +405,14 @@ main>div {
 }
 
 .tab-menu>.nav-tabs {
-    border-bottom: 2px solid var(--verde-secundario);
+    border-bottom: 2px solid #347932;
 }
 
 .tab-menu>.nav-tabs>.nav-link {
-    color: var(--escuro-primario);
+    color: #1d2125;
     text-transform: uppercase;
     background-color: #dfdfdf;
-    border-color: transparent transparent var(--verde-secundario);
+    border-color: transparent transparent #347932;
     border: 0px solid;
     border-radius: 0;
     margin-right: 2px;
@@ -436,8 +420,8 @@ main>div {
 }
 
 .tab-menu>.nav-tabs>.nav-link.active {
-    color: var(--branco-primario);
-    background-color: var(--verde-secundario);
+    color: #fff;
+    background-color: #347932;
 }
 
 
@@ -455,8 +439,9 @@ main>div>aside {
 #filter-title {
     font-size: 17pt;
     font-weight: 600;
+    /* border-bottom: 2px solid #347932;*/
     margin: 0 8px;
-    color: var(--escuro-primario);
+    color: #1d2125;
 }
 
 
@@ -491,24 +476,24 @@ main>div>aside {
     height: 40px;
     font-style: normal;
     font-weight: 400;
-    font-size: var(--unnamed-font-size-14);
+    font-size: 14px;
     line-height: 22px;
     text-align: left;
-    border: 1px var(--cinza-terciario) solid;
-    background-color: var(--branco-primario);
+    border: 1px #DBDBDB solid;
+    background-color: #fff;
     padding: 0.25em 0.5em;
-    background-image: linear-gradient(to top, #f9f9f9, var(--branco-primario) 33%);
+    background-image: linear-gradient(to top, #f9f9f9, #fff 33%)
 }
 
 #grid-filter>div>select,
 #grid-filter>div>input,
 #grid-filter>div>input::placeholder {
-    color: var(--escuro-primario);
+    color: #565656;
 }
 
 
 #grid-filter>h4 {
-    font-size: var(--unnamed-font-size-14);
+    font-size: 14px;
     height: 20px;
     margin-left: 10px;
     margin-bottom: -5px;
@@ -560,7 +545,7 @@ main>div>aside {
     font-size: 16px;
     font-weight: 500;
     font-family: 'Noto Sans';
-    color: var(--escuro-primario);
+    color: #1d2125;
     text-align: left;
     text-transform: uppercase;
     opacity: 1;
@@ -568,7 +553,7 @@ main>div>aside {
 }
 
 .course-componente {
-    font-size: var(--unnamed-font-size-14);
+    font-size: 14px;
     font-weight: 500;
     font-family: 'Noto Sans';
     text-align: left;
@@ -576,7 +561,7 @@ main>div>aside {
 }
 
 .course-shortname {
-    font-size: var(--unnamed-font-size-14);
+    font-size: 14px;
     font-weight: 500;
     font-family: 'Noto Sans';
     text-align: left;
@@ -584,7 +569,7 @@ main>div>aside {
 }
 
 .course-curso>a {
-    font-size: var(--unnamed-font-size-14);
+    font-size: 14px;
     font-weight: 500;
     font-family: 'Noto Sans';
     text-align: left;
@@ -597,7 +582,7 @@ main>div>aside {
     font-family: 'Noto Sans';
     text-align: left;
     text-decoration: none;
-    color: var(--escuro-primario);
+    color: #1D2125;
 }
 
 .course-acoes {
@@ -613,7 +598,7 @@ main>div>aside {
     display: inline-block;
     margin-bottom: 5px;
     min-width: 44px;
-    border: 1px solid var(--background-body);
+    border: 1px solid #f2f3f5;
     -webkit-border-bottom-right-radius: 5px;
     -webkit-border-bottom-left-radius: 5px;
     -moz-border-radius-bottomright: 5px;
@@ -660,7 +645,7 @@ p.dt-text {
     font-size: 20px;
     margin-bottom: 0px;
     background-color: silver;
-    color: var(--branco-primario);
+    color: #fff;
     font-weight: 700;
     text-align: center;
     margin-top: 24px;
@@ -711,7 +696,7 @@ ul#informativos>li {
 }
 
 ul#informativos>li>a {
-    font-size: var(--unnamed-font-size-14);
+    font-size: 14px;
     text-decoration: none;
     color: #5b5656;
 }
@@ -739,7 +724,7 @@ ul#informativos>li>a {
 
 footer {
     background-color: #363940;
-    color: var(--branco-primario);
+    color: #fff;
     text-align: center;
     margin-top: 2em;
     padding: 20px 0px;
@@ -749,13 +734,13 @@ footer {
 footer a.btn.btn-primary {
     border-radius: 5px;
     font-size: 1rem;
-    border-color: var(--branco-primario);
+    border-color: #fff;
 }
 
 footer a.btn.btn-primary:hover {
     background-color: #347932;
     border-color: #347932;
-    color: var(--branco-primario);
+    color: #fff;
     text-decoration: none;
 }
 
@@ -782,13 +767,13 @@ footer p {
 
 footer a,
 footer a:hover {
-    color: var(--branco-primario);
+    color: #fff;
     text-decoration: underline;
     font-weight: normal;
 }
 
 footer a:hover {
-    color: var(--branco-primario);
+    color: #fff;
     font-weight: bolder;
 }
 
@@ -833,11 +818,11 @@ footer .contact ul li {
 }
 
 footer .contact ul li a {
-    color: var(--branco-primario);
+    color: #fff;
 }
 
 footer .contact ul li a {
-    color: var(--branco-primario);
+    color: #fff;
 }
 
 .footer-Buttons {
@@ -855,13 +840,13 @@ footer .contact ul li a {
 
 .footer-Buttons p a {
     border: none !important;
-    background-color: var(--verde-botao);
-    color: var(--branco-primario) !important;
+    background-color: #359830;
+    color: #fff !important;
 }
 
 .footer-Buttons p a:hover {
     transform: none !important;
-    background-color: var(--verde-secundario)
+    background-color: #317B2B;
 }
 
 .footer-Buttons p:hover {
@@ -992,7 +977,7 @@ a.btn.btn-primary {
     padding-left: 3px;
     padding-right: 3px;
     border-radius: 50%;
-    color: var(--branco-primario);
+    color: #fff;
     vertical-align: top;
     margin-left: -8px;
     font-size: 11px;
@@ -1012,7 +997,7 @@ a.btn.btn-primary {
     padding-left: 3px;
     padding-right: 3px;
     border-radius: 50%;
-    color: var(--branco-primario);
+    color: #fff;
     vertical-align: super;
     margin-left: -8px;
     font-size: 11px;
@@ -1054,7 +1039,7 @@ li {
     top: 50px;
     right: 3px;
     border: 1px solid #dedede;
-    background-color: var(--branco-primario);
+    background-color: #fff;
 }
 
 .menu-notifications h2 {
@@ -1158,7 +1143,7 @@ i.icon.fa.fa-bell-o.fa-fw {
     padding-left: 2px;
     padding-right: 0px;
     border-radius: 50%;
-    color: var(--branco-primario);
+    color: #fff;
     vertical-align: top;
     margin-left: 1px;
     font-size: 11px;
@@ -1235,7 +1220,7 @@ li {
     top: 50px;
     right: 7px;
     border: 1px solid #dedede;
-    background-color: var(--branco-primario);
+    background-color: #fff;
 }
 
 .menu-messages h2 {
@@ -1333,7 +1318,7 @@ span.icone-conversa {
 ul.menu-messages.show {
     width: 257px;
     height: auto;
-    background: var(--branco-primario) 0% 0% no-repeat padding-box;
+    background: #fff 0% 0% no-repeat padding-box;
     border: 1px solid #dfdfdf;
     opacity: 1;
     border-radius: inherit;
@@ -1346,8 +1331,8 @@ ul.menu-messages.show {
 ul.menu-notifications.show {
     width: 257px;
     height: auto;
-    background: var(--branco-primario) 0% 0% no-repeat padding-box;
-    border: 1px solid var(--cinza-terciario);
+    background: #fff 0% 0% no-repeat padding-box;
+    border: 1px solid #dfdfdf;
     opacity: 1;
     border-radius: inherit;
     margin-top: 24px !important;
@@ -1357,13 +1342,13 @@ ul.menu-notifications.show {
 
 a.notifications-all,
 a.dropdown-item.messages-all {
-    background-color: var(--branco-primario);
+    background-color: #ffff;
     color: #317B2B;
     text-align: center;
 }
 
 a.dropdown-item.ambientes-list {
-    background-color: var(--cinza-terciario);
+    background-color: #dfdfdf;
     padding: 5px;
     font-weight: 600;
 }
@@ -1402,8 +1387,8 @@ h6.dropdown-header.central-atendimento {
 }
 
 .dropdown-ajuda h6.dropdown-header.central-atendimento {
-    background-color: var(--cinza-terciario);
-    color: var(--escuro-primario);
+    background-color: #dcdcdc;
+    color: #1D2125;
 }
 
 i#dropdownMenu2 {
