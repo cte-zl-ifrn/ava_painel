@@ -151,6 +151,7 @@ class Ambiente(SafeDeleteModel):
                 "label": a.nome,
                 "sigla": a.sigla,
                 "style": f"background-color: {a.cor_mestra}",
+                "color": a.cor_mestra,
             }
             for a in Ambiente.objects.filter(active=True)
         ]

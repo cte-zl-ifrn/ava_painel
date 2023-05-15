@@ -37,6 +37,17 @@ export default {
     mounted() {
         document.getElementById('grid-filter').classList.remove('hide_this');
         this.filterCards();
+        
+        $(document).ready(function() {
+            $('#ambiente_id').select2({
+              templateResult: function(data) {
+                if (data.element && data.element.dataset) {
+                    // window.kkk = data.element.dataset;
+                    return $('<span style="border-left: 7px solid ' + data.element.dataset.color + ';padding-left:6px;">' + data.text + '</span> ');
+                }
+              }
+            });
+          });
     },
     methods: {
         formatDate: function(dateString) {
