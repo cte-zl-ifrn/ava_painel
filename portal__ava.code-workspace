@@ -4,13 +4,22 @@
 			"path": "."
 		},
 		{
-			"path": "../moodle__block_suapattendance"
+			"path": "../django-adminlte3"
 		},
 		{
 			"path": "../moodle__local_suap"
 		},
 		{
+			"path": "../moodle__auth_suap"
+		},
+		{
+			"path": "../moodle__block_suapattendance"
+		},
+		{
 			"path": "../moodle__image"
+		},
+		{
+			"path": "../moodle__theme_moove"
 		}
 	],
 	"settings": {}
