@@ -34,6 +34,11 @@ cd portal__ava
 
 # Baixa as dependencias, instala o sistema, um suap fake e 1 moodle para teste
 _/deploy
+
+
+# Se você usa o VSCode
+code portal__ava.code-workspace
+
 ```
 
 > O **Portal** estará disponível em http://ava/painel, o primeiro usuário a acessar será declarado como superusuário e poderá fazer tudo no sistema.
