@@ -59,7 +59,6 @@ def authenticate(request: HttpRequest) -> HttpResponse:
         headers=headers,
         verify=OAUTH["VERIFY_SSL"],
     )
-    print(response.text)
     response_data = json.loads(response.text)
 
     username = response_data["identificacao"]

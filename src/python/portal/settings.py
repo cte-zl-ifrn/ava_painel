@@ -62,8 +62,8 @@ THIRD_APPS = env_as_list(
         "safedelete",
         "django_sass",
         # "corsheaders",
-        "adminlte3",
-        "adminlte3_admin",
+        # "adminlte3",
+        # "adminlte3_admin",
     ],
 )
 DJANGO_APPS = env_as_list(

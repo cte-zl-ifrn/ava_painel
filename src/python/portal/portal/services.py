@@ -2,42 +2,36 @@ import logging
 import concurrent
 import re
 import json
+import urllib.parse
 import sentry_sdk
-from typing import Dict, List, Union, Any
+from typing import Dict, List, Union, Any, Tuple
 from datetime import datetime
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import get_object_or_404
 from sc4net import get
 from .models import Ambiente, Arquetipo, Situacao, Ordenacao, Visualizacao, Curso
 
-
-CODIGO_TURMA_REGEX = re.compile("^(\d\d\d\d\d)\.(\d*)\.(\d*)\.(..)\.(.*)$")
-CODIGO_TURMA_ELEMENTS_COUNT = 5
-CODIGO_TURMA_SEMESTRE_INDEX = 0
-CODIGO_TURMA_PERIODO_INDEX = 1
-CODIGO_TURMA_CURSO_INDEX = 2
-CODIGO_TURMA_TURMA_INDEX = 3
-CODIGO_TURMA_EXCEDENTE_INDEX = 4
-
-CODIGO_DIARIO_REGEX = re.compile("^(\d\d\d\d\d)\.(\d*)\.(\d*)\.(.*)\.(.*\..*)$")
-CODIGO_DIARIO_ELEMENTS_COUNT = 5
+CODIGO_DIARIO_REGEX = re.compile(
+    "^(\d\d\d\d\d)\.(\d*)\.(\d*)\.(.*)\.(\w*\.\d*)(#\d*)?$"
+)
+CODIGO_DIARIO_ANTIGO_ELEMENTS_COUNT = 5
+CODIGO_DIARIO_NOVO_ELEMENTS_COUNT = 6
 CODIGO_DIARIO_SEMESTRE_INDEX = 0
 CODIGO_DIARIO_PERIODO_INDEX = 1
 CODIGO_DIARIO_CURSO_INDEX = 2
 CODIGO_DIARIO_TURMA_INDEX = 3
 CODIGO_DIARIO_DISCIPLINA_INDEX = 4
+CODIGO_DIARIO_ID_DIARIO_INDEX = 5
 
-CODIGO_COORDENACAO_REGEX = re.compile("^(ZL)\.(\d*)(.*)")
+CODIGO_COORDENACAO_REGEX = re.compile("^(\w*)\.(\d*)(.*)*$")
 CODIGO_COORDENACAO_ELEMENTS_COUNT = 3
 CODIGO_COORDENACAO_CAMPUS_INDEX = 0
 CODIGO_COORDENACAO_CURSO_INDEX = 1
 CODIGO_COORDENACAO_SUFIXO_INDEX = 2
 
-CODIGO_PRATICA_REGEX = re.compile("^(.*)\.(\d{11,14}\d*)$")
-CODIGO_PRATICA_ELEMENTS_COUNT = 2
-CODIGO_PRATICA_PREFIXO_INDEX = 0
-CODIGO_PRATICA_MATRICULA_INDEX = 1
-CODIGO_PRATICA_SUFIXO_INDEX = 2
+CODIGO_PRATICA_REGEX = re.compile("^(\d\d\d\d\d)\.(\d*)\.(\d*)\.(.*)\.(\d{11,14}\d*)$")
+CODIGO_PRATICA_ELEMENTS_COUNT = 5
+CODIGO_PRATICA_SUFIXO_INDEX = 4
 
 
 CURSOS_CACHE = {}
@@ -53,44 +47,76 @@ def get_json_api(ava: Ambiente, url: str, **params: dict):
     return json.loads(content)
 
 
-def _merge_curso(diario: dict, codigo_curso: str):
-    if (
-        codigo_curso not in CURSOS_CACHE
-        and CURSOS_CACHE.get(codigo_curso, None) is None
+def _merge_curso(diario: dict, diario_re: re.Match):
+    if not diario_re and len(diario_re[0]) not in (
+        CODIGO_DIARIO_ANTIGO_ELEMENTS_COUNT,
+        CODIGO_DIARIO_NOVO_ELEMENTS_COUNT,
+        CODIGO_COORDENACAO_ELEMENTS_COUNT,
+        CODIGO_PRATICA_ELEMENTS_COUNT,
     ):
-        CURSOS_CACHE[codigo_curso] = Curso.objects.filter(codigo=codigo_curso).first()
-    curso = CURSOS_CACHE.get(codigo_curso, None)
-    if curso is not None:
-        diario["curso"] = {"codigo": curso.codigo, "nome": curso.nome}
+        return
+
+    if len(diario_re[0]) == CODIGO_COORDENACAO_ELEMENTS_COUNT:
+        co_curso = diario_re[0][CODIGO_COORDENACAO_CURSO_INDEX]
     else:
-        diario["curso"] = {"codigo": codigo_curso, "nome": f"Curso: {codigo_curso}"}
+        co_curso = diario_re[0][CODIGO_DIARIO_CURSO_INDEX]
+
+    if co_curso not in CURSOS_CACHE and CURSOS_CACHE.get(co_curso, None) is None:
+        curso = Curso.objects.filter(codigo=co_curso).first()
+        if curso:
+            CURSOS_CACHE[co_curso] = curso
+
+    curso = CURSOS_CACHE.get(
+        co_curso, Curso(codigo=co_curso, nome=f"Curso: {co_curso}")
+    )
+    diario["curso"] = {"codigo": curso.codigo, "nome": curso.nome}
 
 
-def _merge_turma(diario: dict, codigo_turma: tuple):
-    if codigo_turma is not None:
-        diario["turma"] = ".".join(codigo_turma[0 : CODIGO_TURMA_TURMA_INDEX + 1])
-        diario["componente"] = codigo_turma[CODIGO_TURMA_EXCEDENTE_INDEX]
+def _merge_turma(diario: dict, diario_re: re.Match):
+    if len(diario_re) > 0 and len(diario_re[0]) >= CODIGO_DIARIO_TURMA_INDEX:
+        diario["turma"] = ".".join(diario_re[0][0 : CODIGO_DIARIO_TURMA_INDEX + 1])
 
 
-def _merge_diario(diario: dict, ambiente: dict):
+def _merge_componente(diario: dict, diario_re: re.Match):
+    if len(diario_re) > 0 and len(diario_re[0]) >= CODIGO_DIARIO_DISCIPLINA_INDEX:
+        diario["componente"] = diario_re[0][CODIGO_DIARIO_DISCIPLINA_INDEX]
+
+
+def _merge_id_diario(diario: dict, diario_re: re.Match):
+    if len(diario_re) > 0 and len(diario_re[0]) >= CODIGO_DIARIO_ID_DIARIO_INDEX:
+        diario["id_diario"] = diario_re[0][CODIGO_DIARIO_ID_DIARIO_INDEX]
+
+
+def _merge_aluno(diario: dict, diario_re: re.Match):
+    if diario_re and len(diario_re[0]) > CODIGO_PRATICA_SUFIXO_INDEX:
+        diario["componente"] = diario_re[0][CODIGO_PRATICA_SUFIXO_INDEX]
+
+
+def _merge_course(diario: dict, ambiente: dict):
     codigo = diario["shortname"]
     diario_re = CODIGO_DIARIO_REGEX.findall(codigo)
-    turma_re = CODIGO_TURMA_REGEX.findall(codigo)
     coordenacao_re = CODIGO_COORDENACAO_REGEX.findall(codigo)
     pratica_re = CODIGO_PRATICA_REGEX.findall(codigo)
-    if len(diario_re) > 0 and len(diario_re[0]) == CODIGO_DIARIO_ELEMENTS_COUNT:
-        _merge_curso(diario, diario_re[0][CODIGO_DIARIO_CURSO_INDEX])
-        _merge_turma(diario, turma_re[0])
-    elif (
-        len(coordenacao_re) > 0
-        and len(coordenacao_re[0]) == CODIGO_COORDENACAO_ELEMENTS_COUNT
-    ):
-        _merge_curso(diario, coordenacao_re[0][CODIGO_COORDENACAO_CURSO_INDEX])
-    elif len(pratica_re) > 0 and len(pratica_re[0]) == CODIGO_PRATICA_ELEMENTS_COUNT:
-        if len(turma_re) > 0 and len(turma_re[0]) == CODIGO_TURMA_ELEMENTS_COUNT:
-            _merge_curso(diario, turma_re[0][CODIGO_TURMA_CURSO_INDEX])
-            _merge_turma(diario, turma_re[0])
+
+    if diario_re:
+        _merge_curso(diario, diario_re)
+        _merge_turma(diario, diario_re)
+        _merge_componente(diario, diario_re)
+        _merge_id_diario(diario, diario_re)
+    elif pratica_re:
+        _merge_curso(diario, pratica_re)
+        _merge_turma(diario, pratica_re)
+        _merge_aluno(diario, pratica_re)
+    elif coordenacao_re:
+        _merge_curso(diario, coordenacao_re)
     return {**diario, **ambiente}
+
+
+def deduplicate_and_sort(list_of_dict: Union[None, List[Dict[str, str]]], reverse :bool = False):
+    deduplicated = [{"id": x, "label": y} for x,y in ({x['id']: x['label'] for x in list_of_dict}).items()]
+    sortedlist = sorted(deduplicated, key=lambda e: e["label"], reverse=reverse)
+    return sortedlist
+    
 
 
 def _get_diarios(params: Dict[str, Any]):
@@ -110,13 +136,16 @@ def _get_diarios(params: Dict[str, Any]):
             k: v for k, v in params.items() if k not in ["ambiente", "results"]
         }
 
+        if "q" in querystrings:
+            querystrings["q"] = urllib.parse.quote(querystrings["q"])
+
         result = get_json_api(ambiente, "get_diarios.php", **querystrings)
 
         for k, v in params["results"].items():
             if k in result:
                 if k in ["diarios", "coordenacoes", "praticas"]:
                     params["results"][k] += [
-                        _merge_diario(diario, ambientedict)
+                        _merge_course(diario, ambientedict)
                         for diario in result[k] or []
                     ]
                 else:
@@ -151,7 +180,9 @@ def get_diarios(
         "praticas": [],
     }
 
-    has_ambiente = ambiente != "" and ambiente is not None
+    has_ambiente = ambiente != "" and ambiente is not None and f"{ambiente}".isnumeric()
+
+    ambientes = [ava for ava in Ambiente.objects.filter(active=True) if (has_ambiente and int(ambiente) == ava.id) or not has_ambiente]
 
     requests = [
         {
@@ -168,21 +199,21 @@ def get_diarios(
             "page_size": page_size,
             "results": results,
         }
-        for ava in Ambiente.objects.filter(active=True)
-        if (has_ambiente and int(ambiente) == ava.id) or not has_ambiente
+        for ava in ambientes
     ]
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
         executor.map(_get_diarios, requests)
 
-    results["semestres"] = sorted(
-        results["semestres"], key=lambda e: e["label"], reverse=True
-    )
-    results["ambientes"] = sorted(results["ambientes"], key=lambda e: e["label"])
-    results["disciplinas"] = sorted(results["disciplinas"], key=lambda e: e["label"])
-    results["coordenacoes"] = sorted(
-        results["coordenacoes"], key=lambda e: e["fullname"]
-    )
+    results["semestres"] = [{'id': '', 'label': '🔢 Todos os semestres'}] + deduplicate_and_sort(results["semestres"], reverse=True)
+    results["disciplinas"] = [{'id': '', 'label': '📗 Todas as disciplinas'}] + deduplicate_and_sort(results["disciplinas"])
+    results["ambientes"] = [{
+                "label": 'Todos os ambientes',
+                "id": '',
+                "color": None,
+            }] + sorted(results["ambientes"], key=lambda e: e["label"])
+
+    results["coordenacoes"] = sorted(results["coordenacoes"], key=lambda e: e["fullname"])
     results["praticas"] = sorted(results["praticas"], key=lambda e: e["fullname"])
     cursos = {
         c.codigo: c.nome
@@ -190,14 +221,14 @@ def get_diarios(
     }
     for c in results["cursos"]:
         if c["id"] in cursos:
-            c["label"] = f"{cursos[c['id']]} [{c['id']}]"
+            c["label"] = f"{cursos[c['id']]}"
         else:
             c["label"] = f"Curso [{c['id']}], favor solicitar o cadastro"
+    results["cursos"] = [{'id': '', 'label': '📚 Todos os cursos'}] + deduplicate_and_sort(results["cursos"])
 
-    results["cursos"] = sorted(results["cursos"], key=lambda e: e["label"])
-    results["situacoes"] = Situacao.kv
-    results["ordenacoes"] = Ordenacao.kv
-    results["visualizacoes"] = Visualizacao.kv
+    # results["situacoes"] = Situacao.kv
+    # results["ordenacoes"] = Ordenacao.kv
+    # results["visualizacoes"] = Visualizacao.kv
 
     return results
 
@@ -207,9 +238,7 @@ def get_atualizacoes_counts(username: str) -> dict:
         try:
             ava = params["ava"]
 
-            counts = get_json_api(
-                ava, "get_atualizacoes_counts.php", username=params["username"]
-            )
+            counts = get_json_api(ava, "get_atualizacoes_counts.php", username=params["username"])
             counts["ambiente"] = {
                 "titulo": re.subn("🟥 |🟦 |🟧 |🟨 |🟩 |🟪 ", "", ava.nome)[0],
                 "sigla": ava.sigla,
@@ -220,18 +249,10 @@ def get_atualizacoes_counts(username: str) -> dict:
                 "conversations_url": f"{ava.base_url}/message/",
             }
             params["results"]["atualizacoes"].append(counts)
-            params["results"]["unread_notification_total"] = sum(
-                [
-                    c["unread_popup_notification_count"]
-                    for c in params["results"]["atualizacoes"]
-                ]
-            )
-            params["results"]["unread_conversations_total"] = sum(
-                [
-                    c["unread_conversations_count"]
-                    for c in params["results"]["atualizacoes"]
-                ]
-            )
+            params["results"]["unread_notification_total"] = \
+                sum([c["unread_popup_notification_count"] for c in params["results"]["atualizacoes"]])
+            params["results"]["unread_conversations_total"] = \
+                sum([c["unread_conversations_count"] for c in params["results"]["atualizacoes"]])
 
         except Exception as e:
             logging.error(e)
@@ -248,8 +269,7 @@ def get_atualizacoes_counts(username: str) -> dict:
                 "username": username,
                 "ava": ava,
                 "results": results,
-            }
-            for ava in Ambiente.objects.filter(active=True)
+            } for ava in Ambiente.objects.filter(active=True)
         ]
         executor.map(_callback, requests)
 

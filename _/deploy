@@ -2,7 +2,7 @@
 
 source _/functions
 
-cp -r ./confs/examples/* ./confs/enabled
+cp -r ./confs/examples ./confs/enabled
 
 echo ""; echo_info "Parar o mundo"
 _/down

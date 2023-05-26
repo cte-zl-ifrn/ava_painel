@@ -1,0 +1,47 @@
+<div id="grid-filter-wrapper">
+    <h2 id="filter-title">
+        Filtrar diários e salas
+        <div class="btn-group course-list-toggler" role="group">
+            <input type="radio" class="btn-check view-toggler" name="view-toggler" id="toggler-default" autocomplete="off" value='default' >
+            <label class="btn btn-outline-primary" for="toggler-default" id="toggler-default-label" title='Visão padrão'><i class="fa fa-list"></i></label>
+
+            <input type="radio" class="btn-check view-toggler" name="view-toggler" id="toggler-compact" autocomplete="off" value='compact'>
+            <label class="btn btn-outline-primary" for="toggler-compact" id="toggler-compact-label" title='Visão compacta'><i class="fa fa-compress"></i></label>
+        </div>
+    </h2>
+    <div id="grid-filter">
+        <div class="grid-item">
+            <input placeholder="Procure diários por nome, código ou #id..." name="q" id="q" @keyup.enter="filterCards($event)"/>
+        </div>
+        <div class="grid-item">
+            <select name="situacao" id="situacao" @change="filterCards($event)" v-model="filter_situacao">
+                <option v-for="row in situacoes" v-bind:value="row.id">[[ row.label ]]</option>
+            </select>
+        </div>
+        <div class="grid-item">
+            <select name="ordenacao" id="ordenacao" @change="filterCards($event)" v-model="filter_ordenacao">
+                <option v-for="row in ordenacoes" v-bind:value="row.id">[[ row.label ]]</option>
+            </select>
+        </div>
+        <div class="grid-item">
+            <select name="semestre" id="semestre" @change="filterCards($event)" v-model="filter_semestre">
+                <option v-for="row in semestres" v-bind:value="row.id">[[ row.label ]]</option>
+            </select>
+        </div>
+        <div class="grid-item">
+            <select name="disciplina" id="disciplina" @change="filterCards($event)" v-model="filter_disciplina">
+                <option v-for="row in disciplinas" v-bind:value="row.id">[[ row.label ]]</option>
+            </select>
+        </div>
+        <div class="grid-item">
+            <select name="curso" id="curso" @change="filterCards($event)" v-model="filter_curso">
+                <option v-for="row in cursos" v-bind:value="row.id">[[ row.label ]]</option>
+            </select>
+        </div>
+        <div class="grid-item">
+            <select name="ambiente" id="ambiente" @change="filterCards($event)" v-model="filter_ambiente"> 
+                <option v-for="row in ambientes" :data-color="row.color" v-bind:value="row.id">[[ row.label ]]</option>
+            </select>
+        </div>
+    </div>
+</div>

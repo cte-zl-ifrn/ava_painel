@@ -4,13 +4,33 @@
 			"path": "."
 		},
 		{
-			"path": "../moodle__block_suapattendance"
+			"path": "../django-adminlte3"
 		},
 		{
+			"name": "moodle",
+			"path": "../moodle"
+		},
+		{
+			"name": "moodle__image",
+			"path": "../moodle__image"
+		},
+		{
+			"name": "moodle__local_suap",
 			"path": "../moodle__local_suap"
 		},
 		{
-			"path": "../moodle__image"
+			"name": "moodle__block_suapattendance",
+			"path": "../moodle__block_suapattendance"
+		},
+		{
+			"name": "moodle__auth_suap",
+			"path": "../moodle__auth_suap"
+		},
+		{
+			"path": "../moodle__theme_moove"
+		},
+		{
+			"path": "../ifrn_ssh"
 		}
 	],
 	"settings": {}

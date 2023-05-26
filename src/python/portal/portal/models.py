@@ -60,22 +60,22 @@ Arquetipo.kv = [{"id": p, "label": p.display} for p in Arquetipo.values()]
 
 
 class Situacao(Choices):
-    IN_PROGRESS = Choices.Value(_("Em andamento"), value="inprogress")
-    ALL = Choices.Value(_("Todas as situações"), value="allincludinghidden")
-    FUTURE = Choices.Value(_("Não iniciados"), value="future")
-    PAST = Choices.Value(_("Encerrados"), value="past")
-    FAVOURITES = Choices.Value(_("Favoritos"), value="favourites")
+    IN_PROGRESS = Choices.Value(_("✳️ Diários em andamento"), value="inprogress")
+    FUTURE = Choices.Value(_("🗓️ Diários a iniciar"), value="future")
+    PAST = Choices.Value(_("📕 Encerrados pelo professor"), value="past")
+    FAVOURITES = Choices.Value(_("⭐ Meus diários favoritos"), value="favourites")
+    ALL = Choices.Value(_("♾️ Todos os diários (lento)"), value="allincludinghidden")
 
 
 Situacao.kv = [{"id": p, "label": p.display} for p in Situacao.values()]
 
 
 class Ordenacao(Choices):
-    CURSO = Choices.Value(_("Ordenado por disciplina"), value="fullname")
-    CODIGO = Choices.Value(_("Ordenado por código do diário"), value="shortname")
-    ULTIMO_ACESSO = Choices.Value(
-        _("Ordenado pelo último acessado"), value="ul.timeaccess desc"
-    )
+    CURSO = Choices.Value(_("📗 Ordenado por nome da disciplina"), value="fullname")
+    CODIGO = Choices.Value(_("🔢 Ordenado por código do diário"), value="shortname")
+    # ULTIMO_ACESSO = Choices.Value(
+    #     _("🕓 Ordenado pelo último acessado"), value="ul.timeaccess desc"
+    # )
 
 
 Ordenacao.kv = [{"id": p, "label": p.display} for p in Ordenacao.values()]
@@ -103,21 +103,21 @@ class Ambiente(SafeDeleteModel):
         _("cor mestra"),
         max_length=255,
         help_text=mark_safe(
-            f"Escolha uma cor em RGB. Ex.: {_c('#a04ed0')} {_c('#396ba7')} {_c('#559c1a')} {_c('#fabd57')} {_c('#fd7941')} {_c('#f54f3b')}"
+            f"Escolha uma cor em RGB. Ex.: {_c('#a04ed0')} {_c('#396ba7')} {_c('#559c1a')} {_c('#fabd57')} {_c('#fd7941')} {_c('#f54f3b')} {_c('#2dcfe0')}"
         ),
     )
     cor_degrade = CharField(
         _("cor do degradê"),
         max_length=255,
         help_text=mark_safe(
-            f"Escolha uma cor em RGB. Ex.: {_c('#53296d')} {_c('#203d60')} {_c('#315810')} {_c('#ae8133')} {_c('#d05623')} {_c('#fd7941')}"
+            f"Escolha uma cor em RGB. Ex.: {_c('#53296d')} {_c('#203d60')} {_c('#315810')} {_c('#ae8133')} {_c('#d05623')} {_c('#fd7941')} {_c('#09afc0')}"
         ),
     )
     cor_progresso = CharField(
         _("cor do progresso"),
         max_length=255,
         help_text=mark_safe(
-            f"Escolha uma cor em RGB. Ex.: {_c('#ecdafa')} {_c('#b4d0f2')} {_c('#d2f4b7')} {_c('#ffebca')} {_c('#ffd1be')} {_c('#ffbab2')}"
+            f"Escolha uma cor em RGB. Ex.: {_c('#ecdafa')} {_c('#b4d0f2')} {_c('#d2f4b7')} {_c('#ffebca')} {_c('#ffd1be')} {_c('#ffbab2')} {_c('#d2f2f5')}"
         ),
     )
     nome = CharField(_("nome do ambiente"), max_length=255)
@@ -150,8 +150,8 @@ class Ambiente(SafeDeleteModel):
                 "id": a.id,
                 "label": a.nome,
                 "sigla": a.sigla,
-                "style": f"background-color: {a.cor_mestra}",
-                "color": a.cor_mestra,
+                "style": f"background-color: {a.cor_degrade}",
+                "color": a.cor_degrade,
             }
             for a in Ambiente.objects.filter(active=True)
         ]
