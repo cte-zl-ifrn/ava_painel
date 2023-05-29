@@ -32,13 +32,14 @@ export default {
             has_error: false,
             is_filtering: true,
             activeParagraph: null,
-            filter_q: localStorage.filter_q,
-            filter_situacao: localStorage.filter_situacao || 'inprogress',
-            filter_ordenacao: localStorage.filter_ordenacao || 'fullname',
-            filter_semestre: localStorage.filter_semestre || '',
-            filter_disciplina: localStorage.filter_disciplina != undefined && localStorage.filter_disciplina != null ? localStorage.filter_disciplina : '',
-            filter_curso: localStorage.filter_curso || '',
-            filter_ambiente: localStorage.filter_ambiente || '',
+            q: localStorage.q || '',
+            situacao: localStorage.situacao || 'inprogress',
+            ordenacao: localStorage.ordenacao || 'fullname',
+            semestre: localStorage.semestre || '',
+            disciplina: localStorage.disciplina || '',
+            curso: localStorage.curso || '',
+            ambiente: localStorage.ambiente || '',
+
         }
     },
 
@@ -56,16 +57,6 @@ export default {
                 const lastView = localStorage.view_toggler ? localStorage.view_toggler : 'default';
                 $('#toggler-' + lastView).prop('checked', true)
             }
-        },
-
-        saveState() {
-            localStorage.filter_q = $("#q").val();
-            localStorage.filter_situacao = $("#situacao").val();
-            localStorage.filter_ordenacao = $("#ordenacao").val();
-            localStorage.filter_semestre = $("#semestre").val() || '';
-            localStorage.filter_disciplina = $("#disciplina").val() || '';
-            localStorage.filter_curso = $("#curso").val() || '';
-            localStorage.filter_ambiente = $("#ambiente").val() || '';
         },
 
         viewToggle() {
@@ -88,7 +79,7 @@ export default {
                 }
             });
             $('#ambiente').on("select2:select", this.filterCards);
-            $('#ambiente').val(self.filter_ambiente || ''); 
+            $('#ambiente').val(self.ambiente || ''); 
             */
         },
 
@@ -197,20 +188,31 @@ export default {
             });
         },
 
+        clearFilter() {
+            console.log(this.$watch)
+            this['q'] = '';
+            this['situacao'] = 'inprogress';
+            this['ordenacao'] = 'fullname';
+            this['semestre'] = '';
+            this['disciplina'] = '';
+            this['curso'] = '';
+            this['ambiente'] = '';
+            setTimeout(this.filterCards, 500);
+        },
+
         filterCards() {
             this.filtering();
-            this.saveState();
             try {
                 axios.get(
                     '/painel/portal/api/v1/diarios/', {
                     params: {
-                        "situacao": $('#situacao').val(),
-                        "ordenacao": $('#ordenacao').val(),
-                        "semestre": $('#semestre').val(),
-                        "disciplina": $('#disciplina').val(),
-                        "curso": $('#curso').val(),
-                        "ambiente": $('#ambiente').val(),
-                        "q": $('#q').val(),
+                        "q": $(self.q).val() || localStorage.q || '',
+                        "situacao": $(self.situacao).val() || localStorage.situacao || 'inprogress',
+                        "ordenacao": $(self.ordenacao).val() || localStorage.ordenacao || 'fullname',
+                        "semestre": $(self.semestre).val() || localStorage.semestre || '',
+                        "disciplina": $(self.disciplina).val() || localStorage.disciplina || '',
+                        "curso": $(self.curso).val() || localStorage.curso || '',
+                        "ambiente": $(self.ambiente).val() || localStorage.ambiente || '',
                     }
                 }
                 ).then(response => {
@@ -227,7 +229,6 @@ export default {
                 this.filtered();
             }
         },
-
 
         filtering() {
             this.diarios = [];
@@ -254,5 +255,27 @@ export default {
                 setTimeout(() => { jQuery(tab).click() }, 500);
             }
         },
+
+
+        get_situacao_desc() {
+            return $("#situacao option:selected").text();
+        },
+
+
+        get_ordenacao_desc() {
+            return $("#ordenacao option:selected").text();
+        },
     },
+
+
+    watch: {
+        q(newValue) { localStorage.q = newValue || ''; },
+        situacao(newValue) { localStorage.situacao = newValue || 'inprogress'; },
+        ordenacao(newValue) { localStorage.ordenacao = newValue || 'fullname'; },
+        semestre(newValue) { localStorage.semestre = newValue || ''; },
+        disciplina(newValue) { localStorage.disciplina = newValue || ''; },
+        curso(newValue) { localStorage.curso = newValue || ''; },
+        ambiente(newValue) { localStorage.ambiente = newValue || ''; },
+    },
+
 }

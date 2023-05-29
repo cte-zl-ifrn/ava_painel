@@ -586,6 +586,17 @@ main>div>aside {
     margin-bottom: -5px;
 }
 
+#applied-filter {
+    margin: 0 10px 20px 10px;
+}
+
+#applied-filter>span:last-child {
+    margin: 0 0 0 20px;
+}
+
+#applied-filter>span:last-child>a {
+    cursor: pointer;
+}
 
 /* ===== MAIN - GRID: END ===== */
 

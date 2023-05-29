@@ -11,37 +11,48 @@
     </h2>
     <div id="grid-filter">
         <div class="grid-item">
-            <input placeholder="Procure diários por nome, código ou #id..." name="q" id="q" @keyup.enter="filterCards($event)"/>
+            <input placeholder="Procure diários por nome, código ou #id..." name="q" id="q" v-model="q" @keyup.enter="filterCards($event)"/>
         </div>
         <div class="grid-item">
-            <select name="situacao" id="situacao" @change="filterCards($event)" v-model="filter_situacao">
+            <select name="situacao" id="situacao" @change="filterCards($event)" v-model="situacao">
                 <option v-for="row in situacoes" v-bind:value="row.id">[[ row.label ]]</option>
             </select>
         </div>
         <div class="grid-item">
-            <select name="ordenacao" id="ordenacao" @change="filterCards($event)" v-model="filter_ordenacao">
+            <select name="ordenacao" id="ordenacao" @change="filterCards($event)" v-model="ordenacao">
                 <option v-for="row in ordenacoes" v-bind:value="row.id">[[ row.label ]]</option>
             </select>
         </div>
         <div class="grid-item">
-            <select name="semestre" id="semestre" @change="filterCards($event)" v-model="filter_semestre">
+            <select name="semestre" id="semestre" @change="filterCards($event)" v-model="semestre">
                 <option v-for="row in semestres" v-bind:value="row.id">[[ row.label ]]</option>
             </select>
         </div>
         <div class="grid-item">
-            <select name="disciplina" id="disciplina" @change="filterCards($event)" v-model="filter_disciplina">
+            <select name="disciplina" id="disciplina" @change="filterCards($event)" v-model="disciplina">
                 <option v-for="row in disciplinas" v-bind:value="row.id">[[ row.label ]]</option>
             </select>
         </div>
         <div class="grid-item">
-            <select name="curso" id="curso" @change="filterCards($event)" v-model="filter_curso">
+            <select name="curso" id="curso" @change="filterCards($event)" v-model="curso">
                 <option v-for="row in cursos" v-bind:value="row.id">[[ row.label ]]</option>
             </select>
         </div>
         <div class="grid-item">
-            <select name="ambiente" id="ambiente" @change="filterCards($event)" v-model="filter_ambiente"> 
+            <select name="ambiente" id="ambiente" @change="filterCards($event)" v-model="ambiente"> 
                 <option v-for="row in ambientes" :data-color="row.color" v-bind:value="row.id">[[ row.label ]]</option>
             </select>
         </div>
+    </div>
+    <div id="applied-filter">
+        <span>Seu filtro atual é: </span>
+        <span v-show='q'>buscar por <strong>[[q]]</strong>, </span>
+        <span v-show='!q'><i>sem critério de busca</i>, </span>
+        <span v-show='semestre'>no semestre <strong>[[semestre]]</strong>, </span>
+        <span v-show='disciplina'>na disciplina <strong>[[disciplina]]</strong>, </span>
+        <span v-show='curso'>no curso <strong>[[curso]]</strong>, </span>
+        <span v-show='ambiente'>no ambiente <strong>[[ambiente]]</strong>, </span>
+        <span>mas somente o que estão na situação <strong>[[get_situacao_desc()]]</strong> e <strong>[[get_ordenacao_desc()]]</strong>.</span>
+        <span><a @click='clearFilter($event)' class="clear-filter">Limpar filtro</a></span>
     </div>
 </div>
