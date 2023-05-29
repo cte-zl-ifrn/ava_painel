@@ -142,7 +142,7 @@ header {
 }
 
 .header-brand {
-    background-image: url(../img/ifrnLogo.svg);
+    background-image: url(../img/logo.png);
     width: 178px;
     height: 56px;
     background-repeat: no-repeat;
@@ -1725,7 +1725,7 @@ h6.central-atendimento::after {
 
 @media only screen and (max-width: 432px) {
     .header-brand {
-        width: 48px;
+        width: 32px;
     }
 
     .header-ajuda {
