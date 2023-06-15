@@ -208,11 +208,22 @@ ul.menu-principal {
     text-decoration: underline;
 }
 
-.header-user img {
+#dropdownMenuUser {
+    height: 74px;
+    width: 74px;
     border-radius: 50%;
-    margin: 9px 0 9px auto;
-    display: block;
+    overflow: hidden;
+    margin: 3px 0 0 0;
+    padding: 0;
 }
+
+.header-user img {
+    margin: -6px 0 0;
+    display: block;
+    width: 74px;
+    height: auto;
+}
+
 
 .header-ajuda {
     float: right;
