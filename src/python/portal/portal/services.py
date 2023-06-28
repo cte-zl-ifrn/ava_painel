@@ -205,10 +205,10 @@ def get_diarios(
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
         executor.map(_get_diarios, requests)
 
-    results["semestres"] = [{'id': '', 'label': '🔢 Todos os semestres'}] + deduplicate_and_sort(results["semestres"], reverse=True)
-    results["disciplinas"] = [{'id': '', 'label': '📗 Todas as disciplinas'}] + deduplicate_and_sort(results["disciplinas"])
+    results["semestres"] = [{'id': '', 'label': 'Semestres... '}] + deduplicate_and_sort(results["semestres"], reverse=True)
+    results["disciplinas"] = [{'id': '', 'label': 'Disciplinas...'}] + deduplicate_and_sort(results["disciplinas"])
     results["ambientes"] = [{
-                "label": 'Todos os ambientes',
+                "label": 'Ambientes...',
                 "id": '',
                 "color": None,
             }] + sorted(results["ambientes"], key=lambda e: e["label"])
@@ -224,7 +224,7 @@ def get_diarios(
             c["label"] = f"{cursos[c['id']]}"
         else:
             c["label"] = f"Curso [{c['id']}], favor solicitar o cadastro"
-    results["cursos"] = [{'id': '', 'label': '📚 Todos os cursos'}] + deduplicate_and_sort(results["cursos"])
+    results["cursos"] = [{'id': '', 'label': 'Cursos...'}] + deduplicate_and_sort(results["cursos"])
 
     # results["situacoes"] = Situacao.kv
     # results["ordenacoes"] = Ordenacao.kv

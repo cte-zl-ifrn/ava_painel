@@ -54,46 +54,80 @@
             <section>
                 <h1 id="dashboard-title">Painel AVA</h1>
 
-                {% include 'portal/partials/filters.html' %}
+                
 
-                <div id="search-list" v-show="diarios.length!=0 || coordenacoes.length!=0 || praticas.length!=0">
-                    <nav class="tab-menu">
-                        <div class="nav nav-tabs" role="tablist">
-                            <button class="nav-link active" id="nav-diarios-tab" data-bs-toggle="tab" data-bs-target="#nav-diarios" type="button" role="tab" aria-controls="nav-diarios" aria-selected="true">
-                                Diários
-                            </button>
-                            <button class="nav-link" id="nav-coordenacoes-tab" data-bs-toggle="tab" data-bs-target="#nav-coordenacoes" type="button" role="tab" aria-controls="nav-coordenacoes" aria-selected="false" v-if="coordenacoes.length!=0">
-                                <span class="desktop-only">Salas das </span>Coordenações
-                            </button>
-                            <button class="nav-link" id="nav-praticas-tab" data-bs-toggle="tab" data-bs-target="#nav-praticas" type="button" role="tab" aria-controls="nav-praticas" aria-selected="false" v-if="praticas.length!=0">
-                                Práticas
-                            </button>
+            <div class="wrapper">
+                <div class="row row-offcanvas row-offcanvas-left">
+                    <!-- sidebar -->
+                    <div class="column col-sm-3 col-xs-1 sidebar-offcanvas" id="sidebar">
+                        <ul class="navmenu" id="menu">
+                            {% include 'portal/partials/filters.html' %}
+                            <div class="align-content-center">
+                                <li class="block-content d-none margin-top-36"><a href="#"><i class="fa fa-filter icon-filter-color"></i> <span class="collapse in hidden-xs"></span></a></li>
+                                <li class="block-content d-none margin-top-36"><a href="#"><i class="fa fa-search icon-filter-color"></i> <span class="collapse in hidden-xs"></span></a></li>
+                                <li class="block-content d-none margin-top-36"><a href="#"><i class="fa fa-book icon-filter-color"></i> <span class="collapse in hidden-xs"></span></a></li>
+                                <li class="block-content d-none margin-top-36"><a href="#"><i class="fa fa-list-ol icon-filter-color"></i> <span class="collapse in hidden-xs"></span></a></li>
+                                <li class="block-content d-none margin-top-36"><a href="#"><i class="fa fa-list-alt icon-filter-color"></i> <span class="collapse in hidden-xs"></span></a></li>
+                                <li class="block-content d-none margin-top-36"><a href="#"><i class="fa fa-graduation-cap icon-filter-color"></i> <span class="collapse in hidden-xs"></span></a></li>
+                                <li class="block-content d-none margin-top-36"><a href="#"><i class="fa fa-globe icon-filter-color"></i> <span class="collapse in hidden-xs"></span></a></li>
+                            </div>   
+                        </ul>
+                        <div class="align-toggle-filter">
+                            <div class="toggle-filter">
+                                <p><a href="" data-toggle="offcanvas"><i class="fa fa-angle-left fa-2x" style="color: #7D848B;"></i></a></p>
+                                <p><a href="" data-toggle="offcanvas"><i class="fa fa-angle-right fa-2x d-none" style="color: #DFDFDF;"></i></a></p>                   
+                            </div>
                         </div>
-                    </nav>
-                    <div class="tab-content courses">
-                        {% include "portal/partials/course-lists.html" with list_name="diarios" extra_class="show active" list_alias="diários" list_genero=""  %}
-                        {% include "portal/partials/course-lists.html" with list_name="coordenacoes" list_alias="salas das coordenações" list_genero="a"  %}
-                        {% include "portal/partials/course-lists.html" with list_name="praticas" list_alias="práticas" list_genero="a" %}
+                    </div>
+                    <!-- /sidebar -->
+    
+            <!-- main right col -->
+            <div class="column col-sm-8 col-xs-11" id="main">
+
+                    <div id="search-list" v-show="diarios.length!=0 || coordenacoes.length!=0 || praticas.length!=0">
+                        <nav class="tab-menu">
+                            <div class="nav nav-tabs" role="tablist">
+                                <button class="nav-link active" id="nav-diarios-tab" data-bs-toggle="tab" data-bs-target="#nav-diarios" type="button" role="tab" aria-controls="nav-diarios" aria-selected="true">
+                                    Diários
+                                </button>
+                                <button class="nav-link" id="nav-coordenacoes-tab" data-bs-toggle="tab" data-bs-target="#nav-coordenacoes" type="button" role="tab" aria-controls="nav-coordenacoes" aria-selected="false" v-if="coordenacoes.length!=0">
+                                    <span class="desktop-only">Salas das </span>Coordenações
+                                </button>
+                                <button class="nav-link" id="nav-praticas-tab" data-bs-toggle="tab" data-bs-target="#nav-praticas" type="button" role="tab" aria-controls="nav-praticas" aria-selected="false" v-if="praticas.length!=0">
+                                    Práticas
+                                </button>
+                            </div>
+                        </nav>
+                        <div class="tab-content courses">
+                            {% include "portal/partials/course-lists.html" with list_name="diarios" extra_class="show active" list_alias="diários" list_genero=""  %}
+                            {% include "portal/partials/course-lists.html" with list_name="coordenacoes" list_alias="salas das coordenações" list_genero="a"  %}
+                            {% include "portal/partials/course-lists.html" with list_name="praticas" list_alias="práticas" list_genero="a" %}
+                        </div>
+                    </div>
+                    <div id="search-isempty" v-if="!has_error && !is_filtering && diarios.length==0 && coordenacoes.length==0 && praticas.length==0">
+                        <h3>Atenção!</h3>
+                        <p>Não existem <strong>Diários, Salas de coordenação</strong> ou <strong>Práticas</strong> que atendam ao filtro informado. Para mostrar tudo limpe os filtros, e no segundo campo escolher a opção "♾️ Todos os diários".</p>
+                        <p>Também é possível que a Secretaria Acadêmica ainda não tenha lhe inserido em algum diário, neste caso, por favor aguarde.</p>
+                    </div>
+                    <div id="search-error" v-if="has_error">
+                        <h3>Ocorreu um erro.</h3>
+                        <p>Favor aguardar ao menos 5 minutos antes de atualizar a página.</p>
+                    </div>
+                    <div id="search-loader" v-if="is_filtering">
+                        <p>Procurando seus cursos</p>
+                        <div id="mosaic-loader">
+                            <div class="cell d-0"></div><div class="cell d-1"></div><div class="cell d-2"></div>
+                            <div class="cell d-1"></div><div class="cell d-2"></div><div class="cell d-3"></div>
+                            <div class="cell d-2"></div><div class="cell d-3"></div><div class="cell d-4"></div>
+                            <div class="cell d-3"></div><div class="cell d-4"></div><div class="cell d-5"></div>
+                        </div>
+                    </div>
+                            
+                </div>
+                        <!-- /main -->
                     </div>
                 </div>
-                <div id="search-isempty" v-if="!has_error && !is_filtering && diarios.length==0 && coordenacoes.length==0 && praticas.length==0">
-                    <h3>Atenção!</h3>
-                    <p>Não existem <strong>Diários, Salas de coordenação</strong> ou <strong>Práticas</strong> que atendam ao filtro informado. Para mostrar tudo limpe os filtros, e no segundo campo escolher a opção "♾️ Todos os diários".</p>
-                    <p>Também é possível que a Secretaria Acadêmica ainda não tenha lhe inserido em algum diário, neste caso, por favor aguarde.</p>
-                </div>
-                <div id="search-error" v-if="has_error">
-                    <h3>Ocorreu um erro.</h3>
-                    <p>Favor aguardar ao menos 5 minutos antes de atualizar a página.</p>
-                </div>
-                <div id="search-loader" v-if="is_filtering">
-                    <p>Procurando seus cursos</p>
-                    <div id="mosaic-loader">
-                        <div class="cell d-0"></div><div class="cell d-1"></div><div class="cell d-2"></div>
-                        <div class="cell d-1"></div><div class="cell d-2"></div><div class="cell d-3"></div>
-                        <div class="cell d-2"></div><div class="cell d-3"></div><div class="cell d-4"></div>
-                        <div class="cell d-3"></div><div class="cell d-4"></div><div class="cell d-5"></div>
-                    </div>
-                </div>
+                
             </section>
         </div>
     </main>

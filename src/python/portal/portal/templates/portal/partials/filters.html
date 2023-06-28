@@ -1,5 +1,5 @@
 <div id="grid-filter-wrapper">
-    <h2 id="filter-title">
+    <!-- <h2 id="filter-title">
         Filtrar diários e salas
         <div class="btn-group course-list-toggler" role="group">
             <input type="radio" class="btn-check view-toggler" name="view-toggler" id="toggler-default" autocomplete="off" value='default' >
@@ -8,43 +8,59 @@
             <input type="radio" class="btn-check view-toggler" name="view-toggler" id="toggler-compact" autocomplete="off" value='compact'>
             <label class="btn btn-outline-primary" for="toggler-compact" id="toggler-compact-label" title='Visão compacta'><i class="fa fa-compress"></i></label>
         </div>
-    </h2>
+    </h2> -->
     <div id="grid-filter">
-        <div class="grid-item">
-            <input placeholder="Procure diários por nome, código ou #id..." name="q" id="q" v-model="q" @keyup.enter="filterCards($event)"/>
+        <div class="grid-item position-relative content-center">
+            <b class="text-attribute-23">Filtrar diários e salas <i class="fa fa-info-circle" rel="tooltip" title="Os filtros ‘Diários’ e ‘Ordenar’ são filtros fixos. Se não houver alterações eles serão definidos por padrão como ‘Diários em andamentos’ e ‘Ordenar por disciplina’." style="font-size: 16px; color: #54595E;" aria-hidden="true"></i></b>
         </div>
-        <div class="grid-item">
-            <select name="situacao" id="situacao" @change="filterCards($event)" v-model="situacao">
+        <hr class="hr-personal">
+        <div class="grid-item position-relative">
+            <input placeholder="       Busque por nomes, códigos, #id…" name="q" id="q" v-model="q" />
+            <i class="fa fa-search icon-filter-color icon-fild-position"></i>
+        </div>
+        <div class="grid-item position-relative">
+            <select name="situacao" id="situacao"  v-model="situacao">
                 <option v-for="row in situacoes" v-bind:value="row.id">[[ row.label ]]</option>
             </select>
+            <i class="fa fa-book icon-filter-color icon-fild-position"></i>
         </div>
-        <div class="grid-item">
+        <!-- <div class="grid-item">
             <select name="ordenacao" id="ordenacao" @change="filterCards($event)" v-model="ordenacao">
                 <option v-for="row in ordenacoes" v-bind:value="row.id">[[ row.label ]]</option>
             </select>
-        </div>
-        <div class="grid-item">
-            <select name="semestre" id="semestre" @change="filterCards($event)" v-model="semestre">
+        </div> -->
+        <div class="grid-item position-relative">
+            <select name="semestre" id="semestre"  v-model="semestre">
                 <option v-for="row in semestres" v-bind:value="row.id">[[ row.label ]]</option>
             </select>
+            <i class="fa fa-list-ol icon-filter-color icon-fild-position"></i>
         </div>
-        <div class="grid-item">
-            <select name="disciplina" id="disciplina" @change="filterCards($event)" v-model="disciplina">
+        <div class="grid-item position-relative">
+            <select name="disciplina" id="disciplina"  v-model="disciplina">
                 <option v-for="row in disciplinas" v-bind:value="row.id">[[ row.label ]]</option>
             </select>
+            <i class="fa fa-list-alt icon-filter-color icon-fild-position"></i>
         </div>
-        <div class="grid-item">
-            <select name="curso" id="curso" @change="filterCards($event)" v-model="curso">
+        <div class="grid-item position-relative">
+            <select name="curso" id="curso"  v-model="curso">
                 <option v-for="row in cursos" v-bind:value="row.id">[[ row.label ]]</option>
             </select>
+            <i class="fa fa-graduation-cap icon-filter-color icon-fild-position"></i>
         </div>
-        <div class="grid-item">
-            <select name="ambiente" id="ambiente" @change="filterCards($event)" v-model="ambiente"> 
+        <div class="grid-item position-relative">
+            <select name="ambiente" id="ambiente"  v-model="ambiente"> 
                 <option v-for="row in ambientes" :data-color="row.color" v-bind:value="row.id">[[ row.label ]]</option>
             </select>
+            <i class="fa fa-globe icon-filter-color icon-fild-position"></i>
+        </div>
+        <div class="grid-item position-relative content-right">
+            <button style="border: none; background-color: transparent;" v-on:click="clearFilter()"><b class="text-attribute-14">Limpar filtro <i class="fa fa-trash" aria-hidden="true"></i></b></button></button> 
+        </div>
+        <div class="grid-item position-relative content-center">
+            <button type="button" class="btn btn-success btn-filtrar" v-on:click="filterCards($event)">Filtrar</button>
         </div>
     </div>
-    <div id="applied-filter">
+    <!-- <div id="applied-filter">
         <span>Seu filtro atual é: </span>
         <span v-show='q'>buscar por <strong>[[q]]</strong>, </span>
         <span v-show='!q'><i>sem critério de busca</i>, </span>
@@ -54,5 +70,5 @@
         <span v-show='ambiente'>no ambiente <strong>[[ambiente]]</strong>, </span>
         <span>mas somente o que estão na situação <strong>[[get_situacao_desc()]]</strong> e <strong>[[get_ordenacao_desc()]]</strong>.</span>
         <span><a @click='clearFilter($event)' class="clear-filter">Limpar filtro</a></span>
-    </div>
+    </div> -->
 </div>
