@@ -10,9 +10,6 @@
 			"path": "../moodle"
 		},
 		{
-			"path": "../moodle__image"
-		},
-		{
 			"path": "../moodle__local_suap"
 		},
 		{
@@ -26,19 +23,6 @@
 		},
 		{
 			"path": "../ifrn_ssh"
-		},
-		{
-			"path": "../sti__cmdb"
-		},
-		{
-			"path": "../ege__app_agendamento"
-		},
-		{
-			"path": "../ege__app_prematricula"
-		},
-		{
-			"name": "SSH FS - ifrn.ava.teste.moodle",
-			"uri": "ssh://ifrn.ava.teste.moodle/var/dockers"
 		}
 	],
 	"settings": {}
