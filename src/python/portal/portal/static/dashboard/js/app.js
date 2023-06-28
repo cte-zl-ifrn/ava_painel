@@ -7,7 +7,7 @@ export default {
             destaque: null,
             semestres: [],
             situacoes: [
-                { "label": "....     Diários em andamento", "id": "inprogress" },
+                { "label": "Diários em andamento", "id": "inprogress" },
                 { "label": "🗓️ Diários a iniciar", "id": "future" },
                 { "label": "📕 Encerrados pelo professor", "id": "past" },
                 { "label": "⭐ Meus diários favoritos", "id": "favourites" },
