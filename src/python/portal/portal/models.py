@@ -20,7 +20,7 @@ from simple_history.models import HistoricalRecords
 from safedelete.models import SafeDeleteModel
 from a4.models import Usuario
 from middleware.models import Solicitacao
-from middleware import request2dict
+from portal import request2dict
 
 
 class SyncError(Exception):

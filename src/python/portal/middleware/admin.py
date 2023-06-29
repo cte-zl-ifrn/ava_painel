@@ -9,7 +9,7 @@ from django.urls import path, reverse
 from django.contrib.admin import register, ModelAdmin
 from django.conf import settings
 from .models import Solicitacao
-from portal.models import Diario, h2d
+from portal.models import Diario
 
 
 @register(Solicitacao)

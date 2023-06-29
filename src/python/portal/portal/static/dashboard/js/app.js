@@ -7,7 +7,7 @@ export default {
             destaque: null,
             semestres: [],
             situacoes: [
-                { "label": "✳️ Diários em andamento", "id": "inprogress" },
+                { "label": "Diários em andamento", "id": "inprogress" },
                 { "label": "🗓️ Diários a iniciar", "id": "future" },
                 { "label": "📕 Encerrados pelo professor", "id": "past" },
                 { "label": "⭐ Meus diários favoritos", "id": "favourites" },
@@ -49,8 +49,44 @@ export default {
         this.restoreState();
         this.filterCards();
         this.startTour001();
+
+        // this.openNav();
+        // this.closeNav();
+
+        this.toggleNavBar();
+        this.clearFilter();
     },
     methods: {
+
+        openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+        },
+
+        closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+            document.body.style.backgroundColor = "white";
+        },
+
+        toggleNavBar() {
+            $('[data-toggle=offcanvas]').click(function (e) {
+                e.preventDefault()
+                $('.filter-wrapper').toggleClass('active');
+                $('.collapse').toggleClass('in').toggleClass('hidden-xs').toggleClass('visible-xs');
+            });
+        },
+
+        clearFilter() {
+            $("#q").val('');
+            $("#situacao").val('');
+            $("#semestre").val('');
+            $("#disciplina").val('');
+            $("#curso").val('');
+            $("#ambiente").val('');
+        },
+
         restoreState() {
             document.getElementById('grid-filter').classList.remove('hide_this');
             if (!$(".view-toggler").is(":checked")) {

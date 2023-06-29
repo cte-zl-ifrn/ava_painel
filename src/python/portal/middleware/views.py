@@ -7,7 +7,7 @@ from django.conf import settings
 from sentry_sdk import capture_exception
 from portal.models import Diario, SyncError
 from middleware.models import Solicitacao
-from middleware import request2dict
+from portal import request2dict
 
 
 def response_error(request: HttpRequest, error: Exception):
