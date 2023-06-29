@@ -20,10 +20,7 @@ from simple_history.models import HistoricalRecords
 from safedelete.models import SafeDeleteModel
 from a4.models import Usuario
 from middleware.models import Solicitacao
-
-
-def h2d(r):
-    {k: v for k, v in r.headers.items()}
+from middleware import request2dict
 
 
 class SyncError(Exception):
@@ -358,9 +355,9 @@ class Diario(SafeDeleteModel):
 
         try:
             retorno_json = json.loads(retorno.text)
-        except:
+        except Exception as ie:
             raise SyncError(
-                f"Erro na integração. Contacte um desenvolvedor.",
+                f"Erro na integração ({ie}). Contacte um desenvolvedor.",
                 retorno.status_code,
                 campus,
                 retorno,
@@ -369,7 +366,7 @@ class Diario(SafeDeleteModel):
         Solicitacao.objects.create(
             requisicao_header=headers,
             requisicao=message_string,
-            resposta_header=h2d(retorno),
+            resposta_header=request2dict(retorno),
             resposta=retorno_json,
             status=Solicitacao.Status.SUCESSO,
             status_code=retorno.status_code,
