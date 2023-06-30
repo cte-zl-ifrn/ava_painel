@@ -7,7 +7,7 @@ export default {
             destaque: null,
             semestres: [],
             situacoes: [
-                { "label": "Diários em andamento", "id": "inprogress" },
+                { "label": "✳️ Diários em andamento", "id": "inprogress" },
                 { "label": "🗓️ Diários a iniciar", "id": "future" },
                 { "label": "📕 Encerrados pelo professor", "id": "past" },
                 { "label": "⭐ Meus diários favoritos", "id": "favourites" },
@@ -73,7 +73,7 @@ export default {
         toggleNavBar() {
             $('[data-toggle=offcanvas]').click(function (e) {
                 e.preventDefault()
-                $('.filter-wrapper').toggleClass('active');
+                $('.filter-wrapper').toggleClass('closed');
                 $('.collapse').toggleClass('in').toggleClass('hidden-xs').toggleClass('visible-xs');
             });
         },
