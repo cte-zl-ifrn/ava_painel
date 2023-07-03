@@ -346,6 +346,7 @@ class Diario(SafeDeleteModel):
             try:
                 retorno_json = json.loads(retorno.text)
             except Exception as e:
+                error_text = ""
                 # error_text = (
                 #     re.sub("<[^<]+?>", "", retorno.text)
                 #     .replace("  ", " ")
