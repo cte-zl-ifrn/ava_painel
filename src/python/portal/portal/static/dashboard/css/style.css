@@ -1887,7 +1887,7 @@ ul#menu {
 .row.filter-wrapper {
     display: grid;
     grid-template-columns: 280px 1fr;
-    min-height: 590px;
+    min-height: calc(100vh - 320px);
     position: relative;
 }
 
@@ -1940,6 +1940,7 @@ ul#menu {
 .row.filter-wrapper.closed>#sidebar>.toggle-filter .fa-angle-left {
     display: none !important;
 }
+
 .row.filter-wrapper.closed>#main {
     width: calc(100% - 10px);
     padding-left: 50px;
