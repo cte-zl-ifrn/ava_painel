@@ -53,40 +53,39 @@ export default {
         // this.openNav();
         // this.closeNav();
 
-        this.teste();
+        this.toggleNavBar();
         this.clearFilter();
-
     },
     methods: {
 
-             openNav() {
-                document.getElementById("mySidenav").style.width = "250px";
-                document.getElementById("main").style.marginLeft = "250px";
-                document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-              },
-              
-            closeNav() {
-                document.getElementById("mySidenav").style.width = "0";
-                document.getElementById("main").style.marginLeft= "0";
-                document.body.style.backgroundColor = "white";
-              },
-        
-              teste(){
-                $('[data-toggle=offcanvas]').click(function(e) {
-                    e.preventDefault()
-                    $('.row-offcanvas').toggleClass('active');
-                    $('.collapse').toggleClass('in').toggleClass('hidden-xs').toggleClass('visible-xs');
-                });
-              },
+        openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+        },
 
-            clearFilter(){
-                $("#q").val('');
-                $("#situacao").val('');
-                $("#semestre").val('');
-                $("#disciplina").val('');
-                $("#curso").val('');
-                $("#ambiente").val('');
-            },
+        closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+            document.body.style.backgroundColor = "white";
+        },
+
+        toggleNavBar() {
+            $('[data-toggle=offcanvas]').click(function (e) {
+                e.preventDefault()
+                $('.filter-wrapper').toggleClass('closed');
+                $('.collapse').toggleClass('in').toggleClass('hidden-xs').toggleClass('visible-xs');
+            });
+        },
+
+        clearFilter() {
+            $("#q").val('');
+            $("#situacao").val('');
+            $("#semestre").val('');
+            $("#disciplina").val('');
+            $("#curso").val('');
+            $("#ambiente").val('');
+        },
 
         restoreState() {
             document.getElementById('grid-filter').classList.remove('hide_this');

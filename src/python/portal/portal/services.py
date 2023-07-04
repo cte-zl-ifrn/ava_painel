@@ -4,12 +4,10 @@ import re
 import json
 import urllib.parse
 import sentry_sdk
-from typing import Dict, List, Union, Any, Tuple
-from datetime import datetime
-from django.contrib.admin.views.decorators import staff_member_required
+from typing import Dict, List, Union, Any
 from django.shortcuts import get_object_or_404
 from sc4net import get
-from .models import Ambiente, Arquetipo, Situacao, Ordenacao, Visualizacao, Curso
+from .models import Ambiente, Arquetipo, Curso
 
 CODIGO_DIARIO_REGEX = re.compile(
     "^(\d\d\d\d\d)\.(\d*)\.(\d*)\.(.*)\.(\w*\.\d*)(#\d*)?$"
@@ -112,11 +110,15 @@ def _merge_course(diario: dict, ambiente: dict):
     return {**diario, **ambiente}
 
 
-def deduplicate_and_sort(list_of_dict: Union[None, List[Dict[str, str]]], reverse :bool = False):
-    deduplicated = [{"id": x, "label": y} for x,y in ({x['id']: x['label'] for x in list_of_dict}).items()]
+def deduplicate_and_sort(
+    list_of_dict: Union[None, List[Dict[str, str]]], reverse: bool = False
+):
+    deduplicated = [
+        {"id": x, "label": y}
+        for x, y in ({x["id"]: x["label"] for x in list_of_dict}).items()
+    ]
     sortedlist = sorted(deduplicated, key=lambda e: e["label"], reverse=reverse)
     return sortedlist
-    
 
 
 def _get_diarios(params: Dict[str, Any]):
@@ -182,7 +184,11 @@ def get_diarios(
 
     has_ambiente = ambiente != "" and ambiente is not None and f"{ambiente}".isnumeric()
 
-    ambientes = [ava for ava in Ambiente.objects.filter(active=True) if (has_ambiente and int(ambiente) == ava.id) or not has_ambiente]
+    ambientes = [
+        ava
+        for ava in Ambiente.objects.filter(active=True)
+        if (has_ambiente and int(ambiente) == ava.id) or not has_ambiente
+    ]
 
     requests = [
         {
@@ -205,15 +211,23 @@ def get_diarios(
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
         executor.map(_get_diarios, requests)
 
-    results["semestres"] = [{'id': '', 'label': 'Semestres... '}] + deduplicate_and_sort(results["semestres"], reverse=True)
-    results["disciplinas"] = [{'id': '', 'label': 'Disciplinas...'}] + deduplicate_and_sort(results["disciplinas"])
-    results["ambientes"] = [{
-                "label": 'Ambientes...',
-                "id": '',
-                "color": None,
-            }] + sorted(results["ambientes"], key=lambda e: e["label"])
+    results["semestres"] = [
+        {"id": "", "label": "Semestres... "}
+    ] + deduplicate_and_sort(results["semestres"], reverse=True)
+    results["disciplinas"] = [
+        {"id": "", "label": "Disciplinas..."}
+    ] + deduplicate_and_sort(results["disciplinas"])
+    results["ambientes"] = [
+        {
+            "label": "Ambientes...",
+            "id": "",
+            "color": None,
+        }
+    ] + sorted(results["ambientes"], key=lambda e: e["label"])
 
-    results["coordenacoes"] = sorted(results["coordenacoes"], key=lambda e: e["fullname"])
+    results["coordenacoes"] = sorted(
+        results["coordenacoes"], key=lambda e: e["fullname"]
+    )
     results["praticas"] = sorted(results["praticas"], key=lambda e: e["fullname"])
     cursos = {
         c.codigo: c.nome
@@ -224,7 +238,9 @@ def get_diarios(
             c["label"] = f"{cursos[c['id']]}"
         else:
             c["label"] = f"Curso [{c['id']}], favor solicitar o cadastro"
-    results["cursos"] = [{'id': '', 'label': 'Cursos...'}] + deduplicate_and_sort(results["cursos"])
+    results["cursos"] = [{"id": "", "label": "Cursos..."}] + deduplicate_and_sort(
+        results["cursos"]
+    )
 
     # results["situacoes"] = Situacao.kv
     # results["ordenacoes"] = Ordenacao.kv
@@ -238,7 +254,9 @@ def get_atualizacoes_counts(username: str) -> dict:
         try:
             ava = params["ava"]
 
-            counts = get_json_api(ava, "get_atualizacoes_counts.php", username=params["username"])
+            counts = get_json_api(
+                ava, "get_atualizacoes_counts.php", username=params["username"]
+            )
             counts["ambiente"] = {
                 "titulo": re.subn("🟥 |🟦 |🟧 |🟨 |🟩 |🟪 ", "", ava.nome)[0],
                 "sigla": ava.sigla,
@@ -249,10 +267,18 @@ def get_atualizacoes_counts(username: str) -> dict:
                 "conversations_url": f"{ava.base_url}/message/",
             }
             params["results"]["atualizacoes"].append(counts)
-            params["results"]["unread_notification_total"] = \
-                sum([c["unread_popup_notification_count"] for c in params["results"]["atualizacoes"]])
-            params["results"]["unread_conversations_total"] = \
-                sum([c["unread_conversations_count"] for c in params["results"]["atualizacoes"]])
+            params["results"]["unread_notification_total"] = sum(
+                [
+                    c["unread_popup_notification_count"]
+                    for c in params["results"]["atualizacoes"]
+                ]
+            )
+            params["results"]["unread_conversations_total"] = sum(
+                [
+                    c["unread_conversations_count"]
+                    for c in params["results"]["atualizacoes"]
+                ]
+            )
 
         except Exception as e:
             logging.error(e)
@@ -269,7 +295,8 @@ def get_atualizacoes_counts(username: str) -> dict:
                 "username": username,
                 "ava": ava,
                 "results": results,
-            } for ava in Ambiente.objects.filter(active=True)
+            }
+            for ava in Ambiente.objects.filter(active=True)
         ]
         executor.map(_callback, requests)
 

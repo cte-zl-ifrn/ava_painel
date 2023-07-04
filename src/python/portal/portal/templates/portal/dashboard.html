@@ -49,15 +49,12 @@
 <body>
     {% include 'portal/partials/header.html' %}
 
-    <main id="app">
+   <main id="app">
         <div>
             <section>
                 <h1 id="dashboard-title">Painel AVA</h1>
-
-                
-
             <div class="wrapper">
-                <div class="row row-offcanvas row-offcanvas-left">
+                <div class="row filter-wrapper">
                     <!-- sidebar -->
                     <div class="column col-sm-3 col-xs-1 sidebar-offcanvas" id="sidebar">
                         <ul class="navmenu" id="menu">
@@ -131,7 +128,6 @@
             </section>
         </div>
     </main>
-
     {% include 'portal/partials/footer.html' %}
     <script src="//cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="//unpkg.com/vue@3.2.37/dist/vue.global.prod.js"></script>
