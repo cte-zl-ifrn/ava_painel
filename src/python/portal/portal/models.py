@@ -346,8 +346,14 @@ class Diario(SafeDeleteModel):
             try:
                 retorno_json = json.loads(retorno.text)
             except Exception as e:
+                error_text = ""
+                # error_text = (
+                #     re.sub("<[^<]+?>", "", retorno.text)
+                #     .replace("  ", " ")
+                #     .replace("\n", " ")
+                # )
                 raise SyncError(
-                    f"Erro na integração. Contacte um administrador. Erro: {e}",
+                    f"Erro na integração. Contacte um administrador. Erro: {e}. {error_text}",
                     retorno.status_code,
                     campus,
                     retorno,

@@ -57,14 +57,27 @@ def moodle_suap(request: HttpRequest):
         #         "Você enviou um token de auteticação diferente do que tem na settings 'SUAP_EAD_KEY'.",
         #         403,
         #     )
-        if request.method == "POST":
-            try:
-                message_string = request.body.decode("utf-8")
-            except Exception as e1:
-                return SyncError(f"Erro ao decodificar o JSON ({e1}).", 502)
-            return JsonResponse(Diario.sync(message_string, request2dict(request)))
-        raise SyncError("Não implementado.", 501)
+
+        if request.method != "POST":
+            raise SyncError("Não implementado.", 501)
+
+        try:
+            message_string = request.body.decode("utf-8")
+        except Exception as e1:
+            return SyncError(f"Erro ao decodificar o body em utf-8 ({e1}).", 405)
+
+        try:
+            json.dumps(message_string)
+        except Exception as e1:
+            return SyncError(f"Erro ao converter para JSON ({e1}).", 407)
+
+        response = Diario.sync(message_string, request2dict(request))
+        return JsonResponse(response)
+
     except SyncError as se:
+        print(type(se), se)
+        print(se)
         return response_error(request, se)
     except Exception as e2:
+        print(type(e2), e2)
         return response_error(request, e2)
