@@ -63,7 +63,7 @@ def user(request: HttpRequest) -> dict:
         if hasattr(request.user, "get_short_name") and request.user.get_short_name()
         else request.user.username,
         "user_profile_url": "#",
-        "user_profile_thumbnail_url": f"{settings.STATIC_URL}vendors/adminlte3/img/avatar.png",
+        # "user_profile_thumbnail_url": f"{settings.STATIC_URL}vendors/adminlte3/img/avatar.png",
     }
 
 
