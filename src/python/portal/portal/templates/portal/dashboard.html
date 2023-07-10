@@ -55,8 +55,12 @@
                 <h1 id="dashboard-title">Painel AVA</h1>
             <div class="wrapper">
                 <div class="row filter-wrapper">
+                    <div class="hide-desktop pr-pl-4">
+                        {% include 'portal/partials/filters.html' %}
+                    </div>
+                    
                     <!-- sidebar -->
-                    <div class=" sidebar-offcanvas" id="sidebar">
+                    <div class="sidebar-offcanvas hide-mobile" id="sidebar">
                         <ul class="navmenu" id="menu">
                             {% include 'portal/partials/filters.html' %}
                             <div class="align-content-center">
