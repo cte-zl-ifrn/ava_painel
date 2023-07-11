@@ -1,5 +1,5 @@
 # Core
-django==4.2.1
+django==4.2.3
 sc4py==0.1.4
 sc4net==0.1.3
 

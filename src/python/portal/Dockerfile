@@ -12,7 +12,7 @@ RUN pip install --upgrade pip && \
 
 ADD requirements-dev.txt /apps/req/requirements-dev.txt
 WORKDIR /apps/req
-COPY --from=django-adminlte3 / /apps/django-adminlte3
+# COPY --from=django-adminlte3 / /apps/django-adminlte3
 RUN pip install -r requirements-dev.txt
 
 # FIX: bug on corsheaders

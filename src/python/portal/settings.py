@@ -124,7 +124,7 @@ TEMPLATES = [
                 "portal.context_processors.layout_settings",
                 "portal.context_processors.top_menu",
                 "portal.context_processors.user",
-                "adminlte3_admin.context_processors.sidebar_menu",
+                # "adminlte3_admin.context_processors.sidebar_menu",
                 "portal.context_processors.messages",
                 "portal.context_processors.notifications",
             ]

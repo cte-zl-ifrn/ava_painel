@@ -1,4 +1,4 @@
--e ../django-adminlte3
+# -e ../django-adminlte3
 black
 debugpy
 django-debug-toolbar==4.0.0
