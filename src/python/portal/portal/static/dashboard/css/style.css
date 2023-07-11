@@ -632,6 +632,7 @@ main>div>aside {
 
 .course-list-toggler {
     float: right;
+    margin-left: auto;
 }
 
 .course-list {
@@ -2060,7 +2061,7 @@ ul#menu {
     }
 }
 
-@media only screen and (max-width : 720px) {
+@media only screen and (max-width : 896px) {
     #grid-filter {
         /* grid-template-columns: repeat(2, 1fr); */
         grid-template-columns: 1fr 1fr;
@@ -2150,9 +2151,9 @@ ul#menu {
         margin-right: 3px;
     }
 
-    .tab-content.courses{
+    /* .tab-content.courses{
         width: 335px;
-    }
+    } */
 }
 
 @media only screen and (min-width : 630px) and (max-width: 1346px) {
