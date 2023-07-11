@@ -52,15 +52,17 @@
    <main id="app">
         <div>
             <section>
-                <h1 id="dashboard-title">Painel AVA</h1>
+            <h1 id="dashboard-title">Painel AVA</h1>
             <div class="wrapper">
                 <div class="row filter-wrapper">
-                    <div class="hide-desktop pr-pl-4">
-                        {% include 'portal/partials/filters.html' %}
-                    </div>
-                    
                     <!-- sidebar -->
-                    <div class="sidebar-offcanvas hide-mobile" id="sidebar">
+                    <div class="sidebar-offcanvas" id="sidebar">
+                        <a href="" data-toggle="offcanvas">
+                            <div class="toggle-filter">
+                                <p><i class="fa fa-angle-left"></i><i class="fa fa-angle-right"></i></p>
+                            </div>
+                        </a>
+                        
                         <ul class="navmenu" id="menu">
                             {% include 'portal/partials/filters.html' %}
                             <div class="align-content-center">
@@ -73,10 +75,6 @@
                                 <li class="block-content d-none margin-top-36"><a href="#"><i class="fa fa-globe icon-filter-color"></i> <span class="collapse in hidden-xs"></span></a></li>
                             </div>   
                         </ul>
-                        <div class="toggle-filter">
-                            <p><a href="" data-toggle="offcanvas"><i class="fa fa-angle-left fa-2x" style="color: #7D848B;"></i></a></p>
-                            <p><a href="" data-toggle="offcanvas"><i class="fa fa-angle-right fa-2x d-none" style="color: #DFDFDF;"></i></a></p>                   
-                        </div>
                         <!-- <div class="align-toggle-filter">
                         </div> -->
                     </div>

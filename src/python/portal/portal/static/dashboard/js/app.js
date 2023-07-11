@@ -39,7 +39,6 @@ export default {
             disciplina: localStorage.disciplina || '',
             curso: localStorage.curso || '',
             ambiente: localStorage.ambiente || '',
-
         }
     },
 
@@ -54,7 +53,7 @@ export default {
         // this.closeNav();
 
         this.toggleNavBar();
-        this.clearFilter();
+        // this.clearFilter();
     },
     methods: {
 
@@ -90,7 +89,7 @@ export default {
         restoreState() {
             document.getElementById('grid-filter').classList.remove('hide_this');
             if (!$(".view-toggler").is(":checked")) {
-                const lastView = localStorage.view_toggler ? localStorage.view_toggler : 'default';
+                const lastView = ["default", "compact"].includes(localStorage.view_toggler) ? localStorage.view_toggler : 'default';
                 $('#toggler-' + lastView).prop('checked', true)
             }
         },
@@ -147,10 +146,10 @@ export default {
                         element: '.header-user',
                         title: 'Menu usuário',
                         content: 'Acesse seu perfil no SUAP ou saia do Painel AVA de forma segura.',
-                        placement: 'bottom-end',
+                        placement: 'left',
                     },
                     {
-                        element: '#grid-filter-wrapper',
+                        element: '#sidebar',
                         title: 'Filtros',
                         content: '<p>Aqui você pode filtrar diários por semestre, curso, turma, disciplina, código/id do diário, curso, ambiente (AVA) ou situação, além de poder ordenar como será visto.</p><p>Você pode começar digitando o nome da disciplina e precionando [ENTER] como uma primeira procura.</p>',
                         placement: 'bottom',
