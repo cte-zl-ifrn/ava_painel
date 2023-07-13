@@ -1,14 +1,14 @@
 <div id="grid-filter-wrapper">
     <div id="grid-filter">
-        <div class="grid-item item-1 position-relative content-center">
+        <div class="grid-item item-1 position-relative content-center hide-close">
             <b class="filters-title">Filtrar diários e salas <i class="fa fa-info-circle" rel="tooltip" title="Os filtros ‘Diários’ e ‘Ordenar’ são filtros fixos. Se não houver alterações eles serão definidos por padrão como ‘Diários em andamentos’ e ‘Ordenar por disciplina’." style="font-size: 16px; color: #54595E;" aria-hidden="true"></i></b>
         </div>
         <hr class="hr-personal hide-mobile">
         <div class="grid-item item-2 position-relative filter-field">
-            <input placeholder="Busque #id, código ou nome" name="q" id="q" v-model="q" @keydown.enter="filterCards($event)" />
+            <input class="hide-close" placeholder="Busque #id, código ou nome" name="q" id="q" v-model="q" @keydown.enter="filterCards($event)" />
             <i class="fa fa-search icon-filter-color icon-fild-position"></i>
         </div>
-        <div class="grid-item position-relative filter-field">
+        <div class="grid-item position-relative filter-field display-content">
             <select name="situacao" id="situacao" placeholder="teste"  v-model="situacao" style="width: 100%; margin-left: 0px;">
                 <option v-for="row in situacoes" v-bind:value="row.id">[[ row.label ]]</option>
             </select>
@@ -43,10 +43,10 @@
             </select>
             <i class="fa fa-globe icon-filter-color icon-fild-position"></i>
         </div>
-        <div class="grid-item position-relative content-center">
+        <div class="grid-item position-relative content-center hide-close">
             <button type="button" class="btn btn-success btn-filtrar" v-on:click="filterCards($event)">Filtrar</button>
         </div>
-        <div class="grid-item position-relative content-center">
+        <div class="grid-item position-relative content-center hide-close">
             <button style="border: none; background-color: transparent;" v-on:click="clearFilter()"><b class="text-attribute-14">Limpar filtro <i class="fa fa-trash" aria-hidden="true"></i></b></button></button> 
         </div>
     </div>
