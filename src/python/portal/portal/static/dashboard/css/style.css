@@ -1932,7 +1932,7 @@ ul#menu {
 }
 
 .row.filter-wrapper.closed>#sidebar>ul#menu>#grid-filter-wrapper {
-    display: none !important;
+    /* display: none !important; */
 }
 
 
@@ -1978,6 +1978,38 @@ ul#menu {
 .row.filter-wrapper.closed>#main {
     width: calc(100% - 10px);
     padding-left: 50px;
+}
+
+.closed .hide-close{
+    display: none;
+}
+
+.closed .icon-fild-position{
+    left: 4px;
+    top: 3px;
+}
+
+.closed .grid-item.item-2.position-relative.filter-field{
+    height: 31px;
+    width: 28px;
+    border-radius: 50%;
+    border: none !important;
+}
+
+.closed .display-content{
+    display: contents;
+}
+
+.closed select#situacao { 
+    -webkit-appearance: none;
+    text-indent: 1px;
+    text-overflow: unset;
+    background-color: #d2f4b7 !important;
+    border: 1px solid #d2f4b7 !important;
+    border-radius: 50%;
+    width: 32px !important;
+    height: 30px !important;
+    margin-left: 5px !important;
 }
 
 .align-content-center {
@@ -2037,6 +2069,23 @@ ul#menu {
     display: none;
 }
 
+div#grid-filter-wrapper{
+    margin-top: -25px;
+}
+
+.margin-top-0{
+    margin-top: 0px;
+}
+
+.navmenu-hr{
+    border: 1px solid #7D848B;
+    width: 26px;
+    opacity: 1;
+}
+
+.margin-bottom-hr{
+    margin-bottom: -13px;
+}
 /* ==== SIDENAV: END ==== */
 
 /* ===== MOBILE: BEGIN ===== */
