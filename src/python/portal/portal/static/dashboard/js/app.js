@@ -39,6 +39,8 @@ export default {
             disciplina: localStorage.disciplina || '',
             curso: localStorage.curso || '',
             ambiente: localStorage.ambiente || '',
+
+            closedMenu: localStorage.closedMenu || '',
         }
     },
 
@@ -54,6 +56,7 @@ export default {
 
         this.toggleNavBar();
         // this.clearFilter();
+        this.closedState();
     },
     methods: {
 
@@ -97,6 +100,30 @@ export default {
         viewToggle() {
             localStorage.view_toggler = $(".view-toggler:checked").val();
             $('.courses').removeClass("default compact").addClass(localStorage.view_toggler);
+        },
+
+        closedState(){
+            $(document).ready(function() {
+
+                var contentElement = $(".filter-wrapper");
+                var contentClosed = localStorage.getItem("contentClosed");
+          
+                if (contentClosed === "true") {
+                  contentElement.addClass("closed");
+                } else {
+                  contentElement.removeClass("closed");
+                }
+
+                contentElement.toggleClass("closed");
+      
+                if (contentElement.hasClass("closed")) {
+                  localStorage.setItem("contentClosed", "true");
+                } else {
+                  localStorage.setItem("contentClosed", "false");
+                }
+              });
+
+
         },
 
         customizeAmbiente() {

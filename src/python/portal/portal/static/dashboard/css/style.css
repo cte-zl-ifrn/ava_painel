@@ -2012,6 +2012,13 @@ ul#menu {
     margin-left: 5px !important;
 }
 
+.closed .grid-item.position-relative.filter-field{
+    height: 31px;
+    width: 28px;
+    border-radius: 50%;
+    border: none !important;
+}
+
 .align-content-center {
     display: flex;
     flex-wrap: wrap;
