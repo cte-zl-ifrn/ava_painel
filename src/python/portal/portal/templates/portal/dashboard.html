@@ -49,7 +49,19 @@
 <body>
     {% include 'portal/partials/header.html' %}
 
-   <main id="app">
+    <div id="pre-loading">
+        <div id="search-loader" v-if="is_filtering">
+            <p>Por favor, aguarde o carregamento do Painel AVA.</p>
+            <div id="mosaic-loader">
+                <div class="cell d-0"></div><div class="cell d-1"></div><div class="cell d-2"></div>
+                <div class="cell d-1"></div><div class="cell d-2"></div><div class="cell d-3"></div>
+                <div class="cell d-2"></div><div class="cell d-3"></div><div class="cell d-4"></div>
+                <div class="cell d-3"></div><div class="cell d-4"></div><div class="cell d-5"></div>
+            </div>
+        </div>
+    </div>
+
+    <main id="app">
         <div>
             <section>
             <h1 id="dashboard-title">Painel AVA</h1>
@@ -57,7 +69,7 @@
                 <div class="row filter-wrapper">
                     <!-- sidebar -->
                     <div class="sidebar-offcanvas" id="sidebar">
-                        <a href="" data-toggle="offcanvas">
+                        <a data-toggle="offcanvas" @click="toggleNavBar($event)">
                             <div class="toggle-filter">
                                 <p><i class="fa fa-angle-left"></i><i class="fa fa-angle-right"></i></p>
                             </div>
@@ -146,6 +158,8 @@
             </section>
         </div>
     </main>
+
+
     {% include 'portal/partials/footer.html' %}
     <script src="//cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="//unpkg.com/vue@3.2.37/dist/vue.global.prod.js"></script>
