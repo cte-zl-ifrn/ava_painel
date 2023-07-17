@@ -82,18 +82,28 @@ O design ficará como os designs [web](https://xd.adobe.com/view/00dc014e-8919-4
 
 ### v4 - Melhorias na UX
 
+#### Desktop
 ![screenshot](screenshot.v4.png)
+
+#### Mobile
+![screenshot](screenshot.mobile.v4.png)
 
 ### v3 - Uso comum por aluno, tutor e professor
 
+#### Desktop
 ![screenshot](screenshot.v3.jpg)
+
+#### Mobile
+![screenshot](screenshot.mobile.v3.png)
 
 ### v2 - Hiper focado no aluno
 
+#### Desktop
 ![screenshot](screenshot.v2.png)
 
 ### v1 - Esforço urgente, sem projeto de UX
 
+#### Desktop
 ![screenshot](screenshot.v1.png)
 
 ## Plugins previstos
