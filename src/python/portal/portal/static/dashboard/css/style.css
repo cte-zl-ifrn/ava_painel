@@ -1855,6 +1855,10 @@ ul#menu {
     padding-left: 0px;
 }
 
+.closed ul#menu {
+    margin-top: -15px;
+}
+
 #main {
     left: 0;
     width: calc(100% - 10px);
@@ -1868,7 +1872,7 @@ ul#menu {
     height: 26px;
     justify-content: center;
     position: sticky;
-    top: calc(50vh + 50px);
+    top: calc(50% + 50px);
     margin-left: 268px;
     border-radius: 50%;
 }
@@ -1916,7 +1920,6 @@ ul#menu {
 }
 
 .filter-wrapper.closed {
-    min-height: 590px;
     margin-left: 1px;
     grid-template-columns: 30px 1fr;
 }
@@ -1933,7 +1936,6 @@ ul#menu {
     text-align: center;
     min-width: 42px;
 }
-
 
 .row.filter-wrapper.closed>#sidebar>ul#menu>div li.block-content {
     display: block !important;

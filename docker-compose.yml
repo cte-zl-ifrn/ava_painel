@@ -44,7 +44,7 @@ services:
       - ava
 
   portal:
-    image: 'ctezlifrn/avaportal:1.0.40'
+    image: 'ctezlifrn/avaportal:1.0.43'
     build:
       context: src/python/portal
       # additional_contexts:
