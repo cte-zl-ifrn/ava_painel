@@ -86,6 +86,9 @@ h6 {
     --default-border-radius: 6px;
 }
 
+#app {
+    display: none;
+}
 
 #app>div>section {
     margin-left: 30px;
@@ -2061,6 +2064,7 @@ ul#menu {
 
 #sidebar a {
     text-decoration: none;
+    cursor: pointer;
 }
 
 .hide-desktop {
