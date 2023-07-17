@@ -40,44 +40,35 @@ export default {
             curso: localStorage.curso || '',
             ambiente: localStorage.ambiente || '',
 
-            closedMenu: localStorage.closedMenu || '',
+            contentClosed: localStorage.contentClosed || 'true',
         }
     },
 
     mounted() {
+        if (localStorage.contentClosed == 'true') {
+            $('.filter-wrapper').addClass('closed');
+        }
         $('.view-toggler').change(this.viewToggle);
         $(document).ready(this.customizeAmbiente);
         this.restoreState();
         this.filterCards();
+        $('#app').css('display', 'block');
+        $('#pre-loading').css('display', 'none');
         this.startTour001();
-
-        // this.openNav();
-        // this.closeNav();
-
-        this.toggleNavBar();
-        // this.clearFilter();
-        this.closedState();
     },
     methods: {
 
-        openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-            document.getElementById("main").style.marginLeft = "250px";
-            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-        },
-
-        closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-            document.getElementById("main").style.marginLeft = "0";
-            document.body.style.backgroundColor = "white";
-        },
-
-        toggleNavBar() {
-            $('[data-toggle=offcanvas]').click(function (e) {
-                e.preventDefault()
-                $('.filter-wrapper').toggleClass('closed');
-                $('.collapse').toggleClass('in').toggleClass('hidden-xs').toggleClass('visible-xs');
-            });
+        toggleNavBar(e) {
+            if (e) {
+                e.preventDefault();
+            }
+            if (localStorage.contentClosed == 'true') {
+                $('.filter-wrapper').removeClass('closed');
+                localStorage.contentClosed = 'false'
+            } else {
+                $('.filter-wrapper').addClass('closed');
+                localStorage.contentClosed = 'true'
+            }
         },
 
         clearFilter() {
@@ -102,32 +93,8 @@ export default {
             $('.courses').removeClass("default compact").addClass(localStorage.view_toggler);
         },
 
-        closedState(){
-            $(document).ready(function() {
-
-                var contentElement = $(".filter-wrapper");
-                var contentClosed = localStorage.getItem("contentClosed");
-          
-                if (contentClosed === "true") {
-                  contentElement.addClass("closed");
-                } else {
-                  contentElement.removeClass("closed");
-                }
-
-                contentElement.toggleClass("closed");
-      
-                if (contentElement.hasClass("closed")) {
-                  localStorage.setItem("contentClosed", "true");
-                } else {
-                  localStorage.setItem("contentClosed", "false");
-                }
-              });
-
-
-        },
-
         customizeAmbiente() {
-            /* 
+            /*
             $('#ambiente').select2({
                 templateResult: function (data) {
                     const style = data.element && data.element.dataset && data.element.dataset.color ?
@@ -141,7 +108,7 @@ export default {
                 }
             });
             $('#ambiente').on("select2:select", this.filterCards);
-            $('#ambiente').val(self.ambiente || ''); 
+            $('#ambiente').val(self.ambiente || '');
             */
         },
 
