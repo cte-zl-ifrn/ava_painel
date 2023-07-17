@@ -8,7 +8,7 @@ from datetime import datetime
 from django.core.exceptions import DisallowedHost
 
 
-PORTAL_VERSION = "1.0.35"
+PORTAL_VERSION = "1.0.45"
 
 
 BASE_DIR = Path(__file__).resolve().parent

@@ -21,7 +21,8 @@ urlpatterns = [
                 path("", include("portal.urls")),
             ]
         ),
-    )
+    ),
+    path("", RedirectView.as_view(url=settings.ROOT_URL_PATH)),
 ]
 
 
