@@ -76,17 +76,25 @@ _/portal/debug
   - No futuro poderá retornar dados de **necessidades especiais**, assim os sistemas já adaptarão as interfaces a estas necessidades.
 
 
-## Screenshot
+## Screenshots
 
 O design ficará como os designs [web](https://xd.adobe.com/view/00dc014e-8919-47ad-ab16-74ac81ca0c2a-558f/) e [mobile](https://xd.adobe.com/view/28b2f455-b115-4363-954f-77b5bcf1dba1-7de1/).
 
-### Novo
+### v4 - Melhorias na UX
 
-![screenshot](screenshot.png)
+![screenshot](screenshot.v4.png)
 
-### Antigo
+### v3 - Uso comum por aluno, tutor e professor
 
-![screenshot](screenshot.jpg)
+![screenshot](screenshot.v3.jpg)
+
+### v2 - Hiper focado no aluno
+
+![screenshot](screenshot.v2.png)
+
+### v1 - Esforço urgente, sem projeto de UX
+
+![screenshot](screenshot.v1.png)
 
 ## Plugins previstos
 
