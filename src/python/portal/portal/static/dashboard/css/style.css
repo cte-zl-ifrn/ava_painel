@@ -516,7 +516,7 @@ main>div {
     font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-600) var(--unnamed-font-size-24)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
     letter-spacing: var(--unnamed-character-spacing-0);
     color: var(--branco-primario);
-    opacity: 1; 
+    opacity: 1;
 }
 
 .tab-menu>.nav-tabs>.nav-link.closed {
@@ -2150,7 +2150,7 @@ div#grid-filter-wrapper {
     }
 }
 
-@media only screen and (max-width : 896px) {
+@media only screen and (max-width : 944px) {
 
     #grid-filter {
         /* grid-template-columns: repeat(2, 1fr); */
@@ -2178,7 +2178,7 @@ div#grid-filter-wrapper {
         padding: 7px 0px 15px 0px;
     }
 
-    .closed .btn-filtrar{
+    .closed .btn-filtrar {
         font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-600) var(--unnamed-font-size-14)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
         letter-spacing: var(--unnamed-character-spacing-0);
         color: var(--branco-primario);
@@ -2353,7 +2353,7 @@ div#grid-filter-wrapper {
     }
 
     label#toggler-default-label,
-    label#toggler-compact-label{
+    label#toggler-compact-label {
         padding-top: 3px;
     }
 
@@ -2400,6 +2400,12 @@ div#grid-filter-wrapper {
     /* .tab-content.courses{
         width: 335px;
     } */
+}
+
+@media only screen and (max-width : 1058px) {
+    .desktop-only {
+        display: none;
+    }
 }
 
 @media only screen and (min-width : 630px) and (max-width: 1346px) {
