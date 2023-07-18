@@ -145,8 +145,8 @@ export default {
                     {
                         element: '#sidebar',
                         title: 'Filtros',
-                        content: '<p>Aqui você pode filtrar diários por semestre, curso, turma, disciplina, código/id do diário, curso, ambiente (AVA) ou situação, além de poder ordenar como será visto.</p><p>Você pode começar digitando o nome da disciplina e precionando [ENTER] como uma primeira procura.</p>',
-                        placement: 'bottom',
+                        content: '<p>Aqui você pode filtrar diários por semestre, curso, turma, disciplina, código/id do diário, curso, ambiente (AVA) ou situação, além de poder ordenar como será visto.</p><p>Você pode começar digitando o nome da disciplina e pressionando [ENTER] como uma primeira procura.</p>',
+                        placement: 'right',
                         onNext: function () {
                             $('#toggler-default').prop('checked', true);
                             geral.viewToggle();
@@ -201,7 +201,7 @@ export default {
         },
 
         visible(card) {
-            if(confirm("Confirma a operação?")){
+            if (confirm("Confirma a operação?")) {
                 const new_status = parseInt(card.visible) ? 0 : 1;
                 axios.get(
                     '/painel/portal/api/v1/set_visible/', {
@@ -216,8 +216,8 @@ export default {
                 }).catch(error => {
                     console.debug(error);
                 });
-                }
-            },
+            }
+        },
 
         clearFilter() {
             console.log(this.$watch)
