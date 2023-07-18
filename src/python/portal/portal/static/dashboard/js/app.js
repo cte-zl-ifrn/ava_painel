@@ -201,21 +201,23 @@ export default {
         },
 
         visible(card) {
-            const new_status = parseInt(card.visible) ? 0 : 1;
-            axios.get(
-                '/painel/portal/api/v1/set_visible/', {
-                params: {
-                    "ava": card.ambiente.sigla,
-                    "courseid": card.id,
-                    "visible": new_status,
+            if(confirm("Confirma a operação?")){
+                const new_status = parseInt(card.visible) ? 0 : 1;
+                axios.get(
+                    '/painel/portal/api/v1/set_visible/', {
+                    params: {
+                        "ava": card.ambiente.sigla,
+                        "courseid": card.id,
+                        "visible": new_status,
+                    }
                 }
-            }
-            ).then(response => {
-                card.visible = new_status == 1;
-            }).catch(error => {
-                console.debug(error);
-            });
-        },
+                ).then(response => {
+                    card.visible = new_status == 1;
+                }).catch(error => {
+                    console.debug(error);
+                });
+                }
+            },
 
         clearFilter() {
             console.log(this.$watch)
