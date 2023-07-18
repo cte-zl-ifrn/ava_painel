@@ -505,13 +505,18 @@ main>div {
 
 .tab-menu>.nav-tabs>.nav-link {
     color: var(--escuro-primario);
-    text-transform: var(--unnamed-text-transform-uppercase);
     background-color: var(--cinza-terciario);
     border-color: transparent transparent var(--verde-secundario);
     border: 0px solid;
     border-radius: 0;
     margin-right: 2px;
     margin-bottom: 0px;
+    margin-top: 4px;
+    padding: 0px 20px 0px 20px;
+    font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-600) var(--unnamed-font-size-24)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--branco-primario);
+    opacity: 1; 
 }
 
 .tab-menu>.nav-tabs>.nav-link.closed {
@@ -637,6 +642,7 @@ main>div>aside {
 .course-list-toggler {
     float: right;
     margin-left: auto;
+    margin-bottom: 4px
 }
 
 .course-list {
@@ -2056,7 +2062,8 @@ ul#menu {
     margin-right: 16px;
     margin-left: 14px;
     margin-top: 0px;
-    border-top: 2px solid #DFDFDF;
+    border-top: 3px solid #DFDFDF;
+    opacity: 1;
 }
 
 .margin-top-36 {
