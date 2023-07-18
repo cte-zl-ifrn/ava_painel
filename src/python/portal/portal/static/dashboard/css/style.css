@@ -505,13 +505,18 @@ main>div {
 
 .tab-menu>.nav-tabs>.nav-link {
     color: var(--escuro-primario);
-    text-transform: var(--unnamed-text-transform-uppercase);
     background-color: var(--cinza-terciario);
     border-color: transparent transparent var(--verde-secundario);
     border: 0px solid;
     border-radius: 0;
     margin-right: 2px;
     margin-bottom: 0px;
+    margin-top: 4px;
+    padding: 0px 20px 0px 20px;
+    font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-600) var(--unnamed-font-size-24)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--branco-primario);
+    opacity: 1; 
 }
 
 .tab-menu>.nav-tabs>.nav-link.closed {
@@ -637,6 +642,7 @@ main>div>aside {
 .course-list-toggler {
     float: right;
     margin-left: auto;
+    margin-bottom: 4px
 }
 
 .course-list {
@@ -2056,7 +2062,8 @@ ul#menu {
     margin-right: 16px;
     margin-left: 14px;
     margin-top: 0px;
-    border-top: 2px solid #DFDFDF;
+    border-top: 3px solid #DFDFDF;
+    opacity: 1;
 }
 
 .margin-top-36 {
@@ -2154,6 +2161,7 @@ div#grid-filter-wrapper {
     #grid-filter>div:first-child {
         grid-column: 1 / 3;
         justify-self: flex-start;
+        margin-bottom: 9px;
     }
 
     #grid-filter>div {
@@ -2168,6 +2176,15 @@ div#grid-filter-wrapper {
         width: 100%;
         left: 0;
         padding: 7px 0px 15px 0px;
+    }
+
+    .closed .btn-filtrar{
+        font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-600) var(--unnamed-font-size-14)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+        letter-spacing: var(--unnamed-character-spacing-0);
+        color: var(--branco-primario);
+        text-align: center;
+        opacity: 1;
+        padding: 8px 57px 8px 57px;
     }
 
     .pr-pl-4 {
@@ -2282,7 +2299,15 @@ div#grid-filter-wrapper {
     }
 
     div#grid-filter-wrapper {
-        margin-top: 0;
+        margin-top: 0px;
+        margin-left: -4px;
+        margin-right: -1px;
+    }
+
+    .closed div#grid-filter-wrapper {
+        margin-top: 15px;
+        margin-left: -4px;
+        margin-right: -9px;
     }
 
     .row.filter-wrapper {
@@ -2323,8 +2348,13 @@ div#grid-filter-wrapper {
     .course-list-toggler {
         float: right;
         margin-left: auto;
-        margin-top: -355px;
-        height: 37px;
+        margin-top: -303px;
+        height: 32px;
+    }
+
+    label#toggler-default-label,
+    label#toggler-compact-label{
+        padding-top: 3px;
     }
 
     .grid-item:nth-last-child(1) {
