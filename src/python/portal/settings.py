@@ -124,7 +124,7 @@ TEMPLATES = [
                 "portal.context_processors.layout_settings",
                 "portal.context_processors.top_menu",
                 "portal.context_processors.user",
-                # "adminlte3_admin.context_processors.sidebar_menu",
+                "adminlte3_admin.context_processors.sidebar_menu",
                 "portal.context_processors.messages",
                 "portal.context_processors.notifications",
             ]
@@ -247,6 +247,8 @@ AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
 
 SUAP_EAD_KEY = env("SUAP_EAD_KEY", "changeme")
 SUAP_PORTAL_FAKEUSER = env("SUAP_PORTAL_FAKEUSER", None)
+MOODLE_SYNC_URL = env("MOODLE_SYNC_URL", "http://ava/api/moodle_suap/")
+MOODLE_SYNC_TOKEN = env("MOODLE_SYNC_TOKEN", "changeme")
 
 CORS_ORIGIN_ALLOW_ALL = env_as_bool("DJANGO_CORS_ORIGIN_ALLOW_ALL", False)
 CORS_ALLOWED_ORIGINS = env_as_list("DJANGO_CORS_ALLOWED_ORIGINS", [SUAP_BASE_URL])
