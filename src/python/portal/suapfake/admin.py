@@ -28,13 +28,34 @@ class DiarioAdmin(admin.ModelAdmin):
         return f"{obj}"
 
     def acoes(self, obj):
+        def acao(label: str, url: str, bgcolor: str):
+            style = f"""background: {bgcolor}; 
+                        border: 1px solid black;
+                        padding: 0 5px;
+                        color: black;
+                        margin: 0 5px 0 0;"""
+            return f'<a style="{style}" href="{url}">{label}</a>'
+
         if obj.pacote_recebido:
             if "url" in obj.pacote_recebido:
-                url = obj.pacote_recebido["url"]
                 return format_html(
-                    f'<a style="border: 1px solid black; padding: 0 5px; background: silver; color: black; margin: 0 5px 0 0;" href="{reverse("admin:suapfake_diario_sync", args=[obj.id])}">Sincronizar</a>'
-                    f'<a style="border: 1px solid black; padding: 0 5px; background: aquamarine; color: black; margin: 0 5px 0 0;" href="{url}">Acessar AVA</a>'
+                    acao(
+                        "Sincronizar",
+                        reverse("admin:suapfake_diario_sync", args=[obj.id]),
+                        "silver",
+                    )
+                    + acao(
+                        "Diário",
+                        obj.pacote_recebido["url"],
+                        "aquamarine",
+                    )
+                    + acao(
+                        "Coordenação",
+                        obj.pacote_recebido["url_sala_coordenacao"],
+                        "aquamarine",
+                    )
                 )
+
             else:
                 return format_html(
                     f'<a style="border: 1px solid black; padding: 0 5px; background: silver; color: black; margin: 0 5px 0 0;" href="{reverse("admin:suapfake_diario_sync", args=[obj.id])}">Sincronizar</a>'
@@ -71,8 +92,9 @@ class DiarioAdmin(admin.ModelAdmin):
         except Exception as e:
             raise Exception(f"Erro ao tentar sincronizar. Diário não localizado.")
         try:
+            # print(settings.MOODLE_SYNC_URL)
             response = requests.post(
-                url=settings.MOODLE_SYNC_URL,
+                url="http://localhost:8000/api/moodle_suap/",
                 json=diario.pacote_enviado,
                 headers={"AUTHENTICATION": f"Token {settings.MOODLE_SYNC_TOKEN}"},
             )
