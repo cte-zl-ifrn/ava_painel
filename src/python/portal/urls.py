@@ -17,7 +17,7 @@ urlpatterns = [
                 path("admin/", admin.site.urls),
                 path("", include("a4.urls")),
                 path("", include("health.urls")),
-                path("", include("middleware.urls")),
+                # path("", include("middleware.urls")),
                 path("", include("portal.urls")),
             ]
         ),
