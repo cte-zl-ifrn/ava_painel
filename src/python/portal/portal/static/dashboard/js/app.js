@@ -55,7 +55,6 @@ export default {
         $('#app').css('display', 'block');
         $('#pre-loading').css('display', 'none');
         this.startTour001();
-        this.popUp();
     },
     methods: {
 
@@ -113,15 +112,6 @@ export default {
             */
         },
 
-        popUp(){
-            if(localStorage.getItem("popUpClicked") != 'true'){
-                $( document ).ready(function() {
-                    alert("Alguma mensagem de texto!");
-                });
-                localStorage.setItem("popUpClicked", true);
-            }
-        },
-
         startTour001() {
             const geral = this;
             if (localStorage.getItem("completouTour001") != 'true') {
@@ -161,7 +151,7 @@ export default {
                             $('#toggler-default').prop('checked', true);
                             geral.viewToggle();
                         }
-                    },
+                    }/*,
                     {
                         element: '#toggler-default-label',
                         title: 'Visão padrão',
@@ -181,7 +171,7 @@ export default {
                             $('#toggler-default').prop('checked', true);
                             geral.viewToggle();
                         }
-                    },
+                    },*/
                 ]);
                 wt.start();
                 localStorage.setItem("completouTour001", true);

@@ -14,6 +14,7 @@ urlpatterns = [
         include(
             [
                 path("admin/login/", RedirectView.as_view(url="/login/")),
+                path("djrichtextfield/", include("djrichtextfield.urls")),
                 path("admin/", admin.site.urls),
                 path("", include("a4.urls")),
                 path("", include("health.urls")),

@@ -2,12 +2,18 @@ from django.utils.translation import gettext as _
 import re
 import json
 import requests
+from django.utils.timezone import now
 from django.utils.safestring import mark_safe
 from django.conf import settings
 from django.core import validators
 from django.forms import ValidationError
-from django.db.models import Model, ForeignKey, PROTECT, BooleanField
 from django.db.models import (
+    Model,
+    ForeignKey,
+    PROTECT,
+    BooleanField,
+    TextField,
+    URLField,
     CharField,
     URLField,
     ImageField,
@@ -18,6 +24,7 @@ from django.db.models import (
 from django_better_choices import Choices
 from simple_history.models import HistoricalRecords
 from safedelete.models import SafeDeleteModel
+from djrichtextfield.models import RichTextField
 from a4.models import Usuario
 from middleware.models import Solicitacao
 from portal import request2dict
@@ -43,6 +50,12 @@ class Turno(Choices):
 
 
 Turno.kv = [{"id": p, "label": p.display} for p in Turno.values()]
+
+
+class ActiveMixin:
+    @property
+    def active_icon(self):
+        return "✅" if self.active else "⛔"
 
 
 class Arquetipo(Choices):
@@ -520,9 +533,44 @@ class Inscricao(SafeDeleteModel):
         verbose_name_plural = _("inscrições")
         ordering = ["diario", "usuario"]
 
+    @property
+    def active_icon(self):
+        return "✅" if self.active else "⛔"
+
     def __str__(self):
-        active = "✅" if self.active else "⛔"
-        return f"{self.diario} - {self.usuario} - {self.papel} - {active}"
+        return f"{self.diario} - {self.usuario} - {self.papel} - {self.active}"
 
     def notify(self):
         pass
+
+
+class Popup(ActiveMixin, SafeDeleteModel):
+    titulo = CharField(_("título"), max_length=256)
+    url = URLField(_("url"), max_length=256)
+    mensagem = RichTextField(_("mensagem"))
+    start_at = DateTimeField(_("inicia em"))
+    end_at = DateTimeField(_("termina em"))
+    active = BooleanField(_("ativo?"))
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name = _("popup")
+        verbose_name_plural = _("popups")
+        ordering = ["start_at", "titulo"]
+
+    def __str__(self):
+        return f"{self.titulo} - {self.active_icon}"
+
+    def save(self, *args, **kwargs):
+        if self.start_at > self.end_at:
+            return ValidationError("O término deve ser maior do que o início.")
+        super().save(*args, **kwargs)
+
+    def mostrando(self):
+        return self.active and self.start_at <= now() and self.end_at >= now()
+
+    @staticmethod
+    def activePopup():
+        return Popup.objects.filter(
+            active=True, start_at__lte=now(), end_at__gte=now()
+        ).first()

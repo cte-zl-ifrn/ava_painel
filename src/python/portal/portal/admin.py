@@ -1,11 +1,22 @@
 from django.utils.translation import gettext as _
 from django.db.models import Model
 from django.contrib.admin import register, display, StackedInline, TabularInline
+from django.forms import ValidationError
 from django.utils.safestring import mark_safe
 from import_export.admin import ImportExportMixin, ExportActionMixin
 from simple_history.admin import SimpleHistoryAdmin
 from safedelete.admin import SafeDeleteAdmin, SafeDeleteAdminFilter
-from .models import Ambiente, Polo, Componente, Diario, Campus, Curso, Turma, Inscricao
+from .models import (
+    Ambiente,
+    Polo,
+    Componente,
+    Diario,
+    Campus,
+    Curso,
+    Turma,
+    Inscricao,
+    Popup,
+)
 from .resources import AmbienteResource, CampusResource, CursoResource
 
 ####
@@ -126,3 +137,16 @@ class InscricaoAdmin(BaseModelAdmin):
     list_display = ["diario", "usuario", "papel", "polo", "active"]
     list_filter = ["active", "papel", "polo"] + BaseModelAdmin.list_filter
     search_fields = ["diario__codigo", "usuario__username"]
+
+
+@register(Popup)
+class PopupAdmin(BaseModelAdmin):
+    list_display = ["titulo", "start_at", "end_at", "active", "mostrando"]
+    list_filter = [
+        "active",
+        "start_at",
+        "end_at",
+        "url",
+        "mensagem",
+    ] + BaseModelAdmin.list_filter
+    search_fields = ["active", "usuario__username"]

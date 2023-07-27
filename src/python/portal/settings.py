@@ -61,6 +61,7 @@ THIRD_APPS = env_as_list(
         "simple_history",
         "safedelete",
         "django_sass",
+        "djrichtextfield",
         # "corsheaders",
         # "adminlte3",
         # "adminlte3_admin",
@@ -121,6 +122,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "portal.context_processors.gtag",
+                "portal.context_processors.popup",
                 "portal.context_processors.layout_settings",
                 "portal.context_processors.top_menu",
                 "portal.context_processors.user",
@@ -256,6 +258,32 @@ CSRF_TRUSTED_ORIGINS = env_as_list("DJANGO_CSRF_TRUSTED_ORIGINS", [])
 
 LAST_STARTUP = int(datetime.timestamp(datetime.now()) * 1000)
 
+DJRICHTEXTFIELD_CONFIG = {
+    # https://github.com/jaap3/django-richtextfield
+    #
+    # TinyMCE
+    # "js": ["//cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"],
+    # "init_template": "djrichtextfield/init/tinymce.js",
+    # "settings": {
+    #     "menubar": True,
+    #     "plugins": "link image",
+    #     # "toolbar": "bold italic | link image | removeformat",
+    #     "width": "100%",
+    # },
+    #
+    # CKEditor
+    "js": ["//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"],
+    "init_template": "djrichtextfield/init/ckeditor.js",
+    "settings": {
+        # "toolbar": [
+        #     {"items": ["Format", "-", "Bold", "Italic", "-", "RemoveFormat"]},
+        #     {"items": ["Link", "Unlink", "Image", "Table"]},
+        #     {"items": ["Source"]},
+        # ],
+        "format_tags": "p;h1;h2;h3",
+        "width": "100%",
+    },
+}
 
 # Observabilidade
 if env("SENTRY_DNS", None):

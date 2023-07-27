@@ -1,10 +1,14 @@
-from sys import breakpointhook
+from typing import Dict
 from django.conf import settings
 from django.utils.translation import gettext as _
 from django.http import HttpRequest
 from django.urls import reverse
-from portal.models import Ambiente
 from a4.models import logged_user
+from portal.models import Ambiente, Popup
+
+
+def popup(request: HttpRequest) -> Dict[str, Popup]:
+    return {"popup": Popup.activePopup()}
 
 
 def layout_settings(request: HttpRequest) -> dict:
@@ -18,17 +22,10 @@ def layout_settings(request: HttpRequest) -> dict:
         "logged_user": logged_user(request),
         "suap_base_url": settings.SUAP_BASE_URL,
         "personificando": usuario_personificado is not None,
-        # "layout_has_navbar_search": True,
-        # "layout_has_fullscreen_toggler": True,
-        # "layout_has_customizer": True,
         "layout_has_auth_remembering": True,
         "last_startup": settings.LAST_STARTUP,
         "portal_version": settings.PORTAL_VERSION,
         "gtag": settings.GTAG_CODE if hasattr(settings, "GTAG_CODE") else False,
-        "layout_auto_page_title": request.path.lower()
-        .replace("/", " ")
-        .lstrip()
-        .title(),
         "ambientes": Ambiente.objects.filter(active=True),
         "admins": Ambiente.admins(),
     }
