@@ -55,6 +55,7 @@ export default {
         $('#app').css('display', 'block');
         $('#pre-loading').css('display', 'none');
         this.startTour001();
+        this.popUp();
     },
     methods: {
 
@@ -110,6 +111,15 @@ export default {
             $('#ambiente').on("select2:select", this.filterCards);
             $('#ambiente').val(self.ambiente || '');
             */
+        },
+
+        popUp(){
+            if(localStorage.getItem("popUpClicked") != 'true'){
+                $( document ).ready(function() {
+                    alert("Alguma mensagem de texto!");
+                });
+                localStorage.setItem("popUpClicked", true);
+            }
         },
 
         startTour001() {
