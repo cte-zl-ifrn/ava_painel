@@ -1,4 +1,8 @@
 {% if popup %}
+  <script>
+    const popupModalName = "modal{{popup.id}}";
+    const popupModalUrl = "{{popup.url}}";
+  </script>
   <!-- Modal: Begin -->
   <div class="modal fade" id="modal{{popup.id}}" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
@@ -12,33 +16,10 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-link" data-bs-dismiss="modal">Lembre-me depois</button>
-          <a href="javascript:closeModalForever()" class="btn btn-success">Acessar agora</a>
+          <a id="model-url" href="./" class="btn btn-success">Acessar agora</a>
         </div>
       </div>
     </div>
   </div>
-
-  <script>
-    const popupModalName = "modal{{popup.id}}";
-    $(function() {
-      lastOccurrence = new Date(localStorage.getItem(popupModalName));
-      if (isNaN(lastOccurrence)) {
-        return;
-      }
-      // Se passaram 12h
-      if (((new Date()) - lastOccurrence) / (1000 * 3600 * 12) > 1) {
-        (new bootstrap.Modal(document.getElementById(popupModalName))).toggle();
-      }
-      $("#" + popupModalName).on("hidden.bs.modal", function () {
-        localStorage.setItem(popupModalName, new Date().toISOString());
-        console.log("closeModalUntilTomorrow");       
-      });
-    });
-
-    function closeModalForever(e) {
-      localStorage.setItem(popupModalName, 'true');
-      window.location = "{{popup.url}}";
-    }
-  </script>
   <!-- Modal: End -->
 {% endif %}

@@ -54,7 +54,8 @@ export default {
         this.filterCards();
         $('#app').css('display', 'block');
         $('#pre-loading').css('display', 'none');
-        this.startTour001();
+        // this.startTour001();
+        this.popup();
     },
     methods: {
 
@@ -176,6 +177,34 @@ export default {
                 wt.start();
                 localStorage.setItem("completouTour001", true);
             }
+        },
+
+        popup() {
+            $(function() {
+                const lastOccurrence = new Date(localStorage.getItem(popupModalName));
+                
+                // Já respondeu
+                if (isNaN(lastOccurrence)) {
+                    return;
+                }
+            
+                // O oopup nunca foi visto ou se passaram 12h desde a última visualização sem responder
+                if (((new Date()) - lastOccurrence) / (1000 * 3600 * 12) > 1) {
+                    (new bootstrap.Modal(document.getElementById(popupModalName))).toggle();
+                }
+            
+                // Se fechar sem clicar no link pede para repetir em 12h
+                $("#" + popupModalName).on("hidden.bs.modal", function () {
+                    localStorage.setItem(popupModalName, new Date().toISOString());
+                    console.log("closeModalUntilTomorrow");       
+                });
+
+                $('#model-url').on("click", function closeModalForever(e) {
+                    $("#modal1").click();
+                    localStorage.setItem(popupModalName, 'true');
+                    window.open(popupModalUrl);
+                  })
+                });
         },
 
         formatDate(dateString) {
