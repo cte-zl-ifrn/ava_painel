@@ -1,7 +1,6 @@
 from django.utils.translation import gettext as _
 from django.db.models import Model
 from django.contrib.admin import register, display, StackedInline, TabularInline
-from django.forms import ValidationError
 from django.utils.safestring import mark_safe
 from import_export.admin import ImportExportMixin, ExportActionMixin
 from simple_history.admin import SimpleHistoryAdmin
@@ -16,8 +15,20 @@ from .models import (
     Turma,
     Inscricao,
     Popup,
+    Papel,
+    VinculoPolo,
+    VinculoCurso,
+    CursoPolo,
 )
-from .resources import AmbienteResource, CampusResource, CursoResource
+from .resources import (
+    AmbienteResource,
+    CampusResource,
+    CursoResource,
+    PapelResource,
+    VinculoPoloResource,
+    VinculoCursoResource,
+    CursoPoloResource,
+)
 
 ####
 # Inlines
@@ -26,6 +37,21 @@ from .resources import AmbienteResource, CampusResource, CursoResource
 
 class CampusInline(StackedInline):
     model: Model = Campus
+    extra: int = 0
+
+
+class VinculoCursoInline(TabularInline):
+    model: Model = VinculoCurso
+    extra: int = 0
+
+
+class VinculoPoloInline(TabularInline):
+    model: Model = VinculoPolo
+    extra: int = 0
+
+
+class CursoPoloInline(TabularInline):
+    model: Model = CursoPolo
     extra: int = 0
 
 
@@ -91,6 +117,7 @@ class CursoAdmin(BaseModelAdmin):
     field_to_highlight = list_display[0]
     search_fields = ["codigo", "nome", "suap_id", "descricao"]
     resource_classes = [CursoResource]
+    inlines = [CursoPoloInline, VinculoCursoInline]
 
 
 @register(Turma)
@@ -130,6 +157,7 @@ class DiarioAdmin(BaseModelAdmin):
 class PoloAdmin(BaseModelAdmin):
     list_display = ["nome"]
     search_fields = ["nome", "suap_id"]
+    inlines = [VinculoPoloInline]
 
 
 @register(Inscricao)
@@ -149,4 +177,38 @@ class PopupAdmin(BaseModelAdmin):
         "url",
         "mensagem",
     ] + BaseModelAdmin.list_filter
-    search_fields = ["active", "usuario__username"]
+    search_fields = ["titulo", "mensagem", "url"]
+
+
+@register(Papel)
+class PapelAdmin(BaseModelAdmin):
+    list_display = ["nome", "sigla", "contexto", "active"]
+    list_filter = ["active", "contexto"] + BaseModelAdmin.list_filter
+    search_fields = ["nome", "sigla", "contexto"]
+    resource_classes = [PapelResource]
+
+
+@register(VinculoPolo)
+class VinculoPoloAdmin(BaseModelAdmin):
+    list_display = ["papel", "polo", "colaborador", "active"]
+    list_filter = [ "active", "papel", "papel"] + BaseModelAdmin.list_filter
+    search_fields = ["colaborador__nome_social", "colaborador__nome_civil"]
+    autocomplete_fields = ["polo", "colaborador"]
+    resource_classes = [VinculoPoloResource]
+
+
+@register(VinculoCurso)
+class VinculoCursoAdmin(BaseModelAdmin):
+    list_display = ["papel", "curso", "colaborador", "active"]
+    list_filter = [ "active", "papel"] + BaseModelAdmin.list_filter
+    search_fields = ["colaborador__nome_social", "colaborador__nome_civil"]
+    autocomplete_fields = ["curso", "colaborador"]
+    resource_classes = [VinculoCursoResource]
+
+
+@register(CursoPolo)
+class CursoPoloResourceAdmin(BaseModelAdmin):
+    list_display = ["curso", "polo", "active"]
+    list_filter = [ "active", ] + BaseModelAdmin.list_filter
+    autocomplete_fields = ["curso", "polo"]
+    resource_classes = [CursoPoloResource]

@@ -2,8 +2,17 @@ import json
 from import_export.resources import ModelResource
 from import_export.fields import Field
 from import_export.widgets import ForeignKeyWidget, DateTimeWidget
-
-from .models import Ambiente, Campus, Curso
+from .models import (
+    Ambiente,
+    Campus,
+    Curso,
+    Papel,
+    Polo,
+    Usuario,
+    VinculoPolo,
+    VinculoCurso,
+    CursoPolo,
+)
 
 
 DEFAULT_DATETIME_FORMAT = "%d/%m/%Y %H:%M:%S"
@@ -52,116 +61,85 @@ class CursoResource(ModelResource):
         skip_unchanged = True
 
 
-# class CursoResource(resources.ModelResource):
-#     class Meta:
-#         model = Curso
-#         export_order = ('nome', 'carga_horaria')
-#         import_id_fields = ('nome',)
-#         fields = export_order
-#         skip_unchanged = True
+class PapelResource(ModelResource):
+    class Meta:
+        model = Papel
+        export_order = ["sigla", "nome", "contexto", "active"]
+        import_id_fields = ("sigla",)
+        fields = export_order
+        skip_unchanged = True
 
 
-# class AVAResource(resources.ModelResource):
-#     instituicao = Field(attribute='instituicao', column_name='sigla_instituicao', widget=ForeignKeyWidget(Instituicao, field='sigla'))
+class VinculoPoloResource(ModelResource):
+    papel = Field(
+        attribute="papel",
+        column_name="papel",
+        widget=ForeignKeyWidget(Papel, field="nome"),
+    )
+    
+    polo = Field(
+        attribute="polo",
+        column_name="polo",
+        widget=ForeignKeyWidget(Polo, field="nome"),
+    )
+    
+    colaborador = Field(
+        attribute="colaborador",
+        column_name="colaborador",
+        widget=ForeignKeyWidget(Usuario, field="username"),
+    )
 
-#     class Meta:
-#         model = AVA
-#         export_order = ('nome', 'url', 'instituicao', 'tipo', 'token')
-#         import_id_fields = ('url',)
-#         fields = export_order
-#         skip_unchanged = True
-#         use_natural_foreign_keys = True
-
-
-# class OfertaResource(resources.ModelResource):
-#     curso = Field(attribute='curso', column_name='nome_curso', widget=ForeignKeyWidget(Curso, field='nome'))
-#     ava = Field(attribute='ava', column_name='url_ava', widget=ForeignKeyWidget(AVA, field='url'))
-
-#     class Meta:
-#         model = Oferta
-#         export_order = ('curso', 'ava', 'idnumber', 'url')
-#         import_id_fields = ('curso','ava', 'idnumber')
-#         fields = export_order
-#         skip_unchanged = True
-
-
-# class UsuarioResource(resources.ModelResource):
-#     cpf = Field(attribute='username', column_name='cpf')
-#     cadastrado_em = Field(attribute='date_joined', column_name='cadastrado_em', widget=DEFAULT_DATETIME_FORMAT_WIDGET)
-#     primeiro_login_em = Field(attribute='first_login', column_name='primeiro_login_em', widget=DEFAULT_DATETIME_FORMAT_WIDGET)
-#     ultimo_login_em = Field(attribute='last_login', column_name='ultimo_login_em', widget=DEFAULT_DATETIME_FORMAT_WIDGET)
-#     aceitou_termo_uso_em = Field(attribute='aceitou_termo_uso_em', column_name='aceitou_termo_uso_em', widget=DEFAULT_DATETIME_FORMAT_WIDGET)
-#     membro_da_equipe = Field(attribute='is_staff', column_name='membro_da_equipe')
-#     ativo = Field(attribute='is_active', column_name='ativo')
-
-#     class Meta:
-#         model = Usuario
-#         export_order = ('cpf', 'email', 'nome_completo', 'cadastrado_em', 'primeiro_login_em', 'ultimo_login_em', 'aceitou_termo_uso_em', 'ativo', 'membro_da_equipe')
-#         import_id_fields = ('cpf',)
-#         fields = export_order
-#         skip_unchanged = True
-#         # widgets = {
-#         #     'cadastrado_em': {'format': DEFAULT_DATETIME_FORMAT},
-#         #     'primeiro_login_em': {'format': DEFAULT_DATETIME_FORMAT},
-#         #     'ultimo_login_em': {'format': DEFAULT_DATETIME_FORMAT},
-#         #     'aceitou_termo_uso_em': {'format': DEFAULT_DATETIME_FORMAT},
-#         # }
-
-#     def dehydrate_fullname(self, obj):
-#         first_name = getattr(obj, "first_name", "")
-#         last_name = getattr(obj.author, "last_name", "")
-#         return f'{first_name} {last_name}'.strip()
+    class Meta:
+        model = VinculoPolo
+        export_order = ["papel", "polo", "colaborador", "active"]
+        import_id_fields = ("papel", "polo", "colaborador", )
+        fields = export_order
+        skip_unchanged = True
 
 
-# class UsuarioMixin(resources.ModelResource):
-#     usuario = Field(attribute='usuario', column_name='cpf', widget=ForeignKeyWidget(Usuario, field='username'))
-#     email = Field(attribute='usuario__email', column_name='email')
-#     nome_completo = Field(attribute='usuario__nome_completo', column_name='nome_completo')
-#     cadastrado_em = Field(attribute='usuario__date_joined', column_name='cadastrado_em')
-#     primeiro_login_em = Field(attribute='usuario__first_login', column_name='primeiro_login_em')
-#     ultimo_login_em = Field(attribute='usuario__last_login', column_name='ultimo_login_em')
-#     aceitou_termo_uso_em = Field(attribute='usuario__aceitou_termo_uso_em', column_name='aceitou_termo_uso_em')
+class VinculoCursoResource(ModelResource):
+    papel = Field(
+        attribute="papel",
+        column_name="papel",
+        widget=ForeignKeyWidget(Papel, field="sigla"),
+    )
+    
+    curso = Field(
+        attribute="curso",
+        column_name="curso",
+        widget=ForeignKeyWidget(Curso, field="codigo"),
+    )
+    
+    colaborador = Field(
+        attribute="colaborador",
+        column_name="colaborador",
+        widget=ForeignKeyWidget(Usuario, field="username"),
+    )
 
-#     class Meta:
-#         model = Aluno
-#         export_order = ('usuario', 'nome_completo', 'email', 'cadastrado_em', 'primeiro_login_em', 'ultimo_login_em', 'aceitou_termo_uso_em')
-
-
-# class RepresentanteResource(UsuarioMixin):
-#     papel = Field(attribute='papel', column_name='papel', )
-#     instituicao = Field(attribute='instituicao', column_name='sigla_instituicao', widget=ForeignKeyWidget(Instituicao, field='sigla'))
-
-#     def get_import_fields(self):
-#         return [field for fieldname, field in self.fields.items() if fieldname in ('instituicao', 'papel', 'instituicao', 'usuario')]
-
-#     class Meta:
-#         model = Representante
-#         export_order = ('papel', 'instituicao') + UsuarioMixin.Meta.export_order
-#         import_id_fields = ('papel', 'instituicao', 'usuario')
-#         fields = export_order
-#         skip_unchanged = True
-
-# class AlunoResource(UsuarioMixin, resources.ModelResource):
-#     class Meta:
-#         model = Aluno
-#         export_order = UsuarioMixin.Meta.export_order
-#         import_id_fields = ('usuario',)
-#         fields = export_order
-#         skip_unchanged = True
+    class Meta:
+        model = VinculoCurso
+        export_order = ["papel", "curso", "colaborador", "active"]
+        import_id_fields = ("papel", "curso", "colaborador", )
+        fields = export_order
+        skip_unchanged = True
 
 
-# class CertificadoResource(resources.ModelResource):
-#     usuario = Field(attribute='usuario', column_name='cpf', widget=ForeignKeyWidget(Usuario, field='username'))
-#     nome_completo = Field(attribute='aluno__usuario__nome_completo', column_name='nome_completo')
-#     email = Field(attribute='aluno__usuario__email', column_name='email')
-#     curso = Field(attribute='oferta__curso__nome', column_name='curso')
-#     url_oferta = Field(attribute='oferta__ava__url', column_name='url_oferta')
-#     idnumber_oferta = Field(attribute='oferta__idnumber', column_name='idnumber_oferta')
-#     url_oferta = Field(attribute='oferta__url', column_name='url_oferta')
+class CursoPoloResource(ModelResource):
+    curso = Field(
+        attribute="curso",
+        column_name="curso",
+        widget=ForeignKeyWidget(Curso, field="codigo"),
+    )
+    
+    polo = Field(
+        attribute="polo",
+        column_name="polo",
+        widget=ForeignKeyWidget(Polo, field="nome"),
+    )
 
-#     class Meta:
-#         model = Certificado
-#         export_order = ('usuario', 'nome_completo', 'email', 'curso', 'url_oferta', 'idnumber_oferta', 'url_oferta', 'codigo_validacao', 'url_validacao', 'conceito', 'recebido_em', 'gerado_em', 'iniciou_em')
-#         import_id_fields = ('usuario',)
-#         fields = export_order
-#         skip_unchanged = True
+    class Meta:
+        model = CursoPolo
+        export_order = ["curso", "polo", "active"]
+        import_id_fields = ("curso", "polo", )
+        fields = export_order
+        skip_unchanged = True

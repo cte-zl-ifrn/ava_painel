@@ -52,6 +52,14 @@ class Turno(Choices):
 Turno.kv = [{"id": p, "label": p.display} for p in Turno.values()]
 
 
+class Contexto(Choices):
+    CURSO = Choices.Value(_("Curso"), value="c")
+    POLO = Choices.Value(_("Pólo"), value="p")
+
+
+Contexto.kv = [{"id": p, "label": p.display} for p in Contexto.values()]
+
+
 class ActiveMixin:
     @property
     def active_icon(self):
@@ -574,3 +582,114 @@ class Popup(ActiveMixin, SafeDeleteModel):
         return Popup.objects.filter(
             active=True, start_at__lte=now(), end_at__gte=now()
         ).first()
+
+
+class Papel(ActiveMixin, SafeDeleteModel):
+    nome = CharField(_("nome do papel"), max_length=256)
+    sigla = CharField(_("sigla"), max_length=10, blank=True, null=False, unique=True)
+    contexto = CharField(_("contexto"), max_length=1, choices=Contexto)
+    active = BooleanField(_("ativo?"))
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name = _("papel")
+        verbose_name_plural = _("papéis")
+        ordering = ["nome"]
+
+    def __str__(self):
+        return f"{self.sigla}:{self.nome} {self.active_icon}"
+
+
+class Popup(ActiveMixin, SafeDeleteModel):
+    titulo = CharField(_("título"), max_length=256)
+    url = URLField(_("url"), max_length=256)
+    mensagem = RichTextField(_("mensagem"))
+    start_at = DateTimeField(_("inicia em"))
+    end_at = DateTimeField(_("termina em"))
+    active = BooleanField(_("ativo?"))
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name = _("popup")
+        verbose_name_plural = _("popups")
+        ordering = ["start_at", "titulo"]
+
+    def __str__(self):
+        return f"{self.titulo} - {self.active_icon}"
+
+    def save(self, *args, **kwargs):
+        if self.start_at > self.end_at:
+            return ValidationError("O término deve ser maior do que o início.")
+        super().save(*args, **kwargs)
+
+    def mostrando(self):
+        return self.active and self.start_at <= now() and self.end_at >= now()
+
+    @staticmethod
+    def activePopup():
+        return Popup.objects.filter(
+            active=True, start_at__lte=now(), end_at__gte=now()
+        ).first()
+
+
+class Papel(ActiveMixin, SafeDeleteModel):
+    nome = CharField(_("nome do papel"), max_length=256)
+    sigla = CharField(_("sigla"), max_length=10, blank=True, null=False, unique=True)
+    contexto = CharField(_("contexto"), max_length=1, choices=Contexto)
+    active = BooleanField(_("ativo?"))
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name = _("papel")
+        verbose_name_plural = _("papéis")
+        ordering = ["sigla"]
+
+    def __str__(self):
+        return f"{self.sigla}:{self.nome} {self.active_icon}"
+
+
+class VinculoPolo(ActiveMixin, SafeDeleteModel):
+    papel = ForeignKey(Papel, on_delete=PROTECT, limit_choices_to={'contexto':Contexto.POLO})
+    polo = ForeignKey(Polo, on_delete=PROTECT)
+    colaborador = ForeignKey(Usuario, on_delete=PROTECT, limit_choices_to={'tipo_usuario__in': ['Prestador de Serviço', 'Servidor (Docente)', 'Servidor (Técnico-Administrativo)']}, related_name='vinculos_polos')
+    active = BooleanField(_("ativo?"))
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name = _("vínculo no pólo")
+        verbose_name_plural = _("vínculos nos pólos")
+        ordering = ["papel", "polo", "colaborador"]
+
+    def __str__(self):
+        return f"{self.papel}:{self.polo} {self.colaborador} {self.active_icon}"
+
+
+class VinculoCurso(ActiveMixin, SafeDeleteModel):
+    papel = ForeignKey(Papel, on_delete=PROTECT, limit_choices_to={'contexto':Contexto.POLO})
+    curso = ForeignKey(Curso, on_delete=PROTECT)
+    colaborador = ForeignKey(Usuario, on_delete=PROTECT, limit_choices_to={'tipo_usuario__in': ['Prestador de Serviço', 'Servidor (Docente)', 'Servidor (Técnico-Administrativo)']}, related_name='vinculos_cursos')
+    active = BooleanField(_("ativo?"))
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name = _("vínculo no curso")
+        verbose_name_plural = _("vínculos nos cursos")
+        ordering = ["papel", "curso", "colaborador"]
+
+    def __str__(self):
+        return f"{self.papel}:{self.curso} {self.colaborador} {self.active_icon}"
+
+
+class CursoPolo(ActiveMixin, SafeDeleteModel):
+    curso = ForeignKey(Curso, on_delete=PROTECT)
+    polo = ForeignKey(Polo, on_delete=PROTECT)
+    active = BooleanField(_("ativo?"))
+    history = HistoricalRecords()
+
+    class Meta:
+        verbose_name = _("pólo do curso")
+        verbose_name_plural = _("pólos do curso")
+        ordering = ["curso", "polo"]
+
+    def __str__(self):
+        return f"{self.curso}:{self.polo} {self.active_icon}"
