@@ -5,7 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.static import serve
 
-admin.site.site_title = "Portal AVA - Administração"
+admin.site.site_title = "Painel AVA :.: Administração"
 admin.site.site_header = admin.site.site_title
 
 urlpatterns = [
