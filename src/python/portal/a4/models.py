@@ -20,6 +20,25 @@ class Grupo(Group):
     pass
 
 
+class TipoUsuario(Choices):
+    DOCENTE = Choices.Value(_("Servidor (Docente)"), value="Servidor (Docente)")
+    TECNICO = Choices.Value(
+        _("Servidor (Técnico-Administrativo)"),
+        value="Servidor (Técnico-Administrativo)",
+    )
+    PRESTADOR = Choices.Value(_("Prestador de Serviço"), value="Prestador de Serviço")
+    ALUNO = Choices.Value(_("Aluno"), value="Aluno")
+    DESCONHECIDO = Choices.Value(_("Desconhecido"), value=None)
+
+
+TipoUsuario.kv = [{"id": p, "label": p.display} for p in TipoUsuario.values()]
+TipoUsuario.COLABORADORES_KEYS = [
+    TipoUsuario.DOCENTE,
+    TipoUsuario.TECNICO,
+    TipoUsuario.PRESTADOR,
+]
+
+
 class Usuario(AbstractUser):
     username = CharField(
         _("IFRN-id"),
@@ -36,7 +55,9 @@ class Usuario(AbstractUser):
         _("nome de apresentação"), max_length=255, null=True, blank=True
     )
     nome = CharField(_("nome no SUAP"), max_length=255, null=True, blank=True)
-    tipo_usuario = CharField(_("tipo"), max_length=255, null=True, blank=True)
+    tipo_usuario = CharField(
+        _("tipo"), max_length=255, choices=TipoUsuario, null=True, blank=True
+    )
     foto = CharField(_("URL da foto"), max_length=255, null=True, blank=True)
     email = EmailField(_("e-Mail preferêncial"), null=True, blank=False)
     email_secundario = EmailField(_("e-Mail pessoal"), null=True, blank=True)

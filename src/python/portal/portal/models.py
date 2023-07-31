@@ -8,15 +8,11 @@ from django.conf import settings
 from django.core import validators
 from django.forms import ValidationError
 from django.db.models import (
-    Model,
     ForeignKey,
     PROTECT,
     BooleanField,
-    TextField,
     URLField,
     CharField,
-    URLField,
-    ImageField,
     DateTimeField,
     IntegerField,
     SmallIntegerField,
@@ -25,7 +21,7 @@ from django_better_choices import Choices
 from simple_history.models import HistoricalRecords
 from safedelete.models import SafeDeleteModel
 from djrichtextfield.models import RichTextField
-from a4.models import Usuario
+from a4.models import Usuario, TipoUsuario
 from middleware.models import Solicitacao
 from portal import request2dict
 
@@ -649,9 +645,16 @@ class Papel(ActiveMixin, SafeDeleteModel):
 
 
 class VinculoPolo(ActiveMixin, SafeDeleteModel):
-    papel = ForeignKey(Papel, on_delete=PROTECT, limit_choices_to={'contexto':Contexto.POLO})
+    papel = ForeignKey(
+        Papel, on_delete=PROTECT, limit_choices_to={"contexto": Contexto.POLO}
+    )
     polo = ForeignKey(Polo, on_delete=PROTECT)
-    colaborador = ForeignKey(Usuario, on_delete=PROTECT, limit_choices_to={'tipo_usuario__in': ['Prestador de Serviço', 'Servidor (Docente)', 'Servidor (Técnico-Administrativo)']}, related_name='vinculos_polos')
+    colaborador = ForeignKey(
+        Usuario,
+        on_delete=PROTECT,
+        related_name="vinculos_polos",
+        limit_choices_to={"tipo_usuario__in": [TipoUsuario.ALUNO]},
+    )
     active = BooleanField(_("ativo?"))
     history = HistoricalRecords()
 
@@ -665,9 +668,16 @@ class VinculoPolo(ActiveMixin, SafeDeleteModel):
 
 
 class VinculoCurso(ActiveMixin, SafeDeleteModel):
-    papel = ForeignKey(Papel, on_delete=PROTECT, limit_choices_to={'contexto':Contexto.POLO})
+    papel = ForeignKey(
+        Papel, on_delete=PROTECT, limit_choices_to={"contexto": Contexto.CURSO}
+    )
     curso = ForeignKey(Curso, on_delete=PROTECT)
-    colaborador = ForeignKey(Usuario, on_delete=PROTECT, limit_choices_to={'tipo_usuario__in': ['Prestador de Serviço', 'Servidor (Docente)', 'Servidor (Técnico-Administrativo)']}, related_name='vinculos_cursos')
+    colaborador = ForeignKey(
+        Usuario,
+        on_delete=PROTECT,
+        related_name="vinculos_cursos",
+        limit_choices_to={"tipo_usuario__in": TipoUsuario.COLABORADORES_KEYS},
+    )
     active = BooleanField(_("ativo?"))
     history = HistoricalRecords()
 
