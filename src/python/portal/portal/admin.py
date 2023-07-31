@@ -191,7 +191,7 @@ class PapelAdmin(BaseModelAdmin):
 @register(VinculoPolo)
 class VinculoPoloAdmin(BaseModelAdmin):
     list_display = ["papel", "polo", "colaborador", "active"]
-    list_filter = [ "active", "papel", "papel"] + BaseModelAdmin.list_filter
+    list_filter = ["active", "papel", "papel"] + BaseModelAdmin.list_filter
     search_fields = ["colaborador__nome_social", "colaborador__nome_civil"]
     autocomplete_fields = ["polo", "colaborador"]
     resource_classes = [VinculoPoloResource]
@@ -200,7 +200,7 @@ class VinculoPoloAdmin(BaseModelAdmin):
 @register(VinculoCurso)
 class VinculoCursoAdmin(BaseModelAdmin):
     list_display = ["papel", "curso", "colaborador", "active"]
-    list_filter = [ "active", "papel"] + BaseModelAdmin.list_filter
+    list_filter = ["active", "papel"] + BaseModelAdmin.list_filter
     search_fields = ["colaborador__nome_social", "colaborador__nome_civil"]
     autocomplete_fields = ["curso", "colaborador"]
     resource_classes = [VinculoCursoResource]
@@ -209,6 +209,6 @@ class VinculoCursoAdmin(BaseModelAdmin):
 @register(CursoPolo)
 class CursoPoloResourceAdmin(BaseModelAdmin):
     list_display = ["curso", "polo", "active"]
-    list_filter = [ "active", ] + BaseModelAdmin.list_filter
+    list_filter = ["active"] + BaseModelAdmin.list_filter
     autocomplete_fields = ["curso", "polo"]
     resource_classes = [CursoPoloResource]

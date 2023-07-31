@@ -76,13 +76,13 @@ class VinculoPoloResource(ModelResource):
         column_name="papel",
         widget=ForeignKeyWidget(Papel, field="nome"),
     )
-    
+
     polo = Field(
         attribute="polo",
         column_name="polo",
         widget=ForeignKeyWidget(Polo, field="nome"),
     )
-    
+
     colaborador = Field(
         attribute="colaborador",
         column_name="colaborador",
@@ -92,7 +92,11 @@ class VinculoPoloResource(ModelResource):
     class Meta:
         model = VinculoPolo
         export_order = ["papel", "polo", "colaborador", "active"]
-        import_id_fields = ("papel", "polo", "colaborador", )
+        import_id_fields = (
+            "papel",
+            "polo",
+            "colaborador",
+        )
         fields = export_order
         skip_unchanged = True
 
@@ -103,13 +107,13 @@ class VinculoCursoResource(ModelResource):
         column_name="papel",
         widget=ForeignKeyWidget(Papel, field="sigla"),
     )
-    
+
     curso = Field(
         attribute="curso",
         column_name="curso",
         widget=ForeignKeyWidget(Curso, field="codigo"),
     )
-    
+
     colaborador = Field(
         attribute="colaborador",
         column_name="colaborador",
@@ -119,7 +123,11 @@ class VinculoCursoResource(ModelResource):
     class Meta:
         model = VinculoCurso
         export_order = ["papel", "curso", "colaborador", "active"]
-        import_id_fields = ("papel", "curso", "colaborador", )
+        import_id_fields = (
+            "papel",
+            "curso",
+            "colaborador",
+        )
         fields = export_order
         skip_unchanged = True
 
@@ -130,7 +138,7 @@ class CursoPoloResource(ModelResource):
         column_name="curso",
         widget=ForeignKeyWidget(Curso, field="codigo"),
     )
-    
+
     polo = Field(
         attribute="polo",
         column_name="polo",
@@ -140,6 +148,9 @@ class CursoPoloResource(ModelResource):
     class Meta:
         model = CursoPolo
         export_order = ["curso", "polo", "active"]
-        import_id_fields = ("curso", "polo", )
+        import_id_fields = (
+            "curso",
+            "polo",
+        )
         fields = export_order
         skip_unchanged = True
