@@ -84,6 +84,7 @@ services:
     volumes:
       # Configs
       # - '../moodle__image/src/php/config.php:/var/www/html/config.php'
+      - './confs/enabled/extra.ini:/usr/local/etc/php/conf.d/extra.ini'
       # Plugins
       - '../moodle__auth_suap:/var/www/html/auth/suap'
       - '../moodle__local_suap:/var/www/html/local/suap'
