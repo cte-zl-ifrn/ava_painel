@@ -1,0 +1,18 @@
+# -e ../django-adminlte3
+black
+debugpy
+django-debug-toolbar
+django-extensions
+djlint
+flake8
+ipdb
+ipython
+lxml
+mypy
+pdoc3
+pytest
+pytest-cov
+pytest-profiling
+ruff
+types-requests
+Werkzeug

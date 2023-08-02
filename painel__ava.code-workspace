@@ -1,0 +1,35 @@
+{
+    "folders": [
+        {
+            "path": "."
+        },
+        {
+            "path": "../django-adminlte3"
+        },
+        {
+            "path": "../moodle"
+        },
+        {
+            "path": "../moodle42"
+        },
+        {
+            "path": "../moodle__local_suap"
+        },
+        {
+            "path": "../moodle__enrol_suap"
+        },
+        {
+            "path": "../moodle__block_suapattendance"
+        },
+        {
+            "path": "../moodle__auth_suap"
+        },
+        {
+            "path": "../moodle__theme_moove"
+        },
+        {
+            "path": "../ifrn_ssh"
+        }
+    ],
+    "settings": {}
+}

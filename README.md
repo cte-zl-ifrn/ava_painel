@@ -1,8 +1,8 @@
-# AVA - Portal
+# Painel AVA
 
-O AVA-Portal é um middleware integrador entre SUAP e Moodle, além disso, também tem um dashboard com todos os cursos e inscrições que integrou, desta forma cada usuário tem acesso aos cursos/diários em que está inscrito sem precisar procurar em vários Moodles.
+O Painel AVA é um middleware integrador entre SUAP e Moodle, além disso, também tem um dashboard com todos os cursos e inscrições que integrou, desta forma cada usuário tem acesso aos cursos/diários em que está inscrito sem precisar procurar em vários Moodles.
 
-Neste projeto, além do AVA-Portal, foi colocado um Fake SUAP, para emular o funcionado da integraçãod o SUAP ou outro sistema acadêmico, e um par de Moodles (ZL e Presencial), para emular o cenário de ter mais um Moodle a integrar.
+Neste projeto, além do Painel AVA, foi colocado um Fake SUAP, para emular o funcionado da integraçãod o SUAP ou outro sistema acadêmico, e um par de Moodles (ZL e Presencial), para emular o cenário de ter mais um Moodle a integrar.
 
 > Neste projeto usamos o [Docker](https://docs.docker.com/engine/install/) e o [Docker Compose Plugin](https://docs.docker.com/compose/install/compose-plugin/#:~:text=%20Install%20the%20plugin%20manually%20%F0%9F%94%97%20%201,of%20Compose%20you%20want%20to%20use.%20More%20) (não o [docker-compose](https://docs.docker.com/compose/install/) 😎). O setup foi todo testado usando o Linux e Mac OS.
 
@@ -10,13 +10,13 @@ Neste projeto, além do AVA-Portal, foi colocado um Fake SUAP, para emular o fun
 
 ## Como funciona
 
-**Como desenvolvedor** - no `local_settings.py` do SUAP configure as variáveis (`MOODLE_SYNC_URL` e `MOODLE_SYNC_TOKEN`), no AVA-Portal configure o mesmo token que você configurou no SUAP. Para cada  Moodle a ser integrado instale o plugin `auth_suap` e cadastre no AVA-Portal como um "Ambiente". 
+**Como desenvolvedor** - no `local_settings.py` do SUAP configure as variáveis (`MOODLE_SYNC_URL` e `MOODLE_SYNC_TOKEN`), no Painel AVA configure o mesmo token que você configurou no SUAP. Para cada  Moodle a ser integrado instale o plugin `auth_suap` e cadastre no Painel AVA como um "Ambiente".
 
-**Como usuário** - no SUAP, o secretário acadêmico autoriza cada diário a ser integrado ao Moodle, na página do diário no SUAP o professor clica em "Sincronizar" e a mágica se faz, ou seja, o SUAP envia para o AVA-Portal que, com base na sigla do campus, decide para qual Moodle encaminhar a requisição de integração, o Moodle cadastra/atualiza as categorias (Campus, Diário, Semestre, Turma), o curso, os pólos como grupos do curso e os professores e alunos, então inscreve os professores (Formador e Tutor) e os alunos, por fim, arrola os alunos nos grupos de seus respectivos pólos.
+**Como usuário** - no SUAP, o secretário acadêmico autoriza cada diário a ser integrado ao Moodle, na página do diário no SUAP o professor clica em "Sincronizar" e a mágica se faz, ou seja, o SUAP envia para o Painel AVA que, com base na sigla do campus, decide para qual Moodle encaminhar a requisição de integração, o Moodle cadastra/atualiza as categorias (Campus, Diário, Semestre, Turma), o curso, os pólos como grupos do curso e os professores e alunos, então inscreve os professores (Formador e Tutor) e os alunos, por fim, arrola os alunos nos grupos de seus respectivos pólos.
 
 As variáveis de ambiente no SUAP têm as seguintes definições:
-- `MOODLE_SYNC_URL` - URL do AVA-Portal
-- `MOODLE_SYNC_TOKEN` - o token deve ser o mesmo que você vai configurar ao cadastrar o SUAP no AVA-Portal, é usada para autenticação do SUAP, guarde segredo desta chave.
+- `MOODLE_SYNC_URL` - URL do Painel AVA
+- `MOODLE_SYNC_TOKEN` - o token deve ser o mesmo que você vai configurar ao cadastrar o SUAP no Painel AVA, é usada para autenticação do SUAP, guarde segredo desta chave.
 
 ## Como iniciar o desenvolvimento
 
@@ -28,28 +28,28 @@ cd ava
 
 
 # Baixe o projeto
-git clone git@github.com:cte-zl-ifrn/portal__ava.git portal__ava 
+git clone git@github.com:cte-zl-ifrn/painel__ava.git painel__ava
 
-cd portal__ava
+cd painel__ava
 
 # Baixa as dependencias, instala o sistema, um suap fake e 1 moodle para teste
 _/deploy
 
 
 # Se você usa o VSCode
-code portal__ava.code-workspace
+code painel__ava.code-workspace
 
 ```
 
-> O **Portal** estará disponível em http://ava/painel, o primeiro usuário a acessar será declarado como superusuário e poderá fazer tudo no sistema.
+> O **Painel** estará disponível em http://ava/painel, o primeiro usuário a acessar será declarado como superusuário e poderá fazer tudo no sistema.
 
 > O **Moodle** estará disponível em http://ava/, o usuário/senha do administrador serão admin/admin.
 
-Caso você deseje fazer debug da AVA-Portal, tente:
+Caso você deseje fazer debug do Painel AVA, tente:
 
 ```bash
-_/portal/down
-_/portal/debug
+_/painel/down
+_/painel/debug
 ```
 
 ## oAuth2 do SUAP

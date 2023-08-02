@@ -22,10 +22,10 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4.6.0
         with:
-          images: ctezlifrn/avaportal
+          images: ctezlifrn/avapainel
       - name: Build and push
         uses: docker/build-push-action@v4.1.1
         with:
-          context: src/python/portal/
+          context: src/python/painel/
           push: true
           tags: ${{ steps.meta.outputs.tags }}

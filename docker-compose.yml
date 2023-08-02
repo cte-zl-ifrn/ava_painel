@@ -40,13 +40,13 @@ services:
     ports:
       - 80:80
     depends_on:
-      - portal
+      - painel
       - ava
 
-  portal:
-    image: ctezlifrn/avaportal:1.0.47
+  painel:
+    image: ctezlifrn/avapainel:1.0.47
     build:
-      context: src/python/portal
+      context: src/python/painel
       # additional_contexts:
       #   django-adminlte3: ../django-adminlte3
     ports:
@@ -54,12 +54,12 @@ services:
     env_file:
       - ./confs/enabled/db.env
       - ./confs/enabled/cache.env
-      - ./confs/enabled/portal.env
+      - ./confs/enabled/painel.env
     volumes:
       # - '../django-adminlte3:/apps/django-adminlte3'
-      - './src/python/portal:/apps/app'
-      - './volumes/portal_media:/var/media'
-      - './volumes/portal_static:/var/static'
+      - './src/python/painel:/apps/app'
+      - './volumes/painel_media:/var/media'
+      - './volumes/painel_static:/var/static'
     depends_on:
       cache:
         condition: service_healthy
@@ -86,10 +86,11 @@ services:
       # - '../moodle__image/src/php/config.php:/var/www/html/config.php'
       - './confs/enabled/extra.ini:/usr/local/etc/php/conf.d/extra.ini'
       # Plugins
+      - '../moodle__enrol_suap:/var/www/html/enrol/suap'
       - '../moodle__auth_suap:/var/www/html/auth/suap'
       - '../moodle__local_suap:/var/www/html/local/suap'
       - '../moodle__block_suapattendance:/var/www/html/blocks/suapattendance'
-      # - '../moodle__theme_moove:/var/www/html/theme/moove'
+      - '../moodle__theme_moove:/var/www/html/theme/moove'
       # Data
       - './volumes/moodle_data:/var/moodledata'
     depends_on:
