@@ -1,13 +1,5 @@
 from django.utils.translation import gettext as _
-from django.db.models import (
-    Model,
-    CharField,
-    DateTimeField,
-    TextField,
-    JSONField,
-    ForeignKey,
-    PROTECT,
-)
+from django.db.models import CharField, DateTimeField, TextField, ForeignKey, PROTECT
 from django_better_choices import Choices
 from simple_history.models import HistoricalRecords
 from safedelete.models import SafeDeleteModel
@@ -26,11 +18,8 @@ class Solicitacao(SafeDeleteModel):
     campus = ForeignKey("painel.Campus", on_delete=PROTECT, null=True, blank=True)
     diario = ForeignKey("painel.Diario", on_delete=PROTECT, null=True, blank=True)
     recebido = TextField(_("JSON recebido"), null=True, blank=True)
-    recebido_header = JSONField(_("cabeçalho recebido"), null=True, blank=True)
     enviado = TextField(_("JSON enviado"), null=True, blank=True)
-    enviado_header = JSONField(_("cabeçalho enviado"), null=True, blank=True)
     respondido = TextField(_("JSON respondido"), null=True, blank=True)
-    respondido_header = JSONField(_("cabeçalho respondido"), null=True, blank=True)
 
     history = HistoricalRecords()
 

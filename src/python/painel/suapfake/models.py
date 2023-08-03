@@ -52,7 +52,7 @@ def get_default_pacote():
                 "email": "nome.compelto@academico.ifrn.edu.br",
                 "email_secundario": "nome.completo@hotmail.com",
                 "situacao": "ativo",
-                "polo": {"id": 1, "nome": "Pólo Assú"},
+                "polo": {"id": 1, "descricao": "Pólo Assú"},
             }
         ],
     }

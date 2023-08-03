@@ -75,12 +75,12 @@ class AmbienteAdmin(BaseModelAdmin):
     list_display = ["nome", "cores", "url", "active"]
     history_list_display = list_display
     field_to_highlight = list_display[0]
-    search_fields = ["nome", "sigla", "url"]
+    search_fields = ["nome", "url"]
     list_filter = [
         "active",
     ] + BaseModelAdmin.list_filter
     fieldsets = [
-        (_("Identificação"), {"fields": ["nome", "sigla"]}),
+        (_("Identificação"), {"fields": ["nome"]}),
         (
             _("Cores do ambiente"),
             {"fields": ["cor_mestra", "cor_degrade", "cor_progresso"]},

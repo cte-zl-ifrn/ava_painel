@@ -1,4 +1,3 @@
-import json
 from import_export.resources import ModelResource
 from import_export.fields import Field
 from import_export.widgets import ForeignKeyWidget, DateTimeWidget
@@ -23,7 +22,6 @@ class AmbienteResource(ModelResource):
     class Meta:
         model = Ambiente
         export_order = (
-            "sigla",
             "nome",
             "url",
             "token",
@@ -32,7 +30,7 @@ class AmbienteResource(ModelResource):
             "cor_progresso",
             "active",
         )
-        import_id_fields = ("sigla",)
+        import_id_fields = ("nome",)
         fields = export_order
         skip_unchanged = True
 
@@ -40,8 +38,8 @@ class AmbienteResource(ModelResource):
 class CampusResource(ModelResource):
     ambiente = Field(
         attribute="ambiente",
-        column_name="sigla_ambiente",
-        widget=ForeignKeyWidget(Ambiente, field="sigla"),
+        column_name="nome_ambiente",
+        widget=ForeignKeyWidget(Ambiente, field="nome"),
     )
 
     class Meta:

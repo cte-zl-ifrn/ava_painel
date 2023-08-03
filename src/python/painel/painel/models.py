@@ -1,7 +1,5 @@
 from django.utils.translation import gettext as _
 import re
-import json
-import requests
 from django.utils.timezone import now
 from django.utils.safestring import mark_safe
 from django.conf import settings
@@ -22,17 +20,7 @@ from simple_history.models import HistoricalRecords
 from safedelete.models import SafeDeleteModel
 from djrichtextfield.models import RichTextField
 from a4.models import Usuario, TipoUsuario
-from middleware.models import Solicitacao
-from painel import request2dict
-
-
-class SyncError(Exception):
-    def __init__(self, message, code, campus=None, retorno=None, params=None):
-        super().__init__(message, code, params)
-        self.message = message
-        self.code = code
-        self.campus = campus
-        self.retorno = retorno
+from .managers import DiarioManager
 
 
 class Turno(Choices):
@@ -105,33 +93,34 @@ Visualizacao.kv = [{"id": p, "label": p.display} for p in Visualizacao.values()]
 
 class Ambiente(SafeDeleteModel):
     def _c(color: str):
-        return f"<span style='background: {color}; color: #fff; padding: 1px 5px; font-size: 95%; border-radius: 4px;'>{color}</span>"
+        return f"""<span style='background: {color}; color: #fff; padding: 1px 5px;
+                                font-size: 95%; border-radius: 4px;'>{color}</span>"""
 
-    sigla = CharField(
-        _("sigla do ambiente"),
-        max_length=255,
-        unique=True,
-        help_text=mark_safe(f"Esta é a sigla que vai aparecer no dashboard"),
-    )
     cor_mestra = CharField(
         _("cor mestra"),
         max_length=255,
         help_text=mark_safe(
-            f"Escolha uma cor em RGB. Ex.: {_c('#a04ed0')} {_c('#396ba7')} {_c('#559c1a')} {_c('#fabd57')} {_c('#fd7941')} {_c('#f54f3b')} {_c('#2dcfe0')}"
+            f"""Escolha uma cor em RGB.
+                Ex.: {_c('#a04ed0')} {_c('#396ba7')} {_c('#559c1a')}
+                {_c('#fabd57')} {_c('#fd7941')} {_c('#f54f3b')} {_c('#2dcfe0')}"""
         ),
     )
     cor_degrade = CharField(
         _("cor do degradê"),
         max_length=255,
         help_text=mark_safe(
-            f"Escolha uma cor em RGB. Ex.: {_c('#53296d')} {_c('#203d60')} {_c('#315810')} {_c('#ae8133')} {_c('#d05623')} {_c('#fd7941')} {_c('#09afc0')}"
+            f"""Escolha uma cor em RGB.
+                Ex.: {_c('#53296d')} {_c('#203d60')} {_c('#315810')}
+                {_c('#ae8133')} {_c('#d05623')} {_c('#fd7941')} {_c('#09afc0')}"""
         ),
     )
     cor_progresso = CharField(
         _("cor do progresso"),
         max_length=255,
         help_text=mark_safe(
-            f"Escolha uma cor em RGB. Ex.: {_c('#ecdafa')} {_c('#b4d0f2')} {_c('#d2f4b7')} {_c('#ffebca')} {_c('#ffd1be')} {_c('#ffbab2')} {_c('#d2f2f5')}"
+            f"""Escolha uma cor em RGB.
+                Ex.: {_c('#ecdafa')} {_c('#b4d0f2')} {_c('#d2f4b7')}
+                {_c('#ffebca')} {_c('#ffd1be')} {_c('#ffbab2')} {_c('#d2f2f5')}"""
         ),
     )
     nome = CharField(_("nome do ambiente"), max_length=255)
@@ -295,6 +284,8 @@ class Diario(SafeDeleteModel):
 
     history = HistoricalRecords()
 
+    objects = DiarioManager()
+
     class Meta:
         verbose_name = _("diário")
         verbose_name_plural = _("diários")
@@ -308,180 +299,6 @@ class Diario(SafeDeleteModel):
 
     def __str__(self):
         return f"{self.codigo}"
-
-    @classmethod
-    def sync(cls, message_string, headers):
-        def _validate_campus():
-            try:
-                pkg = json.loads(message_string)
-            except Exception as e:
-                raise SyncError(f"O JSON está inválido: {e} {message_string}.", 407)
-
-            try:
-                filter = {
-                    "suap_id": pkg["campus"]["id"],
-                    "sigla": pkg["campus"]["sigla"],
-                    "active": True,
-                }
-            except Exception:
-                raise SyncError("O JSON não tinha a estrutura definida.", 406)
-
-            campus = Campus.objects.filter(**filter).first()
-            if campus is None:
-                raise SyncError(
-                    f"Não existe um campus com o id '{filter['suap_id']}' e a sigla '{filter['sigla']}'.",
-                    404,
-                )
-
-            if not campus.active:
-                raise SyncError(
-                    f"O campus '{filter['sigla']}' existe, mas está inativo.",
-                    412,
-                    campus,
-                )
-
-            if not campus.ambiente.active:
-                raise SyncError(
-                    f"O campus '{filter['sigla']}' existe e está ativo, mas o ambiente {campus.ambiente.sigla} está inativo.",
-                    417,
-                    campus,
-                )
-            return campus, pkg
-
-        retorno_json = None
-        retorno = None
-        campus, pkg = _validate_campus()
-        try:
-            retorno = requests.post(
-                f"{campus.ambiente.url}/local/suap/api/sync_up_enrolments.php",
-                data={"jsonstring": message_string},
-                headers={"Authentication": f"Token {campus.ambiente.token}"},
-            )
-
-            print(retorno.text)
-            retorno_json = json.loads(retorno.text)
-
-            Solicitacao.objects.create(
-                recebido=message_string,
-                recebido_header=headers,
-                respondido_header=request2dict(retorno),
-                respondido=retorno_json,
-                status=Solicitacao.Status.SUCESSO,
-                status_code=retorno.status_code,
-                campus=campus,
-            )
-
-            return Diario.make(pkg)
-        except Exception as e:
-            print(e)
-            error_text = getattr(retorno, "text", "-")
-            raise SyncError(
-                f"Erro na integração. O AVA retornou um erro. Contacte um administrador. Erro: {e}. Cause: {error_text}",
-                getattr(retorno, "status_code", 500),
-                campus,
-                retorno,
-            )
-
-        return retorno_json
-
-    @classmethod
-    def make(cls, d):
-        def get_polo_id(person):
-            if (
-                "polo" in person
-                and person["polo"]
-                and not isinstance(person["polo"], int)
-            ):
-                return person["polo"]["id"]
-            else:
-                return None
-
-        campus = Campus.objects.get(suap_id=d["campus"]["id"])
-
-        curso, created = Curso.objects.update_or_create(
-            codigo=d["curso"]["codigo"],
-            defaults={
-                "suap_id": d["curso"]["id"],
-                "nome": d["curso"]["nome"],
-                "descricao": d["curso"]["descricao"],
-            },
-        )
-        turma, created = Turma.objects.update_or_create(
-            codigo=d["turma"]["codigo"],
-            defaults={
-                "suap_id": d["turma"]["id"],
-                "suap_id": d["turma"]["id"],
-                "campus": campus,
-            },
-        )
-        componente, created = Componente.objects.update_or_create(
-            sigla=d["componente"]["sigla"],
-            defaults={
-                "suap_id": d["componente"]["id"],
-                "descricao": d["componente"]["descricao"],
-                "descricao_historico": d["componente"]["descricao_historico"],
-                "periodo": d["componente"]["periodo"],
-                "tipo": d["componente"]["tipo"],
-                "optativo": d["componente"]["optativo"],
-                "qtd_avaliacoes": d["componente"]["qtd_avaliacoes"],
-            },
-        )
-        diario, created = Diario.objects.update_or_create(
-            codigo=turma.codigo + "." + d["diario"]["sigla"],
-            defaults={
-                "suap_id": d["diario"]["id"],
-                "situacao": d["diario"]["situacao"],
-                "descricao": d["diario"]["descricao"],
-                "descricao_historico": d["diario"]["descricao_historico"],
-                "turma": turma,
-                "componente": componente,
-            },
-        )
-
-        pessoas = d["professores"] + d["alunos"]
-        polos = {}
-        # for p in pessoas:
-        #     if get_polo_id(p) and get_polo_id(p) not in polos:
-        #         polo, created = Polo.objects.update_or_create(
-        #             suap_id=p['polo']['id'],
-        #             defaults={'nome': p['polo']['nome']}
-        #         )
-        #         polos[p['polo']['id']] = polo
-
-        for p in pessoas:
-            if "matricula" in p.keys():
-                papel = Arquetipo.ALUNO
-            else:
-                papel = (
-                    Arquetipo.PROFESSOR if p["tipo"] == "Principal" else Arquetipo.TUTOR
-                )
-            polo = polos.get(get_polo_id(p), None)
-
-            is_active = "ativo" == p.get("situacao", p.get("status", "")).lower()
-            username = p.get("login", p.get("matricula", None))
-            usuario, created = Usuario.objects.update_or_create(
-                username=username,
-                defaults={
-                    "nome_registro": p["nome"],
-                    # 'email': p['email'],
-                    # 'email_secundario': p.get('email_secundario', None),
-                    "is_active": is_active,
-                    "polo": polo,
-                    "curso": curso if papel == Arquetipo.ALUNO else None,
-                },
-            )
-            inscricao, created = Inscricao.objects.update_or_create(
-                diario=diario,
-                usuario=usuario,
-                defaults={
-                    "polo": polo,
-                    "papel": papel,
-                    "active": is_active,
-                },
-            )
-            if created:
-                inscricao.notify()
-        return diario
 
 
 class Polo(SafeDeleteModel):

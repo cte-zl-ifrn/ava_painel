@@ -1,9 +1,7 @@
 import logging
-from urllib.parse import urlsplit, urlunsplit
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.utils.deprecation import MiddlewareMixin
-from django.middleware.security import SecurityMiddleware
 
 
 logger = logging.getLogger(__name__)

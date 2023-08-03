@@ -1,11 +1,11 @@
 import json
-import requests
 from django.views.decorators.csrf import csrf_exempt
 from django.db import transaction
 from django.http import HttpRequest, JsonResponse
 from django.conf import settings
 from sentry_sdk import capture_exception
-from painel.models import Diario, SyncError
+from painel.models import Diario
+from painel.managers import SyncError
 from middleware.models import Solicitacao
 from painel import request2dict
 
@@ -25,19 +25,17 @@ def response_error(request: HttpRequest, error: Exception):
         campus=error.campus if "campus" in dir(error) else None,
         status_code=getattr(error, "code", 500),
         recebido=message_string,
-        recebido_header=request2dict(request),
-        respondido=error.retorno.text if error.retorno else None,
-        respondido_header=request2dict(error.retorno) if error.retorno else None,
+        respondido=error.retorno.text if hasattr(error, "retorno") else None,
     )
 
     error_json = {
-        "error": error.message,
-        "code": error.code,
+        "error": getattr(error, "message", None),
+        "code": getattr(error, "code", None),
         "solicitacao_id": solicitacao.id,
         "event_id": event_id,
     }
 
-    return JsonResponse(error_json, status=error.code)
+    return JsonResponse(error_json, status=getattr(error, "code", None))
 
 
 @csrf_exempt
@@ -49,14 +47,15 @@ def moodle_suap(request: HttpRequest):
                 "Você se esqueceu de configurar a settings 'SUAP_EAD_KEY'.", 428
             )
 
-        # if "HTTP_AUTHENTICATION" not in request.META:
-        #     raise SyncError("Envie o token de autenticação no header.", 431)
+        if "HTTP_AUTHENTICATION" not in request.META:
+            raise SyncError("Envie o token de autenticação no header.", 431)
 
-        # if f"Token {settings.SUAP_EAD_KEY}" != request.META["HTTP_AUTHENTICATION"]:
-        #     raise SyncError(
-        #         "Você enviou um token de auteticação diferente do que tem na settings 'SUAP_EAD_KEY'.",
-        #         403,
-        #     )
+        if f"Token {settings.SUAP_EAD_KEY}" != request.META["HTTP_AUTHENTICATION"]:
+            raise SyncError(
+                """Você enviou um token de auteticação diferente do que tem na settings
+                   'SUAP_EAD_KEY'.""",
+                403,
+            )
 
         if request.method != "POST":
             raise SyncError("Não implementado.", 501)
@@ -71,7 +70,7 @@ def moodle_suap(request: HttpRequest):
         except Exception as e1:
             return SyncError(f"Erro ao converter para JSON ({e1}).", 407)
 
-        response = Diario.sync(message_string, request2dict(request))
+        response = Diario.objects.sync(message_string, request2dict(request))
         print(f"Middleware: {response}")
         return JsonResponse(response, safe=False)
 

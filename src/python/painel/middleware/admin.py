@@ -1,4 +1,3 @@
-from django.utils.translation import gettext as _
 from functools import update_wrapper
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
@@ -36,11 +35,8 @@ class SolicitacaoAdmin(BaseModelAdmin):
     list_filter = ("status", "status_code", "campus")
     search_fields = [
         "recebido",
-        "recebido_header",
         "enviado",
-        "enviado_header",
         "respondido",
-        "respondido_header",
         "diario__codigo",
     ]
     autocomplete_fields = ["campus", "diario"]
@@ -63,7 +59,11 @@ class SolicitacaoAdmin(BaseModelAdmin):
 
     def acoes(self, obj):
         return format_html(
-            f'<a style="border: 1px solid black; padding: 0 5px; background: silver; color: black; margin: 0 5px 0 0;" href="{reverse("admin:middleware_solicitacao_sync", args=[obj.id])}">Reenviar</a>'
+            f"""<a style="border: 1px solid black; padding: 0 5px; background: silver;
+                          color: black; margin: 0 5px 0 0;"
+                   href="{reverse("admin:middleware_solicitacao_sync", args=[obj.id])}">
+                   Reenviar
+                </a>"""
         )
 
     acoes.short_description = "Ações"
@@ -81,15 +81,15 @@ class SolicitacaoAdmin(BaseModelAdmin):
         return [
             path(
                 "<path:object_id>/sync_moodle/",
-                wrap(self.sync_view),
+                wrap(self.sync_moodle_view),
                 name="%s_%s_sync" % info,
             )
         ] + super().get_urls()
 
     @transaction.atomic
-    def sync_view(self, request, object_id, form_url="", extra_context=None):
+    def sync_moodle_view(self, request, object_id, form_url="", extra_context=None):
         s = get_object_or_404(Solicitacao, pk=object_id)
         try:
-            Diario.sync(s.recebido, s.recebido_header)
+            return HttpResponse(Diario.objects.sync(s.recebido))
         except Exception as e:
-            return HttpResponse(e.message)
+            return HttpResponse(f"{e}")
