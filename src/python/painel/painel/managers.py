@@ -45,55 +45,61 @@ class DiarioManager(Manager):
             raise SyncError(
                 f"O campus '{filter['sigla']}' existe, mas está inativo.",
                 412,
-                campus,
             )
 
         if not campus.ambiente.active:
             raise SyncError(
-                f"""O campus '{filter['sigla']}' existe e está ativo, mas o ambiente
-                    {campus.ambiente.sigla} está inativo.""",
+                f"""O campus '{filter['sigla']}' existe e está ativo, mas o ambiente {campus.ambiente.sigla} está inativo.""",  # noqa
                 417,
-                campus,
             )
         return campus, pkg
 
-    def sync(self, message: str):
+    def sync(self, recebido: str):
         retorno_json = None
         retorno = None
         campus = None
+        solicitacao = Solicitacao.objects.create(
+            recebido=recebido,
+            enviado=None,
+            respondido=None,
+            status=Solicitacao.Status.PROCESSANDO,
+            status_code=None,
+            campus=None,
+        )
+
         try:
-            campus, pkg = self._validate_campus(message)
+            campus, pkg = self._validate_campus(recebido)
+            solicitacao.campus = campus
+            solicitacao.enviado = recebido
+            solicitacao.save()
+
             retorno = requests.post(
                 f"{campus.ambiente.url}/local/suap/api/?sync_up_enrolments",
-                data={"jsonstring": message},
+                data={"jsonstring": recebido},
                 headers={"Authentication": f"Token {campus.ambiente.token}"},
             )
 
-            return retorno.text
             retorno_json = json.loads(retorno.text)
 
-            Solicitacao.objects.create(
-                recebido=message,
-                enviado=message,
-                respondido=retorno_json,
-                status=Solicitacao.Status.SUCESSO,
-                status_code=retorno.status_code,
-                campus=campus,
-            )
+            solicitacao.respondido = retorno_json
+            solicitacao.status = Solicitacao.Status.SUCESSO
+            solicitacao.status_code = retorno.status_code
+            solicitacao.campus = campus
+            solicitacao.save()
 
-            return self._make(campus, pkg)
+            self._make(campus, pkg)
+
+            return retorno_json
         except Exception as e:
-            print(e)
-            error_text = getattr(retorno, "text", "-")
-            raise SyncError(
-                f"""Erro na integração. O AVA retornou um erro.
+            error_message = getattr(retorno, "text", "-")
+            error_text = f"""Erro na integração. O AVA retornou um erro.
                     Contacte um administrador.
                     Erro: {e}.
-                    Cause: {error_text}""",
-                getattr(retorno, "status_code", 500),
-                campus,
-                retorno,
-            )
+                    Cause: {error_message}"""
+            solicitacao.status = Solicitacao.Status.FALHA
+            solicitacao.status_code = getattr(e, "code", 500)
+            solicitacao.save()
+            raise SyncError(error_text, solicitacao.status_code)
 
     def _get_polo_id(self, person):
         if "polo" in person and person["polo"] and not isinstance(person["polo"], int):
@@ -109,6 +115,7 @@ class DiarioManager(Manager):
             Curso,
             Arquetipo,
             Inscricao,
+            Polo,
         )
 
         curso, created = Curso.objects.update_or_create(
@@ -153,13 +160,13 @@ class DiarioManager(Manager):
 
         pessoas = d["professores"] + d["alunos"]
         polos = {}
-        # for p in pessoas:
-        #     if self._get_polo_id(p) and self._get_polo_id(p) not in polos:
-        #         polo, created = Polo.objects.update_or_create(
-        #             suap_id=p['polo']['id'],
-        #             defaults={'nome': p['polo']['nome']}
-        #         )
-        #         polos[p['polo']['id']] = polo
+        for p in pessoas:
+            if self._get_polo_id(p) and self._get_polo_id(p) not in polos:
+                polo, created = Polo.objects.update_or_create(
+                    suap_id=p["polo"]["id"],
+                    defaults={"nome": p["polo"].get("descricao", None)},
+                )
+                polos[p["polo"]["id"]] = polo
 
         for p in pessoas:
             if "matricula" in p.keys():
