@@ -1,0 +1,65 @@
+### Pressione Ctrl + Alt + R para executar este request para usar no VSCode com o plugin "REST Client"
+POST http://ava/api/moodle_suap/ HTTP/1.1
+Authentication: Token changeme
+
+{
+    "curso": {
+        "id": 1,
+        "nome": "Tecnologia em Redes de Computadores",
+        "codigo": "00001",
+        "descricao": "Tecnologia em Redes de Computadores - Nome Completo do Campus"},
+        "turma": {
+            "id": 1,
+            "codigo": "20221.6.00001.1E"
+        },
+        "alunos": [
+            {
+                "id": 1,
+                "nome": "Nome completo do aluno",
+                "polo": {
+                    "id": 1,
+                    "descricao": "Pólo Assú"
+                },
+                "email": "nome.compelto@academico.ifrn.edu.br",
+                "situacao": "ativo",
+                "matricula": "201830000100001",
+                "email_secundario": "nome.completo@hotmail.com"
+            }
+        ],
+        "campus": {
+            "id": 1,
+            "sigla": "EAD",
+            "descricao": "Campus EaD"
+        },
+        "diario": {
+            "id": 1,
+            "sigla": "TEC.0001",
+            "situacao": "Aberto",
+            "descricao": "Bancos de Dados",
+            "descricao_historico": "Bancos de Dados"
+        },
+        "componente": {
+            "id": 1,
+            "tipo": 1,
+            "sigla": "TEC.0001",
+            "periodo": null,
+            "optativo": false,
+            "descricao": "Bancos de Dados",
+            "qtd_avaliacoes": 2,
+            "descricao_historico": "Bancos de Dados"
+        },
+        "professores": [
+            {
+                "id": 1,
+                "nome": "Nome completo de um professor principal",
+                "tipo": "Principal",
+                "email": "nome.sobrenome@ifrn.edu.br",
+                "login": "1234567",
+                "status": "ativo",
+                "email_secundario": "nome.sobrenome@gmail.com"
+            }
+        ]
+    }
+
+### asdf
+
