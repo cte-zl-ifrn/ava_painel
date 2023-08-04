@@ -152,7 +152,6 @@ class Ambiente(SafeDeleteModel):
             {
                 "id": a.id,
                 "label": a.nome,
-                "sigla": a.sigla,
                 "style": f"background-color: {a.cor_degrade}",
                 "color": a.cor_degrade,
             }
