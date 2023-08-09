@@ -91,6 +91,7 @@ services:
       - '../moodle__local_suap:/var/www/html/local/suap'
       - '../moodle__block_suapattendance:/var/www/html/blocks/suapattendance'
       - '../moodle__theme_moove:/var/www/html/theme/moove'
+      - '../moodle__profilefield_json:/var/www/html/user/profile/field/json'
       # Data
       - './volumes/moodle_data:/var/moodledata'
     depends_on:
