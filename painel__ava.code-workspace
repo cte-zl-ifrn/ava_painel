@@ -29,6 +29,9 @@
         },
         {
             "path": "../ifrn_ssh"
+        },
+        {
+            "path": "../moodle__profilefield_json"
         }
     ],
     "settings": {}

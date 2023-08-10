@@ -9,6 +9,7 @@ class Solicitacao(SafeDeleteModel):
     class Status(Choices):
         SUCESSO = Choices.Value(_("Sucesso"), value="S")
         FALHA = Choices.Value(_("Falha"), value="F")
+        PROCESSANDO = Choices.Value(_("Processando"), value="P")
 
     timestamp = DateTimeField(_("quando ocorreu"), auto_now_add=True)
     status = CharField(

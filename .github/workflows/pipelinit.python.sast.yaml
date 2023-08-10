@@ -2,16 +2,16 @@
 # https://pipelinit.com/
 name: SAST Python
 on:
-  pull_request:
-    paths:
-      - "**.py"
+    pull_request:
+        paths:
+            - "**.py"
 jobs:
-  semgrep:
-    name: Scan
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: returntocorp/semgrep-action@v1
-        with:
-          config: >-
-            p/ci
+    semgrep:
+        name: Scan
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: returntocorp/semgrep-action@v1
+              with:
+                  config: >-
+                      p/ci

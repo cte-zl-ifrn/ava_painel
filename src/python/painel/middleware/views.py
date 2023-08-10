@@ -12,30 +12,13 @@ from painel import request2dict
 
 def response_error(request: HttpRequest, error: Exception):
     event_id = capture_exception(error)
-    try:
-        message_string = request.body.decode("utf-8")
-    except Exception:
-        try:
-            message_string = request.body
-        except Exception as ie2:
-            message_string = f"erro ao decodificar a requisição {ie2}"
-
-    solicitacao = Solicitacao.objects.create(
-        status=Solicitacao.Status.FALHA,
-        campus=error.campus if "campus" in dir(error) else None,
-        status_code=getattr(error, "code", 500),
-        recebido=message_string,
-        respondido=error.retorno.text if hasattr(error, "retorno") else None,
-    )
-
     error_json = {
         "error": getattr(error, "message", None),
-        "code": getattr(error, "code", None),
-        "solicitacao_id": solicitacao.id,
+        "code": getattr(error, "code", 500),
         "event_id": event_id,
     }
 
-    return JsonResponse(error_json, status=getattr(error, "code", None))
+    return JsonResponse(error_json, status=getattr(error, "code", 500))
 
 
 @csrf_exempt
@@ -52,8 +35,7 @@ def moodle_suap(request: HttpRequest):
 
         if f"Token {settings.SUAP_EAD_KEY}" != request.META["HTTP_AUTHENTICATION"]:
             raise SyncError(
-                """Você enviou um token de auteticação diferente do que tem na settings
-                   'SUAP_EAD_KEY'.""",
+                "Você enviou um token de auteticação diferente do que tem na settings 'SUAP_EAD_KEY'.",  # noqa
                 403,
             )
 
@@ -70,13 +52,9 @@ def moodle_suap(request: HttpRequest):
         except Exception as e1:
             return SyncError(f"Erro ao converter para JSON ({e1}).", 407)
 
-        response = Diario.objects.sync(message_string, request2dict(request))
-        print(f"Middleware: {response}")
+        response = Diario.objects.sync(message_string)
         return JsonResponse(response, safe=False)
-
     except SyncError as se:
-        print(type(se), se)
         return response_error(request, se)
     except Exception as e2:
-        print(type(e2), e2)
         return response_error(request, e2)
