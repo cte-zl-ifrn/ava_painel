@@ -172,9 +172,7 @@ class DiarioManager(Manager):
             if "matricula" in p.keys():
                 papel = Arquetipo.ALUNO
             else:
-                papel = (
-                    Arquetipo.PROFESSOR if p["tipo"] == "Principal" else Arquetipo.TUTOR
-                )
+                papel = Arquetipo.PROFESSOR if p["tipo"] == "Principal" else Arquetipo.TUTOR
             polo = polos.get(self._get_polo_id(p), None)
 
             is_active = "ativo" == p.get("situacao", p.get("status", "")).lower()

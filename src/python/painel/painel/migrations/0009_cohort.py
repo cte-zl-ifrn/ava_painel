@@ -40,9 +40,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "sigla",
-                    models.CharField(
-                        blank=True, max_length=10, unique=True, verbose_name="sigla"
-                    ),
+                    models.CharField(blank=True, max_length=10, unique=True, verbose_name="sigla"),
                 ),
                 (
                     "contexto",
@@ -107,9 +105,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "polo",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.PROTECT, to="painel.polo"
-                    ),
+                    models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to="painel.polo"),
                 ),
             ],
             options={
@@ -157,9 +153,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "curso",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.PROTECT, to="painel.curso"
-                    ),
+                    models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to="painel.curso"),
                 ),
                 (
                     "papel",
@@ -182,9 +176,7 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.IntegerField(
-                        auto_created=True, blank=True, db_index=True, verbose_name="ID"
-                    ),
+                    models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID"),
                 ),
                 (
                     "deleted",
@@ -269,9 +261,7 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.IntegerField(
-                        auto_created=True, blank=True, db_index=True, verbose_name="ID"
-                    ),
+                    models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID"),
                 ),
                 (
                     "deleted",
@@ -356,9 +346,7 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.IntegerField(
-                        auto_created=True, blank=True, db_index=True, verbose_name="ID"
-                    ),
+                    models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID"),
                 ),
                 (
                     "deleted",
@@ -374,9 +362,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "sigla",
-                    models.CharField(
-                        blank=True, db_index=True, max_length=10, verbose_name="sigla"
-                    ),
+                    models.CharField(blank=True, db_index=True, max_length=10, verbose_name="sigla"),
                 ),
                 (
                     "contexto",
@@ -420,9 +406,7 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.IntegerField(
-                        auto_created=True, blank=True, db_index=True, verbose_name="ID"
-                    ),
+                    models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID"),
                 ),
                 (
                     "deleted",
@@ -506,15 +490,11 @@ class Migration(migrations.Migration):
                 ("active", models.BooleanField(verbose_name="ativo?")),
                 (
                     "curso",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.PROTECT, to="painel.curso"
-                    ),
+                    models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to="painel.curso"),
                 ),
                 (
                     "polo",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.PROTECT, to="painel.polo"
-                    ),
+                    models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to="painel.polo"),
                 ),
             ],
             options={

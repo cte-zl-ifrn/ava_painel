@@ -66,9 +66,7 @@ class UsuarioAdmin(BaseModelAdmin):
             _("Aluno"),
             {
                 "fields": [("campus", "polo")],
-                "description": _(
-                    "Estes campos só têm relevância para usuários do tipo aluno."
-                ),
+                "description": _("Estes campos só têm relevância para usuários do tipo aluno."),
             },
         ),
         (

@@ -1,0 +1,43 @@
+# https://beta.ruff.rs/docs/settings/
+# https://google.github.io/styleguide/pyguide.html
+
+[tool.ruff]
+line-length = 120
+# select = [
+#     "F401",
+#     "F403",
+# ]
+target-version = "py311"
+show-source = true
+show-fixes = true
+fix = true
+
+[tool.ruff.flake8-annotations]
+allow-star-arg-any = true
+
+[tool.ruff.mccabe]
+max-complexity = 5
+
+[tool.ruff.pycodestyle]
+max-doc-length = 120
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[tool.black]
+include_trailing_comma = true
+use_parentheses = true
+ensure_newline_before_comments = true
+line_length = 120
+multi_line_output = 3
+force_grid_wrap = 0
+
+# [tool.ruff.per-file-ignores]
+# "path/to/file.py" = ["E402"]
+# "path/to/file.py" = ["E402"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+# addopts="-ra --cov-report term --cov-report html:coverage --cov-report xml:coverage/cobertura-coverage.xml --cov=."
+addopts="-p no:warnings -ra  ."
+filterwarnings="ignore::urllib3.exceptions.InsecureRequestWarning"

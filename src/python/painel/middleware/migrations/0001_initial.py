@@ -24,9 +24,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "timestamp",
-                    models.DateTimeField(
-                        auto_now_add=True, verbose_name="quando ocorreu"
-                    ),
+                    models.DateTimeField(auto_now_add=True, verbose_name="quando ocorreu"),
                 ),
                 (
                     "requisicao",
@@ -34,9 +32,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "requisicao_header",
-                    models.JSONField(
-                        blank=True, null=True, verbose_name="cabeçalho da requisição"
-                    ),
+                    models.JSONField(blank=True, null=True, verbose_name="cabeçalho da requisição"),
                 ),
                 (
                     "resposta",
@@ -44,9 +40,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "resposta_header",
-                    models.JSONField(
-                        blank=True, null=True, verbose_name="cabeçalho da resposta"
-                    ),
+                    models.JSONField(blank=True, null=True, verbose_name="cabeçalho da resposta"),
                 ),
                 (
                     "status",

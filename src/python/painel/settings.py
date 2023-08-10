@@ -138,9 +138,7 @@ TEMPLATES = [
 
 if DEBUG:
     TEMPLATES[0]["APP_DIRS"] = False
-    TEMPLATES[0]["OPTIONS"]["loaders"] = [
-        "django.template.loaders.app_directories.Loader"
-    ]
+    TEMPLATES[0]["OPTIONS"]["loaders"] = ["django.template.loaders.app_directories.Loader"]
 
 TABBED_ADMIN_USE_JQUERY_UI = True
 GTAG_ID = env("GTAG_ID", None)
@@ -170,9 +168,7 @@ USE_TZ = env_as_bool("DJANGO_USE_TZ", True)
 
 # Development
 if DEBUG:
-    INSTALLED_APPS = INSTALLED_APPS + env_as_list(
-        "DEV_APPS", "debug_toolbar" if DEBUG else ""
-    )
+    INSTALLED_APPS = INSTALLED_APPS + env_as_list("DEV_APPS", "debug_toolbar" if DEBUG else "")
     DEBUG_TOOLBAR_CONFIG = {
         "SHOW_TOOLBAR_CALLBACK": lambda request: request.get_host()
         in ["localhost", "127.0.0.1", "localhost:8000", "127.0.0.1:8000"],

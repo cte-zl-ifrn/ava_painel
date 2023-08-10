@@ -27,9 +27,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "sigla",
-                    models.CharField(
-                        max_length=255, unique=True, verbose_name="sigla do ambiente"
-                    ),
+                    models.CharField(max_length=255, unique=True, verbose_name="sigla do ambiente"),
                 ),
                 (
                     "nome",
@@ -59,15 +57,11 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "suap_id",
-                    models.CharField(
-                        max_length=255, unique=True, verbose_name="ID do campus no SUAP"
-                    ),
+                    models.CharField(max_length=255, unique=True, verbose_name="ID do campus no SUAP"),
                 ),
                 (
                     "sigla",
-                    models.CharField(
-                        max_length=255, unique=True, verbose_name="sigla do campus"
-                    ),
+                    models.CharField(max_length=255, unique=True, verbose_name="sigla do campus"),
                 ),
                 (
                     "descricao",
@@ -110,9 +104,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "sigla",
-                    models.CharField(
-                        max_length=255, unique=True, verbose_name="sigla do componente"
-                    ),
+                    models.CharField(max_length=255, unique=True, verbose_name="sigla do componente"),
                 ),
                 (
                     "descricao",
@@ -120,9 +112,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "descricao_historico",
-                    models.CharField(
-                        max_length=512, verbose_name="descrição no histórico"
-                    ),
+                    models.CharField(max_length=512, verbose_name="descrição no histórico"),
                 ),
                 (
                     "periodo",
@@ -138,9 +128,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "qtd_avaliacoes",
-                    models.IntegerField(
-                        blank=True, null=True, verbose_name="qtd. avalições"
-                    ),
+                    models.IntegerField(blank=True, null=True, verbose_name="qtd. avalições"),
                 ),
             ],
             options={
@@ -163,15 +151,11 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "suap_id",
-                    models.CharField(
-                        max_length=255, unique=True, verbose_name="ID do curso no SUAP"
-                    ),
+                    models.CharField(max_length=255, unique=True, verbose_name="ID do curso no SUAP"),
                 ),
                 (
                     "codigo",
-                    models.CharField(
-                        max_length=255, unique=True, verbose_name="código do curso"
-                    ),
+                    models.CharField(max_length=255, unique=True, verbose_name="código do curso"),
                 ),
                 (
                     "nome",
@@ -202,9 +186,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "suap_id",
-                    models.CharField(
-                        max_length=255, unique=True, verbose_name="ID do diário no SUAP"
-                    ),
+                    models.CharField(max_length=255, unique=True, verbose_name="ID do diário no SUAP"),
                 ),
                 (
                     "codigo",
@@ -226,9 +208,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "descricao_historico",
-                    models.CharField(
-                        max_length=255, verbose_name="descrição no histórico"
-                    ),
+                    models.CharField(max_length=255, verbose_name="descrição no histórico"),
                 ),
                 (
                     "componente",
@@ -259,15 +239,11 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "suap_id",
-                    models.CharField(
-                        max_length=255, unique=True, verbose_name="ID do pólo no SUAP"
-                    ),
+                    models.CharField(max_length=255, unique=True, verbose_name="ID do pólo no SUAP"),
                 ),
                 (
                     "nome",
-                    models.CharField(
-                        max_length=255, unique=True, verbose_name="nome do pólo"
-                    ),
+                    models.CharField(max_length=255, unique=True, verbose_name="nome do pólo"),
                 ),
             ],
             options={
@@ -290,9 +266,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "suap_id",
-                    models.CharField(
-                        max_length=255, unique=True, verbose_name="ID da turma no SUAP"
-                    ),
+                    models.CharField(max_length=255, unique=True, verbose_name="ID da turma no SUAP"),
                 ),
                 (
                     "codigo",
@@ -300,9 +274,7 @@ class Migration(migrations.Migration):
                         max_length=255,
                         unique=True,
                         validators=[
-                            django.core.validators.RegexValidator(
-                                re.compile("(\\d{5})\\.(\\d)\\.(\\d{5})\\.(..)")
-                            )
+                            django.core.validators.RegexValidator(re.compile("(\\d{5})\\.(\\d)\\.(\\d{5})\\.(..)"))
                         ],
                         verbose_name="código da turma",
                     ),
@@ -379,9 +351,7 @@ class Migration(migrations.Migration):
                 ("active", models.BooleanField(verbose_name="ativo?")),
                 (
                     "diario",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.PROTECT, to="painel.diario"
-                    ),
+                    models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to="painel.diario"),
                 ),
                 (
                     "polo",

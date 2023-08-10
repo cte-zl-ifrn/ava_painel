@@ -26,9 +26,7 @@ def response_error(request: HttpRequest, error: Exception):
 def moodle_suap(request: HttpRequest):
     try:
         if not hasattr(settings, "SUAP_EAD_KEY"):
-            raise SyncError(
-                "Você se esqueceu de configurar a settings 'SUAP_EAD_KEY'.", 428
-            )
+            raise SyncError("Você se esqueceu de configurar a settings 'SUAP_EAD_KEY'.", 428)
 
         if "HTTP_AUTHENTICATION" not in request.META:
             raise SyncError("Envie o token de autenticação no header.", 431)

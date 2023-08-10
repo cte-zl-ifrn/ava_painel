@@ -29,9 +29,7 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.BigIntegerField(
-                        auto_created=True, blank=True, db_index=True, verbose_name="ID"
-                    ),
+                    models.BigIntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID"),
                 ),
                 (
                     "deleted",
@@ -50,9 +48,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "pacote_recebido",
-                    models.JSONField(
-                        blank=True, null=True, verbose_name="pacote recebido"
-                    ),
+                    models.JSONField(blank=True, null=True, verbose_name="pacote recebido"),
                 ),
                 ("history_id", models.AutoField(primary_key=True, serialize=False)),
                 ("history_date", models.DateTimeField(db_index=True)),

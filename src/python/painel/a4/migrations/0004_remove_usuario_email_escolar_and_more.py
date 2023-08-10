@@ -38,23 +38,17 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="usuario",
             name="foto",
-            field=models.CharField(
-                blank=True, max_length=255, null=True, verbose_name="URL da foto"
-            ),
+            field=models.CharField(blank=True, max_length=255, null=True, verbose_name="URL da foto"),
         ),
         migrations.AddField(
             model_name="usuario",
             name="nome",
-            field=models.CharField(
-                blank=True, max_length=255, null=True, verbose_name="nome no SUAP"
-            ),
+            field=models.CharField(blank=True, max_length=255, null=True, verbose_name="nome no SUAP"),
         ),
         migrations.AddField(
             model_name="usuario",
             name="nome_registro",
-            field=models.CharField(
-                blank=True, max_length=255, verbose_name="nome civil"
-            ),
+            field=models.CharField(blank=True, max_length=255, verbose_name="nome civil"),
         ),
         migrations.AddField(
             model_name="usuario",
@@ -69,22 +63,16 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="usuario",
             name="tipo_usuario",
-            field=models.CharField(
-                blank=True, max_length=255, null=True, verbose_name="tipo"
-            ),
+            field=models.CharField(blank=True, max_length=255, null=True, verbose_name="tipo"),
         ),
         migrations.AlterField(
             model_name="usuario",
             name="email_corporativo",
-            field=models.EmailField(
-                blank=True, max_length=254, null=True, verbose_name="e-Mail corporativo"
-            ),
+            field=models.EmailField(blank=True, max_length=254, null=True, verbose_name="e-Mail corporativo"),
         ),
         migrations.AlterField(
             model_name="usuario",
             name="nome_social",
-            field=models.CharField(
-                blank=True, max_length=255, null=True, verbose_name="nome social"
-            ),
+            field=models.CharField(blank=True, max_length=255, null=True, verbose_name="nome social"),
         ),
     ]

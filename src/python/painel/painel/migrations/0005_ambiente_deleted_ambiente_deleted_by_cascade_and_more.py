@@ -110,9 +110,7 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.IntegerField(
-                        auto_created=True, blank=True, db_index=True, verbose_name="ID"
-                    ),
+                    models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID"),
                 ),
                 (
                     "deleted",
@@ -136,9 +134,7 @@ class Migration(migrations.Migration):
                         db_index=True,
                         max_length=255,
                         validators=[
-                            django.core.validators.RegexValidator(
-                                re.compile("(\\d{5})\\.(\\d)\\.(\\d{5})\\.(..)")
-                            )
+                            django.core.validators.RegexValidator(re.compile("(\\d{5})\\.(\\d)\\.(\\d{5})\\.(..)"))
                         ],
                         verbose_name="código da turma",
                     ),
@@ -222,9 +218,7 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.IntegerField(
-                        auto_created=True, blank=True, db_index=True, verbose_name="ID"
-                    ),
+                    models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID"),
                 ),
                 (
                     "deleted",
@@ -236,15 +230,11 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "suap_id",
-                    models.CharField(
-                        db_index=True, max_length=255, verbose_name="ID do pólo no SUAP"
-                    ),
+                    models.CharField(db_index=True, max_length=255, verbose_name="ID do pólo no SUAP"),
                 ),
                 (
                     "nome",
-                    models.CharField(
-                        db_index=True, max_length=255, verbose_name="nome do pólo"
-                    ),
+                    models.CharField(db_index=True, max_length=255, verbose_name="nome do pólo"),
                 ),
                 ("history_id", models.AutoField(primary_key=True, serialize=False)),
                 ("history_date", models.DateTimeField(db_index=True)),
@@ -279,9 +269,7 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.IntegerField(
-                        auto_created=True, blank=True, db_index=True, verbose_name="ID"
-                    ),
+                    models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID"),
                 ),
                 (
                     "deleted",
@@ -370,9 +358,7 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.IntegerField(
-                        auto_created=True, blank=True, db_index=True, verbose_name="ID"
-                    ),
+                    models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID"),
                 ),
                 (
                     "deleted",
@@ -410,9 +396,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "descricao_historico",
-                    models.CharField(
-                        max_length=255, verbose_name="descrição no histórico"
-                    ),
+                    models.CharField(max_length=255, verbose_name="descrição no histórico"),
                 ),
                 ("history_id", models.AutoField(primary_key=True, serialize=False)),
                 ("history_date", models.DateTimeField(db_index=True)),
@@ -471,9 +455,7 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.IntegerField(
-                        auto_created=True, blank=True, db_index=True, verbose_name="ID"
-                    ),
+                    models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID"),
                 ),
                 (
                     "deleted",
@@ -493,9 +475,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "codigo",
-                    models.CharField(
-                        db_index=True, max_length=255, verbose_name="código do curso"
-                    ),
+                    models.CharField(db_index=True, max_length=255, verbose_name="código do curso"),
                 ),
                 (
                     "nome",
@@ -538,9 +518,7 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.IntegerField(
-                        auto_created=True, blank=True, db_index=True, verbose_name="ID"
-                    ),
+                    models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID"),
                 ),
                 (
                     "deleted",
@@ -572,9 +550,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "descricao_historico",
-                    models.CharField(
-                        max_length=512, verbose_name="descrição no histórico"
-                    ),
+                    models.CharField(max_length=512, verbose_name="descrição no histórico"),
                 ),
                 (
                     "periodo",
@@ -590,9 +566,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "qtd_avaliacoes",
-                    models.IntegerField(
-                        blank=True, null=True, verbose_name="qtd. avalições"
-                    ),
+                    models.IntegerField(blank=True, null=True, verbose_name="qtd. avalições"),
                 ),
                 ("history_id", models.AutoField(primary_key=True, serialize=False)),
                 ("history_date", models.DateTimeField(db_index=True)),
@@ -627,9 +601,7 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.IntegerField(
-                        auto_created=True, blank=True, db_index=True, verbose_name="ID"
-                    ),
+                    models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID"),
                 ),
                 (
                     "deleted",
@@ -649,9 +621,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "sigla",
-                    models.CharField(
-                        db_index=True, max_length=255, verbose_name="sigla do campus"
-                    ),
+                    models.CharField(db_index=True, max_length=255, verbose_name="sigla do campus"),
                 ),
                 (
                     "descricao",

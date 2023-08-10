@@ -22,9 +22,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="historicalsolicitacao",
             name="respondido",
-            field=models.TextField(
-                blank=True, null=True, verbose_name="JSON respondido"
-            ),
+            field=models.TextField(blank=True, null=True, verbose_name="JSON respondido"),
         ),
         migrations.AlterField(
             model_name="solicitacao",
@@ -39,8 +37,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="solicitacao",
             name="respondido",
-            field=models.TextField(
-                blank=True, null=True, verbose_name="JSON respondido"
-            ),
+            field=models.TextField(blank=True, null=True, verbose_name="JSON respondido"),
         ),
     ]

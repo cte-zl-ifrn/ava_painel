@@ -29,9 +29,7 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.BigIntegerField(
-                        auto_created=True, blank=True, db_index=True, verbose_name="ID"
-                    ),
+                    models.BigIntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID"),
                 ),
                 (
                     "deleted",
@@ -43,9 +41,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "timestamp",
-                    models.DateTimeField(
-                        blank=True, editable=False, verbose_name="quando ocorreu"
-                    ),
+                    models.DateTimeField(blank=True, editable=False, verbose_name="quando ocorreu"),
                 ),
                 (
                     "requisicao",
@@ -53,9 +49,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "requisicao_header",
-                    models.JSONField(
-                        blank=True, null=True, verbose_name="cabeçalho da requisição"
-                    ),
+                    models.JSONField(blank=True, null=True, verbose_name="cabeçalho da requisição"),
                 ),
                 (
                     "resposta",
@@ -63,9 +57,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "resposta_header",
-                    models.JSONField(
-                        blank=True, null=True, verbose_name="cabeçalho da resposta"
-                    ),
+                    models.JSONField(blank=True, null=True, verbose_name="cabeçalho da resposta"),
                 ),
                 (
                     "status",

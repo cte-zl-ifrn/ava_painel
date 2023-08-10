@@ -18,9 +18,7 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.IntegerField(
-                        auto_created=True, blank=True, db_index=True, verbose_name="ID"
-                    ),
+                    models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID"),
                 ),
                 (
                     "sigla",

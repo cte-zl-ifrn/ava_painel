@@ -367,9 +367,7 @@ class Popup(ActiveMixin, SafeDeleteModel):
 
     @staticmethod
     def activePopup():
-        return Popup.objects.filter(
-            active=True, start_at__lte=now(), end_at__gte=now()
-        ).first()
+        return Popup.objects.filter(active=True, start_at__lte=now(), end_at__gte=now()).first()
 
 
 class Papel(ActiveMixin, SafeDeleteModel):
@@ -390,9 +388,7 @@ class Papel(ActiveMixin, SafeDeleteModel):
 
 
 class VinculoPolo(ActiveMixin, SafeDeleteModel):
-    papel = ForeignKey(
-        Papel, on_delete=PROTECT, limit_choices_to={"contexto": Contexto.POLO}
-    )
+    papel = ForeignKey(Papel, on_delete=PROTECT, limit_choices_to={"contexto": Contexto.POLO})
     polo = ForeignKey(Polo, on_delete=PROTECT)
     colaborador = ForeignKey(
         Usuario,
@@ -413,9 +409,7 @@ class VinculoPolo(ActiveMixin, SafeDeleteModel):
 
 
 class VinculoCurso(ActiveMixin, SafeDeleteModel):
-    papel = ForeignKey(
-        Papel, on_delete=PROTECT, limit_choices_to={"contexto": Contexto.CURSO}
-    )
+    papel = ForeignKey(Papel, on_delete=PROTECT, limit_choices_to={"contexto": Contexto.CURSO})
     curso = ForeignKey(Curso, on_delete=PROTECT)
     colaborador = ForeignKey(
         Usuario,

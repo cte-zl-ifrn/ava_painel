@@ -78,9 +78,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "id",
-                    models.IntegerField(
-                        auto_created=True, blank=True, db_index=True, verbose_name="ID"
-                    ),
+                    models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID"),
                 ),
                 (
                     "deleted",
@@ -92,9 +90,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "name",
-                    models.CharField(
-                        db_index=True, max_length=150, verbose_name="name"
-                    ),
+                    models.CharField(db_index=True, max_length=150, verbose_name="name"),
                 ),
                 ("history_id", models.AutoField(primary_key=True, serialize=False)),
                 ("history_date", models.DateTimeField(db_index=True)),

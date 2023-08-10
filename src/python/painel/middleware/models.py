@@ -12,9 +12,7 @@ class Solicitacao(SafeDeleteModel):
         PROCESSANDO = Choices.Value(_("Processando"), value="P")
 
     timestamp = DateTimeField(_("quando ocorreu"), auto_now_add=True)
-    status = CharField(
-        _("status"), max_length=256, choices=Status, null=True, blank=True
-    )
+    status = CharField(_("status"), max_length=256, choices=Status, null=True, blank=True)
     status_code = CharField(_("status code"), max_length=256, null=True, blank=True)
     campus = ForeignKey("painel.Campus", on_delete=PROTECT, null=True, blank=True)
     diario = ForeignKey("painel.Diario", on_delete=PROTECT, null=True, blank=True)

@@ -23,15 +23,11 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "suap_id",
-                    models.CharField(
-                        max_length=255, unique=True, verbose_name="ID do diário no SUAP"
-                    ),
+                    models.CharField(max_length=255, unique=True, verbose_name="ID do diário no SUAP"),
                 ),
                 (
                     "codigo",
-                    models.CharField(
-                        max_length=255, unique=True, verbose_name="código do diário"
-                    ),
+                    models.CharField(max_length=255, unique=True, verbose_name="código do diário"),
                 ),
                 ("pacote_enviado", models.JSONField(verbose_name="pacote enviado")),
                 ("pacote_recebido", models.JSONField(verbose_name="pacote recebido")),

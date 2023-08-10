@@ -33,8 +33,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="diario",
             name="pacote_recebido",
-            field=models.JSONField(
-                blank=True, null=True, verbose_name="pacote recebido"
-            ),
+            field=models.JSONField(blank=True, null=True, verbose_name="pacote recebido"),
         ),
     ]

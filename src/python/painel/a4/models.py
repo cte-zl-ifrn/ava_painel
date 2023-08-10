@@ -11,11 +11,7 @@ from safedelete.models import SafeDeleteModel
 def logged_user(request: HttpRequest):
     username = request.session.get("usuario_personificado", request.user.username)
     user = Usuario.objects.filter(username=username).first()
-    return (
-        user
-        if user is not None and user.is_authenticated and user.is_active
-        else usuario_anonimo
-    )
+    return user if user is not None and user.is_authenticated and user.is_active else usuario_anonimo
 
 
 class Grupo(SafeDeleteModel, OrignalGroup):
@@ -53,20 +49,14 @@ class Usuario(SafeDeleteModel, AbstractUser):
     )
     nome_registro = CharField(_("nome civil"), max_length=255, blank=True)
     nome_social = CharField(_("nome social"), max_length=255, null=True, blank=True)
-    nome_usual = CharField(
-        _("nome de apresentação"), max_length=255, null=True, blank=True
-    )
+    nome_usual = CharField(_("nome de apresentação"), max_length=255, null=True, blank=True)
     nome = CharField(_("nome no SUAP"), max_length=255, null=True, blank=True)
-    tipo_usuario = CharField(
-        _("tipo"), max_length=255, choices=TipoUsuario, null=True, blank=True
-    )
+    tipo_usuario = CharField(_("tipo"), max_length=255, choices=TipoUsuario, null=True, blank=True)
     foto = CharField(_("URL da foto"), max_length=255, null=True, blank=True)
     email = EmailField(_("e-Mail preferêncial"), null=True, blank=False)
     email_secundario = EmailField(_("e-Mail pessoal"), null=True, blank=True)
     email_corporativo = EmailField(_("e-Mail corporativo"), null=True, blank=True)
-    email_google_classroom = EmailField(
-        _("e-Mail Gogole Classroom"), null=True, blank=True
-    )
+    email_google_classroom = EmailField(_("e-Mail Gogole Classroom"), null=True, blank=True)
     email_academico = EmailField(_("e-Mail academico"), null=True, blank=True)
     campus = ForeignKey(
         "painel.Campus",
@@ -106,19 +96,11 @@ class Usuario(SafeDeleteModel, AbstractUser):
 
     @property
     def show_name(self):
-        return (
-            self.nome_usual
-            if self.nome_usual is not None and self.nome_usual != ""
-            else self.username
-        )
+        return self.nome_usual if self.nome_usual is not None and self.nome_usual != "" else self.username
 
     @property
     def foto_url(self):
-        return (
-            f"{settings.SUAP_BASE_URL}{self.foto}"
-            if self.foto
-            else f"{settings.STATIC_URL}dashboard/img/user.png"
-        )
+        return f"{settings.SUAP_BASE_URL}{self.foto}" if self.foto else f"{settings.STATIC_URL}dashboard/img/user.png"
 
 
 Usuario._meta.icon = "fa fa-user"

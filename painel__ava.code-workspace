@@ -34,5 +34,12 @@
             "path": "../moodle__profilefield_json"
         }
     ],
-    "settings": {}
+    "settings": {
+        "editor.formatOnPaste": true,
+        "editor.formatOnSave": true,
+        "[python]": {
+            "editor.defaultFormatter": "ms-python.black-formatter"
+        },
+        "python.formatting.provider": "black"
+    }
 }

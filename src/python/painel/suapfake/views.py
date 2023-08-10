@@ -12,9 +12,7 @@ from django.contrib.auth.decorators import login_required
 
 def login(request: HttpRequest) -> HttpResponse:
     OAUTH = settings.OAUTH
-    next = urllib.parse.quote_plus(
-        request.GET["next"] if "next" in request.GET else "/", safe=""
-    )
+    next = urllib.parse.quote_plus(request.GET["next"] if "next" in request.GET else "/", safe="")
     redirect_uri = f"{OAUTH['REDIRECT_URI']}?next={next}"
     redirect_uri = OAUTH["REDIRECT_URI"]
     suap_url = f"{OAUTH['BASE_URL']}/o/authorize/?response_type=code&client_id={OAUTH['CLIENTE_ID']}&redirect_uri={redirect_uri}"

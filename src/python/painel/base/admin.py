@@ -29,9 +29,7 @@ class BaseChangeList(ChangeList):
         return f"/foos/foo/{pk}/"
 
 
-class BaseModelAdmin(
-    ImportExportMixin, ExportActionMixin, SafeDeleteAdmin, SimpleHistoryAdmin
-):
+class BaseModelAdmin(ImportExportMixin, ExportActionMixin, SafeDeleteAdmin, SimpleHistoryAdmin):
     list_filter = [SafeDeleteAdminFilter] + list(SafeDeleteAdmin.list_filter)
 
     def get_changelist(self, request, **kwargs):
@@ -47,18 +45,14 @@ class BaseModelAdmin(
 
         prefix = f"{self.opts.app_label}_{self.opts.model_name}"
         urls = [url for url in super().get_urls() if url.pattern.name is not None]
-        urls.append(
-            path("<path:object_id>/", wrap(self.preview_view), name=f"{prefix}_view")
-        )
+        urls.append(path("<path:object_id>/", wrap(self.preview_view), name=f"{prefix}_view"))
         return urls
 
     # @csrf_protect_m
     def preview_view(self, request, object_id, form_url="", extra_context=None):
         to_field = request.POST.get(TO_FIELD_VAR, request.GET.get(TO_FIELD_VAR))
         if to_field and not self.to_field_allowed(request, to_field):
-            raise DisallowedModelAdminToField(
-                f"The field {to_field} cannot be referenced."
-            )
+            raise DisallowedModelAdminToField(f"The field {to_field} cannot be referenced.")
 
         obj = self.get_object(request, unquote(object_id), to_field)
 
@@ -68,23 +62,17 @@ class BaseModelAdmin(
         request.in_view_mode = True
 
         fieldsets = self.get_fieldsets(request, obj)
-        ModelForm = self.get_form(
-            request, obj, change=False, fields=flatten_fieldsets(fieldsets)
-        )
+        ModelForm = self.get_form(request, obj, change=False, fields=flatten_fieldsets(fieldsets))
         form = ModelForm(instance=obj)
         formsets, inline_instances = self._create_formsets(request, obj, change=True)
 
         # form = self._get_form_for_get_fields(request, obj)
         # return [*form.base_fields, *self.get_readonly_fields(request, obj)]
         readonly_fields = form.base_fields
-        admin_form = AdminForm(
-            form, list(fieldsets), {}, readonly_fields, model_admin=self
-        )
+        admin_form = AdminForm(form, list(fieldsets), {}, readonly_fields, model_admin=self)
         media = self.media + admin_form.media
 
-        inline_formsets = self.get_inline_formsets(
-            request, formsets, inline_instances, obj
-        )
+        inline_formsets = self.get_inline_formsets(request, formsets, inline_instances, obj)
         # inline_formsets = []
         for inline_formset in inline_formsets:
             media += inline_formset.media
@@ -111,20 +99,14 @@ class BaseModelAdmin(
 
         context.update(extra_context or {})
 
-        return self.render_change_form(
-            request, context, add=False, change=False, obj=obj, form_url=form_url
-        )
+        return self.render_change_form(request, context, add=False, change=False, obj=obj, form_url=form_url)
 
     def get_inline_formsets(self, request, formsets, inline_instances, obj=None):
         # Edit permissions on parent model are required for editable inlines.
         if getattr(request, "in_view_mode", False):
             can_edit_parent = False
         else:
-            can_edit_parent = (
-                self.has_change_permission(request, obj)
-                if obj
-                else self.has_add_permission(request)
-            )
+            can_edit_parent = self.has_change_permission(request, obj) if obj else self.has_add_permission(request)
 
         inline_admin_formsets = []
         for inline, formset in zip(inline_instances, formsets):
@@ -136,9 +118,7 @@ class BaseModelAdmin(
                 has_delete_permission = inline.has_delete_permission(request, obj)
             else:
                 # Disable all edit-permissions, and override formset settings.
-                has_add_permission = (
-                    has_change_permission
-                ) = has_delete_permission = False
+                has_add_permission = has_change_permission = has_delete_permission = False
                 formset.extra = formset.max_num = 0
             has_view_permission = inline.has_view_permission(request, obj)
             prepopulated = dict(inline.get_prepopulated_fields(request, obj))

@@ -28,9 +28,7 @@ class Migration(migrations.Migration):
                 ("password", models.CharField(max_length=128, verbose_name="password")),
                 (
                     "last_login",
-                    models.DateTimeField(
-                        blank=True, null=True, verbose_name="last login"
-                    ),
+                    models.DateTimeField(blank=True, null=True, verbose_name="last login"),
                 ),
                 (
                     "is_superuser",
@@ -42,15 +40,11 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "first_name",
-                    models.CharField(
-                        blank=True, max_length=150, verbose_name="first name"
-                    ),
+                    models.CharField(blank=True, max_length=150, verbose_name="first name"),
                 ),
                 (
                     "last_name",
-                    models.CharField(
-                        blank=True, max_length=150, verbose_name="last name"
-                    ),
+                    models.CharField(blank=True, max_length=150, verbose_name="last name"),
                 ),
                 (
                     "is_staff",
@@ -70,21 +64,15 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "date_joined",
-                    models.DateTimeField(
-                        default=django.utils.timezone.now, verbose_name="date joined"
-                    ),
+                    models.DateTimeField(default=django.utils.timezone.now, verbose_name="date joined"),
                 ),
                 (
                     "username",
                     models.CharField(
-                        error_messages={
-                            "unique": "A user with that IFRN-id already exists."
-                        },
+                        error_messages={"unique": "A user with that IFRN-id already exists."},
                         max_length=150,
                         unique=True,
-                        validators=[
-                            django.contrib.auth.validators.UnicodeUsernameValidator()
-                        ],
+                        validators=[django.contrib.auth.validators.UnicodeUsernameValidator()],
                         verbose_name="IFRN-id",
                     ),
                 ),
@@ -98,9 +86,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "nome_apresentacao",
-                    models.CharField(
-                        max_length=255, verbose_name="nome de apresentação"
-                    ),
+                    models.CharField(max_length=255, verbose_name="nome de apresentação"),
                 ),
                 (
                     "tipo",
@@ -120,9 +106,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "email",
-                    models.EmailField(
-                        max_length=254, null=True, verbose_name="e-Mail prefernical"
-                    ),
+                    models.EmailField(max_length=254, null=True, verbose_name="e-Mail prefernical"),
                 ),
                 (
                     "email_secundario",
@@ -135,9 +119,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "email_corporativo",
-                    models.EmailField(
-                        blank=True, max_length=254, verbose_name="e-Mail corporativo"
-                    ),
+                    models.EmailField(blank=True, max_length=254, verbose_name="e-Mail corporativo"),
                 ),
                 (
                     "email_escolar",
@@ -159,9 +141,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "first_login",
-                    models.DateTimeField(
-                        blank=True, null=True, verbose_name="first login"
-                    ),
+                    models.DateTimeField(blank=True, null=True, verbose_name="first login"),
                 ),
             ],
             options={

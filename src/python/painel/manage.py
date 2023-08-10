@@ -16,9 +16,7 @@ def _wait_db(db):
         port=db["PORT"],
     )
     while connection.closed:
-        logging.info(
-            f"ERROR: Aguardando o banco {db['HOST']:db['PORT']/db['NAME']} subir"
-        )
+        logging.info(f"ERROR: Aguardando o banco {db['HOST']:db['PORT']/db['NAME']} subir")
         time.sleep(3)
 
 

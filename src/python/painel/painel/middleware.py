@@ -26,10 +26,7 @@ class GoToHTTPSMiddleware(MiddlewareMixin):
         host = meta["HTTP_X_FORWARDED_HOST"] or request.get_host()
         url = "https://%s%s" % (host, request.get_full_path())
 
-        if (
-            "HTTP_X_FORWARDED_PROTO" in meta
-            and meta["HTTP_X_FORWARDED_PROTO"] == "http"
-        ):
+        if "HTTP_X_FORWARDED_PROTO" in meta and meta["HTTP_X_FORWARDED_PROTO"] == "http":
             return HttpResponseRedirect(url)
 
         if "HTTP_X_FORWARDED_PROTO" not in meta:

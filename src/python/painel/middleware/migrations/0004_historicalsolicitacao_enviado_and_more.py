@@ -20,9 +20,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="historicalsolicitacao",
             name="enviado_header",
-            field=models.JSONField(
-                blank=True, null=True, verbose_name="cabeçalho enviado"
-            ),
+            field=models.JSONField(blank=True, null=True, verbose_name="cabeçalho enviado"),
         ),
         migrations.AddField(
             model_name="solicitacao",
@@ -32,9 +30,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="solicitacao",
             name="enviado_header",
-            field=models.JSONField(
-                blank=True, null=True, verbose_name="cabeçalho enviado"
-            ),
+            field=models.JSONField(blank=True, null=True, verbose_name="cabeçalho enviado"),
         ),
         migrations.AlterField(
             model_name="historicalsolicitacao",
@@ -44,9 +40,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="historicalsolicitacao",
             name="recebido_header",
-            field=models.JSONField(
-                blank=True, null=True, verbose_name="cabeçalho recebido"
-            ),
+            field=models.JSONField(blank=True, null=True, verbose_name="cabeçalho recebido"),
         ),
         migrations.AlterField(
             model_name="historicalsolicitacao",
@@ -56,9 +50,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="historicalsolicitacao",
             name="respondido_header",
-            field=models.JSONField(
-                blank=True, null=True, verbose_name="cabeçalho respondido"
-            ),
+            field=models.JSONField(blank=True, null=True, verbose_name="cabeçalho respondido"),
         ),
         migrations.AlterField(
             model_name="solicitacao",
@@ -68,9 +60,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="solicitacao",
             name="recebido_header",
-            field=models.JSONField(
-                blank=True, null=True, verbose_name="cabeçalho recebido"
-            ),
+            field=models.JSONField(blank=True, null=True, verbose_name="cabeçalho recebido"),
         ),
         migrations.AlterField(
             model_name="solicitacao",
@@ -80,8 +70,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="solicitacao",
             name="respondido_header",
-            field=models.JSONField(
-                blank=True, null=True, verbose_name="cabeçalho respondido"
-            ),
+            field=models.JSONField(blank=True, null=True, verbose_name="cabeçalho respondido"),
         ),
     ]

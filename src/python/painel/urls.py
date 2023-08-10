@@ -40,6 +40,4 @@ else:
 if settings.DEBUG:
     import debug_toolbar
 
-    urlpatterns.append(
-        path(f"{settings.ROOT_URL_PATH}__debug__/", include(debug_toolbar.urls))
-    )
+    urlpatterns.append(path(f"{settings.ROOT_URL_PATH}__debug__/", include(debug_toolbar.urls)))

@@ -9,9 +9,7 @@ from django.shortcuts import get_object_or_404
 from sc4net import get
 from .models import Ambiente, Arquetipo, Curso
 
-CODIGO_DIARIO_REGEX = re.compile(
-    "^(\d\d\d\d\d)\.(\d*)\.(\d*)\.(.*)\.(\w*\.\d*)(#\d*)?$"
-)
+CODIGO_DIARIO_REGEX = re.compile("^(\d\d\d\d\d)\.(\d*)\.(\d*)\.(.*)\.(\w*\.\d*)(#\d*)?$")
 CODIGO_DIARIO_ANTIGO_ELEMENTS_COUNT = 5
 CODIGO_DIARIO_NOVO_ELEMENTS_COUNT = 6
 CODIGO_DIARIO_SEMESTRE_INDEX = 0
@@ -64,9 +62,7 @@ def _merge_curso(diario: dict, diario_re: re.Match):
         if curso:
             CURSOS_CACHE[co_curso] = curso
 
-    curso = CURSOS_CACHE.get(
-        co_curso, Curso(codigo=co_curso, nome=f"Curso: {co_curso}")
-    )
+    curso = CURSOS_CACHE.get(co_curso, Curso(codigo=co_curso, nome=f"Curso: {co_curso}"))
     diario["curso"] = {"codigo": curso.codigo, "nome": curso.nome}
 
 
@@ -110,13 +106,8 @@ def _merge_course(diario: dict, ambiente: dict):
     return {**diario, **ambiente}
 
 
-def deduplicate_and_sort(
-    list_of_dict: Union[None, List[Dict[str, str]]], reverse: bool = False
-):
-    deduplicated = [
-        {"id": x, "label": y}
-        for x, y in ({x["id"]: x["label"] for x in list_of_dict}).items()
-    ]
+def deduplicate_and_sort(list_of_dict: Union[None, List[Dict[str, str]]], reverse: bool = False):
+    deduplicated = [{"id": x, "label": y} for x, y in ({x["id"]: x["label"] for x in list_of_dict}).items()]
     sortedlist = sorted(deduplicated, key=lambda e: e["label"], reverse=reverse)
     return sortedlist
 
@@ -134,9 +125,7 @@ def _get_diarios(params: Dict[str, Any]):
             }
         }
 
-        querystrings = {
-            k: v for k, v in params.items() if k not in ["ambiente", "results"]
-        }
+        querystrings = {k: v for k, v in params.items() if k not in ["ambiente", "results"]}
 
         if "q" in querystrings:
             querystrings["q"] = urllib.parse.quote(querystrings["q"])
@@ -146,10 +135,7 @@ def _get_diarios(params: Dict[str, Any]):
         for k, v in params["results"].items():
             if k in result:
                 if k in ["diarios", "coordenacoes", "praticas"]:
-                    params["results"][k] += [
-                        _merge_course(diario, ambientedict)
-                        for diario in result[k] or []
-                    ]
+                    params["results"][k] += [_merge_course(diario, ambientedict) for diario in result[k] or []]
                 else:
                     params["results"][k] += result[k] or []
 
@@ -211,12 +197,10 @@ def get_diarios(
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
         executor.map(_get_diarios, requests)
 
-    results["semestres"] = [
-        {"id": "", "label": "Semestres... "}
-    ] + deduplicate_and_sort(results["semestres"], reverse=True)
-    results["disciplinas"] = [
-        {"id": "", "label": "Disciplinas..."}
-    ] + deduplicate_and_sort(results["disciplinas"])
+    results["semestres"] = [{"id": "", "label": "Semestres... "}] + deduplicate_and_sort(
+        results["semestres"], reverse=True
+    )
+    results["disciplinas"] = [{"id": "", "label": "Disciplinas..."}] + deduplicate_and_sort(results["disciplinas"])
     results["ambientes"] = [
         {
             "label": "Ambientes...",
@@ -225,22 +209,15 @@ def get_diarios(
         }
     ] + sorted(results["ambientes"], key=lambda e: e["label"])
 
-    results["coordenacoes"] = sorted(
-        results["coordenacoes"], key=lambda e: e["fullname"]
-    )
+    results["coordenacoes"] = sorted(results["coordenacoes"], key=lambda e: e["fullname"])
     results["praticas"] = sorted(results["praticas"], key=lambda e: e["fullname"])
-    cursos = {
-        c.codigo: c.nome
-        for c in Curso.objects.filter(codigo__in=[x["id"] for x in results["cursos"]])
-    }
+    cursos = {c.codigo: c.nome for c in Curso.objects.filter(codigo__in=[x["id"] for x in results["cursos"]])}
     for c in results["cursos"]:
         if c["id"] in cursos:
             c["label"] = f"{cursos[c['id']]}"
         else:
             c["label"] = f"Curso [{c['id']}], favor solicitar o cadastro"
-    results["cursos"] = [{"id": "", "label": "Cursos..."}] + deduplicate_and_sort(
-        results["cursos"]
-    )
+    results["cursos"] = [{"id": "", "label": "Cursos..."}] + deduplicate_and_sort(results["cursos"])
 
     # results["situacoes"] = Situacao.kv
     # results["ordenacoes"] = Ordenacao.kv
@@ -254,9 +231,7 @@ def get_atualizacoes_counts(username: str) -> dict:
         try:
             ava = params["ava"]
 
-            counts = get_json_api(
-                ava, "get_atualizacoes_counts.php", username=params["username"]
-            )
+            counts = get_json_api(ava, "get_atualizacoes_counts.php", username=params["username"])
             counts["ambiente"] = {
                 "titulo": re.subn("🟥 |🟦 |🟧 |🟨 |🟩 |🟪 ", "", ava.nome)[0],
                 "sigla": ava.sigla,
@@ -268,16 +243,10 @@ def get_atualizacoes_counts(username: str) -> dict:
             }
             params["results"]["atualizacoes"].append(counts)
             params["results"]["unread_notification_total"] = sum(
-                [
-                    c["unread_popup_notification_count"]
-                    for c in params["results"]["atualizacoes"]
-                ]
+                [c["unread_popup_notification_count"] for c in params["results"]["atualizacoes"]]
             )
             params["results"]["unread_conversations_total"] = sum(
-                [
-                    c["unread_conversations_count"]
-                    for c in params["results"]["atualizacoes"]
-                ]
+                [c["unread_conversations_count"] for c in params["results"]["atualizacoes"]]
             )
 
         except Exception as e:
@@ -300,15 +269,11 @@ def get_atualizacoes_counts(username: str) -> dict:
         ]
         executor.map(_callback, requests)
 
-    results["atualizacoes"] = sorted(
-        results["atualizacoes"], key=lambda e: e["ambiente"]["titulo"]
-    )
+    results["atualizacoes"] = sorted(results["atualizacoes"], key=lambda e: e["ambiente"]["titulo"])
     return results
 
 
-def set_favourite_course(
-    username: str, ava: str, courseid: int, favourite: int
-) -> dict:
+def set_favourite_course(username: str, ava: str, courseid: int, favourite: int) -> dict:
     ava = get_object_or_404(Ambiente, sigla=ava)
     return get_json_api(
         ava,
