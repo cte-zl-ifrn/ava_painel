@@ -52,4 +52,5 @@ echo ""; echo_info "Construir as imagens"
 _/build
 
 echo ""; echo_info "Reiniciando o mundo novamente"
-_/up
+_/restart
+_/logs
