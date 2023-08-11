@@ -12,7 +12,7 @@
             "host": "localhost",
             "pathMappings": [
                 {
-                    "localRoot": "${workspaceFolder}/src/python/painel",
+                    "localRoot": "${workspaceFolder}/src/python",
                     "remoteRoot": "/apps/app"
                 }
             ]

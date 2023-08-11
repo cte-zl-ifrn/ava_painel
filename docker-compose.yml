@@ -44,9 +44,9 @@ services:
       - ava
 
   painel:
-    image: ctezlifrn/avapainel:1.0.47
+    image: ctezlifrn/avapainel:1.0.50
     build:
-      context: src/python/painel
+      context: src/python
       # additional_contexts:
       #   django-adminlte3: ../django-adminlte3
     ports:
@@ -57,7 +57,7 @@ services:
       - ./confs/enabled/painel.env
     volumes:
       # - '../django-adminlte3:/apps/django-adminlte3'
-      - './src/python/painel:/apps/app'
+      - './src/python:/apps/app'
       - './volumes/painel_media:/var/media'
       - './volumes/painel_static:/var/static'
     depends_on:
