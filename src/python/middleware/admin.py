@@ -1,10 +1,11 @@
+import json
 from functools import update_wrapper
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.utils.html import format_html
 from django.db import transaction
 from django.urls import path, reverse
-from django.contrib.admin import register
+from django.contrib.admin import register, display
 from django.db.models import JSONField
 from django.forms import ModelForm
 from django_json_widget.widgets import JSONEditorWidget
@@ -15,30 +16,9 @@ from painel.models import Diario
 
 @register(Solicitacao)
 class SolicitacaoAdmin(BaseModelAdmin):
-    list_display = (
-        "timestamp",
-        "status",
-        "status_code",
-        "campus",
-        "diario",
-        "status_code",
-    )
-    list_display = (
-        "timestamp",
-        "status",
-        "status_code",
-        "campus",
-        "diario",
-        "status_code",
-        "acoes",
-    )
+    list_display = ("quando", "status_merged", "campus_sigla", "codigo_diario", "acoes", "professores")
     list_filter = ("status", "status_code", "campus")
-    search_fields = [
-        "recebido",
-        "enviado",
-        "respondido",
-        "diario__codigo",
-    ]
+    search_fields = ["recebido", "enviado", "respondido", "diario__codigo"]
     autocomplete_fields = ["campus", "diario"]
     date_hierarchy = "timestamp"
     ordering = ("-timestamp",)
@@ -46,28 +26,56 @@ class SolicitacaoAdmin(BaseModelAdmin):
     class SolicitacaoAdminForm(ModelForm):
         class Meta:
             model = Solicitacao
-            widgets = {
-                "recebido": JSONEditorWidget(),
-                "enviado": JSONEditorWidget(),
-                "respondido": JSONEditorWidget(),
-            }
+            widgets = {"recebido": JSONEditorWidget(), "enviado": JSONEditorWidget(), "respondido": JSONEditorWidget()}
             fields = "__all__"
             readonly_fields = ["timestamp"]
 
     formfield_overrides = {JSONField: {"widget": JSONEditorWidget}}
     form = SolicitacaoAdminForm
 
+    @display(description="Status")
+    def status_merged(self, obj):
+        return format_html(f"""{Solicitacao.Status[obj.status].display}<br>{obj.status_code}""")
+
+    @display(description="Ações")
     def acoes(self, obj):
         return format_html(
-            f"""<a style="border: 1px solid black; padding: 0 5px; background: silver;
-                          color: black; margin: 0 5px 0 0;"
-                   href="{reverse("admin:middleware_solicitacao_sync", args=[obj.id])}">
-                   Reenviar
-                </a>"""
+            f"""<a class="export_link" href="{reverse("admin:middleware_solicitacao_sync", args=[obj.id])}">Reenviar</a>"""
         )
 
-    acoes.short_description = "Ações"
-    acoes.allow_tags = True
+    @display(description="Campus", ordering="campus__sigla")
+    def campus_sigla(self, obj):
+        return obj.campus.sigla
+
+    @display(description="Quando", ordering="timestamp")
+    def quando(self, obj):
+        return obj.timestamp.strftime("%Y-%m-%d %H:%M:%S")
+
+    @display(description="Professores", ordering="timestamp")
+    def professores(self, obj):
+        try:
+            recebido = json.loads(obj.recebido)
+            return format_html("<ul>" + "".join([f"<li>{x['nome']}</li>" for x in recebido["professores"]]) + "</ul>")
+        except Exception:
+            return "-"
+
+    @display(description="Diário", ordering="timestamp")
+    def codigo_diario(self, obj):
+        try:
+            recebido = json.loads(obj.recebido)
+            codigo = f"{recebido['turma']['codigo']}.{recebido['diario']['sigla']}#{recebido['diario']['id']}"
+            try:
+                respondido = json.loads(obj.respondido.replace("'", '"'))
+                suap_url = "https://suap.ifrn.edu.br"
+                return format_html(
+                    f"""<a href='{respondido['url']}'>{codigo}</a><br>
+                        <a href='{respondido['url_sala_coordenacao']}'>Coordenação</a><br>
+                        <a href='{suap_url}/edu/meu_diario/{recebido['diario']['id']}/1/'>SUAP</a>"""
+                )
+            except Exception:
+                return codigo
+        except Exception:
+            return "-"
 
     def get_urls(self):
         def wrap(view):
