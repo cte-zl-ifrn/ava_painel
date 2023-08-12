@@ -94,7 +94,7 @@ class BaseModelAdmin(ImportExportMixin, ExportActionMixin, SafeDeleteAdmin, Simp
             "has_add_permission": True,
             "has_delete_permission": True,
             "show_delete": True,
-            "change": True,
+            "change": False,
         }
 
         context.update(extra_context or {})

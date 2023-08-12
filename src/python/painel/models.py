@@ -1,4 +1,5 @@
 from django.utils.translation import gettext as _
+import json
 import re
 from django.utils.timezone import now
 from django.utils.safestring import mark_safe
@@ -207,6 +208,49 @@ class Curso(SafeDeleteModel):
     def __str__(self):
         return f"{self.nome} ({self.codigo})"
 
+    def __codigo_papel(self, papel):
+        return f".{papel.sigla}" if papel.sigla else ""
+
+    @property
+    def coortes(self):
+        cohorts = {}
+
+        def dados_coorte(v, campus):
+            campus_curso = f"{campus.sigla}.{self.codigo}"
+            id = f"{campus_curso}{self.__codigo_papel(v.papel)}"
+            return {
+                "id": id,
+                "nome": f"{campus_curso} - {v.papel.nome}",
+                "descricao": f"{v.papel.nome}: {campus_curso} - {self.nome}",
+                "ativo": v.active,
+                "colaboradores": [],
+            }
+
+        def dados_colaborador(vc):
+            return {
+                "username": vc.colaborador.username,
+                "email": vc.colaborador.email,
+                "nome_completo": vc.colaborador.show_name,
+                "ativo": vc.active,
+            }
+
+        for vc in self.vinculocurso_set.all():
+            campus_curso = f"{vc.campus.sigla}.{self.codigo}"
+            id = f"{campus_curso}{self.__codigo_papel(vc.papel)}"
+            if id not in cohorts:
+                cohorts[id] = dados_coorte(vc, vc.campus)
+            cohorts[id]["colaboradores"].append(dados_colaborador(vc))
+
+        for cp in self.cursopolo_set.all():
+            campus_curso = f"{cp.campus.sigla}.{self.codigo}"
+            for vp in cp.polo.vinculopolo_set.all():
+                id = f"{campus_curso}{self.__codigo_papel(vp.papel)}"
+                if id not in cohorts:
+                    cohorts[id] = cohorts[id] = dados_coorte(vp, cp.campus)
+                cohorts[id]["colaboradores"].append(dados_colaborador(vc))
+
+        return [c for c in cohorts.values()]
+
 
 class Turma(SafeDeleteModel):
     TURMA_RE = re.compile(r"(\d{5})\.(\d)\.(\d{5})\.(..)")
@@ -384,7 +428,8 @@ class Papel(ActiveMixin, SafeDeleteModel):
         ordering = ["nome"]
 
     def __str__(self):
-        return f"{self.sigla}:{self.nome} {self.active_icon}"
+        sigla = f"{self.sigla}:" if self.sigla else ""
+        return f"{sigla}{self.nome} {self.active_icon}"
 
 
 class VinculoPolo(ActiveMixin, SafeDeleteModel):
@@ -405,11 +450,12 @@ class VinculoPolo(ActiveMixin, SafeDeleteModel):
         ordering = ["papel", "polo", "colaborador"]
 
     def __str__(self):
-        return f"{self.papel}:{self.polo} {self.colaborador} {self.active_icon}"
+        return f"{self.papel}{self.polo} {self.colaborador} {self.active_icon}"
 
 
 class VinculoCurso(ActiveMixin, SafeDeleteModel):
     papel = ForeignKey(Papel, on_delete=PROTECT, limit_choices_to={"contexto": Contexto.CURSO})
+    campus = ForeignKey(Campus, on_delete=PROTECT)
     curso = ForeignKey(Curso, on_delete=PROTECT)
     colaborador = ForeignKey(
         Usuario,
@@ -426,11 +472,12 @@ class VinculoCurso(ActiveMixin, SafeDeleteModel):
         ordering = ["papel", "curso", "colaborador"]
 
     def __str__(self):
-        return f"{self.papel}:{self.curso} {self.colaborador} {self.active_icon}"
+        return f"{self.papel}{self.curso} {self.colaborador} {self.active_icon}"
 
 
 class CursoPolo(ActiveMixin, SafeDeleteModel):
     curso = ForeignKey(Curso, on_delete=PROTECT)
+    campus = ForeignKey(Campus, on_delete=PROTECT)
     polo = ForeignKey(Polo, on_delete=PROTECT)
     active = BooleanField(_("ativo?"))
     history = HistoricalRecords()

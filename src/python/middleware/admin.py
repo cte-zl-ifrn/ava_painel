@@ -45,7 +45,7 @@ class SolicitacaoAdmin(BaseModelAdmin):
 
     @display(description="Campus", ordering="campus__sigla")
     def campus_sigla(self, obj):
-        return obj.campus.sigla
+        return obj.campus.sigla if obj.campus else "-"
 
     @display(description="Quando", ordering="timestamp")
     def quando(self, obj):

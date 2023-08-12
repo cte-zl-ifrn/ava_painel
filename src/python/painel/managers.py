@@ -55,6 +55,10 @@ class DiarioManager(Manager):
         return campus, pkg
 
     def sync(self, recebido: str):
+        from painel.models import (
+            Curso,
+        )
+
         retorno_json = None
         retorno = None
         campus = None
@@ -69,8 +73,10 @@ class DiarioManager(Manager):
 
         try:
             campus, pkg = self._validate_campus(recebido)
+            curso = Curso.objects.filter(codigo=pkg["curso"]["codigo"]).first()
+            enviado = json.dumps(dict(**pkg, **{"coortes": curso.coortes})) if curso else recebido
             solicitacao.campus = campus
-            solicitacao.enviado = recebido
+            solicitacao.enviado = enviado
             solicitacao.save()
 
             retorno = requests.post(
@@ -84,7 +90,6 @@ class DiarioManager(Manager):
             solicitacao.respondido = retorno_json
             solicitacao.status = Solicitacao.Status.SUCESSO
             solicitacao.status_code = retorno.status_code
-            solicitacao.campus = campus
             solicitacao.save()
 
             self._make(campus, pkg)

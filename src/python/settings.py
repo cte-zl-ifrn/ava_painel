@@ -47,6 +47,7 @@ MY_APPS = env_as_list(
         "painel",
         "health",
         "middleware",
+        "base",
     ],
 )
 

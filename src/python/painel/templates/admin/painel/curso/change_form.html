@@ -1,38 +1,29 @@
 {% extends "admin/change_form.html" %}
-{% load i18n admin_urls static admin_modify %}
+{% load i18n admin_urls static admin_modify painel %}
 {% block after_related_objects %}
-    <div class="js-inline-admin-formset inline-group"
-         id="vinculocurso_set-group"
-         data-inline-type="tabular">
-        <div class="tabular inline-related last-related">
-            <fieldset class="module ">
-                <h2>Coortes</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="column-papel">Coorte</th>
-                            <th class="column-papel">Papel</th>
-                            <th class="column-colaborador">Colaborador</th>
-                            <th class="column-active">Ativo?</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="form-row has_original dynamic-vinculocurso_set">
-                            <td class="field-papel">{CAMPUS}.132456</td>
-                            <td class="field-papel">.:Coordenador de Curso ✅</td>
-                            <td class="field-colaborador">Kelson Medeiros [2080882-Servidor (Técnico-Administrativo)]</td>
-                            <td class="field-active">
-                                <img src="/painel/static/admin/img/icon-yes.svg" alt="True">
-                            </td>
-                        </tr>
-                        <tr class="add-row">
-                            <td colspan="4" style="display: none;">
-                                <a href="#">Adicionar outro(a) Vínculo no curso</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </fieldset>
+    {% if not change %}
+        <div class="js-inline-admin-formset inline-group"
+             id="vinculocurso_set-group"
+             data-inline-type="tabular">
+            <div class="tabular inline-related last-related">
+                <h2>Exemplo de como as coortes serão enviadas</h2>
+                <dl>
+                    {% for coorte in original.coortes %}
+                        <dt>
+                            {{ coorte.nome }} {% boolean_icon coorte.ativo %}
+                            <dd>
+                                <ul>
+                                    {% for colaborador in coorte.colaboradores %}
+                                        <li>
+                                            {{ colaborador.username }} - {{ colaborador.nome_completo }} [{{ colaborador.email }}]  {% boolean_icon colaborador.ativo %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </dd>
+                        </dt>
+                    {% endfor %}
+                </dl>
+            </div>
         </div>
-    </div>
+    {% endif %}
 {% endblock after_related_objects %}

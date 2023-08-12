@@ -1,18 +1,7 @@
 from django.utils.translation import gettext as _
-from functools import update_wrapper
-from django.urls import path, reverse
 from django.db.models import Model
 from django.contrib.admin import register, display, StackedInline, TabularInline
-from django.contrib.admin.views.main import ChangeList
-from django.contrib.admin.utils import quote, unquote
-from django.contrib.admin.options import IS_POPUP_VAR, TO_FIELD_VAR, flatten_fieldsets
-from django.contrib.admin.helpers import AdminErrorList, AdminForm, InlineAdminFormSet
-from django.contrib.admin.exceptions import DisallowedModelAdminToField
-from django.core.exceptions import PermissionDenied
 from django.utils.safestring import mark_safe
-from import_export.admin import ImportExportMixin, ExportActionMixin
-from simple_history.admin import SimpleHistoryAdmin
-from safedelete.admin import SafeDeleteAdmin, SafeDeleteAdminFilter
 from base.admin import BaseModelAdmin
 from .models import (
     Ambiente,
