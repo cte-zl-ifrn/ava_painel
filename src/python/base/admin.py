@@ -68,7 +68,7 @@ class BaseModelAdmin(ImportExportMixin, ExportActionMixin, SafeDeleteAdmin, Simp
 
         # form = self._get_form_for_get_fields(request, obj)
         # return [*form.base_fields, *self.get_readonly_fields(request, obj)]
-        readonly_fields = form.base_fields
+        readonly_fields = [*form.base_fields, *self.get_readonly_fields(request, obj)]
         admin_form = AdminForm(form, list(fieldsets), {}, readonly_fields, model_admin=self)
         media = self.media + admin_form.media
 

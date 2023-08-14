@@ -82,12 +82,12 @@ class UsuarioAdmin(BaseModelAdmin):
         (
             _("Dates"),
             {
-                "fields": [("first_login", "last_login")],
+                "fields": [("date_joined", "first_login", "last_login")],
                 "description": _("Eventos relevantes relativos a este usuário"),
             },
         ),
     ]
-    readonly_fields: Sequence[str] = ["first_login", "last_login"]
+    readonly_fields: Sequence[str] = ["date_joined", "first_login", "last_login"]
     # autocomplete_fields: Sequence[str] = ['groups']
 
     @display
