@@ -12,34 +12,22 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name="historicalsolicitacao",
-            name="requisicao",
-        ),
+        migrations.RenameField("historicalsolicitacao", "requisicao", "recebido"),
         migrations.RemoveField(
             model_name="historicalsolicitacao",
             name="requisicao_header",
         ),
-        migrations.RemoveField(
-            model_name="historicalsolicitacao",
-            name="resposta",
-        ),
+        migrations.RenameField("historicalsolicitacao", "resposta", "respondido"),
         migrations.RemoveField(
             model_name="historicalsolicitacao",
             name="resposta_header",
         ),
-        migrations.RemoveField(
-            model_name="solicitacao",
-            name="requisicao",
-        ),
+        migrations.RenameField("solicitacao", "requisicao", "recebido"),
         migrations.RemoveField(
             model_name="solicitacao",
             name="requisicao_header",
         ),
-        migrations.RemoveField(
-            model_name="solicitacao",
-            name="resposta",
-        ),
+        migrations.RenameField("solicitacao", "resposta", "respondido"),
         migrations.RemoveField(
             model_name="solicitacao",
             name="resposta_header",
@@ -50,33 +38,9 @@ class Migration(migrations.Migration):
             field=models.TextField(blank=True, null=True, verbose_name="JSON enviado"),
         ),
         migrations.AddField(
-            model_name="historicalsolicitacao",
-            name="recebido",
-            field=models.TextField(blank=True, null=True, verbose_name="JSON recebido"),
-        ),
-        migrations.AddField(
-            model_name="historicalsolicitacao",
-            name="respondido",
-            field=models.TextField(
-                blank=True, null=True, verbose_name="JSON respondido"
-            ),
-        ),
-        migrations.AddField(
             model_name="solicitacao",
             name="enviado",
             field=models.TextField(blank=True, null=True, verbose_name="JSON enviado"),
-        ),
-        migrations.AddField(
-            model_name="solicitacao",
-            name="recebido",
-            field=models.TextField(blank=True, null=True, verbose_name="JSON recebido"),
-        ),
-        migrations.AddField(
-            model_name="solicitacao",
-            name="respondido",
-            field=models.TextField(
-                blank=True, null=True, verbose_name="JSON respondido"
-            ),
         ),
         migrations.AlterField(
             model_name="historicalsolicitacao",
