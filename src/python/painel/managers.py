@@ -49,7 +49,7 @@ class DiarioManager(Manager):
 
         if not campus.ambiente.active:
             raise SyncError(
-                f"""O campus '{filter['sigla']}' existe e está ativo, mas o ambiente {campus.ambiente.sigla} está inativo.""",  # noqa
+                f"""O campus '{filter['sigla']}' existe e está ativo, mas o ambiente {campus.ambiente.nome} está inativo.""",  # noqa
                 417,
             )
         return campus, pkg
