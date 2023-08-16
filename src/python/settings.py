@@ -257,6 +257,10 @@ CSRF_TRUSTED_ORIGINS = env_as_list("DJANGO_CSRF_TRUSTED_ORIGINS", [])
 
 LAST_STARTUP = int(datetime.timestamp(datetime.now()) * 1000)
 
+SHOW_USERWAY = env_as_bool("SHOW_USERWAY", True)
+USERWAY_ACCOUNT = env("USERWAY_ACCOUNT", None)
+SHOW_VLIBRAS = env_as_bool("SHOW_VLIBRAS", True)
+
 DJRICHTEXTFIELD_CONFIG = {
     # https://github.com/jaap3/django-richtextfield
     #
