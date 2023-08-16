@@ -86,8 +86,15 @@ class UsuarioAdmin(BaseModelAdmin):
                 "description": _("Eventos relevantes relativos a este usuário"),
             },
         ),
+        (
+            _("Audit"),
+            {
+                "fields": [("last_json")],
+                "description": _("JSON com os dados do SUAP"),
+            },
+        ),
     ]
-    readonly_fields: Sequence[str] = ["date_joined", "first_login", "last_login"]
+    readonly_fields: Sequence[str] = ["date_joined", "first_login", "last_login", "last_json"]
     # autocomplete_fields: Sequence[str] = ['groups']
 
     @display

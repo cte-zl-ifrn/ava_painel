@@ -1,6 +1,6 @@
 from django.utils.translation import gettext as _
 from django.conf import settings
-from django.db.models import ForeignKey, PROTECT, CharField, DateTimeField, EmailField
+from django.db.models import ForeignKey, PROTECT, CharField, DateTimeField, EmailField, TextField
 from django.http import HttpRequest
 from django.contrib.auth.models import AbstractUser, Group as OrignalGroup
 from django_better_choices import Choices
@@ -80,6 +80,7 @@ class Usuario(SafeDeleteModel, AbstractUser):
         blank=True,
     )
     first_login = DateTimeField(_("first login"), null=True, blank=True)
+    last_json = TextField(_("último JSON"), null=True, blank=True)
 
     history = HistoricalRecords()
 
