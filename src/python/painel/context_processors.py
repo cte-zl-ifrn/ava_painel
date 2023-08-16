@@ -22,6 +22,8 @@ def layout_settings(request: HttpRequest) -> dict:
         "logged_user": logged_user(request),
         "suap_base_url": settings.SUAP_BASE_URL,
         "show_vlibras": settings.SHOW_VLIBRAS,
+        "show_userway": settings.SHOW_USERWAY,
+        "userway_account": settings.USERWAY_ACCOUNT,
         "personificando": usuario_personificado is not None,
         "layout_has_auth_remembering": True,
         "last_startup": settings.LAST_STARTUP,
