@@ -68,9 +68,7 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.BigIntegerField(
-                        auto_created=True, blank=True, db_index=True, verbose_name="ID"
-                    ),
+                    models.BigIntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID"),
                 ),
                 (
                     "deleted",
@@ -83,9 +81,7 @@ class Migration(migrations.Migration):
                 ("password", models.CharField(max_length=128, verbose_name="password")),
                 (
                     "last_login",
-                    models.DateTimeField(
-                        blank=True, null=True, verbose_name="last login"
-                    ),
+                    models.DateTimeField(blank=True, null=True, verbose_name="last login"),
                 ),
                 (
                     "is_superuser",
@@ -97,15 +93,11 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "first_name",
-                    models.CharField(
-                        blank=True, max_length=150, verbose_name="first name"
-                    ),
+                    models.CharField(blank=True, max_length=150, verbose_name="first name"),
                 ),
                 (
                     "last_name",
-                    models.CharField(
-                        blank=True, max_length=150, verbose_name="last name"
-                    ),
+                    models.CharField(blank=True, max_length=150, verbose_name="last name"),
                 ),
                 (
                     "is_staff",
@@ -125,29 +117,21 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "date_joined",
-                    models.DateTimeField(
-                        default=django.utils.timezone.now, verbose_name="date joined"
-                    ),
+                    models.DateTimeField(default=django.utils.timezone.now, verbose_name="date joined"),
                 ),
                 (
                     "username",
                     models.CharField(
                         db_index=True,
-                        error_messages={
-                            "unique": "A user with that IFRN-id already exists."
-                        },
+                        error_messages={"unique": "A user with that IFRN-id already exists."},
                         max_length=150,
-                        validators=[
-                            django.contrib.auth.validators.UnicodeUsernameValidator()
-                        ],
+                        validators=[django.contrib.auth.validators.UnicodeUsernameValidator()],
                         verbose_name="IFRN-id",
                     ),
                 ),
                 (
                     "nome_registro",
-                    models.CharField(
-                        blank=True, max_length=255, verbose_name="nome civil"
-                    ),
+                    models.CharField(blank=True, max_length=255, verbose_name="nome civil"),
                 ),
                 (
                     "nome_social",
@@ -206,9 +190,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "email",
-                    models.EmailField(
-                        max_length=254, null=True, verbose_name="e-Mail preferêncial"
-                    ),
+                    models.EmailField(max_length=254, null=True, verbose_name="e-Mail preferêncial"),
                 ),
                 (
                     "email_secundario",
@@ -248,9 +230,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "first_login",
-                    models.DateTimeField(
-                        blank=True, null=True, verbose_name="first login"
-                    ),
+                    models.DateTimeField(blank=True, null=True, verbose_name="first login"),
                 ),
                 ("history_id", models.AutoField(primary_key=True, serialize=False)),
                 ("history_date", models.DateTimeField(db_index=True)),
@@ -334,9 +314,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "id",
-                    models.IntegerField(
-                        auto_created=True, blank=True, db_index=True, verbose_name="ID"
-                    ),
+                    models.IntegerField(auto_created=True, blank=True, db_index=True, verbose_name="ID"),
                 ),
                 (
                     "deleted",
@@ -348,9 +326,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "name",
-                    models.CharField(
-                        db_index=True, max_length=150, verbose_name="name"
-                    ),
+                    models.CharField(db_index=True, max_length=150, verbose_name="name"),
                 ),
                 ("history_id", models.AutoField(primary_key=True, serialize=False)),
                 ("history_date", models.DateTimeField(db_index=True)),
