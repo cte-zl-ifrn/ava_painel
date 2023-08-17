@@ -217,9 +217,9 @@ class Curso(SafeDeleteModel):
 
         def dados_coorte(v, campus):
             campus_curso = f"{campus.sigla}.{self.codigo}"
-            id = f"{campus_curso}{self.__codigo_papel(v.papel)}"
+            idnumber = f"{campus_curso}{self.__codigo_papel(v.papel)}"
             return {
-                "id": id,
+                "idnumber": idnumber,
                 "nome": f"{campus_curso} - {v.papel.nome}",
                 "descricao": f"{v.papel.nome}: {campus_curso} - {self.nome}",
                 "ativo": v.active,
@@ -236,18 +236,18 @@ class Curso(SafeDeleteModel):
 
         for vc in self.vinculocurso_set.all():
             campus_curso = f"{vc.campus.sigla}.{self.codigo}"
-            id = f"{campus_curso}{self.__codigo_papel(vc.papel)}"
-            if id not in cohorts:
-                cohorts[id] = dados_coorte(vc, vc.campus)
-            cohorts[id]["colaboradores"].append(dados_colaborador(vc))
+            idnumber = f"{campus_curso}{self.__codigo_papel(vc.papel)}"
+            if idnumber not in cohorts:
+                cohorts[idnumber] = dados_coorte(vc, vc.campus)
+            cohorts[idnumber]["colaboradores"].append(dados_colaborador(vc))
 
         for cp in self.cursopolo_set.all():
             campus_curso = f"{cp.campus.sigla}.{self.codigo}"
             for vp in cp.polo.vinculopolo_set.all():
-                id = f"{campus_curso}{self.__codigo_papel(vp.papel)}"
-                if id not in cohorts:
-                    cohorts[id] = cohorts[id] = dados_coorte(vp, cp.campus)
-                cohorts[id]["colaboradores"].append(dados_colaborador(vc))
+                idnumber = f"{campus_curso}{self.__codigo_papel(vp.papel)}"
+                if idnumber not in cohorts:
+                    cohorts[idnumber] = cohorts[idnumber] = dados_coorte(vp, cp.campus)
+                cohorts[idnumber]["colaboradores"].append(dados_colaborador(vc))
 
         return [c for c in cohorts.values()]
 
