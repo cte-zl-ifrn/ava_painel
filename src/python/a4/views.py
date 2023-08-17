@@ -77,6 +77,7 @@ def authenticate(request: HttpRequest) -> HttpResponse:
         "polo": Polo.objects.filter(suap_id=response_data.get("polo")).first(),
         "foto": response_data.get("foto"),
         "tipo_usuario": response_data.get("tipo_usuario"),
+        "last_json": response.text
     }
     if user is None:
         is_superuser = Usuario.objects.count() == 0
