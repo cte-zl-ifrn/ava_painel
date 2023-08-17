@@ -74,14 +74,14 @@ class DiarioManager(Manager):
         try:
             campus, pkg = self._validate_campus(recebido)
             curso = Curso.objects.filter(codigo=pkg["curso"]["codigo"]).first()
-            enviado = json.dumps(dict(**pkg, **{"coortes": curso.coortes})) if curso else recebido
+            enviado = dict(**pkg, **{"coortes": curso.coortes}) if curso else recebido
             solicitacao.campus = campus
-            solicitacao.enviado = enviado
+            solicitacao.enviado = json.dumps(enviado)
             solicitacao.save()
 
             retorno = requests.post(
                 f"{campus.ambiente.url}/local/suap/api/?sync_up_enrolments",
-                data={"jsonstring": recebido},
+                data={"jsonstring": json.dumps(enviado)},
                 headers={"Authentication": f"Token {campus.ambiente.token}"},
             )
 
