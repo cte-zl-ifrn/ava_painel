@@ -519,6 +519,10 @@ main>div {
     opacity: 1;
 }
 
+.tab-menu>.nav-tabs>.nav-link::first-letter {
+    text-transform: uppercase;
+}
+
 .tab-menu>.nav-tabs>.nav-link.closed {
     color: var(--branco-primario);
     background-color: var(--verde-secundario);
