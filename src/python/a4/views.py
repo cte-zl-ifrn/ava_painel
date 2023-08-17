@@ -5,6 +5,7 @@ import requests
 from django.conf import settings
 from django.contrib import auth
 from django.shortcuts import redirect, render, get_object_or_404
+from django.utils.timezone import now
 from django.core.exceptions import ValidationError
 from django.http import HttpRequest, HttpResponse
 from .models import Usuario
@@ -77,7 +78,7 @@ def authenticate(request: HttpRequest) -> HttpResponse:
         "polo": Polo.objects.filter(suap_id=response_data.get("polo")).first(),
         "foto": response_data.get("foto"),
         "tipo_usuario": response_data.get("tipo_usuario"),
-        "last_json": response.text
+        "last_json": response.text,
     }
     if user is None:
         is_superuser = Usuario.objects.count() == 0
@@ -85,9 +86,14 @@ def authenticate(request: HttpRequest) -> HttpResponse:
             username=username,
             is_superuser=is_superuser,
             is_staff=is_superuser,
+            first_login=now(),
             **defaults,
         )
     else:
+        user = Usuario.objects.filter(username=username).first()
+        if user.first_login is None:
+            user.first_login = now()
+            user.save()
         Usuario.objects.filter(username=username).update(**defaults)
     auth.login(request, user)
     return redirect("painel:dashboard")
