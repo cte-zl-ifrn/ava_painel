@@ -217,13 +217,14 @@ class Curso(SafeDeleteModel):
 
         def dados_coorte(v, campus):
             campus_curso = f"{campus.sigla}.{self.codigo}"
-            idnumber = f"{campus_curso}{self.__codigo_papel(v.papel)}"
+            id = f"{campus_curso}{self.__codigo_papel(v.papel)}"
             return {
-                "idnumber": idnumber,
+                "id": id,
                 "nome": f"{campus_curso} - {v.papel.nome}",
                 "descricao": f"{v.papel.nome}: {campus_curso} - {self.nome}",
                 "ativo": v.active,
                 "colaboradores": [],
+                "role": v.papel.papel
             }
 
         def dados_colaborador(vc):
@@ -236,18 +237,18 @@ class Curso(SafeDeleteModel):
 
         for vc in self.vinculocurso_set.all():
             campus_curso = f"{vc.campus.sigla}.{self.codigo}"
-            idnumber = f"{campus_curso}{self.__codigo_papel(vc.papel)}"
-            if idnumber not in cohorts:
-                cohorts[idnumber] = dados_coorte(vc, vc.campus)
-            cohorts[idnumber]["colaboradores"].append(dados_colaborador(vc))
+            id = f"{campus_curso}{self.__codigo_papel(vc.papel)}"
+            if id not in cohorts:
+                cohorts[id] = dados_coorte(vc, vc.campus)
+            cohorts[id]["colaboradores"].append(dados_colaborador(vc))
 
         for cp in self.cursopolo_set.all():
             campus_curso = f"{cp.campus.sigla}.{self.codigo}"
             for vp in cp.polo.vinculopolo_set.all():
-                idnumber = f"{campus_curso}{self.__codigo_papel(vp.papel)}"
-                if idnumber not in cohorts:
-                    cohorts[idnumber] = cohorts[idnumber] = dados_coorte(vp, cp.campus)
-                cohorts[idnumber]["colaboradores"].append(dados_colaborador(vc))
+                id = f"{campus_curso}{self.__codigo_papel(vp.papel)}"
+                if id not in cohorts:
+                    cohorts[id] = cohorts[id] = dados_coorte(vp, cp.campus)
+                cohorts[id]["colaboradores"].append(dados_colaborador(vc))
 
         return [c for c in cohorts.values()]
 
@@ -417,6 +418,7 @@ class Popup(ActiveMixin, SafeDeleteModel):
 class Papel(ActiveMixin, SafeDeleteModel):
     nome = CharField(_("nome do papel"), max_length=256)
     sigla = CharField(_("sigla"), max_length=10, blank=True, null=False, unique=True)
+    papel = CharField(_("papel"), max_length=256, unique=True)
     contexto = CharField(_("contexto"), max_length=1, choices=Contexto)
     active = BooleanField(_("ativo?"))
 
