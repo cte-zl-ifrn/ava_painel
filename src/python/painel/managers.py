@@ -163,7 +163,7 @@ class DiarioManager(Manager):
             },
         )
 
-        pessoas = d["professores"] + d["alunos"]
+        pessoas = d.get("professores", []) + d.get("alunos", [])
         polos = {}
         for p in pessoas:
             if self._get_polo_id(p) and self._get_polo_id(p) not in polos:

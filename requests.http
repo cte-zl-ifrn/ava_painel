@@ -1,6 +1,6 @@
 ### Pressione Ctrl + Alt + R para executar este request para usar no VSCode com o plugin "REST Client"
 ### Apenas os atributos os obrigatórios
-POST http://ava/api/moodle_suap/ HTTP/1.1
+POST http://ava/local/suap/api/sync_up_enrolments.php HTTP/1.1
 Authentication: Token changeme
 
 {
@@ -35,7 +35,7 @@ Authentication: Token changeme
         "descricao": "Bancos de Dados",
         "qtd_avaliacoes": 2,
         "descricao_historico": "Bancos de Dados"
-    },
+    }
 }
 
 ### Matricula alguns alunos
