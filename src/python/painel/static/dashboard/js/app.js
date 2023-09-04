@@ -29,6 +29,7 @@ export default {
             praticas: [],
             diarios: [],
             salas: [],
+            reutilizaveis: [],
             has_error: false,
             is_filtering: true,
             activeParagraph: null,
@@ -39,8 +40,8 @@ export default {
             disciplina: localStorage.disciplina || '',
             curso: localStorage.curso || '',
             ambiente: localStorage.ambiente || '',
-
             contentClosed: localStorage.contentClosed || 'true',
+            selectedBar: null
         }
     },
 
@@ -72,6 +73,10 @@ export default {
             }
         },
 
+        toggleBar(bar) {
+            this.selectedBar = bar;
+        },
+
         // clearFilter() {
         //     $("#q").val('');
         //     $("#situacao").val('');
@@ -95,7 +100,7 @@ export default {
         },
 
         // customizeAmbiente() {
-            
+
         //     $('#ambiente').select2({
         //         templateResult: function (data) {
         //             const style = data.element && data.element.dataset && data.element.dataset.color ?
@@ -110,7 +115,7 @@ export default {
         //     });
         //     $('#ambiente').on("select2:select", this.filterCards);
         //     $('#ambiente').val(self.ambiente || '');
-            
+
         // },
 
         startTour001() {
@@ -181,7 +186,10 @@ export default {
 
         popup() {
             $(function () {
-                const lastOccurrence = new Date(localStorage.getItem(popupModalName));
+                if (!window.popupModalName) {
+                    return;
+                }
+                const lastOccurrence = new Date(localStorage.getItem(window.popupModalName));
 
                 // Já respondeu
                 if (isNaN(lastOccurrence)) {
@@ -307,6 +315,7 @@ export default {
             this.diarios = [];
             this.coordenacoes = [];
             this.praticas = [];
+            this.reutilizaveis = [];
             this.has_error = false;
             this.is_filtering = true;
         },
@@ -323,6 +332,8 @@ export default {
                 tab = '#nav-coordenacoes-tab';
             } else if (this.praticas.length > 0) {
                 tab = '#nav-praticas-tab';
+            } else if (this.reutilizaveis.length > 0) {
+                tab = '#nav-reutilizaveis-tab';
             }
             if (tab != '') {
                 setTimeout(() => { jQuery(tab).click() }, 500);

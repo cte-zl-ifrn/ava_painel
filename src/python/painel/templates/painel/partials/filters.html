@@ -1,15 +1,30 @@
 <div id="grid-filter-wrapper">
     <div id="grid-filter">
         <div class="grid-item item-1 position-relative content-center hide-close">
-            <b class="filters-title">Filtrar diários e salas <i class="fa fa-info-circle" rel="tooltip" title="Os filtros ‘Diários’ e ‘Ordenar’ são filtros fixos. Se não houver alterações eles serão definidos por padrão como ‘Diários em andamentos’ e ‘Ordenar por disciplina’." style="font-size: 16px; color: #54595E;" aria-hidden="true"></i></b>
+            <b class="filters-title">Filtrar diários e salas <i class="fa fa-info-circle"
+    rel="tooltip"
+    title="Os filtros ‘Diários’ e ‘Ordenar’ são filtros fixos. Se não houver alterações eles serão definidos por padrão como ‘Diários em andamentos’ e ‘Ordenar por disciplina’."
+    style="font-size: 16px;
+           color: #54595E"
+    aria-hidden="true"></i></b>
         </div>
         <hr class="hr-personal hide-mobile">
         <div class="grid-item item-2 position-relative filter-field">
-            <input class="hide-close" placeholder="Busque #id, código ou nome" name="q" id="q" v-model="q" @keydown.enter="filterCards($event)" />
+            <input class="hide-close"
+                   placeholder="Busque #id, código ou nome"
+                   name="q"
+                   id="q"
+                   v-model="q"
+                   @keydown.enter="filterCards($event)" />
             <i class="fa fa-search icon-filter-color icon-fild-position"></i>
         </div>
         <div class="grid-item position-relative filter-field display-content">
-            <select name="situacao" id="situacao" placeholder="teste"  v-model="situacao" style="width: 100%; margin-left: 0px;">
+            <select name="situacao"
+                    id="situacao"
+                    placeholder="teste"
+                    v-model="situacao"
+                    style="width: 100%;
+                           margin-left: 0px">
                 <option v-for="row in situacoes" v-bind:value="row.id">[[ row.label ]]</option>
             </select>
             {% comment %} <i class="fa fa-book icon-filter-color icon-fild-position"></i> {% endcomment %}
@@ -19,46 +34,46 @@
                 <option v-for="row in ordenacoes" v-bind:value="row.id">[[ row.label ]]</option>
             </select>
         </div> -->
-        <div class="grid-item position-relative filter-field">
+        <div class="grid-item position-relative filter-field"
+             v-show="selectedBar == 'diarios' || selectedBar == null">
             <select name="semestre" id="semestre"  v-model="semestre" required>
                 <option v-for="row in semestres" v-bind:value="row.id">[[ row.label ]]</option>
             </select>
             <i class="fa fa-list-ol icon-filter-color icon-fild-position"></i>
         </div>
-        <div class="grid-item position-relative filter-field">
+        <div class="grid-item position-relative filter-field"
+             v-show="selectedBar == 'diarios' || selectedBar == null">
             <select name="disciplina" id="disciplina"  v-model="disciplina" required>
                 <option v-for="row in disciplinas" v-bind:value="row.id">[[ row.label ]]</option>
             </select>
             <i class="fa fa-list-alt icon-filter-color icon-fild-position"></i>
         </div>
-        <div class="grid-item position-relative filter-field">
+        <div class="grid-item position-relative filter-field"
+             v-show="selectedBar == 'diarios' || selectedBar == null">
             <select name="curso" id="curso"  v-model="curso" required>
                 <option v-for="row in cursos" v-bind:value="row.id">[[ row.label ]]</option>
             </select>
             <i class="fa fa-graduation-cap icon-filter-color icon-fild-position"></i>
         </div>
         <div class="grid-item position-relative filter-field">
-            <select name="ambiente" id="ambiente"  v-model="ambiente" required> 
-                <option v-for="row in ambientes" :data-color="row.color" v-bind:value="row.id">[[ row.label ]]</option>
+            <select name="ambiente" id="ambiente"  v-model="ambiente" required>
+                <option v-for="row in ambientes"
+                        :data-color="row.color"
+                        v-bind:value="row.id">[[ row.label ]]</option>
             </select>
             <i class="fa fa-globe icon-filter-color icon-fild-position"></i>
         </div>
         <div class="grid-item position-relative content-center hide-close">
-            <button type="button" class="btn btn-success btn-filtrar" v-on:click="filterCards($event)">Filtrar</button>
+            <button type="button"
+                    class="btn btn-success btn-filtrar"
+                    v-on:click="filterCards($event)">Filtrar</button>
         </div>
         <div class="grid-item position-relative content-center hide-close">
-            <button style="border: none; background-color: transparent;" v-on:click="clearFilter()"><b class="text-attribute-14">Limpar filtro <i class="fa fa-trash" aria-hidden="true"></i></b></button></button> 
+            <button style="border: none;
+                           background-color: transparent"
+                    v-on:click="clearFilter()">
+                <b class="text-attribute-14">Limpar filtro <i class="fa fa-trash" aria-hidden="true"></i></b>
+            </button>
         </div>
     </div>
-    <!-- <div id="applied-filter">
-        <span>Seu filtro atual é: </span>
-        <span v-show='q'>buscar por <strong>[[q]]</strong>, </span>
-        <span v-show='!q'><i>sem critério de busca</i>, </span>
-        <span v-show='semestre'>no semestre <strong>[[semestre]]</strong>, </span>
-        <span v-show='disciplina'>na disciplina <strong>[[disciplina]]</strong>, </span>
-        <span v-show='curso'>no curso <strong>[[curso]]</strong>, </span>
-        <span v-show='ambiente'>no ambiente <strong>[[ambiente]]</strong>, </span>
-        <span>mas somente o que estão na situação <strong>[[get_situacao_desc()]]</strong> e <strong>[[get_ordenacao_desc()]]</strong>.</span>
-        <span><a @click='clearFilter($event)' class="clear-filter">Limpar filtro</a></span>
-    </div> -->
 </div>

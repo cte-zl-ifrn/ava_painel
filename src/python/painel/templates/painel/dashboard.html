@@ -100,7 +100,7 @@
                                             <hr class="navmenu-hr">
                                         </li>
                                     </div>
-                                    {% include 'painel/partials/filters.html' %}
+                                    {% include "painel/partials/filters.html" %}
                                     <!-- <div class="align-content-center">
                                 <li class="block-content d-none margin-top-36 margin-top-0"><a href="#"><i class="fa fa-filter icon-filter-color"></i> <span class="collapse in hidden-xs"></span></a></li>
                                 <li class="block-content d-none margin-top-36 margin-top-0 margin-bottom-hr">
@@ -118,7 +118,7 @@
                             </div>
                             <!-- /sidebar -->
                             <!-- main right col -->
-                            <div class="" id="main">
+                            <div id="main">
                                 <div id="search-list"
                                      v-show="diarios.length!=0 || coordenacoes.length!=0 || praticas.length!=0">
                                     <nav class="tab-menu">
@@ -130,7 +130,9 @@
                                                     type="button"
                                                     role="tab"
                                                     aria-controls="nav-diarios"
-                                                    aria-selected="true">Diários</button>
+                                                    aria-selected="true"
+                                                    v-if="diarios.length!=0"
+                                                    @click="toggleBar('diarios')">Diários</button>
                                             <button class="nav-link"
                                                     id="nav-coordenacoes-tab"
                                                     data-bs-toggle="tab"
@@ -139,9 +141,8 @@
                                                     role="tab"
                                                     aria-controls="nav-coordenacoes"
                                                     aria-selected="false"
-                                                    v-if="coordenacoes.length!=0">
-                                                    Coordenações
-                                            </button>
+                                                    v-if="coordenacoes.length!=0"
+                                                    @click="toggleBar('coordenacoes')">Coordenações</button>
                                             <button class="nav-link"
                                                     id="nav-praticas-tab"
                                                     data-bs-toggle="tab"
@@ -150,18 +151,18 @@
                                                     role="tab"
                                                     aria-controls="nav-praticas"
                                                     aria-selected="false"
-                                                    v-if="praticas.length!=0">Práticas
-                                            </button>
+                                                    v-if="praticas.length!=0"
+                                                    @click="toggleBar('praticas')">Práticas</button>
                                             <button class="nav-link"
-                                                    id="nav-praticas-tab"
-                                                    data-bs-toggle="tab"
-                                                    data-bs-target="#nav-praticas"
+                                                    id="nav-reutilizaveis-tab"
+                                                    data-bs-reutilizaveis="tab"
+                                                    data-bs-target="#nav-reutilizaveis"
                                                     type="button"
                                                     role="tab"
-                                                    aria-controls="nav-praticas"
+                                                    aria-controls="nav-reutilizaveis"
                                                     aria-selected="false"
-                                                    v-if="coordenacoes.length!=0">Reutilizáveis
-                                            </button>
+                                                    v-if="reutilizaveis.length!=0"
+                                                    @click="toggleBar('reutilizaveis')">Reutilizáveis</button>
                                             <div class="btn-group course-list-toggler" role="group">
                                                 <input type="radio"
                                                        class="btn-check view-toggler"
@@ -191,21 +192,26 @@
                                         </div>
                                     </nav>
                                     <div class="tab-content courses">
-                                        {% include "painel/partials/course-lists.html" with list_name="diarios" extra_class="show active" list_alias="diários" list_genero=""  %}
-                                        {% include "painel/partials/course-lists.html" with list_name="coordenacoes" list_alias="salas das coordenações" list_genero="a"  %}
+                                        {% include "painel/partials/course-lists.html" with list_name="diarios" extra_class="show active" list_alias="diários" list_genero="" %}
+                                        {% include "painel/partials/course-lists.html" with list_name="coordenacoes" list_alias="salas das coordenações" list_genero="a" %}
                                         {% include "painel/partials/course-lists.html" with list_name="praticas" list_alias="práticas" list_genero="a" %}
+                                        {% include "painel/partials/course-lists.html" with list_name="reutilizaveis" list_alias="reutilizáveis" list_genero="a" %}
                                     </div>
                                 </div>
                                 <div id="search-isempty"
                                      v-if="!has_error && !is_filtering && diarios.length==0 && coordenacoes.length==0 && praticas.length==0">
                                     <h3>Atenção!</h3>
                                     <p>
-                                        Não existem <strong>Diários, Salas de coordenação</strong> ou <strong>Práticas</strong> que atendam ao filtro informado. Para mostrar tudo limpe os filtros, e no segundo campo escolher a opção "♾️ Todos os diários".
+                                        Não existem <strong>Diários, Coordenações</strong> ou <strong>Práticas</strong> que atendam ao <b>filtro informado</b>. Para mostrar tudo limpe os filtros clicando no botão "Ver todos".
                                     </p>
                                     <p>
-                                        Também é possível que a Secretaria Acadêmica ainda não tenha lhe inserido em algum diário, neste caso, por favor aguarde.
+                                        <button type="button"
+                                                class="btn btn-success button-center"
+                                                v-on:click="clearFilterSeeAll()">Ver todos</button>
                                     </p>
-                                    <button type="button" class="btn btn-success button-center" v-on:click="clearFilterSeeAll()">Ver Todos</button>
+                                    <p>
+                                        É possível que a Secretaria Acadêmica ainda não tenha lhe inserido em algum diário, neste caso, por favor aguarde.
+                                    </p>
                                 </div>
                                 <div id="search-error" v-if="has_error">
                                     <h3>Ocorreu um erro.</h3>
@@ -249,7 +255,7 @@
         <script src="//cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
                 crossorigin="anonymous"
                 integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"></script>
-                <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
         <script src="//unpkg.com/webtour@1.1.0/dist/webtour.min.js"></script>
         {% if show_vlibras %}
             <div vw class="enabled">
@@ -259,9 +265,7 @@
                 </div>
             </div>
             <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-            <script>
-                new window.VLibras.Widget('https://vlibras.gov.br/app');
-            </script>
+            <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
         {% endif %}
         {% if show_userway %}
             <script>function expand(e) { e.style.display = "none" == e.style.display ? "block" : "none" } function wpex_toggle(e, n, l) { el = document.getElementById("wpexlink" + e), el.innerHTML = el.innerHTML == n ? l : n, expand(document.getElementById("wpex" + e)) }</script>

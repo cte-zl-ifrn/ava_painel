@@ -1,25 +1,29 @@
 {% if popup %}
-  <script>
-    const popupModalName = "modal{{popup.id}}";
-    const popupModalUrl = "{{popup.url}}";
-  </script>
-  <!-- Modal: Begin -->
-  <div class="modal fade" id="modal{{popup.id}}" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{popup.titulo}}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+    <script>
+        const popupModalName = "modal{{popup.id}}";
+        const popupModalUrl = "{{popup.url}}";
+    </script>
+    <!-- Modal: Begin -->
+    <div class="modal fade"
+         id="modal{{ popup.id }}"
+         tabindex="-1"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{ popup.titulo }}</h5>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">{{ popup.mensagem|safe }}</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-bs-dismiss="modal">Lembre-me depois</button>
+                    <a id="model-url" href="./" class="btn btn-success">Acessar agora</a>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          {{popup.mensagem|safe}}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-link" data-bs-dismiss="modal">Lembre-me depois</button>
-          <a id="model-url" href="./" class="btn btn-success">Acessar agora</a>
-        </div>
-      </div>
     </div>
-  </div>
-  <!-- Modal: End -->
+    <!-- Modal: End -->
 {% endif %}
