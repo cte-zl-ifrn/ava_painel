@@ -140,7 +140,7 @@
                                                     aria-controls="nav-coordenacoes"
                                                     aria-selected="false"
                                                     v-if="coordenacoes.length!=0">
-                                                <span class="desktop-only">Salas das </span>coordenações
+                                                    Coordenações
                                             </button>
                                             <button class="nav-link"
                                                     id="nav-praticas-tab"
@@ -150,7 +150,18 @@
                                                     role="tab"
                                                     aria-controls="nav-praticas"
                                                     aria-selected="false"
-                                                    v-if="praticas.length!=0">Práticas</button>
+                                                    v-if="praticas.length!=0">Práticas
+                                            </button>
+                                            <button class="nav-link"
+                                                    id="nav-praticas-tab"
+                                                    data-bs-toggle="tab"
+                                                    data-bs-target="#nav-praticas"
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-controls="nav-praticas"
+                                                    aria-selected="false"
+                                                    v-if="coordenacoes.length!=0">Reutilizáveis
+                                            </button>
                                             <div class="btn-group course-list-toggler" role="group">
                                                 <input type="radio"
                                                        class="btn-check view-toggler"
@@ -194,6 +205,7 @@
                                     <p>
                                         Também é possível que a Secretaria Acadêmica ainda não tenha lhe inserido em algum diário, neste caso, por favor aguarde.
                                     </p>
+                                    <button type="button" class="btn btn-success button-center" v-on:click="clearFilterSeeAll()">Ver Todos</button>
                                 </div>
                                 <div id="search-error" v-if="has_error">
                                     <h3>Ocorreu um erro.</h3>

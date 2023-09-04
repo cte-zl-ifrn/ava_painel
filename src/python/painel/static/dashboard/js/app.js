@@ -72,14 +72,14 @@ export default {
             }
         },
 
-        clearFilter() {
-            $("#q").val('');
-            $("#situacao").val('');
-            $("#semestre").val('');
-            $("#disciplina").val('');
-            $("#curso").val('');
-            $("#ambiente").val('');
-        },
+        // clearFilter() {
+        //     $("#q").val('');
+        //     $("#situacao").val('');
+        //     $("#semestre").val('');
+        //     $("#disciplina").val('');
+        //     $("#curso").val('');
+        //     $("#ambiente").val('');
+        // },
 
         restoreState() {
             document.getElementById('grid-filter').classList.remove('hide_this');
@@ -94,24 +94,24 @@ export default {
             $('.courses').removeClass("default compact").addClass(localStorage.view_toggler);
         },
 
-        customizeAmbiente() {
-            /*
-            $('#ambiente').select2({
-                templateResult: function (data) {
-                    const style = data.element && data.element.dataset && data.element.dataset.color ?
-                        ' style="border-left: 10px solid ' + data.element.dataset.color + '; padding: 0 4px;"' : ' class="todos_ambientes"';
-                    return $('<span ' + style + '>' + data.text + '</span> ');
-                },
-                templateSelection: function (data) {
-                    const style = data.element && data.element.dataset && data.element.dataset.color ?
-                        ' style="border-left: 10px solid ' + data.element.dataset.color + '; padding: 0 4px;"' : ' class="todos_ambientes"';
-                    return $('<span ' + style + '>' + data.text + '</span> ');
-                }
-            });
-            $('#ambiente').on("select2:select", this.filterCards);
-            $('#ambiente').val(self.ambiente || '');
-            */
-        },
+        // customizeAmbiente() {
+            
+        //     $('#ambiente').select2({
+        //         templateResult: function (data) {
+        //             const style = data.element && data.element.dataset && data.element.dataset.color ?
+        //                 ' style="border-left: 10px solid ' + data.element.dataset.color + '; padding: 0 4px;"' : ' class="todos_ambientes"';
+        //             return $('<span ' + style + '>' + data.text + '</span> ');
+        //         },
+        //         templateSelection: function (data) {
+        //             const style = data.element && data.element.dataset && data.element.dataset.color ?
+        //                 ' style="border-left: 10px solid ' + data.element.dataset.color + '; padding: 0 4px;"' : ' class="todos_ambientes"';
+        //             return $('<span ' + style + '>' + data.text + '</span> ');
+        //         }
+        //     });
+        //     $('#ambiente').on("select2:select", this.filterCards);
+        //     $('#ambiente').val(self.ambiente || '');
+            
+        // },
 
         startTour001() {
             const geral = this;
@@ -259,6 +259,19 @@ export default {
             this['ambiente'] = '';
             setTimeout(this.filterCards, 500);
         },
+
+        clearFilterSeeAll() {
+            console.log(this.$watch)
+            this['q'] = '';
+            this['situacao'] = 'allincludinghidden';
+            this['ordenacao'] = 'fullname';
+            this['semestre'] = '';
+            this['disciplina'] = '';
+            this['curso'] = '';
+            this['ambiente'] = '';
+            setTimeout(this.filterCards, 500);
+        },
+
 
         filterCards() {
             this.filtering();
