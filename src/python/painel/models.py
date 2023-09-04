@@ -219,20 +219,20 @@ class Curso(SafeDeleteModel):
             campus_curso = f"{campus.sigla}.{self.codigo}"
             id = f"{campus_curso}{self.__codigo_papel(v.papel)}"
             return {
-                "id": id,
+                "idnumber": id,
                 "nome": f"{campus_curso} - {v.papel.nome}",
                 "descricao": f"{v.papel.nome}: {campus_curso} - {self.nome}",
                 "ativo": v.active,
                 "colaboradores": [],
-                "role": v.papel.papel
+                "role": v.papel.papel,
             }
 
         def dados_colaborador(vc):
             return {
-                "username": vc.colaborador.username,
+                "login": vc.colaborador.username,
                 "email": vc.colaborador.email,
-                "nome_completo": vc.colaborador.show_name,
-                "ativo": vc.active,
+                "nome": vc.colaborador.show_name,
+                "status": "Ativo" if vc.active else "Inativo",
             }
 
         for vc in self.vinculocurso_set.all():

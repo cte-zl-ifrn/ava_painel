@@ -81,7 +81,7 @@ class DiarioManager(Manager):
 
             retorno = requests.post(
                 f"{campus.ambiente.url}/local/suap/api/?sync_up_enrolments",
-                data={"jsonstring": json.dumps(enviado)},
+                json=enviado,
                 headers={"Authentication": f"Token {campus.ambiente.token}"},
             )
 
