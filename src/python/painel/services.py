@@ -118,7 +118,6 @@ def _get_diarios(params: Dict[str, Any]):
         ambientedict = {
             "ambiente": {
                 "titulo": ambiente.nome,
-                "sigla": ambiente.nome,
                 "cor_mestra": ambiente.cor_mestra,
                 "cor_degrade": ambiente.cor_degrade,
                 "cor_progresso": ambiente.cor_progresso,
@@ -234,7 +233,6 @@ def get_atualizacoes_counts(username: str) -> dict:
             counts = get_json_api(ava, "get_atualizacoes_counts.php", username=params["username"])
             counts["ambiente"] = {
                 "titulo": re.subn("🟥 |🟦 |🟧 |🟨 |🟩 |🟪 ", "", ava.nome)[0],
-                "sigla": ava.nome,
                 "cor_mestra": ava.cor_mestra,
                 "cor_degrade": ava.cor_degrade,
                 "cor_progresso": ava.cor_progresso,
@@ -285,7 +283,7 @@ def set_favourite_course(username: str, ava: str, courseid: int, favourite: int)
 
 
 def set_visible_course(username: str, ava: str, courseid: int, visible: int) -> dict:
-    ava = get_object_or_404(Ambiente, sigla=ava)
+    ava = get_object_or_404(Ambiente, nome=ava)
     return get_json_api(
         ava,
         "set_visible_course.php",

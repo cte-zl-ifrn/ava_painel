@@ -217,7 +217,7 @@ export default {
             axios.get(
                 '/painel/painel/api/v1/set_favourite/', {
                 params: {
-                    "ava": card.ambiente.sigla,
+                    "ava": card.ambiente.nome,
                     "courseid": card.id,
                     "favourite": new_status,
                 }
@@ -235,7 +235,7 @@ export default {
                 axios.get(
                     '/painel/painel/api/v1/set_visible/', {
                     params: {
-                        "ava": card.ambiente.sigla,
+                        "ava": card.ambiente.nome,
                         "courseid": card.id,
                         "visible": new_status,
                     }
