@@ -1777,6 +1777,14 @@ h6.central-atendimento::after {
     display: none;
 }
 
+.button-center{
+    display: block;
+    margin: 0 auto;
+    padding: 6px 20px 6px 20px;
+    background-color: #31872D;
+    font-size: 14px;
+}
+
 /* ===== MESSAGEN: END ==== */
 
 /* ==== SIDENAV: BEGIN ==== */
