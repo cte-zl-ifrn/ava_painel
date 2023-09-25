@@ -275,7 +275,7 @@ def set_favourite_course(username: str, ava: str, courseid: int, favourite: int)
     ava = get_object_or_404(Ambiente, nome=ava)
     return get_json_api(
         ava,
-        "set_favourite_course.php",
+        "set_favourite_course",
         username=username,
         courseid=courseid,
         favourite=favourite,
@@ -286,7 +286,7 @@ def set_visible_course(username: str, ava: str, courseid: int, visible: int) -> 
     ava = get_object_or_404(Ambiente, nome=ava)
     return get_json_api(
         ava,
-        "set_visible_course.php",
+        "set_visible_course",
         username=username,
         courseid=courseid,
         visible=str(visible),
