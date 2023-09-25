@@ -35,11 +35,7 @@ CURSOS_CACHE = {}
 
 def get_json_api(ava: Ambiente, url: str, **params: dict):
     querystring = "&".join([f"{k}={v}" for k, v in params.items() if v])
-    content = get(
-        f"{ava.base_api_url}/{url}?{querystring}",
-        headers={"Authentication": f"Token {ava.token}"},
-    )
-    logging.debug(content)
+    content = get(f"{ava.base_api_url}/?{url}&{querystring}", headers={"Authentication": f"Token {ava.token}"})
     return json.loads(content)
 
 
