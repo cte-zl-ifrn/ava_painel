@@ -215,3 +215,8 @@ Authentication: Token changeme
     "professores": [
     ]
 }
+
+
+### Apenas os atributos os obrigatórios
+GET http://ava/api/sync_down_grades/?campus_sigla=ZL&diario_id=123 HTTP/1.1
+Authentication: Token changeme
