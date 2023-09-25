@@ -44,7 +44,7 @@ services:
       - ava
 
   painel:
-    image: ctezlifrn/avapainel:1.0.50
+    image: ctezlifrn/avapainel:1.0.63
     build:
       context: src/python
       # additional_contexts:
