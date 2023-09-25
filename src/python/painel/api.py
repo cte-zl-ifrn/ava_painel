@@ -1,7 +1,5 @@
-from datetime import datetime
 from ninja import NinjaAPI
 from django.contrib.admin.views.decorators import staff_member_required
-from django.conf import settings
 from django.http import HttpRequest
 from .services import (
     get_diarios,
@@ -9,7 +7,6 @@ from .services import (
     set_favourite_course,
     set_visible_course,
 )
-from .models import Arquetipo
 from a4.models import logged_user
 
 
