@@ -87,7 +87,6 @@ class DiarioAdmin(BaseModelAdmin):
         except Exception as e:
             raise Exception("Erro ao tentar sincronizar. Diário não localizado.")
         try:
-            # print(settings.MOODLE_SYNC_URL)
             response = requests.post(
                 url="http://localhost:8000/api/moodle_suap/",
                 json=diario.pacote_enviado,
