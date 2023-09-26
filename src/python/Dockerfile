@@ -2,7 +2,7 @@ FROM python:3.11.4-slim-bullseye
 
 ENV PYTHONUNBUFFERED 1
 
-RUN apt update && apt upgrade -y && apt -y install curl 
+RUN apt update && apt upgrade -y && apt -y install curl vim
 
 ADD requirements.txt /
 
