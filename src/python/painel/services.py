@@ -10,6 +10,7 @@ from django.urls import reverse
 from django.conf import settings
 from sc4net import get
 from .models import Ambiente, Curso
+from middleware.models import Solicitacao
 
 
 CODIGO_DIARIO_REGEX = re.compile("^(\d\d\d\d\d)\.(\d*)\.(\d*)\.(.*)\.(\w*\.\d*)(#\d*)?$")
@@ -91,11 +92,23 @@ def get_diarios(
             def _merge_id_diario(diario: dict, diario_re: re.Match):
                 if len(diario_re) > 0 and len(diario_re[0]) >= CODIGO_DIARIO_ID_DIARIO_INDEX:
                     id_diario_hash = diario_re[0][CODIGO_DIARIO_ID_DIARIO_INDEX]
-                    id_diario = id_diario_hash[1:]
                     diario["id_diario"] = id_diario_hash
+
+            def _merge_extra_urls(diario: dict):
+                if "id_diario" in diario:
+                    id_diario = diario["id_diario"][1:]
                     diario["suapsurl"] = f"{settings.SUAP_BASE_URL}/edu/diario/{id_diario}/"
                     diario["syncsurl"] = reverse("painel:syncs", kwargs={"id_diario": id_diario})
                     diario["gradesurl"] = re.sub("/course/view", "/grade/report/user/index", diario["viewurl"])
+                    try:
+                        ultima = Solicitacao.objects.ultima_do_diario(id_diario)
+                        if ultima is not None:
+                            respondido = json.loads(ultima.respondido)
+                            url_sala_coordenacao = respondido["url_sala_coordenacao"]
+                            diario["coordenacaourl"] = url_sala_coordenacao
+                    except Exception as e:
+                        logging.error(e)
+                        sentry_sdk.capture_exception(e)
 
             def _merge_aluno(diario: dict, diario_re: re.Match):
                 if diario_re and len(diario_re[0]) > CODIGO_PRATICA_SUFIXO_INDEX:
@@ -111,6 +124,7 @@ def get_diarios(
                 _merge_turma(diario, diario_re)
                 _merge_componente(diario, diario_re)
                 _merge_id_diario(diario, diario_re)
+                _merge_extra_urls(diario)
             elif pratica_re:
                 _merge_curso(diario, pratica_re)
                 _merge_turma(diario, pratica_re)

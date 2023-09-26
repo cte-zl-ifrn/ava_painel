@@ -12,7 +12,5 @@ def dashboard(request: HttpRequest) -> HttpResponse:
 
 @login_required
 def syncs(request: HttpRequest, id_diario: int) -> HttpResponse:
-    filter = f'"diario":{{"id":{id_diario},'
-    solicitacoes = Solicitacao.objects.filter(recebido__contains=filter).order_by("-id")
-    print(filter, solicitacoes)
+    solicitacoes = Solicitacao.objects.by_diario_id(id_diario)
     return render(request, "painel/syncs.html", context={"solicitacoes": solicitacoes})

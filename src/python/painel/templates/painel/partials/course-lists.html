@@ -71,14 +71,19 @@
                                             <i class="fa fa-link"></i> Ver no AVA
                                         </a>
                                     </li>
-                                    <li v-if="card.suapsurl">
-                                        <a class="dropdown-item" v-bind:href="[[ card.suapsurl ]]">
-                                            <i class="fa fa-external-link"></i> Ver no SUAP
-                                        </a>
-                                    </li>
                                     <li v-if="card.gradesurl">
                                         <a class="dropdown-item" v-bind:href="[[ card.gradesurl ]]">
                                             <i class="fa fa-th"></i> Ver notas
+                                        </a>
+                                    </li>
+                                    <li v-if="card.coordenacaourl">
+                                        <a class="dropdown-item" v-bind:href="[[ card.coordenacaourl ]]">
+                                            <i class="fa fa-university"></i> Ver sala de coordenação
+                                        </a>
+                                    </li>
+                                    <li v-if="card.suapsurl">
+                                        <a class="dropdown-item" v-bind:href="[[ card.suapsurl ]]">
+                                            <i class="fa fa-external-link"></i> Ver no SUAP
                                         </a>
                                     </li>
                                     <li v-if="card.can_set_visibility == 1">
