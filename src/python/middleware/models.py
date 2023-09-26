@@ -1,6 +1,7 @@
 from django.utils.translation import gettext as _
 from django.db.models import CharField, DateTimeField, TextField, ForeignKey, PROTECT
 from django_better_choices import Choices
+from django.utils.html import format_html
 from simple_history.models import HistoricalRecords
 from safedelete.models import SafeDeleteModel
 
@@ -29,3 +30,7 @@ class Solicitacao(SafeDeleteModel):
 
     def __str__(self):
         return f"{self.id} - {self.diario}"
+
+    @property
+    def status_merged(self):
+        return format_html(f"""{Solicitacao.Status[self.status].display}<br>{self.status_code}""")
