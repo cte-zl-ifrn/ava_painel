@@ -6,8 +6,11 @@ import urllib.parse
 import sentry_sdk
 from typing import Dict, List, Union, Any
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
+from django.conf import settings
 from sc4net import get
-from .models import Ambiente, Arquetipo, Curso
+from .models import Ambiente, Curso
+
 
 CODIGO_DIARIO_REGEX = re.compile("^(\d\d\d\d\d)\.(\d*)\.(\d*)\.(.*)\.(\w*\.\d*)(#\d*)?$")
 CODIGO_DIARIO_ANTIGO_ELEMENTS_COUNT = 5
@@ -29,114 +32,15 @@ CODIGO_PRATICA_REGEX = re.compile("^(\d\d\d\d\d)\.(\d*)\.(\d*)\.(.*)\.(\d{11,14}
 CODIGO_PRATICA_ELEMENTS_COUNT = 5
 CODIGO_PRATICA_SUFIXO_INDEX = 4
 
-
 CURSOS_CACHE = {}
+
+CHANGE_URL = re.compile("/course/view.php\?")
 
 
 def get_json_api(ava: Ambiente, url: str, **params: dict):
-    querystring = "&".join([f"{k}={v}" for k, v in params.items() if v])
+    querystring = "&".join([f"{k}={v}" for k, v in params.items() if v is not None])
     content = get(f"{ava.base_api_url}/?{url}&{querystring}", headers={"Authentication": f"Token {ava.token}"})
     return json.loads(content)
-
-
-def _merge_curso(diario: dict, diario_re: re.Match):
-    if not diario_re and len(diario_re[0]) not in (
-        CODIGO_DIARIO_ANTIGO_ELEMENTS_COUNT,
-        CODIGO_DIARIO_NOVO_ELEMENTS_COUNT,
-        CODIGO_COORDENACAO_ELEMENTS_COUNT,
-        CODIGO_PRATICA_ELEMENTS_COUNT,
-    ):
-        return
-
-    if len(diario_re[0]) == CODIGO_COORDENACAO_ELEMENTS_COUNT:
-        co_curso = diario_re[0][CODIGO_COORDENACAO_CURSO_INDEX]
-    else:
-        co_curso = diario_re[0][CODIGO_DIARIO_CURSO_INDEX]
-
-    if co_curso not in CURSOS_CACHE and CURSOS_CACHE.get(co_curso, None) is None:
-        curso = Curso.objects.filter(codigo=co_curso).first()
-        if curso:
-            CURSOS_CACHE[co_curso] = curso
-
-    curso = CURSOS_CACHE.get(co_curso, Curso(codigo=co_curso, nome=f"Curso: {co_curso}"))
-    diario["curso"] = {"codigo": curso.codigo, "nome": curso.nome}
-
-
-def _merge_turma(diario: dict, diario_re: re.Match):
-    if len(diario_re) > 0 and len(diario_re[0]) >= CODIGO_DIARIO_TURMA_INDEX:
-        diario["turma"] = ".".join(diario_re[0][0 : CODIGO_DIARIO_TURMA_INDEX + 1])
-
-
-def _merge_componente(diario: dict, diario_re: re.Match):
-    if len(diario_re) > 0 and len(diario_re[0]) >= CODIGO_DIARIO_DISCIPLINA_INDEX:
-        diario["componente"] = diario_re[0][CODIGO_DIARIO_DISCIPLINA_INDEX]
-
-
-def _merge_id_diario(diario: dict, diario_re: re.Match):
-    if len(diario_re) > 0 and len(diario_re[0]) >= CODIGO_DIARIO_ID_DIARIO_INDEX:
-        diario["id_diario"] = diario_re[0][CODIGO_DIARIO_ID_DIARIO_INDEX]
-
-
-def _merge_aluno(diario: dict, diario_re: re.Match):
-    if diario_re and len(diario_re[0]) > CODIGO_PRATICA_SUFIXO_INDEX:
-        diario["componente"] = diario_re[0][CODIGO_PRATICA_SUFIXO_INDEX]
-
-
-def _merge_course(diario: dict, ambiente: dict):
-    codigo = diario["shortname"]
-    diario_re = CODIGO_DIARIO_REGEX.findall(codigo)
-    coordenacao_re = CODIGO_COORDENACAO_REGEX.findall(codigo)
-    pratica_re = CODIGO_PRATICA_REGEX.findall(codigo)
-
-    if diario_re:
-        _merge_curso(diario, diario_re)
-        _merge_turma(diario, diario_re)
-        _merge_componente(diario, diario_re)
-        _merge_id_diario(diario, diario_re)
-    elif pratica_re:
-        _merge_curso(diario, pratica_re)
-        _merge_turma(diario, pratica_re)
-        _merge_aluno(diario, pratica_re)
-    elif coordenacao_re:
-        _merge_curso(diario, coordenacao_re)
-    return {**diario, **ambiente}
-
-
-def deduplicate_and_sort(list_of_dict: Union[None, List[Dict[str, str]]], reverse: bool = False):
-    deduplicated = [{"id": x, "label": y} for x, y in ({x["id"]: x["label"] for x in list_of_dict}).items()]
-    sortedlist = sorted(deduplicated, key=lambda e: e["label"], reverse=reverse)
-    return sortedlist
-
-
-def _get_diarios(params: Dict[str, Any]):
-    try:
-        ambiente = params["ambiente"]
-        ambientedict = {
-            "ambiente": {
-                "titulo": ambiente.nome,
-                "cor_mestra": ambiente.cor_mestra,
-                "cor_degrade": ambiente.cor_degrade,
-                "cor_progresso": ambiente.cor_progresso,
-            }
-        }
-
-        querystrings = {k: v for k, v in params.items() if k not in ["ambiente", "results"]}
-
-        if "q" in querystrings:
-            querystrings["q"] = urllib.parse.quote(querystrings["q"])
-
-        result = get_json_api(ambiente, "get_diarios.php", **querystrings)
-
-        for k, v in params["results"].items():
-            if k in result:
-                if k in ["diarios", "coordenacoes", "praticas"]:
-                    params["results"][k] += [_merge_course(diario, ambientedict) for diario in result[k] or []]
-                else:
-                    params["results"][k] += result[k] or []
-
-    except Exception as e:
-        logging.error(e)
-        sentry_sdk.capture_exception(e)
 
 
 def get_diarios(
@@ -152,12 +56,108 @@ def get_diarios(
     page: int = 1,
     page_size: int = 21,
 ) -> dict:
+    def _get_diarios(params: Dict[str, Any]):
+        def _merge_course(diario: dict, ambiente: dict):
+            def _merge_curso(diario: dict, diario_re: re.Match):
+                if not diario_re and len(diario_re[0]) not in (
+                    CODIGO_DIARIO_ANTIGO_ELEMENTS_COUNT,
+                    CODIGO_DIARIO_NOVO_ELEMENTS_COUNT,
+                    CODIGO_COORDENACAO_ELEMENTS_COUNT,
+                    CODIGO_PRATICA_ELEMENTS_COUNT,
+                ):
+                    return
+
+                if len(diario_re[0]) == CODIGO_COORDENACAO_ELEMENTS_COUNT:
+                    co_curso = diario_re[0][CODIGO_COORDENACAO_CURSO_INDEX]
+                else:
+                    co_curso = diario_re[0][CODIGO_DIARIO_CURSO_INDEX]
+
+                if co_curso not in CURSOS_CACHE and CURSOS_CACHE.get(co_curso, None) is None:
+                    curso = Curso.objects.filter(codigo=co_curso).first()
+                    if curso:
+                        CURSOS_CACHE[co_curso] = curso
+
+                curso = CURSOS_CACHE.get(co_curso, Curso(codigo=co_curso, nome=f"Curso: {co_curso}"))
+                diario["curso"] = {"codigo": curso.codigo, "nome": curso.nome}
+
+            def _merge_turma(diario: dict, diario_re: re.Match):
+                if len(diario_re) > 0 and len(diario_re[0]) >= CODIGO_DIARIO_TURMA_INDEX:
+                    diario["turma"] = ".".join(diario_re[0][0 : CODIGO_DIARIO_TURMA_INDEX + 1])
+
+            def _merge_componente(diario: dict, diario_re: re.Match):
+                if len(diario_re) > 0 and len(diario_re[0]) >= CODIGO_DIARIO_DISCIPLINA_INDEX:
+                    diario["componente"] = diario_re[0][CODIGO_DIARIO_DISCIPLINA_INDEX]
+
+            def _merge_id_diario(diario: dict, diario_re: re.Match):
+                if len(diario_re) > 0 and len(diario_re[0]) >= CODIGO_DIARIO_ID_DIARIO_INDEX:
+                    id_diario_hash = diario_re[0][CODIGO_DIARIO_ID_DIARIO_INDEX]
+                    id_diario = id_diario_hash[1:]
+                    diario["id_diario"] = id_diario_hash
+                    diario["suapsurl"] = f"{settings.SUAP_BASE_URL}/edu/diario/{id_diario}/"
+                    diario["syncsurl"] = reverse("painel:syncs", kwargs={"id_diario": id_diario})
+                    diario["gradesurl"] = re.sub("/course/view", "/grade/report/user/index", diario["viewurl"])
+
+            def _merge_aluno(diario: dict, diario_re: re.Match):
+                if diario_re and len(diario_re[0]) > CODIGO_PRATICA_SUFIXO_INDEX:
+                    diario["componente"] = diario_re[0][CODIGO_PRATICA_SUFIXO_INDEX]
+
+            codigo = diario["shortname"]
+            diario_re = CODIGO_DIARIO_REGEX.findall(codigo)
+            coordenacao_re = CODIGO_COORDENACAO_REGEX.findall(codigo)
+            pratica_re = CODIGO_PRATICA_REGEX.findall(codigo)
+
+            if diario_re:
+                _merge_curso(diario, diario_re)
+                _merge_turma(diario, diario_re)
+                _merge_componente(diario, diario_re)
+                _merge_id_diario(diario, diario_re)
+            elif pratica_re:
+                _merge_curso(diario, pratica_re)
+                _merge_turma(diario, pratica_re)
+                _merge_aluno(diario, pratica_re)
+            elif coordenacao_re:
+                _merge_curso(diario, coordenacao_re)
+            return {**diario, **ambiente}
+
+        try:
+            ambiente = params["ambiente"]
+            ambientedict = {
+                "ambiente": {
+                    "titulo": ambiente.nome,
+                    "cor_mestra": ambiente.cor_mestra,
+                    "cor_degrade": ambiente.cor_degrade,
+                    "cor_progresso": ambiente.cor_progresso,
+                }
+            }
+
+            querystrings = {k: v for k, v in params.items() if k not in ["ambiente", "results"]}
+
+            if "q" in querystrings:
+                querystrings["q"] = urllib.parse.quote(querystrings["q"])
+
+            result = get_json_api(ambiente, "get_diarios", **querystrings)
+
+            for k, v in params["results"].items():
+                if k in result:
+                    if k in ["diarios", "coordenacoes", "praticas"]:
+                        params["results"][k] += [_merge_course(diario, ambientedict) for diario in result[k] or []]
+                    else:
+                        params["results"][k] += result[k] or []
+
+        except Exception as e:
+            logging.error(e)
+            sentry_sdk.capture_exception(e)
+
+    def deduplicate_and_sort(list_of_dict: Union[None, List[Dict[str, str]]], reverse: bool = False):
+        deduplicated = [{"id": x, "label": y} for x, y in ({x["id"]: x["label"] for x in list_of_dict}).items()]
+        sortedlist = sorted(deduplicated, key=lambda e: e["label"], reverse=reverse)
+        return sortedlist
+
     results = {
         "semestres": [],
         "ambientes": Ambiente.as_dict(),
         "disciplinas": [],
         "cursos": [],
-        "arquetipos": Arquetipo.kv,
         "diarios": [],
         "coordenacoes": [],
         "praticas": [],
@@ -226,7 +226,7 @@ def get_atualizacoes_counts(username: str) -> dict:
         try:
             ava = params["ava"]
 
-            counts = get_json_api(ava, "get_atualizacoes_counts.php", username=params["username"])
+            counts = get_json_api(ava, "get_atualizacoes_counts", username=params["username"])
             counts["ambiente"] = {
                 "titulo": re.subn("🟥 |🟦 |🟧 |🟨 |🟩 |🟪 ", "", ava.nome)[0],
                 "cor_mestra": ava.cor_mestra,
@@ -269,21 +269,9 @@ def get_atualizacoes_counts(username: str) -> dict:
 
 def set_favourite_course(username: str, ava: str, courseid: int, favourite: int) -> dict:
     ava = get_object_or_404(Ambiente, nome=ava)
-    return get_json_api(
-        ava,
-        "set_favourite_course",
-        username=username,
-        courseid=courseid,
-        favourite=favourite,
-    )
+    return get_json_api(ava, "set_favourite_course", username=username, courseid=courseid, favourite=favourite)
 
 
 def set_visible_course(username: str, ava: str, courseid: int, visible: int) -> dict:
     ava = get_object_or_404(Ambiente, nome=ava)
-    return get_json_api(
-        ava,
-        "set_visible_course",
-        username=username,
-        courseid=courseid,
-        visible=str(visible),
-    )
+    return get_json_api(ava, "set_visible_course", username=username, courseid=courseid, visible=visible)

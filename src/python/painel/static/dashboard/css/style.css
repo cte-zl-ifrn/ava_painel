@@ -773,6 +773,7 @@ main>div>aside {
 }
 
 .courses.compact .course-acao.course-visible,
+.courses.compact .course-acao.dropdown,
 .courses.compact .course-curso {
     display: none;
 }
@@ -1777,7 +1778,7 @@ h6.central-atendimento::after {
     display: none;
 }
 
-.button-center{
+.button-center {
     display: block;
     margin: 0 auto;
     padding: 6px 20px 6px 20px;
