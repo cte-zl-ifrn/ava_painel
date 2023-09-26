@@ -223,9 +223,9 @@ export default {
         favourite(card) {
             const new_status = card.isfavourite ? 0 : 1;
             axios.get(
-                '/painel/painel/api/v1/set_favourite/', {
+                '/painel/api/v1/set_favourite/', {
                 params: {
-                    "ava": card.ambiente.nome,
+                    "ava": card.ambiente.titulo,
                     "courseid": card.id,
                     "favourite": new_status,
                 }
@@ -241,9 +241,9 @@ export default {
             if (confirm("Confirma a operação?")) {
                 const new_status = parseInt(card.visible) ? 0 : 1;
                 axios.get(
-                    '/painel/painel/api/v1/set_visible/', {
+                    '/painel/api/v1/set_visible/', {
                     params: {
-                        "ava": card.ambiente.nome,
+                        "ava": card.ambiente.titulo,
                         "courseid": card.id,
                         "visible": new_status,
                     }
@@ -285,7 +285,7 @@ export default {
             this.filtering();
             try {
                 axios.get(
-                    '/painel/painel/api/v1/diarios/', {
+                    '/painel/api/v1/diarios/', {
                     params: {
                         "q": $(self.q).val() || localStorage.q || '',
                         "situacao": $(self.situacao).val() || localStorage.situacao || 'inprogress',
