@@ -35,7 +35,7 @@ django-admin-autocomplete-filter==0.7.1
 psycopg[binary,pool]==3.1.8
 
 # Image
-pillow==10.0.0
+pillow==10.0.1
 setuptools>=68.0.0 # not directly required, pinned by Snyk to avoid a vulnerability
 
 # Production
