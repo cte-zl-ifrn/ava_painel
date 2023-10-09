@@ -1,5 +1,5 @@
 from django.utils.translation import gettext as _
-from django.db.models import CharField, DateTimeField, TextField, ForeignKey, PROTECT, QuerySet
+from django.db.models import CharField, DateTimeField, JSONField, ForeignKey, PROTECT, QuerySet
 from django_better_choices import Choices
 from django.utils.html import format_html
 from simple_history.models import HistoricalRecords
@@ -27,9 +27,9 @@ class Solicitacao(SafeDeleteModel):
     status_code = CharField(_("status code"), max_length=256, null=True, blank=True)
     campus = ForeignKey("painel.Campus", on_delete=PROTECT, null=True, blank=True)
     diario = ForeignKey("painel.Diario", on_delete=PROTECT, null=True, blank=True)
-    recebido = TextField(_("JSON recebido"), null=True, blank=True)
-    enviado = TextField(_("JSON enviado"), null=True, blank=True)
-    respondido = TextField(_("JSON respondido"), null=True, blank=True)
+    recebido = JSONField(_("JSON recebido"), null=True, blank=True)
+    enviado = JSONField(_("JSON enviado"), null=True, blank=True)
+    respondido = JSONField(_("JSON respondido"), null=True, blank=True)
 
     objects = SolicitacaoManager()
 

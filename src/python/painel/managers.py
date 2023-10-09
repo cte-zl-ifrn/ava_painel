@@ -63,7 +63,7 @@ class DiarioManager(Manager):
         retorno = None
         campus = None
         solicitacao = Solicitacao.objects.create(
-            recebido=recebido,
+            recebido=json.loads(recebido),
             enviado=None,
             respondido=None,
             status=Solicitacao.Status.PROCESSANDO,
@@ -74,27 +74,24 @@ class DiarioManager(Manager):
         try:
             campus, pkg = self._validate_campus(recebido)
             curso = Curso.objects.filter(codigo=pkg["curso"]["codigo"]).first()
-            enviado = dict(**pkg, **{"coortes": curso.coortes}) if curso else recebido
             solicitacao.campus = campus
-            solicitacao.enviado = json.dumps(enviado)
+            solicitacao.enviado = dict(**pkg, **{"coortes": curso.coortes}) if curso else recebido
             solicitacao.save()
 
             retorno = requests.post(
                 f"{campus.ambiente.url}/local/suap/api/?sync_up_enrolments",
-                json=enviado,
+                json=solicitacao.enviado,
                 headers={"Authentication": f"Token {campus.ambiente.token}"},
             )
 
-            retorno_json = json.loads(retorno.text)
-
-            solicitacao.respondido = retorno_json
+            solicitacao.respondido = json.loads(retorno.text)
             solicitacao.status = Solicitacao.Status.SUCESSO
             solicitacao.status_code = retorno.status_code
             solicitacao.save()
 
             self._make(campus, pkg)
 
-            return retorno_json
+            return solicitacao.respondido
         except Exception as e:
             error_message = getattr(retorno, "text", "-")
             error_text = f"""Erro na integração. O AVA retornou um erro.

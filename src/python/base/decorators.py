@@ -5,17 +5,17 @@ from painel.managers import SyncError
 
 
 def exception_as_json(func):
-    def __response_error(request: HttpRequest, error: Exception):
-        event_id = capture_exception(error)
-        error_json = {
-            "error": getattr(error, "message", None),
-            "code": getattr(error, "code", 500),
-            "event_id": event_id,
-        }
-
-        return JsonResponse(error_json, status=getattr(error, "code", 500))
-
     def inner(request: HttpRequest, *args, **kwargs):
+        def __response_error(request: HttpRequest, error: Exception):
+            event_id = capture_exception(error)
+            error_json = {
+                "error": getattr(error, "message", None),
+                "code": getattr(error, "code", 500),
+                "event_id": event_id,
+            }
+
+            return JsonResponse(error_json, status=getattr(error, "code", 500))
+
         try:
             return func(request, *args, **kwargs)
         except SyncError as se:
