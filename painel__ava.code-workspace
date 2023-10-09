@@ -32,6 +32,9 @@
         },
         {
             "path": "../moodle__profilefield_json"
+        },
+        {
+            "path": "../moodle-tools_suap_archiver"
         }
     ],
     "settings": {
