@@ -1,5 +1,5 @@
 from django.utils.translation import gettext as _
-from django.db.models import CharField, DateTimeField, JSONField, ForeignKey, PROTECT, QuerySet
+from django.db.models import CharField, DateTimeField, JSONField, ForeignKey, PROTECT, QuerySet, Q
 from django_better_choices import Choices
 from django.utils.html import format_html
 from simple_history.models import HistoricalRecords
@@ -12,8 +12,7 @@ class SolicitacaoManager(SafeDeleteManager):
         return self.filter(recebido__contains=filter).order_by("-id")
 
     def ultima_do_diario(self, diario_id: int) -> QuerySet:
-        filter = f'"diario":{{"id":{diario_id},'
-        return self.filter(recebido__contains=filter).order_by("-id")[0:1].get()
+        return Solicitacao.objects.filter(Q(recebido__diario__id=diario_id)).order_by("-id").first()
 
 
 class Solicitacao(SafeDeleteModel):
