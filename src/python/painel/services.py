@@ -8,7 +8,7 @@ from typing import Dict, List, Union, Any
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.conf import settings
-from sc4net import get
+from sc4net import get_json
 from .models import Ambiente, Curso
 from middleware.models import Solicitacao
 
@@ -39,9 +39,16 @@ CHANGE_URL = re.compile("/course/view.php\?")
 
 
 def get_json_api(ava: Ambiente, url: str, **params: dict):
-    querystring = "&".join([f"{k}={v}" for k, v in params.items() if v is not None])
-    content = get(f"{ava.base_api_url}/?{url}&{querystring}", headers={"Authentication": f"Token {ava.token}"})
-    return json.loads(content)
+    try:
+        if params is not None:
+            querystring = "&".join([f"{k}={v}" for k, v in params.items() if v is not None])
+        else:
+            querystring = ""
+        content = get_json(f"{ava.base_api_url}/?{url}&{querystring}", headers={"Authentication": f"Token {ava.token}"})
+        print(content)
+        return content
+    except Exception as e:
+        print(e)
 
 
 def get_diarios(
@@ -104,8 +111,7 @@ def get_diarios(
                         ultima = Solicitacao.objects.ultima_do_diario(id_diario)
                         if ultima is not None:
                             respondido = json.loads(ultima.respondido)
-                            url_sala_coordenacao = respondido["url_sala_coordenacao"]
-                            diario["coordenacaourl"] = url_sala_coordenacao
+                            diario["coordenacaourl"] = respondido["url_sala_coordenacao"]
                     except Exception as e:
                         logging.error(e)
                         sentry_sdk.capture_exception(e)
