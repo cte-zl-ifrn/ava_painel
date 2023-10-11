@@ -102,14 +102,16 @@ def get_diarios(
                     diario["id_diario"] = id_diario_hash
 
             def _merge_extra_urls(diario: dict):
-                if "id_diario" in diario:
-                    id_diario = diario["id_diario"][1:]
+                id_diario = diario.get("id_diario")
+                if id_diario is not None and len(id_diario) > 1 and id_diario[1:].isdigit():
+                    id_diario = int(id_diario[1:])
                     diario["suapsurl"] = f"{settings.SUAP_BASE_URL}/edu/diario/{id_diario}/"
-                    diario["syncsurl"] = reverse("painel:syncs", kwargs={"id_diario": id_diario})
                     diario["gradesurl"] = re.sub("/course/view", "/grade/report/user/index", diario["viewurl"])
                     try:
+                        return
                         ultima = Solicitacao.objects.ultima_do_diario(id_diario)
                         if ultima is not None:
+                            diario["syncsurl"] = reverse("painel:syncs", kwargs={"id_diario": id_diario})
                             respondido = json.loads(ultima.respondido)
                             diario["coordenacaourl"] = respondido["url_sala_coordenacao"]
                     except Exception as e:
