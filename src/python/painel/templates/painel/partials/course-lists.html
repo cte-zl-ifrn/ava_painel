@@ -3,14 +3,19 @@
      aria-labelledby="nav-{{ list_name }}-tab"
      role="tabpanel">
     <div id="course-views">
-        <div class="course-list">
+        <div class="course-list" v-if="!is_filtering">
             <div v-show="{{ list_name }}.length == 0" class="empty-search">
                 <h3>Atenção!</h3>
                 <p>
-                    Não existem <strong>{{ list_alias }}</strong> que atendam ao filtro informado. Para mostrar tudo limpe os filtros, e no segundo campo escolher a opção "♾️ Todos os diários".
+                    Não existem <strong>{{ list_alias }}</strong> que atendam ao <b>filtro informado</b>. Para mostrar tudo limpe os filtros clicando no botão "Ver tod{{list_genero}}s {{ list_alias }}".
                 </p>
                 <p>
-                    Também é possível que a Secretaria Acadêmica ainda não tenha lhe inserido em algum diário, neste caso, por favor aguarde.
+                    <button type="button"
+                            class="btn btn-success button-center"
+                            v-on:click="clearFilterSeeAll()">Ver tod{{list_genero}}s {{ list_alias }}</button>
+                </p>
+                <p>
+                    É possível que a Secretaria Acadêmica ainda não tenha lhe inserido em diário algum, neste caso, por favor aguarde.
                 </p>
             </div>
             <div v-for="card in {{ list_name }}" class="course-listitem">
@@ -34,7 +39,12 @@
                         <div class="course-dados">
                             <div class="course-codigo">
                                 <span v-if="card.turma">
-                                    <span class="course-turma">[[ card.turma ]]</span>
+                                    <span class="course-turma"><span v-on:click="favourite(card)"
+                                            type="button"
+                                            title="Favoritar este diário para mim">
+                                            <span v-if="card.isfavourite"><i class="fa fa-star"></i></span>
+                                            <span v-if="!card.isfavourite"><i class="fa fa-star-o"></i></span>
+                                        </span> [[ card.turma ]]</span>
                                     <span class="course-componente">[[ card.componente ]]</span>
                                     <span class="course-id_diario">[[ card.id_diario ]]</span>
                                 </span>
@@ -66,6 +76,16 @@
                             <div class="course-acao dropdown">
                                 <i data-bs-toggle="dropdown" class="icon fa fa-bars fa-fw"></i>
                                 <ul class="dropdown-menu">
+                                    <li>
+                                        <div v-on:click="favourite(card)"
+                                            type="button"
+                                            class="dropdown-item"
+                                            title="Favoritar este diário para mim">
+                                            <span v-if="card.isfavourite"><i class="fa fa-star"></i> Desfavoritar</span>
+                                            <span v-if="!card.isfavourite"><i class="fa fa-star-o"></i> Favoritar</span>
+
+                                        </div>
+                                    </li>
                                     <li>
                                         <a class="dropdown-item" v-bind:href="[[ card.viewurl ]]">
                                             <i class="fa fa-link"></i> Ver no AVA

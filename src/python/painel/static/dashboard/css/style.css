@@ -768,14 +768,18 @@ main>div>aside {
     align-items: center;
     justify-content: center;
     border-radius: var(--default-border-radius);
-    width: 44px;
+    min-width: 44px;
     height: 44px;
 }
 
 .courses.compact .course-acao.course-visible,
-.courses.compact .course-acao.dropdown,
+.courses.compact .course-acao.course-favourite,
 .courses.compact .course-curso {
     display: none;
+}
+
+.courses.compact .course-acao.dropdown {
+    margin-top: 6px;
 }
 
 .courses.compact .course-disciplina>a {
