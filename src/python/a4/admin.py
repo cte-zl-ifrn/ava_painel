@@ -10,6 +10,7 @@ from django.contrib.auth.models import Group
 from django.shortcuts import get_object_or_404, redirect
 from base.admin import BaseModelAdmin
 from .models import Usuario, Grupo
+from .resources import UsuarioResource
 
 site.unregister(Group)
 
@@ -96,6 +97,7 @@ class UsuarioAdmin(BaseModelAdmin):
     ]
     readonly_fields: Sequence[str] = ["date_joined", "first_login", "last_login", "last_json"]
     # autocomplete_fields: Sequence[str] = ['groups']
+    resource_classes = [UsuarioResource]
 
     @display
     def auth(self, obj):
