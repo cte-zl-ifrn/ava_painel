@@ -28,13 +28,13 @@
             "path": "../moodle__theme_moove"
         },
         {
-            "path": "../ifrn_ssh"
-        },
-        {
             "path": "../moodle__profilefield_json"
         },
         {
             "path": "../moodle-tools_suap_archiver"
+        },
+        {
+            "path": "../github"
         }
     ],
     "settings": {
