@@ -31,10 +31,10 @@
             "path": "../moodle__profilefield_json"
         },
         {
-            "path": "../moodle-tools_suap_archiver"
+            "path": "../github"
         },
         {
-            "path": "../github"
+            "path": "../moodle-tool_suap_archiver"
         }
     ],
     "settings": {

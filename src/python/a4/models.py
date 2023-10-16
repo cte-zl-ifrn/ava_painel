@@ -2,10 +2,10 @@ from django.utils.translation import gettext as _
 from django.conf import settings
 from django.db.models import ForeignKey, PROTECT, CharField, DateTimeField, EmailField, TextField
 from django.http import HttpRequest
-from django.contrib.auth.models import AbstractUser, Group as OrignalGroup
+from django.contrib.auth.models import AbstractUser, Group as OrignalGroup, UserManager
 from django_better_choices import Choices
 from simple_history.models import HistoricalRecords
-from safedelete.models import SafeDeleteModel
+from safedelete.models import SafeDeleteModel, SafeDeleteManager
 
 
 def logged_user(request: HttpRequest):
@@ -35,6 +35,10 @@ TipoUsuario.COLABORADORES_KEYS = [
     TipoUsuario.TECNICO,
     TipoUsuario.PRESTADOR,
 ]
+
+
+class UsuarioManager(SafeDeleteManager, UserManager):
+    pass
 
 
 class Usuario(SafeDeleteModel, AbstractUser):
@@ -83,6 +87,8 @@ class Usuario(SafeDeleteModel, AbstractUser):
     last_json = TextField(_("último JSON"), null=True, blank=True)
 
     history = HistoricalRecords()
+
+    objects = UsuarioManager()
 
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "username"
