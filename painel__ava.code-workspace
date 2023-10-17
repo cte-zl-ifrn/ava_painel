@@ -31,9 +31,6 @@
             "path": "../moodle__profilefield_json"
         },
         {
-            "path": "../github"
-        },
-        {
             "path": "../moodle-tool_suap_archiver"
         }
     ],

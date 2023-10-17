@@ -44,13 +44,6 @@ for repo in 'django-adminlte3' 'moodle__profilefield_json'; do
 done
 
 
-if [[ ! -d ../github ]]; then
-    echo "Clonando github"
-    git clone https://github.com/kelsoncm/github.git ../github
-else
-    echo "Repositório github já foi clonado anteriormente?"
-fi
-
 mkdir -p volumes/moodle_data && chmod 777 volumes/moodle_data
 
 echo ""; echo_info "Sobe o cache e o db em background"
@@ -62,3 +55,12 @@ _/build
 echo ""; echo_info "Reiniciando o mundo novamente"
 _/restart
 _/logs
+
+
+
+# if [[ ! -d ../docs ]]; then
+#     echo "Clonando docs"
+#     git clone https://github.com/kelsoncm/.github.git ../docs
+# else
+#     echo "Repositório docs já foi clonado anteriormente?"
+# fi
