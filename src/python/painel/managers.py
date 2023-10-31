@@ -89,7 +89,7 @@ class DiarioManager(Manager):
             solicitacao.status_code = retorno.status_code
             solicitacao.save()
 
-            self._make(campus, pkg)
+            # self._make(campus, pkg)
 
             return solicitacao.respondido
         except Exception as e:
