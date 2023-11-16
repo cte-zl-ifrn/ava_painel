@@ -93,6 +93,8 @@ services:
       - '../moodle__block_suapattendance:/var/www/html/blocks/suapattendance'
       - '../moodle__theme_moove:/var/www/html/theme/moove'
       - '../moodle__profilefield_json:/var/www/html/user/profile/field/json'
+      - '../H5P.TextEditor/hacks/h5peditor.class.php:/var/www/html/h5p/h5plib/v124/joubel/editor/h5peditor.class.php'
+      - '../H5P.TextEditor/h5peditor-tinymce.js:/var/www/html/h5p/h5plib/v124/joubel/editor/scripts/h5peditor-tinymce.js'
       # Data
       - './volumes/moodle_data:/var/moodledata'
     depends_on:

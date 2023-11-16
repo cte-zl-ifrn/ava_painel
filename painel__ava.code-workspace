@@ -32,6 +32,9 @@
         },
         {
             "path": "../moodle-tool_suap_archiver"
+        },
+        {
+            "path": "../H5P.TextEditor"
         }
     ],
     "settings": {

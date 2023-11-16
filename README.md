@@ -10,13 +10,14 @@ Neste projeto, além do Painel AVA, foi colocado um Fake SUAP, para emular o fun
 
 ## Como funciona
 
-**Como desenvolvedor** - no `local_settings.py` do SUAP configure as variáveis (`MOODLE_SYNC_URL` e `MOODLE_SYNC_TOKEN`), no Painel AVA configure o mesmo token que você configurou no SUAP. Para cada  Moodle a ser integrado instale o plugin `auth_suap` e cadastre no Painel AVA como um "Ambiente".
+**Como desenvolvedor** - no `local_settings.py` do SUAP configure as variáveis (`MOODLE_SYNC_URL` e `MOODLE_SYNC_TOKEN`), no Painel AVA configure o mesmo token que você configurou no SUAP. Para cada Moodle a ser integrado instale o plugin `auth_suap` e cadastre no Painel AVA como um "Ambiente".
 
 **Como usuário** - no SUAP, o secretário acadêmico autoriza cada diário a ser integrado ao Moodle, na página do diário no SUAP o professor clica em "Sincronizar" e a mágica se faz, ou seja, o SUAP envia para o Painel AVA que, com base na sigla do campus, decide para qual Moodle encaminhar a requisição de integração, o Moodle cadastra/atualiza as categorias (Campus, Diário, Semestre, Turma), o curso, os pólos como grupos do curso e os professores e alunos, então inscreve os professores (Formador e Tutor) e os alunos, por fim, arrola os alunos nos grupos de seus respectivos pólos.
 
 As variáveis de ambiente no SUAP têm as seguintes definições:
-- `MOODLE_SYNC_URL` - URL do Painel AVA
-- `MOODLE_SYNC_TOKEN` - o token deve ser o mesmo que você vai configurar ao cadastrar o SUAP no Painel AVA, é usada para autenticação do SUAP, guarde segredo desta chave.
+
+-   `MOODLE_SYNC_URL` - URL do Painel AVA
+-   `MOODLE_SYNC_TOKEN` - o token deve ser o mesmo que você vai configurar ao cadastrar o SUAP no Painel AVA, é usada para autenticação do SUAP, guarde segredo desta chave.
 
 ## Como iniciar o desenvolvimento
 
@@ -35,6 +36,11 @@ cd painel__ava
 # Baixa as dependencias, instala o sistema, um suap fake e 1 moodle para teste
 _/deploy
 
+# Atualiza o h5p no container do AVA
+docker compose exec ava php admin/cli/scheduled_task.php -f --showdebugging --execute='\core\task\h5p_get_content_types_task'
+
+# Exedcuta as crons tasks
+docker compose exec ava php admin/cli/cron.php
 
 # Se você usa o VSCode
 code painel__ava.code-workspace
@@ -54,27 +60,26 @@ _/painel/debug
 
 ## oAuth2 do SUAP
 
-- É obrigatório ao menos um dos escopos `identificacao` ou `email`, os quais retornam os atributos:
-  - `identificacao` - NUMÉRICO - **é o IFid do usuário**, no caso: matrícula para alunos ou servidores e CPF para demais colaboradores
-  - `nome_social` - ALFANUMÉRICO - **nome social**, este é o informado pelo indivíduo, não se trata de apelido, mas sim de nome social, conforme legislação
-  - `nome_usual` - ALFANUMÉRICO - **nome usual**, escolhido pelo indivíduo na interface do SUAP
-  - `nome_registro` - ALFANUMÉRICO - **nome civil**, este é conforme está no registro civil do indivíduo
-  - `nome` - ALFANUMÉRICO - **nome completo**, para compatibilidade com APIs que não sabem tratar nome e sobrenome separados
-  - `primeiro_nome` - ALFANUMÉRICO - **primeiro nome**, para compatibilidade com APIs que não sabem tratar nome e sobrenome juntos
-  - `ultimo_nome` - ALFANUMÉRICO - **último nome**, para compatibilidade com APIs que não sabem tratar nome e sobrenome juntos
-  - `campus` - ALFANUMÉRICO - **sigla do campus** do aluno ou servidor, caso exista, não se aplica aos demais colaboradores
-  - `email_preferencial` - EMAIL - **email preferencial** para comunicação, caso exista, para servidores é o mesmo que o `email`, para alunos e demais colaboradores `email_secundario`, salvo se a instituição tiver criado um mecanismo que permita ao usuário escolher qual é seu email preferencial.
-  - `email` - EMAIL - **email do servidor**, caso exista, apenas para servidores
-  - `email_secundario` - EMAIL - **email pessoal**, caso exista, o mesmo usado para recuperação de senha, para todos
-  - `email_google_classroom` - EMAIL - **email do Google Suite**, caso exista, apenas para alunos e servidores
-  - `email_academico` - EMAIL - **email da Microsoft 365**, caso exista, apenas para alunos e servidores
-  - `foto` - URL - **URL da foto no SUAP**, assim poderá ser usada a mesma foto em todos os ambientes
-- Já o escopo `documentos_pessoais` retorna os atributos:
-  - `cpf` - NUMÉRICO - **CPF** do indivíduo, útil para os casos de integração com gov.br ou para informar que possui outras contas no sistema. Poderá ser necessário novo login para trocar de conta.
-  - `data_de_nascimento` - DATA - **data de nascimento**, ajuda a identificar indivíduos menos de idade, entre outros
-  - `sexo` - ALFANUMÉRICO - **sexo**
-  - No futuro poderá retornar dados de **necessidades especiais**, assim os sistemas já adaptarão as interfaces a estas necessidades.
-
+-   É obrigatório ao menos um dos escopos `identificacao` ou `email`, os quais retornam os atributos:
+    -   `identificacao` - NUMÉRICO - **é o IFid do usuário**, no caso: matrícula para alunos ou servidores e CPF para demais colaboradores
+    -   `nome_social` - ALFANUMÉRICO - **nome social**, este é o informado pelo indivíduo, não se trata de apelido, mas sim de nome social, conforme legislação
+    -   `nome_usual` - ALFANUMÉRICO - **nome usual**, escolhido pelo indivíduo na interface do SUAP
+    -   `nome_registro` - ALFANUMÉRICO - **nome civil**, este é conforme está no registro civil do indivíduo
+    -   `nome` - ALFANUMÉRICO - **nome completo**, para compatibilidade com APIs que não sabem tratar nome e sobrenome separados
+    -   `primeiro_nome` - ALFANUMÉRICO - **primeiro nome**, para compatibilidade com APIs que não sabem tratar nome e sobrenome juntos
+    -   `ultimo_nome` - ALFANUMÉRICO - **último nome**, para compatibilidade com APIs que não sabem tratar nome e sobrenome juntos
+    -   `campus` - ALFANUMÉRICO - **sigla do campus** do aluno ou servidor, caso exista, não se aplica aos demais colaboradores
+    -   `email_preferencial` - EMAIL - **email preferencial** para comunicação, caso exista, para servidores é o mesmo que o `email`, para alunos e demais colaboradores `email_secundario`, salvo se a instituição tiver criado um mecanismo que permita ao usuário escolher qual é seu email preferencial.
+    -   `email` - EMAIL - **email do servidor**, caso exista, apenas para servidores
+    -   `email_secundario` - EMAIL - **email pessoal**, caso exista, o mesmo usado para recuperação de senha, para todos
+    -   `email_google_classroom` - EMAIL - **email do Google Suite**, caso exista, apenas para alunos e servidores
+    -   `email_academico` - EMAIL - **email da Microsoft 365**, caso exista, apenas para alunos e servidores
+    -   `foto` - URL - **URL da foto no SUAP**, assim poderá ser usada a mesma foto em todos os ambientes
+-   Já o escopo `documentos_pessoais` retorna os atributos:
+    -   `cpf` - NUMÉRICO - **CPF** do indivíduo, útil para os casos de integração com gov.br ou para informar que possui outras contas no sistema. Poderá ser necessário novo login para trocar de conta.
+    -   `data_de_nascimento` - DATA - **data de nascimento**, ajuda a identificar indivíduos menos de idade, entre outros
+    -   `sexo` - ALFANUMÉRICO - **sexo**
+    -   No futuro poderá retornar dados de **necessidades especiais**, assim os sistemas já adaptarão as interfaces a estas necessidades.
 
 ## Screenshots
 
@@ -83,52 +88,56 @@ O design ficará como os designs [web](https://xd.adobe.com/view/00dc014e-8919-4
 ### v4 - Melhorias na UX
 
 #### Desktop
+
 ![screenshot](docs/images/screenshot.v4.png)
 
 #### Mobile
+
 ![screenshot](docs/images/screenshot.mobile.v4.png)
 
 ### v3 - Uso comum por aluno, tutor e professor
 
 #### Desktop
+
 ![screenshot](docs/images/screenshot.v3.jpg)
 
 #### Mobile
+
 ![screenshot](docs/images/screenshot.mobile.v3.png)
 
 ### v2 - Hiper focado no aluno
 
 #### Desktop
+
 ![screenshot](screenshot.v2.png)
 
 ### v1 - Esforço urgente, sem projeto de UX
 
 #### Desktop
+
 ![screenshot](screenshot.v1.png)
 
 ## Plugins previstos
 
 1. suap sync (local)
-   1. importar as inscrições (alunos e professores) dos diários
-   2. exportar as presenças dos alunos
-   3. exportar as notas dos alunos
+    1. importar as inscrições (alunos e professores) dos diários
+    2. exportar as presenças dos alunos
+    3. exportar as notas dos alunos
 2. suap attendances (block)
-   1. configurar o modelo de cálculo de presenças
-   2. permitir que os professores visualizem as presenças
-   3. permitir que os alunos visualizem as presenças
+    1. configurar o modelo de cálculo de presenças
+    2. permitir que os professores visualizem as presenças
+    3. permitir que os alunos visualizem as presenças
 3. suap auth (auth)
-   1. autênticar usando o oauth do SUAP
-   2. auto inscrever os alunos ao fazer login
-
+    1. autênticar usando o oauth do SUAP
+    2. auto inscrever os alunos ao fazer login
 
 ## Tipo de commits
 
-- `feat:` novas funcionalidades.
-- `fix:` correção de bugs.
-- `refactor:` refatoração ou performances (sem impacto em lógica).
-- `style:` estilo ou formatação de código (sem impacto em lógica).
-- `test:` testes.
-- `doc:` documentação no código ou do repositório.
-- `env:` CI/CD ou settings.
-- `build:` build ou dependências.
-
+-   `feat:` novas funcionalidades.
+-   `fix:` correção de bugs.
+-   `refactor:` refatoração ou performances (sem impacto em lógica).
+-   `style:` estilo ou formatação de código (sem impacto em lógica).
+-   `test:` testes.
+-   `doc:` documentação no código ou do repositório.
+-   `env:` CI/CD ou settings.
+-   `build:` build ou dependências.
