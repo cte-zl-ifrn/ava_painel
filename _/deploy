@@ -20,7 +20,7 @@ if ! grep -q 'PAINEL-AVA' /etc/hosts; then
 fi
 
 pwd=`pwd`
-for repo in 'moodle__local_suap' 'moodle__auth_suap' 'moodle__enrol_suap' 'moodle__theme_moove' 'moodle__block_suapattendance' 'moodle__image' 'moodle-tool_suap_archiver'; do
+for repo in 'moodle__local_suap' 'moodle__auth_suap' 'moodle__enrol_suap' 'moodle__theme_moove' 'moodle__block_suapattendance' 'moodle__image' 'moodle-tool_suap_archiver' 'H5P.TextEditor'; do
     if [[ ! -d ../$repo ]]; then
         echo "Clonando $repo"
         git clone https://github.com/cte-zl-ifrn/$repo.git ../$repo
