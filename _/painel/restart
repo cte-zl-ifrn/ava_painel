@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 source _/functions
 
-docker compose restart $SERVICE_NAME
-# _/$SERVICE_NAME/down
-# _/$SERVICE_NAME/up -d
+# docker compose restart $SERVICE_NAME
+_/$SERVICE_NAME/down
+_/$SERVICE_NAME/up -d

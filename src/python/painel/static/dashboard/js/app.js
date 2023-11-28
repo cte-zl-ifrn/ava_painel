@@ -87,10 +87,13 @@ export default {
         // },
 
         restoreState() {
-            document.getElementById('grid-filter').classList.remove('hide_this');
-            if (!$(".view-toggler").is(":checked")) {
-                const lastView = ["default", "compact"].includes(localStorage.view_toggler) ? localStorage.view_toggler : 'default';
-                $('#toggler-' + lastView).prop('checked', true)
+            let grid_filter = document.getElementById('grid-filter')
+            if (grid_filter) {
+                grid_filter.classList.remove('hide_this');
+                if (!$(".view-toggler").is(":checked")) {
+                    const lastView = ["default", "compact"].includes(localStorage.view_toggler) ? localStorage.view_toggler : 'default';
+                    $('#toggler-' + lastView).prop('checked', true)
+                }
             }
         },
 

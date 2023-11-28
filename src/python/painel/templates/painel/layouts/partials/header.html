@@ -1,7 +1,7 @@
 {% load static %}
 <header id="header">
     <div class="header-wrapper">
-        <a href="{% url "painel:dashboard" %}" aria-label='Voltar para o início'>
+        <a href="{% url 'painel:dashboard' %}" aria-label='Voltar para o início'>
             <div class="header-brand"></div>
         </a>
         <div class="nav-navigation">
@@ -123,7 +123,7 @@
                                class="icon fa fa-comment-o fa-fw "
                                title="messagen drawer"
                                role="img"
-                               aria-label="messagen drawer"></i><span v-if="unread_conversations_total > 0" class="icon-count">[[unread_conversations_total]]</span>
+                               aria-label="messagen drawer"></i><span v-if="unread_conversations_total > -1" class="icon-count">[[unread_conversations_total]]</span>
                             <ul class="dropdown-menu menu-messages"
                                 aria-labelledby="dropdownConversations">
                                 <li>
@@ -148,7 +148,7 @@
                            class="icon fa fa-bell-o fa-fw"
                            title="messagen drawer"
                            role="img"
-                           aria-label="messagen drawer"></i><span v-if="unread_notification_total > 0"  class="icon-count">[[unread_notification_total]]</span>
+                           aria-label="messagen drawer"></i><span v-if="unread_notification_total > -1"  class="icon-count">[[unread_notification_total]]</span>
                         <ul class="dropdown-menu menu-notifications"
                             aria-labelledby="dropdownMenuNotifications">
                             <li>

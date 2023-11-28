@@ -1,3 +1,4 @@
+{% load static %}
 <div class="tab-pane fade {{ extra_class }}"
      id="nav-{{ list_name }}"
      aria-labelledby="nav-{{ list_name }}-tab"
@@ -63,27 +64,17 @@
                                  :style="{ backgroundColor: card.ambiente.cor_progresso , borderColor: card.ambiente.cor_progresso + ' !important' }">
                                 [[ card.progress ]]%
                             </div>
-                            <div v-else
-                                 class="course-progresso"
-                                 style="display: none;
-                                        visibility: hidden">[[ card.progress ]]%</div>
-                            <div v-on:click="favourite(card)"
-                                 type="button"
-                                 class="course-acao course-favourite"
-                                 title="Favoritar este diário para mim">
+                            <div v-else class="course-progresso" style="display: none; visibility: hidden">[[ card.progress ]]%</div>
+                            <div v-on:click="favourite(card)" type="button" class="course-acao course-favourite" title="Favoritar este diário para mim">
                                 <i class="fa fa-star-o" v-if="!card.isfavourite"></i><i class="fa fa-star" v-else></i>
                             </div>
                             <div class="course-acao dropdown">
                                 <i data-bs-toggle="dropdown" class="icon fa fa-bars fa-fw"></i>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <div v-on:click="favourite(card)"
-                                            type="button"
-                                            class="dropdown-item"
-                                            title="Favoritar este diário para mim">
+                                        <div v-on:click="favourite(card)" type="button" class="dropdown-item" title="Favoritar este diário para mim">
                                             <span v-if="card.isfavourite"><i class="fa fa-star"></i> Desfavoritar</span>
                                             <span v-if="!card.isfavourite"><i class="fa fa-star-o"></i> Favoritar</span>
-
                                         </div>
                                     </li>
                                     <li>
@@ -93,7 +84,7 @@
                                     </li>
                                     <li v-if="card.gradesurl">
                                         <a class="dropdown-item" v-bind:href="[[ card.gradesurl ]]">
-                                            <i class="fa fa-th"></i> Ver notas
+                                            <i class="fa fa-th"></i> Ver quadro de notas
                                         </a>
                                     </li>
                                     <li v-if="card.coordenacaourl">
@@ -113,9 +104,14 @@
                                             <span v-if='card.visible == "0"'> Liberar para os alunos</span>
                                         </a>
                                     </li>
-                                    <li v-if="card.syncsurl && card.can_set_visibility == 1">
+                                    <li v-if="card.syncsurl && card.can_view_syncsurl == 1">
                                         <a class="dropdown-item" v-bind:href="[[ card.syncsurl ]]">
                                             <i class="fa fa-refresh"></i> Ver sincronizações
+                                        </a>
+                                    </li>
+                                    <li v-if="card.checkgradesurl && card.can_check_grades">
+                                        <a class="dropdown-item" v-bind:href="[[ card.checkgradesurl ]]">
+                                            <i class="fa fa-refresh"></i> Conferir quadro de notas
                                         </a>
                                     </li>
                                 </ul>

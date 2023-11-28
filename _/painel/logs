@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 source _/functions
-echo_info "Status dos serviços"
+echo_info "Log do $SERVICE_NAME"
 docker compose logs $SERVICE_NAME -f $@

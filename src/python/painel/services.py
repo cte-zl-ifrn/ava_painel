@@ -8,7 +8,8 @@ from typing import Dict, List, Union, Any
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.conf import settings
-from sc4net import get_json
+import requests
+from http.client import HTTPException
 from .models import Ambiente, Curso
 from middleware.models import Solicitacao
 
@@ -38,17 +39,38 @@ CURSOS_CACHE = {}
 CHANGE_URL = re.compile("/course/view.php\?")
 
 
-def get_json_api(ava: Ambiente, url: str, **params: dict):
+def requests_get(url, headers={}, encoding="utf-8", decode=True, **kwargs):
+    response = requests.get(url, headers=headers, **kwargs)
+
+    if response.ok:
+        byte_array_content = response.content
+        return byte_array_content.decode(encoding) if decode and encoding is not None else byte_array_content
+    else:
+        exc = HTTPException("%s - %s" % (response.status_code, response.reason))
+        exc.status = response.status_code
+        exc.reason = response.reason
+        exc.headers = response.headers
+        exc.url = url
+        raise exc
+
+
+def get_json(url, headers={}, encoding="utf-8", json_kwargs=None, **kwargs):
+    content = requests_get(url, headers=headers, encoding=encoding, **kwargs)
+    return json.loads(content, **(json_kwargs or {}))
+
+
+def get_json_api(ava: Ambiente, service: str, **params: dict):
     try:
         if params is not None:
             querystring = "&".join([f"{k}={v}" for k, v in params.items() if v is not None])
         else:
             querystring = ""
-        content = get_json(f"{ava.base_api_url}/?{url}&{querystring}", headers={"Authentication": f"Token {ava.token}"})
-        print(content)
+        url = f"{ava.base_api_url}/?{service}&{querystring}"
+        content = get_json(url, headers={"Authentication": f"Token {ava.token}"})
         return content
     except Exception as e:
-        print(e)
+        logging.error(e)
+        sentry_sdk.capture_exception(e)
 
 
 def get_diarios(
@@ -100,11 +122,22 @@ def get_diarios(
                 if len(diario_re) > 0 and len(diario_re[0]) >= CODIGO_DIARIO_ID_DIARIO_INDEX:
                     id_diario_hash = diario_re[0][CODIGO_DIARIO_ID_DIARIO_INDEX]
                     diario["id_diario"] = id_diario_hash
+                    diario["id_diario_clean"] = int(id_diario_hash[1:]) if id_diario_hash else None
 
-            def _merge_extra_urls(diario: dict):
-                id_diario = diario.get("id_diario")
-                if id_diario is not None and len(id_diario) > 1 and id_diario[1:].isdigit():
-                    id_diario = int(id_diario[1:])
+            def _merge_extra_urls(diario: dict, ava: Ambiente):
+                id_diario = diario.get("id_diario_clean", None)
+
+                if diario.get("can_set_visibility") and id_diario:
+                    diario["can_check_grades"] = True
+                    diario["checkgradesurl"] = reverse(
+                        "painel:checkgrades", kwargs={"id_ambiente": ava["ambiente"]["id"], "id_diario": id_diario}
+                    )
+
+                if diario.get("can_set_visibility") and id_diario:
+                    diario["can_view_syncsurl"] = True
+                    diario["syncsurl"] = reverse("painel:syncs", kwargs={"id_diario": id_diario})
+
+                if id_diario:
                     diario["suapsurl"] = f"{settings.SUAP_BASE_URL}/edu/diario/{id_diario}/"
                     diario["gradesurl"] = re.sub("/course/view", "/grade/report/user/index", diario["viewurl"])
                     try:
@@ -132,7 +165,7 @@ def get_diarios(
                 _merge_turma(diario, diario_re)
                 _merge_componente(diario, diario_re)
                 _merge_id_diario(diario, diario_re)
-                _merge_extra_urls(diario)
+                _merge_extra_urls(diario, ambiente)
             elif pratica_re:
                 _merge_curso(diario, pratica_re)
                 _merge_turma(diario, pratica_re)
@@ -145,6 +178,7 @@ def get_diarios(
             ambiente = params["ambiente"]
             ambientedict = {
                 "ambiente": {
+                    "id": ambiente.id,
                     "titulo": ambiente.nome,
                     "cor_mestra": ambiente.cor_mestra,
                     "cor_degrade": ambiente.cor_degrade,
@@ -249,21 +283,21 @@ def get_atualizacoes_counts(username: str) -> dict:
             ava = params["ava"]
 
             counts = get_json_api(ava, "get_atualizacoes_counts", username=params["username"])
-            counts["ambiente"] = {
-                "titulo": re.subn("🟥 |🟦 |🟧 |🟨 |🟩 |🟪 ", "", ava.nome)[0],
-                "cor_mestra": ava.cor_mestra,
-                "cor_degrade": ava.cor_degrade,
-                "cor_progresso": ava.cor_progresso,
-                "notifications_url": f"{ava.base_url}/message/output/popup/notifications.php",
-                "conversations_url": f"{ava.base_url}/message/",
-            }
-            params["results"]["atualizacoes"].append(counts)
-            params["results"]["unread_notification_total"] = sum(
-                [c["unread_popup_notification_count"] for c in params["results"]["atualizacoes"]]
-            )
-            params["results"]["unread_conversations_total"] = sum(
-                [c["unread_conversations_count"] for c in params["results"]["atualizacoes"]]
-            )
+            # counts["ambiente"] = {
+            #     "titulo": re.subn("🟥 |🟦 |🟧 |🟨 |🟩 |🟪 ", "", ava.nome)[0],
+            #     "cor_mestra": ava.cor_mestra,
+            #     "cor_degrade": ava.cor_degrade,
+            #     "cor_progresso": ava.cor_progresso,
+            #     "notifications_url": f"{ava.base_url}/message/output/popup/notifications.php",
+            #     "conversations_url": f"{ava.base_url}/message/",
+            # }
+            # params["results"]["atualizacoes"].append(counts)
+            # params["results"]["unread_notification_total"] = sum(
+            #     [c["unread_popup_notification_count"] for c in params["results"]["atualizacoes"]]
+            # )
+            # params["results"]["unread_conversations_total"] = sum(
+            #     [c["unread_conversations_count"] for c in params["results"]["atualizacoes"]]
+            # )
 
         except Exception as e:
             logging.error(e)

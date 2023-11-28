@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        {% block head %}
+            {% include 'painel/layouts/partials/head.html' %}
+        {% endblock head %}
+    </head>
+   
+    <body>
+        {% block header %}
+            {% include 'painel/layouts/partials/header.html' %}
+        {% endblock header %}
+        {% block pre_loading %}
+            <div id="pre-loading">
+                <div id="search-loader" v-if="is_filtering">
+                    <p>Por favor, aguarde o carregamento do Painel AVA.</p>
+                    {% include 'painel/layouts/partials/mosaic-loader.html' %}
+                </div>
+            </div>
+        {% endblock pre_loading %}
+        {% block main %}
+            <main id="app">
+                <div>
+                    <section>
+                        <h1 id="dashboard-title">Painel AVA</h1>
+                        <div class="wrapper">
+                            <div class="row filter-wrapper">
+                                <!-- sidebar -->
+                                <div class="sidebar-offcanvas" id="sidebar">
+                                    <a data-toggle="offcanvas" @click="toggleNavBar($event)">
+                                        <div class="toggle-filter">
+                                            <p>
+                                                <i class="fa fa-angle-left"></i><i class="fa fa-angle-right"></i>
+                                            </p>
+                                        </div>
+                                    </a>
+                                    {% block sidebar %}
+                                    {% endblock sidebar %}
+                                </div>
+                                <!-- /sidebar -->
+                                <!-- main -->
+                                <div id="main">
+                                    {% block main_content %}
+                                    {% endblock main_content %}                                
+                                </div>
+                                <!-- /main -->
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </main>
+        {% endblock main %}
+        {% block footer %}
+            {% include 'painel/layouts/partials/footer.html' %}
+        {% endblock footer %}
+        {% block popup %}
+            {% include 'painel/layouts/partials/popup.html' %}
+        {% endblock popup %}
+        {% block foot_pre %}
+            {% include 'painel/layouts/partials/foot_pre.html' %}
+        {% endblock foot_pre %}
+        {% block foot_custom %}
+        {% endblock foot_custom %}
+        {% block foot_pos %}
+            {% include 'painel/layouts/partials/foot_pos.html' %}
+        {% endblock foot_pos %}
+    </body>
+</html>
