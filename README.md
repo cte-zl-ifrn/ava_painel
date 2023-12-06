@@ -73,13 +73,13 @@ services:
       # 2. Crie um project no Sentr.io e pegue a DNS
       # SENTRY_DNS=https://key@id.ingest.sentry.io/id
 
-      # 3. Crie uma aplicação oAuth2 no SUAP e pegue o client_id e o client_secret
+      # 3. Crie uma "Aplicações OAUTH2" no SUAP e pegue o client_id e o client_secret
       - SUAP_OAUTH_CLIENT_ID=changeme
       - SUAP_OAUTH_CLIENT_SECRET=changeme
       - SUAP_OAUTH_BASE_URL=https://suap.yourhost.edu.br
       - SUAP_OAUTH_REDIRECT_URI=https://ava.yourhost.edu.br/painel/authenticate/
 
-      # 4. Crie uma aplicação oAuth2 no SUAP e pegue o client_id e o client_secret
+      # 4. Atribua o token de integração do SUAP
       - SUAP_INTEGRADOR_KEY=changeme
 
       # 5. Se cadastre no https://userway.org/ e registre o token da conta

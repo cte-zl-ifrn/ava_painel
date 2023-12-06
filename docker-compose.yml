@@ -55,7 +55,7 @@ services:
       - SUAP_OAUTH_BASE_URL=https://suap.ifrn.edu.br
       - SUAP_OAUTH_REDIRECT_URI=http://ava/painel/authenticate/
 
-      # 4. Crie uma aplicação oAuth2 no SUAP e pegue o client_id e o client_secret
+      # 4. Atribua o token de integração do SUAP
       - SUAP_INTEGRADOR_KEY=changeme
 
       # 5. Se cadastre no https://userway.org/ e registre o token da conta
