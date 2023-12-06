@@ -138,7 +138,7 @@ def get_diarios(
                     diario["syncsurl"] = reverse("painel:syncs", kwargs={"id_diario": id_diario})
 
                 if id_diario:
-                    diario["suapsurl"] = f"{settings.SUAP_BASE_URL}/edu/diario/{id_diario}/"
+                    diario["suapsurl"] = f"{settings.SUAP_OAUTH_BASE_URL}/edu/diario/{id_diario}/"
                     diario["gradesurl"] = re.sub("/course/view", "/grade/report/user/index", diario["viewurl"])
                     try:
                         return

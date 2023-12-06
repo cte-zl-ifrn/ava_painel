@@ -241,12 +241,11 @@ OAUTH = {
     "CLIENTE_ID": env("SUAP_OAUTH_CLIENT_ID", "changeme on docker-compose.yml"),
     "CLIENT_SECRET": env("SUAP_OAUTH_CLIENT_SECRET", "changeme on docker-compose.yml"),
     "BASE_URL": SUAP_OAUTH_BASE_URL,
-    "VERIFY_SSL": env("SUAP_VERIFY_SSL", False),
+    "VERIFY_SSL": env("SUAP_OAUTH_VERIFY_SSL", False),
 }
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
 
 SUAP_INTEGRADOR_KEY = env("SUAP_INTEGRADOR_KEY", "changeme")
-SUAP_PAINEL_FAKEUSER = env("SUAP_PAINEL_FAKEUSER", None)
 
 CORS_ORIGIN_ALLOW_ALL = env_as_bool("DJANGO_CORS_ORIGIN_ALLOW_ALL", False)
 CORS_ALLOWED_ORIGINS = env_as_list("DJANGO_CORS_ALLOWED_ORIGINS", [SUAP_OAUTH_BASE_URL])
