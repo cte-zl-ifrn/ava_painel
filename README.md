@@ -19,6 +19,103 @@ As variáveis de ambiente no SUAP têm as seguintes definições:
 -   `MOODLE_SYNC_URL` - URL do Painel AVA
 -   `MOODLE_SYNC_TOKEN` - o token deve ser o mesmo que você vai configurar ao cadastrar o SUAP no Painel AVA, é usada para autenticação do SUAP, guarde segredo desta chave.
 
+## Como implantar
+
+Crie um arquivo `.env` parecido com o que se segue:
+
+```env
+COMPOSE_PROJECT_NAME=ava
+```
+
+Na mesma pasta, crie um arquivo `docker-compose.yml` parecido com o que se segue:
+
+```yaml
+services:
+
+  cache:
+    image: redis:7.2-alpine
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 3s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=changeme
+    volumes:
+      - "./volumes/db_data:/var/lib/postgresql/data"
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      interval: 3s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+  painel:
+    image: ctezlifrn/avapainel:1.0.64
+    ports:
+      - 80:8000
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=changeme
+
+      - DJANGO_DEBUG=False
+      - DJANGO_ALLOWED_HOSTS=ava.yourhost.edu.br
+
+      # 1. Crie uma chave, em qualquer ferramenta, de no mímino 50 caracteres
+      - DJANGO_SECRET_KEY=changeme
+
+      # 2. Crie um project no Sentr.io e pegue a DNS
+      # SENTRY_DNS=https://key@id.ingest.sentry.io/id
+
+      # 3. Crie uma aplicação oAuth2 no SUAP e pegue o client_id e o client_secret
+      - SUAP_OAUTH_CLIENT_ID=changeme
+      - SUAP_OAUTH_CLIENT_SECRET=changeme
+      - SUAP_OAUTH_BASE_URL=https://suap.yourhost.edu.br
+      - SUAP_OAUTH_REDIRECT_URI=https://ava.yourhost.edu.br/painel/authenticate/
+
+      # 4. Crie uma aplicação oAuth2 no SUAP e pegue o client_id e o client_secret
+      - SUAP_INTEGRADOR_KEY=changeme
+
+      # 5. Se cadastre no https://userway.org/ e registre o token da conta
+      - SHOW_USERWAY=True
+      - USERWAY_ACCOUNT=changeme
+
+      - SHOW_VLIBRAS=True
+    volumes:
+      - './volumes/painel_media:/var/media'
+      - './volumes/painel_static:/var/static'
+    depends_on:
+      cache:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+    healthcheck:
+    test: ["CMD-SHELL", "curl --silent --fail https://ava.yourhost.edu.br/painel/health/ | grep 'Database: OK' || exit 1"]
+    interval: 3s
+    timeout: 1s
+    start_period: 1s
+    retries: 30
+```
+
+> O acesso ao administrativo usará o SUAP, o primeiro usuário a acessar será tornado superuser.
+
+
+Suba os serviços.
+
+```bash
+docker compose up
+```
+
+Acesse o https://ava.yourhost.edu.br/painel/admin/, cadastre os AVA em **Ambientes**, o token que você gerar para cada ambiente deverá ser utilizado no plugin do local_suap que você instalar em cada AVA.
+
+
+
 ## Como iniciar o desenvolvimento
 
 Este docker-compose assume que você não tenha aplicações rodando na porta 80, ou seja, pare o serviço que está na porta 80 ou faça as configurações necessárias vocês mesmo. O script `_/deploy` já cria automaticamente uma entrada no /etc/hosts, caso não exista, que aponta para localhost. Isso é necessário para simplificar o cenário de desenvolvimento local.
@@ -36,20 +133,12 @@ cd painel__ava
 # Baixa as dependencias, instala o sistema, um suap fake e 1 moodle para teste
 _/deploy
 
-# Atualiza o h5p no container do AVA
-docker compose exec ava php admin/cli/scheduled_task.php -f --showdebugging --execute='\core\task\h5p_get_content_types_task'
-
-# Exedcuta as crons tasks
-docker compose exec ava php admin/cli/cron.php
-
 # Se você usa o VSCode
 code painel__ava.code-workspace
 
 ```
 
 > O **Painel** estará disponível em http://ava/painel, o primeiro usuário a acessar será declarado como superusuário e poderá fazer tudo no sistema.
-
-> O **Moodle** estará disponível em http://ava/, o usuário/senha do administrador serão admin/admin.
 
 Caso você deseje fazer debug do Painel AVA, tente:
 
