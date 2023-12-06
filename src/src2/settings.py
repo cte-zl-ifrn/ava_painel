@@ -163,7 +163,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 LANGUAGE_CODE = env("DJANGO_USE_I18N", "pt-br")
 TIME_ZONE = env("DJANGO_USE_I18N", "America/Fortaleza")
 USE_I18N = env_as_bool("DJANGO_USE_I18N", True)
-USE_L10N = env_as_bool("DJANGO_USE_L10N", True)
 USE_TZ = env_as_bool("DJANGO_USE_TZ", True)
 
 
@@ -236,23 +235,21 @@ LOGOUT_REDIRECT_URL = env("DJANGO_LOGOUT_REDIRECT_URL", LOGIN_REDIRECT_URL)
 AUTH_USER_MODEL = env("DJANGO_AUTH_USER_MODEL", "a4.Usuario")
 GO_TO_HTTPS = env_as_bool("GO_TO_HTTPS", False)
 
-SUAP_BASE_URL = env("SUAP_BASE_URL", "https://suap.ifrn.edu.br")
+SUAP_OAUTH_BASE_URL = env("SUAP_OAUTH_BASE_URL", "https://suap.ifrn.edu.br")
 OAUTH = {
-    "REDIRECT_URI": env("SUAP_REDIRECT_URI", "http://ava/painel/authenticate/"),
-    "CLIENTE_ID": env("SUAP_CLIENTE_ID", "change me on confs/enabled/app.env"),
-    "CLIENT_SECRET": env("SUAP_CLIENT_SECRET", "change me on confs/enabled/app.env"),
-    "BASE_URL": SUAP_BASE_URL,
+    "REDIRECT_URI": env("SUAP_OAUTH_REDIRECT_URI", "http://ava/painel/authenticate/"),
+    "CLIENTE_ID": env("SUAP_OAUTH_CLIENT_ID", "changeme on docker-compose.yml"),
+    "CLIENT_SECRET": env("SUAP_OAUTH_CLIENT_SECRET", "changeme on docker-compose.yml"),
+    "BASE_URL": SUAP_OAUTH_BASE_URL,
     "VERIFY_SSL": env("SUAP_VERIFY_SSL", False),
 }
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
 
-SUAP_EAD_KEY = env("SUAP_EAD_KEY", "changeme")
+SUAP_INTEGRADOR_KEY = env("SUAP_INTEGRADOR_KEY", "changeme")
 SUAP_PAINEL_FAKEUSER = env("SUAP_PAINEL_FAKEUSER", None)
-MOODLE_SYNC_URL = env("MOODLE_SYNC_URL", "http://ava/api/moodle_suap/")
-MOODLE_SYNC_TOKEN = env("MOODLE_SYNC_TOKEN", "changeme")
 
 CORS_ORIGIN_ALLOW_ALL = env_as_bool("DJANGO_CORS_ORIGIN_ALLOW_ALL", False)
-CORS_ALLOWED_ORIGINS = env_as_list("DJANGO_CORS_ALLOWED_ORIGINS", [SUAP_BASE_URL])
+CORS_ALLOWED_ORIGINS = env_as_list("DJANGO_CORS_ALLOWED_ORIGINS", [SUAP_OAUTH_BASE_URL])
 CSRF_TRUSTED_ORIGINS = env_as_list("DJANGO_CSRF_TRUSTED_ORIGINS", [])
 
 LAST_STARTUP = int(datetime.timestamp(datetime.now()) * 1000)
