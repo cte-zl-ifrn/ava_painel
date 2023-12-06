@@ -19,7 +19,7 @@ services:
       # init settings, executed only on deploy
       - "./src/postgres/:/docker-entrypoint-initdb.d"
       # database data
-      - "./volumes/db_data:/var/lib/postgresql/data"
+      - "~/projetos/IFRN/ava/volumes/db_data:/var/lib/postgresql/data"
     healthcheck:
       test: [ "CMD", "pg_isready", "-U", "postgres" ]
       interval: 3s
@@ -27,10 +27,10 @@ services:
       retries: 3
       start_period: 10s
 
-  painel:
+  app:
     image: ctezlifrn/avapainel:1.1.0
     build:
-      context: src
+      context: ./src
       # additional_contexts:
       #   django-adminlte3: ../django-adminlte3
     ports:
@@ -67,8 +67,8 @@ services:
     volumes:
       # - '../django-adminlte3:/apps/django-adminlte3'
       - './src:/apps/app'
-      - './volumes/painel_media:/var/media'
-      - './volumes/painel_static:/var/static'
+      - '~/projetos/IFRN/ava/volumes/painel_media:/var/media'
+      - '~/projetos/IFRN/ava/volumes/painel_static:/var/static'
     depends_on:
       cache:
         condition: service_healthy
