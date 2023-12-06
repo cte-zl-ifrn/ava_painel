@@ -41,7 +41,6 @@ services:
       - 80:80
     depends_on:
       - painel
-      - ava
 
   painel:
     image: ctezlifrn/avapainel:1.0.64
@@ -71,42 +70,3 @@ services:
       #   timeout: 1s
       #   start_period: 1s
       #   retries: 30
-
-  ava:
-    image: ctezlifrn/moodle:moodle4.1.4-php8.1-release002
-    # image: ctezlifrn/moodle:moodle4.3.0-php8.2-release003
-    # image: registry.gitlab.com/cte-infra/moodle:020
-    ports:
-      - 8080:80
-    env_file:
-      - ./confs/enabled/db.env
-      - ./confs/enabled/cache.env
-      - ./confs/enabled/ava.env
-    volumes:
-      # Configs
-      # - '../moodle__image/src/php/config.php:/var/www/html/config.php'
-      - './confs/enabled/extra.ini:/usr/local/etc/php/conf.d/extra.ini'
-      # Plugins
-      - '../moodle__enrol_suap:/var/www/html/enrol/suap'
-      - '../moodle__auth_suap:/var/www/html/auth/suap'
-      - '../moodle__local_suap:/var/www/html/local/suap'
-      - '../moodle__block_suapattendance:/var/www/html/blocks/suapattendance'
-      - '../moodle__theme_moove:/var/www/html/theme/moove'
-      - '../moodle__profilefield_json:/var/www/html/user/profile/field/json'
-      - '../H5P.TextEditor/hacks/h5peditor.class.php:/var/www/html/h5p/h5plib/v124/joubel/editor/h5peditor.class.php'
-      - '../H5P.TextEditor/h5peditor-tinymce.js:/var/www/html/h5p/h5plib/v124/joubel/editor/scripts/h5peditor-tinymce.js'
-      # Data
-      - './volumes/moodle_data:/var/moodledata'
-    depends_on:
-      db:
-        condition: service_healthy
-    # healthcheck:
-    #   test:
-    #     [
-    #       "CMD-SHELL",
-    #       "curl --silent --fail http://ava/ | grep AVA_01 || exit 1"
-    #     ]
-    #   interval: 3s
-    #   timeout: 1s
-    #   start_period: 1s
-    #   retries: 30
