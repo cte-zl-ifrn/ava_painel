@@ -121,30 +121,47 @@ Acesse o https://ava.yourhost.edu.br/painel/admin/, cadastre os AVA em **Ambient
 Este docker-compose assume que você não tenha aplicações rodando na porta 80, ou seja, pare o serviço que está na porta 80 ou faça as configurações necessárias vocês mesmo. O script `_/deploy` já cria automaticamente uma entrada no /etc/hosts, caso não exista, que aponta para localhost. Isso é necessário para simplificar o cenário de desenvolvimento local.
 
 ```bash
-mkdir ava
-cd ava
+# Baixe o projeto na pasta de exemplo (se for outra, basta que altere os scripts)
+mkdir -p ~/projetos/IFRN/ava/integracao
+git clone git@github.com:cte-zl-ifrn/painel__ava.git ~/projetos/IFRN/ava/integracao/painel-ava
 
 
-# Baixe o projeto
-git clone git@github.com:cte-zl-ifrn/painel__ava.git painel__ava
+cd ~/projetos/IFRN/ava/integracao/painel-ava
 
-cd painel__ava
+# Configura o teu /etc/hosts para atender por http://ava
+./painel env setup
 
-# Baixa as dependencias, instala o sistema, um suap fake e 1 moodle para teste
-_/deploy
+
+# Configure o SUAP, os Moodles e altere as variáveis de ambiente para seu ambiente local
+./painel env deploy
 
 # Se você usa o VSCode
 code painel__ava.code-workspace
-
 ```
 
-> O **Painel** estará disponível em http://ava/painel, o primeiro usuário a acessar será declarado como superusuário e poderá fazer tudo no sistema.
+> O **Painel** estará disponível em http://ava, o primeiro usuário a acessar será declarado como superusuário e poderá fazer tudo no sistema.
 
 Caso você deseje fazer debug do Painel AVA, tente:
 
 ```bash
-_/painel/down
-_/painel/debug
+./painel app down
+./painel app debug
+```
+
+### Colocar atalho do para o script painel
+
+#### No bash
+
+```bash
+echo 'PATH=$PATH:~/projetos/IFRN/ava/integracao/painel-ava' >> ~/.bashrc
+source ~/.bashrc
+```
+
+#### No zsh
+
+```bash
+echo 'PATH=$PATH:~/projetos/IFRN/ava/integracao/painel-ava' >> ~/.zshrc
+source ~/.zshrc
 ```
 
 ## oAuth2 do SUAP
