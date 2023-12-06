@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-source _/functions
-
-docker compose run --rm $SERVICE_NAME $@
-

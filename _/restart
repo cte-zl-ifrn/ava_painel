@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-source _/functions
-
-_/down $@
-_/backs
-_/up -d $@
-
