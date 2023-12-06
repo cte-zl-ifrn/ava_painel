@@ -1,11 +1,8 @@
+# Este docker-compose.yml é um exemplo de como configurar o painel do AVA para desenvolvimento local.
 services:
 
   cache:
-    image: redis:7.0.2-alpine
-    env_file:
-      - ./confs/enabled/cache.env
-    volumes:
-      - "./volumes/cache_data:/data"
+    image: redis:7.2-alpine
     healthcheck:
       test: [ "CMD", "redis-cli", "ping" ]
       interval: 3s
@@ -14,11 +11,10 @@ services:
       start_period: 10s
 
   db:
-    image: postgres:15.1-alpine
-    ports:
-      - 5432:5432
-    env_file:
-      - ./confs/enabled/db.env
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=changeme
     volumes:
       # init settings, executed only on deploy
       - "./src/postgres/:/docker-entrypoint-initdb.d"
@@ -34,18 +30,43 @@ services:
   painel:
     image: ctezlifrn/avapainel:1.0.64
     build:
-      context: src/python
+      context: src
       # additional_contexts:
       #   django-adminlte3: ../django-adminlte3
     ports:
-      - 8000:8000
-    env_file:
-      - ./confs/enabled/db.env
-      - ./confs/enabled/cache.env
-      - ./confs/enabled/painel.env
+      - 80:8000
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=changeme
+
+      - DJANGO_DEBUG=true
+      - DJANGO_ALLOWED_HOSTS=ava,localhost
+
+      # 1. Crie uma chave, em qualquer ferramenta, de no mímino 50 caracteres
+      - DJANGO_SECRET_KEY=changeme
+
+      # 2. Crie um project no Sentr.io e pegue a DNS
+      # SENTRY_DNS=https://key@id.ingest.sentry.io/id
+
+      # 3. Crie uma aplicação oAuth2 no SUAP e pegue o client_id e o client_secret
+      - SUAP_OAUTH_CLIENT_ID=changeme
+      - SUAP_OAUTH_CLIENT_SECRET=changeme
+      - SUAP_OAUTH_BASE_URL=https://suap.ifrn.edu.br
+      - SUAP_OAUTH_REDIRECT_URI=http://ava/painel/authenticate/
+
+      # 4. Crie uma aplicação oAuth2 no SUAP e pegue o client_id e o client_secret
+      - SUAP_INTEGRADOR_KEY=changeme
+
+      # 5. Se cadastre no https://userway.org/ e registre o token da conta
+      - SHOW_USERWAY=True
+      - USERWAY_ACCOUNT=changeme
+
+      - SHOW_VLIBRAS=True
+
     volumes:
       # - '../django-adminlte3:/apps/django-adminlte3'
-      - './src/python:/apps/app'
+      - './src:/apps/app'
       - './volumes/painel_media:/var/media'
       - './volumes/painel_static:/var/static'
     depends_on:
@@ -53,9 +74,3 @@ services:
         condition: service_healthy
       db:
         condition: service_healthy
-      # healthcheck:
-      #   test: ["CMD-SHELL", "curl --silent --fail http://ava/painel/health/ | grep 'Database: OK' || exit 1"]
-      #   interval: 3s
-      #   timeout: 1s
-      #   start_period: 1s
-      #   retries: 30
