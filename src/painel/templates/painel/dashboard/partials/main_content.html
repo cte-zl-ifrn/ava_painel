@@ -1,6 +1,6 @@
 {% load static %}
-
 <div id="search-list">
+    <div style="height: 30px">
             <div class="btn-group course-list-toggler" role="group">
                 <input type="radio"
                         class="btn-check view-toggler"
@@ -27,6 +27,7 @@
                     <i class="fa fa-compress"></i>
                 </label>
             </div>
+    </div>            
     <div class="tab-content courses">
         {% include "painel/dashboard/partials/main_content-course_lists.html" with list_name="diarios" extra_class="show active" list_alias="diários" list_genero="o" %}
         {% include "painel/dashboard/partials/main_content-course_lists.html" with list_name="coordenacoes" list_alias="salas das coordenações" list_genero="a" %}

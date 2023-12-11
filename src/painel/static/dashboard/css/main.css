@@ -905,13 +905,206 @@ main #page-areas .toggle-filter {
   float: right;
 }
 
-main #page-areas > section:first-child {
+main #sidebar {
+  width: 340px;
+  margin-right: 10px;
+  background-color: #fff;
+  box-shadow: -10px 2px 8px -4px rgba(0, 0, 0, 0.72) inset;
+  -webkit-box-shadow: -10px 2px 8px -4px rgba(0, 0, 0, 0.72) inset;
+  -moz-box-shadow: -10px 2px 8px -4px rgba(0, 0, 0, 0.72) inset;
+  padding: 0 10px 0 0;
+}
+
+main #sidebar > ul {
+  margin: 0;
+  padding: 0;
+}
+
+main #maincontent {
+  background-color: #fff;
+  padding: 0 10px;
+}
+
+main #maincontent #search-list #search-error {
+  margin: 2em 3em 3em 3em;
+}
+
+main #maincontent #search-list .course-list-toggler {
+  float: right;
+  margin-left: auto;
+  margin-bottom: 4px;
+}
+
+main #maincontent #search-list .course-list {
+  margin: 0;
+}
+
+main #maincontent #search-list .course-wrapper {
+  border-width: 1px;
+  border-style: solid;
+  margin-top: 15px;
+  padding-right: 15px;
+}
+
+main #maincontent #search-list .course-progressbar {
+  height: 4px;
+  border-left-style: solid;
+  border-left-width: 8px;
+}
+
+main #maincontent #search-list .course-body {
+  display: flex;
+}
+
+main #maincontent #search-list .course-degrade {
+  width: 8px;
+  min-height: 120px;
+}
+
+main #maincontent #search-list .course-dados {
+  width: calc(100% - 52px);
+  display: table-cell;
+  padding: 8px 16px;
+}
+
+main #maincontent #search-list .course-codigo span {
+  display: inline-block;
+}
+
+main #maincontent #search-list .course-turma {
+  font-size: var(--unnamed-font-size-16);
+  font-weight: var(--unnamed-font-weight-600);
+  font-family: var(--unnamed-font-family-noto-sans);
+  color: var(--escuro-primario);
+  text-align: left;
+  text-transform: var(--unnamed-text-transform-uppercase);
+  opacity: 1;
   margin-right: 10px;
 }
 
-main #page-areas > section:first-child > ul {
-  margin: 0;
-  padding: 0;
+main #maincontent #search-list .course-componente {
+  font-size: var(--unnamed-font-size-14);
+  font-weight: var(--unnamed-font-weight-500);
+  font-family: var(--unnamed-font-family-noto-sans);
+  text-align: left;
+  color: var(--cinza-secundario);
+}
+
+main #maincontent #search-list .course-id_diario {
+  font-size: var(--unnamed-font-size-16);
+  font-weight: var(--unnamed-font-weight-500);
+  font-family: var(--unnamed-font-family-noto-sans);
+  text-align: left;
+  color: var(--cinza-secundario);
+  margin-left: 10px;
+}
+
+main #maincontent #search-list .course-shortname {
+  font-size: var(--unnamed-font-size-14);
+  font-weight: var(--unnamed-font-weight-500);
+  font-family: var(--unnamed-font-family-noto-sans);
+  text-align: left;
+  color: var(--cinza-secundario);
+}
+
+main #maincontent #search-list .course-curso > a {
+  font-size: var(--unnamed-font-size-14);
+  font-weight: var(--unnamed-font-weight-500);
+  font-family: var(--unnamed-font-family-noto-sans);
+  text-align: left;
+  color: var(--cinza-secundario);
+}
+
+main #maincontent #search-list .course-disciplina > a {
+  font-size: var(--unnamed-font-size-24);
+  font-weight: var(--unnamed-font-weight-500);
+  font-family: var(--unnamed-font-family-noto-sans);
+  text-align: left;
+  text-decoration: none;
+  color: var(--escuro-primario);
+}
+
+main #maincontent #search-list .course-acoes {
+  width: 44px;
+  min-width: 44px;
+}
+
+main #maincontent #search-list .course-progresso {
+  text-align: center;
+  padding: 3px 5px 3px 5px;
+  opacity: 1;
+  font-size: 0.8rem;
+  display: inline-block;
+  margin-bottom: 5px;
+  min-width: 44px;
+  border: 1px solid var(--background-body);
+  -webkit-border-bottom-right-radius: var(--default-border-radius);
+  -webkit-border-bottom-left-radius: var(--default-border-radius);
+  -moz-border-radius-bottomright: var(--default-border-radius);
+  -moz-border-radius-bottomleft: var(--default-border-radius);
+  border-bottom-right-radius: var(--default-border-radius);
+  border-bottom-left-radius: var(--default-border-radius);
+}
+
+main #maincontent #search-list .course-acao {
+  margin-bottom: 6px;
+  background-color: transparent;
+  border: 1px solid var(--cinza-secundario);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--default-border-radius);
+  min-width: 44px;
+  height: 44px;
+}
+
+main #maincontent #search-list .courses.compact .course-acao.course-visible,
+main #maincontent #search-list .courses.compact .course-acao.course-favourite,
+main #maincontent #search-list .courses.compact .course-curso {
+  display: none;
+}
+
+main #maincontent #search-list .courses.compact .course-acao.dropdown {
+  margin-top: 6px;
+}
+
+main #maincontent #search-list .courses.compact .course-disciplina > a {
+  font-size: var(--unnamed-font-size-16);
+  font-weight: var(--unnamed-font-weight-bold);
+}
+
+main #maincontent #search-list .courses.compact .course-degrade {
+  min-height: unset;
+}
+
+main #maincontent #search-list .courses.compact .course-acoes {
+  width: 88px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+main #maincontent #search-list .courses.compact .course-progresso {
+  margin-bottom: 6px;
+  margin-left: 10px;
+  background-color: transparent;
+  border: 1px solid var(--cinza-secundario);
+  align-items: center;
+  justify-content: center;
+  -webkit-border-bottom-right-radius: var(--default-border-radius);
+  -webkit-border-bottom-left-radius: var(--default-border-radius);
+  -moz-border-radius-bottomright: var(--default-border-radius);
+  -moz-border-radius-bottomleft: var(--default-border-radius);
+  border-bottom-right-radius: var(--default-border-radius);
+  border-bottom-left-radius: var(--default-border-radius);
+  width: 44px;
+  height: 50px;
+  color: var(--cinza-secundario);
+  display: inline-flex;
+}
+
+main #maincontent #search-list .courses.compact .course-acao.course-favourite {
+  margin-top: 6px;
+  padding: 0 15px;
 }
 
 footer {
