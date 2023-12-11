@@ -1,0 +1,13 @@
+@import "1-global/1-variables", "1-global/2-reset", "1-global/3-loader";
+@import "1-global/4-hacks/1-bootstrap", "1-global/4-hacks/2-select2";
+
+#app {
+    display: none;
+}
+
+.dropdown-item:focus,
+.dropdown-item:hover {
+    background-color: var(--background-hover) !important;
+}
+
+@import "1-global/5-mobile";

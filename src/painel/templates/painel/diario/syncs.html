@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        {% block head %} {% include 'painel/layouts/partials/head.html' %} {% endblock head %}
+    </head>
+    <body>
+        {% include 'painel/partials/header.html' %}
+        <h1>Sincronizações do diário</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Em</th>
+                    <th>Usuário</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for solitacao in solicitacoes %}
+                <tr>
+                    <td>{{ solitacao.timestamp }}</td>
+                    <td>-</td>
+                    <td>{{ solitacao.status_merged }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">Não houveram sincronizações</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% block foot_pre %} {% include 'painel/layouts/partials/foot_pre.html' %}{% endblock foot_pre %} {% block
+        foot_custom %} {% endblock foot_custom %} {% block foot_pos %} {% include
+        'painel/layouts/partials/foot_pos.html' %} {% endblock foot_pos %}
+    </body>
+</html>

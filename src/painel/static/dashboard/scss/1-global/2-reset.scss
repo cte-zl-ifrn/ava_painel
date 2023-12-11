@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    font-family: var(--unnamed-font-family-noto-sans);
+
+    -moz-transition: all 100ms ease-in;
+    -webkit-transition: all 100ms ease-in;
+    -o-transition: all 100ms ease-in;
+    transition: all 100ms ease-in;
+}
+
+body {
+    min-height: 100%;
+    background: var(--background-body) !important;
+    color: var(--escuro-primario) !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--unnamed-font-family-noto-sans);
+    font-weight: 400;
+    margin-bottom: 10px;
+}

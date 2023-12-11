@@ -1,0 +1,81 @@
+#header {
+    background-color: var(--header-color);
+    height: 80px;
+    width: 100%;
+
+    #header-wrapper {
+        max-width: 1243px;
+        margin: 0 auto;
+        padding: 0 40px;
+        height: 100%;
+        text-align: center;
+    }
+
+    #header-brand {
+        background-image: url(../img/logo.png);
+        width: 178px;
+        height: 56px;
+        background-repeat: no-repeat;
+        background-position: left;
+        float: left;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        margin: 12px 0;
+    }
+
+    #alerts {
+        display: inline-block;
+        height: 100%;
+        min-width: 100px;
+        float: right;
+
+        .icon {
+            cursor: pointer;
+            margin-right: 1px;
+            img {
+                display: inline-block;
+                width: 26px;
+                margin-top: 10px;
+            }
+        }
+
+        .icon:hover {
+            opacity: 0.7;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+        .icon-count {
+            background: var(--vermelho-primario);
+            padding-left: 3px;
+            padding-right: 3px;
+            border-radius: 50%;
+            color: var(--branco-primario);
+            vertical-align: super;
+            margin-left: -8px;
+            font-size: 11px;
+            font-weight: bold;
+            padding-bottom: 1px;
+            max-width: 20px;
+            overflow: hidden;
+            line-height: 18px;
+            height: 18px;
+            width: 18px;
+            display: none;
+            text-align: center;
+        }
+    }
+
+    @import "2-header/1-user";
+
+    @import "2-header/2-messages";
+
+    @import "2-header/3-notifications";
+
+    @import "2-header/4-ajuda";
+
+    @import "2-header/5-mobile";
+}

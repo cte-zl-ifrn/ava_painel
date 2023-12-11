@@ -1,0 +1,12 @@
+#page-title {
+    padding: 10px 10px 50px 0px;
+    border-bottom: 3px solid var(--cinza-terciario);
+    color: var(--escuro-primario);
+    font-weight: 700;
+
+    background: radial-gradient(farthest-side at -33.33% 50%, #0000 52%, #a54252 54% 57%, #0000 59%) 0 calc(128px / 2),
+        radial-gradient(farthest-side at 50% 133.33%, #0000 52%, #a54252 54% 57%, #0000 59%) calc(128px / 2) 0,
+        radial-gradient(farthest-side at 133.33% 50%, #0000 52%, #a54252 54% 57%, #0000 59%),
+        radial-gradient(farthest-side at 50% -33.33%, #0000 52%, #a54252 54% 57%, #0000 59%), #9bc858;
+    background-size: calc(128px / 4.667) 128px, 128px calc(128px / 4.667);
+}

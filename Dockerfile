@@ -18,7 +18,7 @@ RUN pip install -r requirements-dev.txt
 # FIX: bug on corsheaders
 # RUN echo 'import django.dispatch;check_request_enabled = django.dispatch.Signal()' > /usr/local/lib/python3.10/site-packages/corsheaders/signals.py
 
-ADD . /apps/app
+ADD src /apps/app
 
 EXPOSE 8000
 # ENTRYPOINT [ "executable" ]

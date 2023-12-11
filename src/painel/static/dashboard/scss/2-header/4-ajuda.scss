@@ -1,0 +1,98 @@
+#header-ajuda {
+    float: right;
+    height: 60px;
+    margin: 10px 0 0 0;
+    padding: 17px 10px;
+    border-right: 1px solid var(--branco-primario);
+
+    a,
+    a:hover,
+    a:active {
+        text-decoration: none;
+        color: var(--escuro-primario);
+        display: inline-block;
+        text-align: left;
+        font-size: 90%;
+    }
+
+    .btn-secondary {
+        background-color: transparent;
+        border-color: transparent;
+        padding: 0 10px 0 10px;
+        margin-right: 5px;
+        font-size: 0.8rem;
+    }
+
+    .dropdown-menu {
+        top: -31px !important;
+        margin-left: -14px !important;
+
+        &.show {
+            transform: translate3d(11px, 51.8182px, 0px) !important;
+            padding: 0px;
+        }
+    }
+
+    .dropdown-header {
+        background-color: var(--cinza-terciario);
+        color: var(--escuro-primario);
+        padding-right: 24px;
+        font-size: 0.8rem;
+        font-family: var(--unnamed-font-family-noto-sans);
+        font-weight: var(--unnamed-font-weight-500);
+        color: var(--cinza-terciario);
+        font-weight: var(--unnamed-font-weight-600);
+        border-top-left-radius: var(--default-border-radius);
+        border-top-right-radius: var(--default-border-radius);
+
+        &::after {
+            -webkit-box-align: center;
+            align-items: center;
+            vertical-align: middle !important;
+            font-size: 10px;
+            line-height: 1.1;
+            text-decoration: none !important;
+            color: var(--escuro-primario);
+            border-radius: 20px;
+            border: 3px solid #87666600;
+            font-family: "FontAwesome";
+            font-weight: 200;
+            width: 16px;
+            position: absolute;
+            margin: -1px 0px 0px 1px;
+            display: none;
+            cursor: pointer;
+            content: "\f077" !important;
+        }
+    }
+
+    li .dropdown-header {
+        color: var(--escuro-primario);
+    }
+
+    #dropdownMenuSuporte {
+        &:hover {
+            opacity: 0.7;
+        }
+
+        &:after {
+            display: inline-flex !important;
+            -webkit-box-align: center;
+            align-items: center;
+            vertical-align: middle !important;
+            font-size: 10px;
+            line-height: 1.1;
+            text-decoration: none !important;
+            color: var(--branco-primario);
+            border-radius: 20px;
+            border: 3px solid #87666600;
+            font-family: "FontAwesome";
+            font-weight: 200;
+            width: 16px;
+            position: absolute;
+            margin: 1px 0px 0px 3px;
+            cursor: pointer;
+            content: "\f078" !important;
+        }
+    }
+}

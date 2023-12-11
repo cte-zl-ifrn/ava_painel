@@ -1,0 +1,39 @@
+@media only screen and (max-width: 432px) {
+    #header-brand {
+        width: 32px;
+    }
+
+    #header-ajuda {
+        display: none;
+    }
+
+    #menu-messages.show {
+        transform: translate3d(-1em, 21px, 0px) !important;
+    }
+}
+
+@media only screen and (min-width: 433px) and (max-width: 629px) {
+    #header-ajuda {
+        display: none;
+    }
+
+    #menu-notifications.show {
+        transform: translate3d(-0em, 21px, 0px) !important;
+    }
+
+    #menu-messages.show {
+        transform: translate3d(-1em, 21px, 0px) !important;
+    }
+}
+
+@media only screen and (min-width: 630px) and (max-width: 1346px) {
+    #menu-notifications.show {
+        transform: translate3d(-0em, 21px, 0px) !important;
+    }
+}
+
+@media only screen and (min-width: 630px) and (max-width: 1445px) {
+    #menu-messages.show {
+        transform: translate3d(-1em, 21px, 0px) !important;
+    }
+}

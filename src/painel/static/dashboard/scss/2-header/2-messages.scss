@@ -1,0 +1,97 @@
+#region-messages {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    position: relative;
+    float: right;
+    margin-top: 12px;
+    padding: 3px 3px 3px 3px;
+    width: auto;
+    min-width: 50px;
+
+    #menu-messages {
+        display: none;
+        width: auto;
+
+        h2 {
+            padding: 10px 10px 10px 10px;
+            height: 35px;
+            font-size: var(--unnamed-font-size-14);
+            font-family: var(--unnamed-font-family-noto-sans);
+            font-weight: var(--unnamed-font-weight-normal);
+            text-align: left;
+            letter-spacing: 1.6px;
+            color: var(--escuro-primario);
+            text-transform: var(--unnamed-text-transform-uppercase);
+            width: calc(100% - 60px);
+
+            span {
+                color: var(--vermelho-primario);
+            }
+        }
+
+        .ambientes-list {
+            background-color: var(--cinza-terciario);
+            padding: 5px;
+            font-weight: var(--unnamed-font-weight-600);
+        }
+
+        &.show {
+            width: 257px;
+            height: auto;
+            background: var(--branco-primario) 0% 0% no-repeat padding-box;
+            border: 1px solid var(--cinza-terciario);
+            opacity: 1;
+            border-radius: inherit;
+            padding: 0;
+            margin-top: 24px !important;
+            margin-right: -16px !important;
+            transform: translate3d(-14em, 21px, 0px) !important;
+            display: block;
+        }
+    }
+
+    #messages-count {
+        display: flex;
+        padding: 6px 9px;
+        margin-bottom: 0px;
+        cursor: pointer;
+        height: 40px;
+        justify-content: space-around;
+        color: var(--verde-secundario);
+        background-color: var(--branco-primario);
+        color: var(--verde-secundario);
+        text-align: center;
+    }
+
+    .fa-comment-o {
+        color: var(--branco-primario);
+        font-size: 18px;
+        margin-top: 20px;
+        padding-left: 5px;
+        width: 30px;
+
+        &.show {
+            background-color: var(--cinza-terciario);
+            opacity: initial;
+            border-radius: 15px;
+            color: var(--cinza-secundario);
+            padding-left: 5px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-right: 5px;
+            margin-top: 16px;
+        }
+    }
+
+    .dropdown-header {
+        background-color: var(--cinza-terciario);
+        color: var(--escuro-primario);
+        font-weight: var(--unnamed-font-weight-500);
+        font-size: 0.8rem;
+        text-align: end;
+        padding: 5px;
+        border-top-right-radius: var(--default-border-radius);
+        border-top-left-radius: var(--default-border-radius);
+    }
+}

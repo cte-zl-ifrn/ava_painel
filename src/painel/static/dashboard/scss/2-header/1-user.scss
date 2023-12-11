@@ -1,0 +1,84 @@
+#header-user {
+    float: right;
+    height: 76px;
+    margin: 0;
+    a,
+    a:hover,
+    a:active {
+        text-decoration: none !important;
+        color: var(--escuro-primario);
+        display: inline-block;
+        text-align: left;
+        font-size: 90%;
+    }
+
+    .btn-secondary {
+        background-color: transparent;
+        border-color: transparent;
+        padding: 0 0 0 10px;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+    img {
+        margin: -6px 0 0;
+        display: block;
+        width: 74px;
+        height: auto;
+    }
+
+    #header-user-dropdown {
+        height: 74px;
+        width: 74px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 3px 0 0 0;
+        padding: 0;
+    }
+    button {
+        span {
+            display: none;
+        }
+    }
+
+    ul.dropdown-user {
+        inset: 0px auto auto -38px;
+    }
+
+    ul.dropdown-menu.dropdown-user.show {
+        padding: 0px;
+        top: 1px !important;
+        margin-left: -185px !important;
+        transition: none;
+        width: 260px;
+    }
+
+    button#dropdownMenuUser::after {
+        bottom: 9px;
+        right: 0px;
+    }
+
+    .btn-dropdown-user::after {
+        display: inline-flex !important;
+        -webkit-box-align: center;
+        align-items: center;
+        vertical-align: middle !important;
+        font-size: 10px;
+        line-height: 1.1;
+        text-decoration: none !important;
+        cursor: pointer;
+        background: var(--laranja-secundario);
+        color: var(--branco-primario);
+        border-radius: 20px;
+        border: 3px solid #87666600;
+        content: "\f078" !important;
+        font-family: "FontAwesome";
+        font-weight: 200;
+        border-top: 3px solid var(--laranja-secundario) !important;
+        border-bottom: 2px solid var(--laranja-secundario) !important;
+        width: 16px;
+        position: absolute;
+        margin: -48px 0px 0px 0px;
+    }
+}

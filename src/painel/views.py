@@ -17,7 +17,7 @@ def dashboard(request: HttpRequest) -> HttpResponse:
 @login_required
 def syncs(request: HttpRequest, id_diario: int) -> HttpResponse:
     solicitacoes = Solicitacao.objects.by_diario_id(id_diario)
-    return render(request, "painel/syncs.html", context={"solicitacoes": solicitacoes})
+    return render(request, "painel/diario/syncs.html", context={"solicitacoes": solicitacoes})
 
 
 @login_required

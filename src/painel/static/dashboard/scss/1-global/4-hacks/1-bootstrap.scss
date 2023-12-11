@@ -1,0 +1,27 @@
+.btn-primary,
+.btn-outline-primary {
+    --bs-btn-color: var(--preto-primario);
+    --bs-btn-bg: var(--cinza-terciario);
+    --bs-btn-border-color: var(--cinza-terciario);
+    --bs-btn-hover-color: var(--preto-primario);
+    --bs-btn-hover-bg: var(--verde-primario);
+    --bs-btn-hover-border-color: var(--verde-primario);
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: var(--branco-primario);
+    --bs-btn-active-bg: var(--verde-primario);
+    --bs-btn-active-border-color: var(--verde-primario);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: var(--escuro-primario);
+    --bs-btn-disabled-bg: var(--verde-terciario);
+    --bs-btn-disabled-border-color: var(--verde-terciario);
+}
+
+.btn-check:checked + .btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check) + .btn:active {
+    color: var(--bs-btn-active-color);
+    background-color: var(--verde-secundario);
+    border-color: var(--verde-secundario);
+}

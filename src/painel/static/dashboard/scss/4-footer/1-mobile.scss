@@ -1,0 +1,37 @@
+@media only screen and (max-width: 600px) {
+    footer {
+        padding: 10px 20px;
+
+        hr {
+            margin: 15px;
+        }
+
+        .madeby {
+            margin: 10px;
+            text-align: center;
+        }
+
+        .contact ul {
+            display: block;
+            width: 280px;
+
+            span {
+                display: none;
+            }
+
+            li:hover {
+                background: none;
+            }
+        }
+
+        p,
+        .madeby {
+            line-height: 22px !important;
+            text-align: center;
+
+            br {
+                display: none;
+            }
+        }
+    }
+}

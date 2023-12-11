@@ -104,19 +104,6 @@ export default {
         },
 
         customizeAmbiente() {
-            // $('#ambiente').select2({
-            //     // templateResult: function (data) {
-            //     //     const style = data.element && data.element.dataset && data.element.dataset.color ?
-            //     //         ' style="border-left: 10px solid ' + data.element.dataset.color + '; padding: 0 4px;"' : ' class="todos_ambientes"';
-            //     //     return $('<span ' + style + '>' + data.text + '</span> ');
-            //     // },
-            //     templateSelection: function (data) {
-            //         const style = data.element && data.element.dataset && data.element.dataset.color ?
-            //             ' style="border-left: 10px solid ' + data.element.dataset.color + '; padding: 0 5px; margin-left: 18px"' : ' class="todos_ambientes"';
-            //         return $('<span ' + style + '>' + data.text + '</span> ');
-            //     }
-            // });
-
             $("#ambiente, #curso, #disciplina, #semestre").select2({
                 templateSelection: function (data) {
                     const style = 'style="padding: 0 5px 0 30px; color: #1D2125; "';

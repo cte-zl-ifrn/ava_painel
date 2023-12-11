@@ -1,4 +1,6 @@
 # -e ../django-adminlte3
+libsass
+types-libsass
 black
 debugpy
 django-debug-toolbar

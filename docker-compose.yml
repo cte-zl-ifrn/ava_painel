@@ -28,9 +28,9 @@ services:
       start_period: 10s
 
   app:
-    image: ctezlifrn/avapainel:1.1.0
+    image: ctezlifrn/avapainel:1.1.1
     build:
-      context: ./src
+      context: .
       # additional_contexts:
       #   django-adminlte3: ../django-adminlte3
     ports:
