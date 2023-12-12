@@ -20,7 +20,10 @@
         border-color: transparent;
         padding: 0 10px 0 10px;
         margin-right: 5px;
-        font-size: 0.8rem;
+        font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-600) var(--unnamed-font-size-14) /
+            var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+        color: var(--header-color);
+        letter-spacing: var(--unnamed-character-spacing-0);
     }
 
     .dropdown-menu {
@@ -37,9 +40,8 @@
         background-color: var(--cinza-terciario);
         color: var(--escuro-primario);
         padding-right: 24px;
-        font-size: 0.8rem;
-        font-family: var(--unnamed-font-family-noto-sans);
-        font-weight: var(--unnamed-font-weight-500);
+        font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-600) var(--unnamed-font-size-14) /
+            var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
         color: var(--cinza-terciario);
         font-weight: var(--unnamed-font-weight-600);
         border-top-left-radius: var(--default-border-radius);

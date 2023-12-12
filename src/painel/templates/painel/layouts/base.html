@@ -24,7 +24,11 @@
         <main id="app">
 
             {% block page_title %}
-                <h1 id="page-title">Painel AVA</h1>
+                <div id="page-title">
+                    <img src="{% static 'dashboard/img/logo_painel_ava.png'  %}" width="67" height="66" alt="" aria-hidden="true" />
+                    <h1>Painel AVA</h1>
+                    <img src="{% static 'dashboard/img/squares.svg'  %}" width="233" height="172" alt="" aria-hidden="true" />
+                </div>
             {% endblock page_title %}
 
             {% block page_menu %}

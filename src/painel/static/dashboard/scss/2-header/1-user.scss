@@ -1,7 +1,7 @@
 #header-user {
     float: right;
-    height: 76px;
-    margin: 0;
+    margin: 0 0 0 20px;
+
     a,
     a:hover,
     a:active {
@@ -24,16 +24,16 @@
     img {
         margin: -6px 0 0;
         display: block;
-        width: 74px;
-        height: auto;
+        width: 46px;
+        height: 52px;
     }
 
     #header-user-dropdown {
-        height: 74px;
-        width: 74px;
+        height: 48px;
+        width: 48px;
         border-radius: 50%;
         overflow: hidden;
-        margin: 3px 0 0 0;
+        margin: 13px 0 0 0;
         padding: 0;
     }
     button {
@@ -54,31 +54,25 @@
         width: 260px;
     }
 
-    button#dropdownMenuUser::after {
+    button#dropdownMenuUser:after {
         bottom: 9px;
         right: 0px;
     }
 
-    .btn-dropdown-user::after {
-        display: inline-flex !important;
-        -webkit-box-align: center;
-        align-items: center;
-        vertical-align: middle !important;
-        font-size: 10px;
-        line-height: 1.1;
+    .btn-dropdown-user:after {
+        font-size: 9px;
         text-decoration: none !important;
         cursor: pointer;
-        background: var(--laranja-secundario);
+        background: var(--header-color) 0% 0% no-repeat padding-box;
         color: var(--branco-primario);
-        border-radius: 20px;
+        border-radius: 50%;
         border: 3px solid #87666600;
         content: "\f078" !important;
         font-family: "FontAwesome";
-        font-weight: 200;
-        border-top: 3px solid var(--laranja-secundario) !important;
-        border-bottom: 2px solid var(--laranja-secundario) !important;
-        width: 16px;
+        font-weight: bold;
+        width: 20px;
+        height: 20px;
         position: absolute;
-        margin: -48px 0px 0px 0px;
+        margin: -16px 0px 0px 8px;
     }
 }
