@@ -1,0 +1,25 @@
+#page-areas {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+
+    #toggle-filter {
+        float: right;
+        margin: 0 -34px 0 0;
+        width: 26px;
+        height: 26px;
+        background: var(--cinza-terciario) 0% 0% no-repeat padding-box;
+        border-radius: 4px 0px 0px 4px;
+
+        p {
+            padding: 0;
+            text-align: center;
+            font: var(--unnamed-font-style-normal) normal 600 20px / var(--unnamed-line-spacing-22)
+                var(--unnamed-font-family-noto-sans);
+            letter-spacing: var(--unnamed-character-spacing-0);
+            color: var(--escuro-primario);
+        }
+        .fa::before {
+            font-weight: 600;
+        }
+    }
+}

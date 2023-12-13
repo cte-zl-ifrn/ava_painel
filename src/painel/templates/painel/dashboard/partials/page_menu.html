@@ -1,42 +1,43 @@
-    <nav id="page-menu">
+<nav id="page-menu">
         <div class="nav nav-tabs" role="tablist">
-            <button class="nav-link active"
-                    id="nav-diarios-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#nav-diarios"
-                    type="button"
-                    role="tab"
-                    aria-controls="nav-diarios"
-                    aria-selected="true"
-                    @click="toggleBar('diarios')">Meus diários</button>
-            <button class="nav-link"
-                    id="nav-coordenacoes-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#nav-coordenacoes"
-                    type="button"
-                    role="tab"
-                    aria-controls="nav-coordenacoes"
-                    aria-selected="false"
-                    @click="toggleBar('coordenacoes')">Coordenações</button>
-            <button class="nav-link"
-                    id="nav-praticas-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#nav-praticas"
-                    type="button"
-                    role="tab"
-                    aria-controls="nav-praticas"
-                    aria-selected="false"
-                    v-if="praticas.length!=0"
-                    @click="toggleBar('praticas')">Práticas</button>
-            <button class="nav-link"
-                    id="nav-reutilizaveis-tab"
-                    data-bs-reutilizaveis="tab"
-                    data-bs-target="#nav-reutilizaveis"
-                    type="button"
-                    role="tab"
-                    aria-controls="nav-reutilizaveis"
-                    aria-selected="false"
-                    v-if="reutilizaveis.length!=0"
-                    @click="toggleBar('reutilizaveis')">Reutilizar</button>
+                <button class="nav-link active"
+                        id="nav-diarios-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#nav-diarios"
+                        type="button"
+                        role="tab"
+                        aria-controls="nav-diarios"
+                        aria-selected="true"
+                        @click="toggleBar('diarios')">Meus diários</button>
+                <button class="nav-link"
+                        id="nav-coordenacoes-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#nav-coordenacoes"
+                        type="button"
+                        role="tab"
+                        aria-controls="nav-coordenacoes"
+                        aria-selected="false"
+                        @click="toggleBar('coordenacoes')">Coordenações</button>
+                <button class="nav-link"
+                        id="nav-praticas-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#nav-praticas"
+                        type="button"
+                        role="tab"
+                        aria-controls="nav-praticas"
+                        aria-selected="false"
+                        v-if="praticas.length!=0"
+                        @click="toggleBar('praticas')">Práticas</button>
+                <button class="nav-link"
+                        id="nav-reutilizaveis-tab"
+                        data-bs-reutilizaveis="tab"
+                        data-bs-target="#nav-reutilizaveis"
+                        type="button"
+                        role="tab"
+                        aria-controls="nav-reutilizaveis"
+                        aria-selected="false"
+                        v-if="reutilizaveis.length!=0"
+                        @click="toggleBar('reutilizaveis')">Reutilizar</button>
         </div>
-    </nav>
+</nav>
+<div id="menu-separator"></div>

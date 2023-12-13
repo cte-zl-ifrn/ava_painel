@@ -2,7 +2,7 @@
 <div id="grid-filter-wrapper">
     <div id="grid-filter">
         <div class="grid-item item-1 position-relative content-center hide-close">
-            <b class="filters-title">Filtrar por </b>
+            <b id="filters-title">Filtrar por </b>
         </div>
         <hr class="hr-personal hide-mobile">
         <div class="grid-item item-2 position-relative filter-field">
@@ -57,15 +57,9 @@
             </select>
         </div>
         <div class="grid-item position-relative content-center hide-close">
-            <button type="button"
-                    class="btn btn-success btn-filtrar"
-                    v-on:click="filterCards($event)">Filtrar</button>
-        </div>
-        <div class="grid-item position-relative content-center hide-close">
-            <button style="border: none;
-                           background-color: transparent"
-                    v-on:click="clearFilter()">
-                <b class="text-attribute-14">Limpar filtro <i class="fa fa-trash" aria-hidden="true"></i></b>
+            <button type="button" class="btn btn-success" v-on:click="filterCards($event)">Filtrar</button>
+            <button type="button" class="btn btn-outline-success" v-on:click="clearFilter()">
+                <i class="fa fa-trash" aria-hidden="true"></i> Limpar filtro
             </button>
         </div>
     </div>

@@ -25,3 +25,8 @@
     background-color: var(--verde-secundario);
     border-color: var(--verde-secundario);
 }
+
+.dropdown-item:focus,
+.dropdown-item:hover {
+    background-color: var(--background-hover) !important;
+}
