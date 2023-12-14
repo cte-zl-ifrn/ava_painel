@@ -279,27 +279,7 @@ export default {
                             $("#toggler-default").prop("checked", true);
                             geral.viewToggle();
                         },
-                    } /*,
-                    {
-                        element: '#toggler-default-label',
-                        title: 'Visão padrão',
-                        content: '<p>Aqui você poderá ver os dados dos diários na visão padrão.</p>',
-                        placement: 'left-end',
-                        onNext: function () {
-                            $('#toggler-compact').prop('checked', true);
-                            geral.viewToggle();
-                        }
                     },
-                    {
-                        element: '#toggler-compact-label',
-                        title: 'Visão compacta',
-                        content: '<p>Se você precisar também é possível ter uma visão compacta para listar mais diários de uma só vez na tela.</p>',
-                        placement: 'left-end',
-                        onNext: function () {
-                            $('#toggler-default').prop('checked', true);
-                            geral.viewToggle();
-                        }
-                    },*/,
                 ]);
                 wt.start();
                 localStorage.setItem("completouTour001", true);
@@ -377,6 +357,15 @@ export default {
                     .catch((error) => {
                         console.debug(error);
                     });
+            }
+        },
+
+        cardActionsToggler(event) {
+            let item = $(event.srcElement).parent().parent().parent().parent();
+            if ($(item).hasClass("showActions")) {
+                $(item).removeClass("showActions");
+            } else {
+                $(item).addClass("showActions");
             }
         },
 

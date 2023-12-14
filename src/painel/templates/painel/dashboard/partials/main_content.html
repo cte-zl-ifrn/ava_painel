@@ -1,7 +1,10 @@
 {% load static %}
-<div id="search-list">
-    <div style="height: 30px">
-            <div class="btn-group course-list-toggler" role="group">
+<div id="course-list">
+    <div id="course-toolbar">
+            <div>
+                <label title="Informações">
+                    <i class="icon icon-info-circle"></i>
+                </label>
                 <input type="radio"
                         class="btn-check view-toggler"
                         name="view-toggler"
@@ -27,7 +30,7 @@
                     <i class="fa fa-compress"></i>
                 </label>
             </div>
-    </div>            
+    </div>
     <div class="tab-content courses">
         {% include "painel/dashboard/partials/main_content-course_lists.html" with list_name="diarios" extra_class="show active" list_alias="diários" list_genero="o" %}
         {% include "painel/dashboard/partials/main_content-course_lists.html" with list_name="coordenacoes" list_alias="salas das coordenações" list_genero="a" %}

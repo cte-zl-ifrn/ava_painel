@@ -26,9 +26,15 @@
     }
 }
 
-@media only screen and (min-width: 630px) and (max-width: 1346px) {
+@media only screen and (min-width: 630px) and (max-width: 1445px) {
     #menu-notifications.show {
         transform: translate3d(-0em, 21px, 0px) !important;
+    }
+}
+
+@media only screen and (max-width: 1312px) {
+    #header-wrapper {
+        padding: 0 20px;
     }
 }
 
