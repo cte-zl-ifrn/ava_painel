@@ -188,54 +188,9 @@ export default {
                     var spanElement = $(this).next(".select2-container").find(".select2-selection");
                     spanElement.addClass(classe);
                 });
-                console.log("to aqui");
             }
             adicionarClasseAoSpan("#ambiente", "bgcolor-select2");
             adicionarClasseAoSpan("#curso", "bgcolor-select2");
-
-            // $('#ambiente').on("select2:select", this.filterCards);
-            // $('#ambiente').val(self.ambiente || '');
-
-            // $('#situacao').select2({
-
-            // });
-
-            var searchBox = document.querySelector("#searchBox");
-            var situacao = document.querySelector("#situacao");
-            var when = "change";
-
-            const select = $("#situacao");
-            const searchBox2 = $("#searchBox");
-            // Quando o select é clicado, mostra o input
-            select.on("click", function () {
-                searchBox2.show();
-                select.hide();
-            });
-
-            // Quando o input perde o foco, volta a mostrar o select
-            searchBox2.on("blur", function () {
-                searchBox2.hide();
-                select.show();
-            });
-
-            searchBox.addEventListener("keyup", function (e) {
-                var text = e.target.value;
-                var options = situacao.options;
-                for (var i = 0; i < options.length; i++) {
-                    var option = options[i];
-                    var optionText = option.text;
-                    var lowerOptionText = optionText.toLowerCase();
-                    var lowerText = text.toLowerCase();
-                    var regex = new RegExp("^" + text, "i");
-                    var match = optionText.match(regex);
-                    var contains = lowerOptionText.indexOf(lowerText) != -1;
-                    if (match || contains) {
-                        option.selected = true;
-                        return;
-                    }
-                    searchBox.selectedIndex = 0;
-                }
-            });
         },
 
         startTour001() {
@@ -315,11 +270,6 @@ export default {
                     window.open(popupModalUrl);
                 });
             });
-        },
-
-        formatDate(dateString) {
-            const date = new Date(dateString);
-            return new Intl.DateTimeFormat("default", { dateStyle: "long" }).format(date);
         },
 
         favourite(card) {
@@ -461,6 +411,30 @@ export default {
 
         get_ordenacao_desc() {
             return $("#ordenacao option:selected").text();
+        },
+
+        go_to_suap() {
+            $("#syncs").modal("show");
+        },
+
+        go_to_coordanation() {
+            $("#syncs").modal("show");
+        },
+
+        go_to_grades() {
+            $("#syncs").modal("show");
+        },
+
+        go_to_grades_preview() {
+            $("#syncs").modal("show");
+        },
+
+        go_to_sync_logs() {
+            $("#syncs").modal("show");
+        },
+
+        isFromSUAP(diario) {
+            return diario != null && Object.hasOwn(diario, "id_diario_clean");
         },
     },
 

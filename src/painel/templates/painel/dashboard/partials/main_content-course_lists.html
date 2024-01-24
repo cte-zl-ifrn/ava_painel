@@ -1,33 +1,39 @@
 {% load static %}
-<div class="tab-pane fade {{ extra_class }}"
-     id="nav-{{ list_name }}"
-     aria-labelledby="nav-{{ list_name }}-tab"
-     role="tabpanel">
+<div
+    class="tab-pane fade {{ extra_class }}"
+    id="nav-{{ list_name }}"
+    aria-labelledby="nav-{{ list_name }}-tab"
+    role="tabpanel"
+>
     <div id="course-views">
         <div class="course-list" v-if="!is_filtering">
             <div v-show="{{ list_name }}.length == 0" class="empty-search">
                 <h3>Atenção!</h3>
                 <p>
-                    Não existem <strong>{{ list_alias }}</strong> que atendam ao <b>filtro informado</b>. Para mostrar tudo limpe os filtros clicando no botão "Ver tod{{list_genero}}s {{ list_alias }}".
+                    Não existem <strong>{{ list_alias }}</strong> que atendam ao <b>filtro informado</b>. Para mostrar
+                    tudo limpe os filtros clicando no botão "Ver tod{{list_genero}}s {{ list_alias }}".
                 </p>
                 <p>
-                    <button type="button"
-                            class="btn btn-success button-center"
-                            v-on:click="clearFilterSeeAll()">Ver tod{{list_genero}}s {{ list_alias }}</button>
+                    <button type="button" class="btn btn-success button-center" v-on:click="clearFilterSeeAll()">
+                        Ver tod{{list_genero}}s {{ list_alias }}
+                    </button>
                 </p>
                 <p>
-                    É possível que a Secretaria Acadêmica ainda não tenha lhe inserido em diário algum, neste caso, por favor aguarde.
+                    É possível que a Secretaria Acadêmica ainda não tenha lhe inserido em diário algum, neste caso, por
+                    favor aguarde.
                 </p>
             </div>
             <div v-for="card in {{ list_name }}" class="course-listitem">
                 <div class="course-body">
                     <div class="course-info">
                         <div class="course-identification">
-                            <label :style="{ background: card.ambiente.cor_mestra }"><i class="icon icon-external-link"></i></label>
+                            <label :style="{ background: card.ambiente.cor_mestra }"
+                                ><i class="icon icon-external-link"></i
+                            ></label>
                             <span v-if="card.turma">
                                 <span class="course-turma">[[ card.turma ]]</span>
                                 <span class="course-componente">[[ card.componente ]]</span>
-                                <span class="course-id_diario">[[ card.id_diario ]]</span>                        
+                                <span class="course-id_diario">[[ card.id_diario ]]</span>
                             </span>
                             <span v-else class="course-shortname">[[ card.shortname ]]</span>
                         </div>
@@ -39,17 +45,45 @@
                         </div>
                     </div>
                     <div class="course-quickactions">
-                        <label v-if="card.isfavourite" v-on:click="favourite(card)" type="button" title="Favoritar este diário para mim"><i class="fa fa-star"></i></label>
-                        <label v-if="!card.isfavourite" v-on:click="favourite(card)" type="button" title="Desfavoritar este diário para mim"><i class="fa fa-star-o"></i></label>
-                        <label v-on:click.capture="cardActionsToggler" title="Mais opções"><i class="icon icon-chevron-down"></i></label>
+                        <label
+                            v-if="card.isfavourite"
+                            v-on:click="favourite(card)"
+                            type="button"
+                            title="Favoritar este diário para mim"
+                            ><i class="fa fa-star"></i
+                        ></label>
+                        <label
+                            v-if="!card.isfavourite"
+                            v-on:click="favourite(card)"
+                            type="button"
+                            title="Desfavoritar este diário para mim"
+                            ><i class="fa fa-star-o"></i
+                        ></label>
+                        <label v-on:click.capture="cardActionsToggler" title="Mais opções"
+                            ><i class="icon icon-chevron-down"></i
+                        ></label>
                     </div>
                 </div>
                 <div class="course-actions">
-                    <span>Ir para o SUAP</span>
-                    <span>Ir para a coordenação</span>
-                    <span>Quadro de notas</span>
-                    <span>Visualizar prévia das notas</span>
-                    <span>Visualizar histórico de integrações</span>
+                    <span>
+                        <a v-if="card.suapsurl" v-bind:href="[[ card.suapsurl ]]"> Ir para o SUAP </a>
+                    </span>
+                    <span>
+                        <a v-if="card.coordenationurl" v-bind:href="[[ card.coordenationurl ]]">
+                            Ir para a coordenação
+                        </a>
+                    </span>
+                    <span><a v-if="card.gradesurl" v-bind:href="[[ card.gradesurl ]]">Quadro de notas</a></span>
+                    <span>
+                        <a v-if="card.can_check_grades" v-bind:href="[[ card.checkgradesurl ]]">
+                            Visualizar prévia das notas
+                        </a>
+                    </span>
+                    <span>
+                        <a v-if="card.can_view_syncsurl" v-bind:href="[[ card.syncsurl ]]">
+                            Visualizar histórico de integrações
+                        </a>
+                    </span>
                 </div>
             </div>
         </div>

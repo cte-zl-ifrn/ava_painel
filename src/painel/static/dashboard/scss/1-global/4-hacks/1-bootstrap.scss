@@ -30,3 +30,8 @@
 .dropdown-item:hover {
     background-color: var(--background-hover) !important;
 }
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
