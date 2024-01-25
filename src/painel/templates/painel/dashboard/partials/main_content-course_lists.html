@@ -66,23 +66,19 @@
                 </div>
                 <div class="course-actions">
                     <span>
-                        <a v-if="card.suapsurl" v-bind:href="[[ card.suapsurl ]]"> Ir para o SUAP </a>
+                        <a v-if="card.suapsurl" v-bind:href="[[ card.suapsurl ]]">Ver diario no SUAP</a>
                     </span>
                     <span>
-                        <a v-if="card.coordenationurl" v-bind:href="[[ card.coordenationurl ]]">
-                            Ir para a coordenação
-                        </a>
-                    </span>
-                    <span><a v-if="card.gradesurl" v-bind:href="[[ card.gradesurl ]]">Quadro de notas</a></span>
-                    <span>
-                        <a v-if="card.can_check_grades" v-bind:href="[[ card.checkgradesurl ]]">
-                            Visualizar prévia das notas
-                        </a>
+                        <a v-if="card.coordenacaourl" v-bind:href="[[ card.coordenacaourl ]]">Ir para a coordenação</a>
                     </span>
                     <span>
-                        <a v-if="card.can_view_syncsurl" v-bind:href="[[ card.syncsurl ]]">
-                            Visualizar histórico de integrações
-                        </a>
+                        <a v-if="card.gradesurl" v-bind:href="[[ card.gradesurl ]]">Ver quadro de notas</a>
+                    </span>
+                    <span>
+                        <a v-if="card.checkgradesurl" v-bind:href="[[ card.checkgradesurl ]]">Visualizar prévia das notas</a>
+                    </span>
+                    <span>
+                        <a v-if="card.syncsurl" v-bind:href="[[ card.syncsurl ]]">Visualizar histórico de integrações</a>
                     </span>
                 </div>
             </div>

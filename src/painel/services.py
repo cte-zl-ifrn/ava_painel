@@ -139,9 +139,13 @@ def get_diarios(
 
                 if id_diario:
                     diario["suapsurl"] = f"{settings.SUAP_OAUTH_BASE_URL}/edu/diario/{id_diario}/"
-                    diario["gradesurl"] = re.sub("/course/view", "/grade/report/user/index", diario["viewurl"])
+                    if diario.get("can_set_visibility"):
+                        diario["gradesurl"] = re.sub("/course/view", "/grade/report/grader/index", diario["viewurl"])
+                    else:
+                        diario["gradesurl"] = re.sub("/course/view", "/grade/report/overview/index", diario["viewurl"])
+                        
                     try:
-                        return
+                        # TODO: Melhor a performance aqui
                         ultima = Solicitacao.objects.ultima_do_diario(id_diario)
                         if ultima is not None:
                             diario["syncsurl"] = reverse("painel:syncs", kwargs={"id_diario": id_diario})
