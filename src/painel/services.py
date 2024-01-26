@@ -132,25 +132,26 @@ def get_diarios(
                     diario["checkgradesurl"] = reverse(
                         "painel:checkgrades", kwargs={"id_ambiente": ava["ambiente"]["id"], "id_diario": id_diario}
                     )
-
-                if diario.get("can_set_visibility") and id_diario:
                     diario["can_view_syncsurl"] = True
                     diario["syncsurl"] = reverse("painel:syncs", kwargs={"id_diario": id_diario})
+                    diario["mensagemurl"] = f"{settings.SUAP_OAUTH_BASE_URL}/edu/enviar_mensagem/?diario={id_diario}"
 
+                print("id_diario:", id_diario)
                 if id_diario:
-                    diario["suapsurl"] = f"{settings.SUAP_OAUTH_BASE_URL}/edu/diario/{id_diario}/"
+                    diario["suapsurl"] = f"{settings.SUAP_OAUTH_BASE_URL}/edu/meu_diario/{id_diario}/1/"
                     if diario.get("can_set_visibility"):
                         diario["gradesurl"] = re.sub("/course/view", "/grade/report/grader/index", diario["viewurl"])
                     else:
                         diario["gradesurl"] = re.sub("/course/view", "/grade/report/overview/index", diario["viewurl"])
-                        
+
                     try:
                         # TODO: Melhor a performance aqui
                         ultima = Solicitacao.objects.ultima_do_diario(id_diario)
+
                         if ultima is not None:
                             diario["syncsurl"] = reverse("painel:syncs", kwargs={"id_diario": id_diario})
-                            respondido = json.loads(ultima.respondido)
-                            diario["coordenacaourl"] = respondido["url_sala_coordenacao"]
+                            print("ultima:", ultima.respondido)
+                            diario["coordenacaourl"] = ultima.respondido.get("url_sala_coordenacao")
                     except Exception as e:
                         logging.error(e)
                         sentry_sdk.capture_exception(e)

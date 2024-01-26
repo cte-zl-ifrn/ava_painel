@@ -28,9 +28,11 @@ def checkgrades(request: HttpRequest, id_ambiente: int, id_diario: int) -> HttpR
         "get_diarios",
         **{"username": logged_user(request).username, "q": f"%23{id_diario}", "situacao": Situacao.ALL},
     )
-    print(resposta)
-    diario = resposta["diarios"][0] if len(resposta["diarios"]) == 1 else None
-    diario["id_diario"] = diario["idnumber"].split("#")[1]
+    diario = resposta["diarios"][0] if len(resposta.get("diarios", [])) == 1 else None
+    if diario is None:
+        raise Exception("Diário não encontrado")
+    parts = diario.get("idnumber", "").split("#")
+    diario["id_diario"] = parts[1] if len(parts) == 2 else None
     alunos = get_json_api(ambiente, "sync_down_grades", **{"diario_id": id_diario})
     etapas = {}
     for grade in alunos:

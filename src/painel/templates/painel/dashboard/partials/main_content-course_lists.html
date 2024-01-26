@@ -65,20 +65,23 @@
                     </div>
                 </div>
                 <div class="course-actions">
-                    <span>
-                        <a v-if="card.suapsurl" v-bind:href="[[ card.suapsurl ]]">Ver diario no SUAP</a>
+                    <span v-if="card.suapsurl">
+                        <a v-bind:href="[[ card.suapsurl ]]">Ver diario no SUAP</a>
                     </span>
-                    <span>
-                        <a v-if="card.coordenacaourl" v-bind:href="[[ card.coordenacaourl ]]">Ir para a coordenação</a>
+                    <span v-if="card.mensagemurl">
+                        <a v-bind:href="[[ card.mensagemurl ]]">Enviar mensagem via SUAP</a>
                     </span>
-                    <span>
-                        <a v-if="card.gradesurl" v-bind:href="[[ card.gradesurl ]]">Ver quadro de notas</a>
+                    <span v-if="card.coordenacaourl">
+                        <a v-bind:href="[[ card.coordenacaourl ]]">Ver sala de coordenação no AVA</a>
                     </span>
-                    <span>
-                        <a v-if="card.checkgradesurl" v-bind:href="[[ card.checkgradesurl ]]">Visualizar prévia das notas</a>
+                    <span v-if="card.gradesurl">
+                        <a v-bind:href="[[ card.gradesurl ]]">Ver quadro de notas no AVA</a>
                     </span>
-                    <span>
-                        <a v-if="card.syncsurl" v-bind:href="[[ card.syncsurl ]]">Visualizar histórico de integrações</a>
+                    <span v-if="card.checkgradesurl">
+                        <a v-bind:href="[[ card.checkgradesurl ]]">Visualizar prévia das notas</a>
+                    </span>
+                    <span v-if="card.syncsurl">
+                        <a v-bind:href="[[ card.syncsurl ]]">Visualizar histórico de integrações</a>
                     </span>
                 </div>
             </div>

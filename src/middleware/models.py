@@ -1,5 +1,5 @@
 from django.utils.translation import gettext as _
-from django.db.models import CharField, DateTimeField, JSONField, ForeignKey, PROTECT, QuerySet, Q
+from django.db.models import CharField, DateTimeField, JSONField, ForeignKey, PROTECT, QuerySet, Q, Model
 from django_better_choices import Choices
 from django.utils.html import format_html
 from simple_history.models import HistoricalRecords
@@ -8,11 +8,10 @@ from safedelete.models import SafeDeleteModel, SafeDeleteManager
 
 class SolicitacaoManager(SafeDeleteManager):
     def by_diario_id(self, diario_id: int) -> QuerySet:
-        filter = f'"diario":{{"id":{diario_id},'
-        return self.filter(recebido__contains=filter).order_by("-id")
+        return Solicitacao.objects.filter(Q(recebido__diario__id=int(diario_id))).order_by("-id")
 
-    def ultima_do_diario(self, diario_id: int) -> QuerySet:
-        return Solicitacao.objects.filter(Q(recebido__diario__id=diario_id)).order_by("-id").first()
+    def ultima_do_diario(self, diario_id: int) -> Model:
+        return self.by_diario_id(diario_id).first()
 
 
 class Solicitacao(SafeDeleteModel):
@@ -40,7 +39,7 @@ class Solicitacao(SafeDeleteModel):
         ordering = ["-timestamp"]
 
     def __str__(self):
-        return f"{self.id} - {self.diario}"
+        return f"{self.id} - {self.respondido}"
 
     @property
     def status_merged(self):
