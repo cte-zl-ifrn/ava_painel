@@ -116,6 +116,7 @@ export default {
                     return $("<span " + style + ">" + data.text + "</span> ");
                 },
             });
+            
             setTimeout(function () {
                 $("#ambiente").val($("#ambiente option:eq(0)").val()).trigger("change");
                 $("#curso").val($("#curso option:eq(0)").val()).trigger("change");

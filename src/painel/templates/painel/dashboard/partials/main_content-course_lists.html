@@ -50,6 +50,7 @@
                             v-on:click="favourite(card)"
                             type="button"
                             title="Favoritar este diário para mim"
+                            :class="{ 'favorited': card.isfavourite}"
                             ><i class="fa fa-star"></i
                         ></label>
                         <label
