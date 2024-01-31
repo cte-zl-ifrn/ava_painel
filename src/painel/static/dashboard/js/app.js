@@ -104,9 +104,41 @@ export default {
         },
 
         customizeAmbiente() {
-            $("#ambiente, #curso, #disciplina, #semestre").select2({
+            // $("#ambiente, #curso, #disciplina, #semestre").select2({
+            //     templateSelection: function (data) {
+            //         const style = 'style="padding: 0 5px 0 30px; color: #1D2125; "';
+            //         return $("<span " + style + ">" + data.text + "</span> ");
+            //     },
+            // });
+            $("#semestre").select2({
+                placeholder: "<i class='icon icon-calendario-semestre'></i> Semestres...",
                 templateSelection: function (data) {
-                    const style = 'style="padding: 0 5px 0 30px; color: #1D2125; "';
+                    const style = 'style="color: #1D2125; "';
+                    
+                    return $("<span " + style + ">" + data.text + "</span> ");
+                },
+            });
+             $("#disciplina").select2({
+                placeholder: "<i class='icon icon-disciplina'></i> Disciplinas...",
+                templateSelection: function (data) {
+                    const style = 'style="color: #1D2125; "';
+                    
+                    return $("<span " + style + ">" + data.text + "</span> ");
+                },
+            });
+             $("#curso").select2({
+                placeholder: "<i class='icon icon-icone-ava'></i> Cursos...",
+                templateSelection: function (data) {
+                    const style = 'style="color: #1D2125; "';
+                    
+                    return $("<span " + style + ">" + data.text + "</span> ");
+                },
+            });
+            $("#ambiente").select2({
+                placeholder: "<i class='icon icon-moodle'></i> Ambientes...",
+                templateSelection: function (data) {
+                    const style = 'style="color: #1D2125; "';
+                    
                     return $("<span " + style + ">" + data.text + "</span> ");
                 },
             });

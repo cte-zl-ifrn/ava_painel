@@ -240,9 +240,6 @@ h6 {
   background-color: var(--background-hover) !important;
 }
 
-.favorited {
-    color: #198754; /* Cor quando favoritado */
-  }
 a {
   color: inherit;
   text-decoration: none;
