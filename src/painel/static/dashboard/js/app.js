@@ -345,10 +345,16 @@ export default {
 
         cardActionsToggler(event) {
             let item = $(event.srcElement).parent().parent().parent().parent();
+            console.log(item)
             if ($(item).hasClass("showActions")) {
+                
                 $(item).removeClass("showActions");
+                $(event.srcElement).removeClass("favorited");
             } else {
-                $(item).addClass("showActions");
+                
+                $(item).addClass("showActions ");
+                $(event.srcElement).addClass(" favorited");
+                
             }
         },
 
