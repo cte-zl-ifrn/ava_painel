@@ -1,5 +1,5 @@
 {% load static %}
-<div id="grid-filter-wrapper">
+<!-- <div id="grid-filter-wrapper">
     <div id="grid-filter">
         <div class="grid-item item-1 position-relative content-center hide-close">
             <b id="filters-title">Filtrar por </b>
@@ -13,7 +13,7 @@
                 v-model="q"
                 @keydown.enter="filterCards($event)"
             />
-            <!-- <i class="fa fa-search icon-filter-color icon-fild-position"></i> -->
+             <i class="fa fa-search icon-filter-color icon-fild-position"></i> 
         </div>
         <div class="grid-item position-relative filter-field display-content">
             <select
@@ -27,11 +27,11 @@
             </select>
             {% comment %} <i class="fa fa-book icon-filter-color icon-fild-position"></i> {% endcomment %}
         </div>
-        <!-- <div class="grid-item">
+         <div class="grid-item">
             <select name="ordenacao" id="ordenacao" @change="filterCards($event)" v-model="ordenacao">
                 <option v-for="row in ordenacoes" v-bind:value="row.id">[[ row.label ]]</option>
             </select>
-        </div> -->
+        </div> 
         <div class="grid-item position-relative filter-field" v-show="selectedBar == 'diarios' || selectedBar == null">
             <select name="semestre" id="semestre" v-model="semestre" required>
                 <option v-for="row in semestres" v-bind:value="row.id">[[ row.label ]]</option>
@@ -59,4 +59,4 @@
             </button>
         </div>
     </div>
-</div>
+</div> -->
