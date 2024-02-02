@@ -1,6 +1,6 @@
 #page-menu {
     margin-top: -40px;
-    // border-bottom: 3px solid var(--verde-secundario);
+    border-bottom: 3px solid var(--verde-secundario);
     margin-right: 3px;
 
     .nav-tabs {
@@ -50,4 +50,25 @@
     height: 4px;
     background: #338f74 0% 0% no-repeat padding-box;
     border-radius: 0px 4px 0px 0px;
+}
+
+@media only screen and (max-width: 432px)  {
+    #page-menu {
+
+        margin-top: 15px;
+        margin-left: 15px;
+        border-bottom: none;
+        // border-bottom: 3px solid var(--verde-secundario);
+
+        select{
+            background-color:#d5f2e9;
+            border-radius: 5px;
+            min-width: 360px;
+            line-height: 80px;
+            padding: 5px;
+            font:menu;
+            border:2px solid #338f73;
+        }
+        
+    }
 }

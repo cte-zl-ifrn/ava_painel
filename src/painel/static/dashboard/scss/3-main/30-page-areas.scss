@@ -23,3 +23,23 @@
         }
     }
 }
+
+@media only screen and (max-width: 550px)  {
+    #page-areas {
+        display: flex;
+    }
+    #page-areas section:first-child{
+        display: none;
+        
+    }
+    #page-areas section:last-child{
+        margin: 15px;
+        display: :none;
+        background-color: aqua;
+        min-width: 320px;
+        grid-template-columns:340px 1fr auto;
+        
+    }
+}
+
+

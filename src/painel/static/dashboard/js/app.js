@@ -42,6 +42,7 @@ export default {
             ambiente: localStorage.ambiente || "",
             contentClosed: localStorage.contentClosed || "true",
             selectedBar: null,
+            screenWidth: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
         };
     },
 
@@ -57,6 +58,10 @@ export default {
         $("#pre-loading").css("display", "none");
         // this.startTour001();
         this.popup();
+        window.addEventListener('resize', this.handleResize);
+    },
+    beforeDestroy() {
+         window.removeEventListener('resize', this.handleResize);
     },
     methods: {
         toggleNavBar(e) {
@@ -475,9 +480,24 @@ export default {
         isFromSUAP(diario) {
             return diario != null && Object.hasOwn(diario, "id_diario_clean");
         },
+        handleResize() {
+            this.screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        },
+        handleSelectChange(event) {
+            console.log('teste');
+            var selectedValue = event.target.value;
+            // Adicione a lógica necessária com base na opção selecionada
+            this.toggleBar(selectedValue);
+            },
+            // Se necessário, adicione a lógica do método toggleBar
+            toggleBar(selectedValue) {
+            // Lógica para manipular o estado com base na opção selecionada
+            //console.log('Toggle bar:', selectedValue);
+        }
     },
 
-    watch: {
+    watch: 
+    {
         q(newValue) {
             localStorage.q = newValue || "";
         },
@@ -500,4 +520,11 @@ export default {
             localStorage.ambiente = newValue || "";
         },
     },
+
+
+
+
+
 };
+
+

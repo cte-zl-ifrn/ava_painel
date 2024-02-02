@@ -1,5 +1,5 @@
-<!-- <nav id="page-menu">
-        <div class="nav nav-tabs" role="tablist">
+<nav id="page-menu">
+        <div v-if="screenWidth > 432" class="nav nav-tabs" role="tablist">
                 <button class="nav-link active"
                         id="nav-diarios-tab"
                         data-bs-toggle="tab"
@@ -39,5 +39,17 @@
                         v-if="reutilizaveis.length!=0"
                         @click="toggleBar('reutilizaveis')">Reutilizar</button>
         </div>
+        <div v-else>
+                <select v-else id="mobileNavSelect" @change="handleSelectChange">
+                        <option value="diarios">Meus diários</option>
+                        <option value="coordenacoes">Coordenações</option>
+                        <option v-if="praticas.length != 0" value="praticas">Práticas</option>
+                        <option v-if="reutilizaveis.length != 0" value="reutilizaveis">Reutilizar</option>
+                </select>
+                <label title="Informações">
+                    <i class="icon icon-info-circle"></i>
+                </label>
+        </div>
+
 </nav>
-<div id="menu-separator"></div> -->
+<!-- <div id="menu-separator"></div> -->
