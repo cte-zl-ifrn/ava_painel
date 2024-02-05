@@ -1,5 +1,5 @@
 #course-list {
-    margin: 25px;
+    margin: 15px;
     padding: 5px;
 
     #course-toolbar {
@@ -152,6 +152,7 @@
                     }
 
                     i {
+                        
                         top: calc(50% - 15px);
                         position: relative;
                     }
@@ -185,5 +186,36 @@
         }
     }
     .empty-search {
+    }
+}
+@media only screen and (max-width: 432px)  {
+    .course-info {
+    padding: 15px;
+
+    .course-identification {
+        margin-bottom: 5px;
+
+        label {
+            border-radius: 50%;
+            width: 29px;
+            height: 29px;
+            text-align: center;
+            padding: 5px;
+            color: var(--branco-primario);
+        }
+
+        > span {
+            margin-top: 3px;
+            position: absolute;
+
+            > span {
+                margin-left: 15px;
+                font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-16) /
+                    var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+                letter-spacing: var(--unnamed-character-spacing-0);
+                color: var(--escuro-primario);
+                text-align: left;
+            }
+        }
     }
 }

@@ -58,7 +58,11 @@ export default {
         $("#pre-loading").css("display", "none");
         // this.startTour001();
         this.popup();
+
+        // Adiciona um ouvinte de evento para verificar a largura da tela quando a janela é redimensionada
         window.addEventListener('resize', this.handleResize);
+
+
     },
     beforeDestroy() {
          window.removeEventListener('resize', this.handleResize);
@@ -482,6 +486,7 @@ export default {
         },
         handleResize() {
             this.screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  
         },
         handleSelectChange(event) {
             console.log('teste');
