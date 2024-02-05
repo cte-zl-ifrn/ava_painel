@@ -984,7 +984,17 @@ main #menu-separator {
     line-height: 80px;
     padding: 5px;
     font: menu;
-    border: 2px solid #338f73;
+    border: 1px solid #338f73;
+  }
+  main #search-mobile {
+    margin-top: 10px;
+  }
+  main #search-mobile input {
+    min-width: 300px;
+    border: 1px solid #338f73;
+    line-height: 25px;
+    border-radius: 5px;
+    padding-left: 10px;
   }
 }
 
@@ -1016,7 +1026,7 @@ main #page-areas #toggle-filter .fa::before {
 
 @media only screen and (max-width: 550px) {
   main #page-areas {
-    display: flex;
+    background-color: aqua;
   }
   main #page-areas section:first-child {
     display: none;
@@ -1279,9 +1289,30 @@ main #maincontent #course-list .course-listitem.showActions .course-actions {
 }
 
 @media only screen and (max-width: 432px) {
-  main #maincontent .course-info > .course-identification > label > span > span {
-    background-color: #5f92d1;
-    display: none;
+  main #maincontent .course-info {
+    padding: 15px;
+  }
+  main #maincontent .course-info .course-identification {
+    margin-bottom: 5px;
+  }
+  main #maincontent .course-info .course-identification label {
+    border-radius: 50%;
+    width: 29px;
+    height: 29px;
+    text-align: center;
+    padding: 5px;
+    color: var(--branco-primario);
+  }
+  main #maincontent .course-info .course-identification > span {
+    margin-top: 3px;
+    position: absolute;
+  }
+  main #maincontent .course-info .course-identification > span > span {
+    margin-left: 15px;
+    font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-16)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--escuro-primario);
+    text-align: left;
   }
 }
 
@@ -1451,9 +1482,30 @@ main #maincontent #course-list .course-listitem .course-body .course-info .cours
 }
 
 @media only screen and (max-width: 432px) and (max-width: 432px) {
-  main #maincontent .course-info > .course-identification > label > span > span {
-    background-color: #5f92d1;
-    display: none;
+  main #maincontent .course-info {
+    padding: 15px;
+  }
+  main #maincontent .course-info .course-identification {
+    margin-bottom: 5px;
+  }
+  main #maincontent .course-info .course-identification label {
+    border-radius: 50%;
+    width: 29px;
+    height: 29px;
+    text-align: center;
+    padding: 5px;
+    color: var(--branco-primario);
+  }
+  main #maincontent .course-info .course-identification > span {
+    margin-top: 3px;
+    position: absolute;
+  }
+  main #maincontent .course-info .course-identification > span > span {
+    margin-left: 15px;
+    font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-16)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--escuro-primario);
+    text-align: left;
   }
 }
 

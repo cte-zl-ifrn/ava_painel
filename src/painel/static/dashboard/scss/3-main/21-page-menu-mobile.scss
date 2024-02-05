@@ -1,0 +1,30 @@
+@media only screen and (max-width: 432px)  {
+    #page-menu {
+        margin-top: 15px;
+        margin-left: 15px;
+        border-bottom: none;
+       
+        select{
+            background-color:#fff;
+            border-radius: 5px;
+            min-width: 360px;
+            line-height: 80px;
+            padding: 5px;
+            font:menu;
+            border:1px solid #338f73;
+            
+        }
+        
+    }
+    #search-mobile{
+        margin-top: 10px;
+        input{
+            min-width: 300px;
+            border:1px solid #338f73;
+            line-height: 25px;
+            border-radius: 5px;
+            padding-left: 10px;
+            
+        }
+    }
+}

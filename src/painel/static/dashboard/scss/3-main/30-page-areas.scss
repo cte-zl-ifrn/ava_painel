@@ -25,19 +25,6 @@
 }
 
 
-@media only screen and (max-width: 550px)  {
-    #page-areas {
-        display: flex;
-    }
-    #page-areas section:first-child{
-        display: none;
-        
-        
-    }
-    #page-areas section:last-child{
-        grid-template-columns:340px 1fr auto;
-        
-    }
-}
+
 
 

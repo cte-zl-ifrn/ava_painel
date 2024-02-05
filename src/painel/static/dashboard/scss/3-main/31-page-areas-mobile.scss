@@ -1,0 +1,12 @@
+@media only screen and (max-width: 550px) {
+  #page-areas {
+    background-color: aqua;
+
+    section:first-child {
+      display: none;
+    }
+    section:last-child {
+      grid-template-columns: 340px 1fr auto;
+    }
+  } 
+}
