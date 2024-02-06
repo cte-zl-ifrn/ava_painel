@@ -43,6 +43,7 @@ export default {
             contentClosed: localStorage.contentClosed || "true",
             selectedBar: null,
             screenWidth: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+            isIconUp: false,
         };
     },
 
@@ -359,12 +360,18 @@ export default {
                 
                 $(item).removeClass("showActions");
                 $(event.srcElement).removeClass("favorited");
+                
+
+
             } else {
                 
                 $(item).addClass("showActions ");
                 $(event.srcElement).addClass(" favorited");
                 
             }
+        },
+        toggleIcon() {
+            this.isIconUp = !this.isIconUp;
         },
 
         clearFilter() {
@@ -525,6 +532,7 @@ export default {
             localStorage.ambiente = newValue || "";
         },
     },
+    
 
 
 

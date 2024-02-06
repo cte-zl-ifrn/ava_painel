@@ -1,6 +1,7 @@
 #course-list {
     margin: 15px;
     padding: 5px;
+    min-width: 250px;
 
     #course-toolbar {
         display: block;
@@ -140,6 +141,7 @@
                 border-radius: 0 4px 4px 0;
 
                 > label {
+                    font-size: 22px;
                     display: block;
                     height: 50%;
                     width: 100%;
@@ -176,6 +178,10 @@
 
             span {
                 display: block;
+                padding: 10px 10px 0px 0px;
+            }span > a{
+                margin-left: 8px;
+                
             }
         }
         &.showActions .course-actions {
@@ -187,36 +193,9 @@
     }
     .empty-search {
     }
-}
-@media only screen and (max-width: 432px)  {
-    .course-info {
-    padding: 15px;
 
-    .course-identification {
-        margin-bottom: 5px;
-
-        label {
-            border-radius: 50%;
-            width: 29px;
-            height: 29px;
-            text-align: center;
-            padding: 5px;
-            color: var(--branco-primario);
-        }
-
-        > span {
-            margin-top: 3px;
-            position: absolute;
-
-            > span {
-                margin-left: 15px;
-                font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-16) /
-                    var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
-                letter-spacing: var(--unnamed-character-spacing-0);
-                color: var(--escuro-primario);
-                text-align: left;
-            }
-        }
+    .favorited{
+        color:var(--verde-botao);
     }
 }
-}
+

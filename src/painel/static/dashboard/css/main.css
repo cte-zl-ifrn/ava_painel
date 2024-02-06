@@ -980,7 +980,8 @@ main #menu-separator {
   main #page-menu select {
     background-color: #fff;
     border-radius: 5px;
-    min-width: 360px;
+    min-width: 95%;
+    max-width: 370px;
     line-height: 80px;
     padding: 5px;
     font: menu;
@@ -988,13 +989,33 @@ main #menu-separator {
   }
   main #search-mobile {
     margin-top: 10px;
+    display: flex;
   }
   main #search-mobile input {
-    min-width: 300px;
+    min-width: 285px;
     border: 1px solid #338f73;
-    line-height: 25px;
+    line-height: 30px;
     border-radius: 5px;
+    margin-right: 10px;
     padding-left: 10px;
+  }
+  main #search-mobile button {
+    border: 1px solid #338f73;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: smaller;
+  }
+  main #search-mobile #btn-search {
+    position: absolute;
+    color: #777;
+    right: 111px;
+    background-color: #DFF4EE;
+  }
+  main #search-mobile #btn-filter {
+    position: absolute;
+    color: #fff;
+    right: 25px;
+    background-color: var(--verde-botao);
   }
 }
 
@@ -1025,9 +1046,6 @@ main #page-areas #toggle-filter .fa::before {
 }
 
 @media only screen and (max-width: 550px) {
-  main #page-areas {
-    background-color: aqua;
-  }
   main #page-areas section:first-child {
     display: none;
   }
@@ -1106,6 +1124,7 @@ main #maincontent {
 main #maincontent #course-list {
   margin: 15px;
   padding: 5px;
+  min-width: 250px;
 }
 
 main #maincontent #course-list #course-toolbar {
@@ -1250,6 +1269,7 @@ main #maincontent #course-list .course-listitem .course-body .course-quickaction
 }
 
 main #maincontent #course-list .course-listitem .course-body .course-quickactions > label {
+  font-size: 22px;
   display: block;
   height: 50%;
   width: 100%;
@@ -1282,38 +1302,19 @@ main #maincontent #course-list .course-listitem .course-actions {
 
 main #maincontent #course-list .course-listitem .course-actions span {
   display: block;
+  padding: 10px 10px 0px 0px;
+}
+
+main #maincontent #course-list .course-listitem .course-actions span > a {
+  margin-left: 8px;
 }
 
 main #maincontent #course-list .course-listitem.showActions .course-actions {
   display: block;
 }
 
-@media only screen and (max-width: 432px) {
-  main #maincontent .course-info {
-    padding: 15px;
-  }
-  main #maincontent .course-info .course-identification {
-    margin-bottom: 5px;
-  }
-  main #maincontent .course-info .course-identification label {
-    border-radius: 50%;
-    width: 29px;
-    height: 29px;
-    text-align: center;
-    padding: 5px;
-    color: var(--branco-primario);
-  }
-  main #maincontent .course-info .course-identification > span {
-    margin-top: 3px;
-    position: absolute;
-  }
-  main #maincontent .course-info .course-identification > span > span {
-    margin-left: 15px;
-    font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-16)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
-    letter-spacing: var(--unnamed-character-spacing-0);
-    color: var(--escuro-primario);
-    text-align: left;
-  }
+main #maincontent #course-list .favorited {
+  color: var(--verde-botao);
 }
 
 @media only screen and (max-width: 432px) {
@@ -1321,10 +1322,12 @@ main #maincontent #course-list .course-listitem.showActions .course-actions {
     background: none;
     box-shadow: none;
     border: none;
+    width: 120%;
   }
   main #maincontent #course-list {
     margin: 15px;
     padding: 5px;
+    min-width: 250px;
   }
   main #maincontent #course-list #course-toolbar {
     display: block;
@@ -1447,6 +1450,7 @@ main #maincontent #course-list .course-listitem .course-body .course-info .cours
     border-radius: 0 4px 4px 0;
   }
   main #maincontent #course-list .course-listitem .course-body .course-quickactions > label {
+    font-size: 22px;
     display: block;
     height: 50%;
     width: 100%;
@@ -1475,37 +1479,16 @@ main #maincontent #course-list .course-listitem .course-body .course-info .cours
   }
   main #maincontent #course-list .course-listitem .course-actions span {
     display: block;
+    padding: 10px 10px 0px 0px;
+  }
+  main #maincontent #course-list .course-listitem .course-actions span > a {
+    margin-left: 8px;
   }
   main #maincontent #course-list .course-listitem.showActions .course-actions {
     display: block;
   }
-}
-
-@media only screen and (max-width: 432px) and (max-width: 432px) {
-  main #maincontent .course-info {
-    padding: 15px;
-  }
-  main #maincontent .course-info .course-identification {
-    margin-bottom: 5px;
-  }
-  main #maincontent .course-info .course-identification label {
-    border-radius: 50%;
-    width: 29px;
-    height: 29px;
-    text-align: center;
-    padding: 5px;
-    color: var(--branco-primario);
-  }
-  main #maincontent .course-info .course-identification > span {
-    margin-top: 3px;
-    position: absolute;
-  }
-  main #maincontent .course-info .course-identification > span > span {
-    margin-left: 15px;
-    font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-16)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
-    letter-spacing: var(--unnamed-character-spacing-0);
-    color: var(--escuro-primario);
-    text-align: left;
+  main #maincontent #course-list .favorited {
+    color: var(--verde-botao);
   }
 }
 

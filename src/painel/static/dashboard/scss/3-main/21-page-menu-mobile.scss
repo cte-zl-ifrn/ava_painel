@@ -7,7 +7,8 @@
         select{
             background-color:#fff;
             border-radius: 5px;
-            min-width: 360px;
+            min-width: 95%;
+            max-width: 370px;
             line-height: 80px;
             padding: 5px;
             font:menu;
@@ -18,13 +19,37 @@
     }
     #search-mobile{
         margin-top: 10px;
-        input{
-            min-width: 300px;
+       
+        display: flex;
+       
+
+        input{          
+            min-width: 285px;
             border:1px solid #338f73;
-            line-height: 25px;
+            line-height: 30px;
             border-radius: 5px;
-            padding-left: 10px;
-            
+            margin-right: 10px;
+            padding-left: 10px;            
+        }
+        button{
+            border:1px solid #338f73;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size:smaller;
+        }
+ 
+        #btn-search {
+            position: absolute;
+            color: #777;
+            right: 111px;         
+            background-color: #DFF4EE;      
+        }
+    
+        #btn-filter{
+            position: absolute;
+            color: #fff;
+            right: 25px;
+            background-color: var(--verde-botao);
         }
     }
 }

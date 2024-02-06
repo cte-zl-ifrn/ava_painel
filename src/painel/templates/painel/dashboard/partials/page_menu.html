@@ -46,9 +46,14 @@
                         <option v-if="praticas.length != 0" value="praticas">Práticas</option>
                         <option v-if="reutilizaveis.length != 0" value="reutilizaveis">Reutilizar</option>
                 </select>
-                <div id="search-mobile" >
-                        <input type="text" placeholder="Busque por nomes, códigos, #id...">
-                        <button class="btn btn-success">Filtros</button>
+                <div id="search-mobile" >                        
+                        <form>
+                                <input type="text" placeholder="Busque por nomes, códigos, #id...">
+                                <button type="submit" id="btn-search" >
+                                        <i class="icon icon-search" aria-hidden="true"></i>
+                                </button>
+                        </form>                        
+                        <button id="btn-filter"> <i class="icon icon-search" aria-hidden="true"></i> Filtros</button>
                 </div>
         </div>
 
