@@ -3,10 +3,10 @@ main {
     max-width: 1312px;
 
     background: var(--branco-primario) 0% 0% no-repeat padding-box;
-    box-shadow: -2px 3px 5px #00000033;
+    //box-shadow: -2px 3px 5px #00000033;
     border: 1px solid #36394033;
     border-radius: 0px 4px 4px 0px;
-    margin: 0 auto 137px auto;
+    margin: 0 auto 0px auto;
 
    
     @import "3-main/10-page-title";
@@ -17,5 +17,7 @@ main {
     @import "3-main/31-page-areas-mobile";
     @import "3-main/40-sidebar";
     @import "3-main/50-maincontent";
+    @import "3-main/52-maincontent-dashboard_cards-mobile";
+    @import "3-main/51-maincontent-dashboard_cards";
     @import "3-main/60-mobile";
 }

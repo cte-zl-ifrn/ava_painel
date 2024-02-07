@@ -355,7 +355,7 @@ export default {
 
         cardActionsToggler(event) {
             let item = $(event.srcElement).parent().parent().parent().parent();
-            console.log(item)
+            //console.log(item)
             if ($(item).hasClass("showActions")) {
                 
                 $(item).removeClass("showActions");

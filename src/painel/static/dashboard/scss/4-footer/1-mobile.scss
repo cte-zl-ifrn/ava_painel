@@ -35,3 +35,53 @@
         }
     }
 }
+@media only screen and (max-width: 374px) {
+    footer {
+        //display: none;
+        background-color: rgb(117, 168, 168);
+        padding: 10px 20px;
+
+       
+
+        // .madeby {
+        //     margin: 10px;
+        //     text-align: center;
+        // }
+
+        // .contact ul {
+        //     display: block;
+        //     width: 280px;
+
+        //     span {
+        //         display: none;
+        //     }
+
+        //     li:hover {
+        //         background: none;
+        //     }
+        // }
+        #footer-wrapper{
+            #footer-buttons {
+                div{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+                }a{
+                    color: #000;
+                }
+
+            }
+
+        }
+
+        // p,
+        // .madeby {
+        //     line-height: 22px !important;
+        //     text-align: center;
+
+        //     br {
+        //         display: none;
+        //     }
+        // }
+    }
+}

@@ -1,14 +1,12 @@
 @media only screen and (max-width: 432px)  {
     #page-menu {
-        margin-top: 15px;
-        margin-left: 15px;
+        margin: 15px;
         border-bottom: none;
        
         select{
             background-color:#fff;
             border-radius: 5px;
-            min-width: 95%;
-            max-width: 370px;
+            width: 100%;
             line-height: 80px;
             padding: 5px;
             font:menu;
@@ -20,16 +18,21 @@
     #search-mobile{
         margin-top: 10px;
        
-        display: flex;
-       
+        display: grid;
+        grid-template-columns: 1fr 80px;
+        gap: 8px;
 
+        form{
+            position: relative;
+        }
         input{          
-            min-width: 285px;
+            width: 100%;
             border:1px solid #338f73;
             line-height: 30px;
             border-radius: 5px;
             margin-right: 10px;
-            padding-left: 10px;            
+            padding-left: 10px;
+            outline: none;        
         }
         button{
             border:1px solid #338f73;
@@ -41,14 +44,12 @@
         #btn-search {
             position: absolute;
             color: #777;
-            right: 111px;         
+            right: 0px;         
             background-color: #DFF4EE;      
         }
     
         #btn-filter{
-            position: absolute;
             color: #fff;
-            right: 25px;
             background-color: var(--verde-botao);
         }
     }

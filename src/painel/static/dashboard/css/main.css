@@ -56,8 +56,6 @@
 }
 
 body {
-  min-height: 100%;
-  background: #f8f8f8 0% 0% no-repeat padding-box;
   color: var(--escuro-primario) !important;
 }
 
@@ -851,10 +849,9 @@ main {
   display: none;
   max-width: 1312px;
   background: var(--branco-primario) 0% 0% no-repeat padding-box;
-  box-shadow: -2px 3px 5px #00000033;
   border: 1px solid #36394033;
   border-radius: 0px 4px 4px 0px;
-  margin: 0 auto 137px auto;
+  margin: 0 auto 0px auto;
 }
 
 main #page-title {
@@ -973,15 +970,13 @@ main #menu-separator {
 
 @media only screen and (max-width: 432px) {
   main #page-menu {
-    margin-top: 15px;
-    margin-left: 15px;
+    margin: 15px;
     border-bottom: none;
   }
   main #page-menu select {
     background-color: #fff;
     border-radius: 5px;
-    min-width: 95%;
-    max-width: 370px;
+    width: 100%;
     line-height: 80px;
     padding: 5px;
     font: menu;
@@ -989,15 +984,21 @@ main #menu-separator {
   }
   main #search-mobile {
     margin-top: 10px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 80px;
+    gap: 8px;
+  }
+  main #search-mobile form {
+    position: relative;
   }
   main #search-mobile input {
-    min-width: 285px;
+    width: 100%;
     border: 1px solid #338f73;
     line-height: 30px;
     border-radius: 5px;
     margin-right: 10px;
     padding-left: 10px;
+    outline: none;
   }
   main #search-mobile button {
     border: 1px solid #338f73;
@@ -1008,13 +1009,11 @@ main #menu-separator {
   main #search-mobile #btn-search {
     position: absolute;
     color: #777;
-    right: 111px;
+    right: 0px;
     background-color: #DFF4EE;
   }
   main #search-mobile #btn-filter {
-    position: absolute;
     color: #fff;
-    right: 25px;
     background-color: var(--verde-botao);
   }
 }
@@ -1046,11 +1045,11 @@ main #page-areas #toggle-filter .fa::before {
 }
 
 @media only screen and (max-width: 550px) {
+  main #page-areas {
+    grid-template-columns: 1fr;
+  }
   main #page-areas section:first-child {
     display: none;
-  }
-  main #page-areas section:last-child {
-    grid-template-columns: 340px 1fr auto;
   }
 }
 
@@ -1124,7 +1123,6 @@ main #maincontent {
 main #maincontent #course-list {
   margin: 15px;
   padding: 5px;
-  min-width: 250px;
 }
 
 main #maincontent #course-list #course-toolbar {
@@ -1197,7 +1195,6 @@ main #maincontent #course-list .course-listitem .course-body .course-info .cours
 
 main #maincontent #course-list .course-listitem .course-body .course-info .course-identification > span {
   margin-top: 3px;
-  position: absolute;
 }
 
 main #maincontent #course-list .course-listitem .course-body .course-info .course-identification > span > span {
@@ -1322,12 +1319,10 @@ main #maincontent #course-list .favorited {
     background: none;
     box-shadow: none;
     border: none;
-    width: 120%;
   }
   main #maincontent #course-list {
     margin: 15px;
     padding: 5px;
-    min-width: 250px;
   }
   main #maincontent #course-list #course-toolbar {
     display: block;
@@ -1387,7 +1382,6 @@ main #maincontent #course-list .favorited {
   }
   main #maincontent #course-list .course-listitem .course-body .course-info .course-identification > span {
     margin-top: 3px;
-    position: absolute;
   }
   main #maincontent #course-list .course-listitem .course-body .course-info .course-identification > span > span {
     margin-left: 15px;
@@ -1492,6 +1486,219 @@ main #maincontent #course-list .course-listitem .course-body .course-info .cours
   }
 }
 
+@media only screen and (max-width: 366px) {
+  main #maincontent #course-list {
+    background-color: #3cff00;
+  }
+  main #maincontent #course-list .course-listitem .course-body {
+    width: 100%;
+  }
+  main #maincontent #course-list .course-listitem .course-body .course-info .course-identification > span > span {
+    font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-12)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+    margin-left: 8px;
+  }
+  main #maincontent #course-list .course-listitem .course-body .course-info .course-disciplina a,
+main #maincontent #course-list .course-listitem .course-body .course-info .course-disciplina a:hover,
+main #maincontent #course-list .course-listitem .course-body .course-info .course-disciplina a:visited,
+main #maincontent #course-list .course-listitem .course-body .course-info .course-disciplina a:active {
+    font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-16)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+  }
+}
+
+main #course-list {
+  margin: 15px;
+  padding: 5px;
+}
+
+main #course-list #course-toolbar {
+  display: block;
+  height: 50px;
+}
+
+main #course-list #course-toolbar > div {
+  float: right;
+}
+
+main #course-list #course-toolbar > div label:first-child {
+  background-color: transparent !important;
+  font-size: 28px;
+  padding: 0;
+  margin: -4px 20px 0 0;
+  float: left;
+}
+
+main #course-list #course-toolbar > div label {
+  width: 27px;
+  height: 25px;
+  background: var(--background-color) 0% 0% no-repeat padding-box;
+  border-radius: 4px;
+  padding: 0;
+  margin-left: 4px;
+}
+
+main #course-list #course-toolbar > div label .fa {
+  color: var(--cinza-secundario);
+}
+
+main #course-list #course-toolbar > div .btn-check:checked + .btn {
+  border: 1px solid var(--verde-botao);
+}
+
+main #course-list #course-toolbar > div .btn-check:checked + .btn .fa {
+  color: var(--verde-botao);
+}
+
+main #course-list .course-listitem {
+  margin-bottom: 20px;
+}
+
+main #course-list .course-listitem .course-body {
+  background: var(--branco-primario) 0% 0% no-repeat padding-box;
+  border-radius: 4px;
+  box-shadow: 0px 2px 5px #00000080;
+  min-height: 99px;
+  display: grid;
+  grid-template-columns: 1fr 37px;
+}
+
+main #course-list .course-listitem .course-body .course-info {
+  padding: 15px;
+}
+
+main #course-list .course-listitem .course-body .course-info .course-identification {
+  margin-bottom: 5px;
+}
+
+main #course-list .course-listitem .course-body .course-info .course-identification label {
+  border-radius: 50%;
+  width: 29px;
+  height: 29px;
+  text-align: center;
+  padding: 5px;
+  color: var(--branco-primario);
+}
+
+main #course-list .course-listitem .course-body .course-info .course-identification > span {
+  margin-top: 3px;
+}
+
+main #course-list .course-listitem .course-body .course-info .course-identification > span > span {
+  margin-left: 15px;
+  font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-16)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  color: var(--escuro-primario);
+  text-align: left;
+}
+
+main #course-list .course-listitem .course-body .course-info .course-disciplina a,
+main #course-list .course-listitem .course-body .course-info .course-disciplina a:hover,
+main #course-list .course-listitem .course-body .course-info .course-disciplina a:visited,
+main #course-list .course-listitem .course-body .course-info .course-disciplina a:active {
+  font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-24)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  color: var(--escuro-primario);
+  text-align: left;
+  letter-spacing: 0px;
+  text-decoration: none;
+}
+
+main #course-list .course-listitem .course-body .course-info .course-curso {
+  font: var(--unnamed-font-style-normal) normal 400 var(--unnamed-font-size-16)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  color: var(--escuro-primario);
+  padding-bottom: 5px;
+}
+
+main #course-list .course-listitem .course-body .course-info .course-progressbar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 12px;
+  margin-top: 5px;
+}
+
+main #course-list .course-listitem .course-body .course-info .course-progressbar > div:first-child {
+  background: #cfcfcf 0% 0% no-repeat padding-box;
+  border-radius: 50px;
+  height: 12px;
+}
+
+main #course-list .course-listitem .course-body .course-info .course-progressbar > div:first-child span {
+  display: block;
+  background: #5f92d1 0% 0% no-repeat padding-box;
+  border-radius: 50px;
+  height: 12px;
+}
+
+main #course-list .course-listitem .course-body .course-info .course-progressbar > div:last-child {
+  font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-12)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  color: var(--cinza-primario);
+  text-align: left;
+  font: normal normal 600 12px/22px Noto Sans;
+  letter-spacing: 0px;
+  color: #7d848b;
+  height: 12px;
+  margin: -6px 0 0 20px;
+}
+
+main #course-list .course-listitem .course-body .course-quickactions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: -1px 0px 2px #00000026;
+  border-radius: 0 4px 4px 0;
+}
+
+main #course-list .course-listitem .course-body .course-quickactions > label {
+  font-size: 22px;
+  display: block;
+  height: 50%;
+  width: 100%;
+  text-align: center;
+}
+
+main #course-list .course-listitem .course-body .course-quickactions > label:last-child {
+  border-top: 1px solid var(--cinza-terciario);
+}
+
+main #course-list .course-listitem .course-body .course-quickactions > label i {
+  top: calc(50% - 15px);
+  position: relative;
+}
+
+main #course-list .course-listitem .course-actions {
+  display: none;
+  background: #f5e8e8 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 3px #00000080;
+  border-radius: 0 0 4px 4px;
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-14)/16px var(--unnamed-font-family-noto-sans);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  text-align: left;
+  font: normal normal normal 14px/16px Noto Sans;
+  letter-spacing: 0px;
+  color: #464646;
+  padding: 15px;
+  margin: 1px 8px;
+}
+
+main #course-list .course-listitem .course-actions span {
+  display: block;
+  padding: 10px 10px 0px 0px;
+}
+
+main #course-list .course-listitem .course-actions span > a {
+  margin-left: 8px;
+}
+
+main #course-list .course-listitem.showActions .course-actions {
+  display: block;
+}
+
+main #course-list .favorited {
+  color: var(--verde-botao);
+}
+
 footer {
   background-color: var(--header-color);
   padding: 20px 0px;
@@ -1565,33 +1772,30 @@ footer #footer-wrapper .contact i.fa:hover {
 
 footer #footer-wrapper #footer-buttons {
   display: flex !important;
-  margin-top: 10px;
+  margin-top: 20px;
   justify-content: center;
   gap: 10px;
-}
-
-footer #footer-wrapper #footer-buttons p {
   display: contents !important;
   width: 167px;
 }
 
-footer #footer-wrapper #footer-buttons p:hover {
+footer #footer-wrapper #footer-buttons :hover {
   transform: none !important;
   transition: none !important;
 }
 
-footer #footer-wrapper #footer-buttons p a {
+footer #footer-wrapper #footer-buttons a {
   border: none !important;
   background-color: var(--verde-botao);
   color: var(--branco-primario) !important;
 }
 
-footer #footer-wrapper #footer-buttons p a:hover {
+footer #footer-wrapper #footer-buttons a:hover {
   transform: none !important;
   background-color: var(--verde-secundario);
 }
 
-footer #footer-wrapper #footer-buttons p a svg {
+footer #footer-wrapper #footer-buttons a svg {
   vertical-align: baseline;
   margin-right: 9px;
 }
@@ -1636,5 +1840,20 @@ footer .madeby {
   footer p br,
 footer .madeby br {
     display: none;
+  }
+}
+
+@media only screen and (max-width: 374px) {
+  footer {
+    background-color: #75a8a8;
+    padding: 10px 20px;
+  }
+  footer #footer-wrapper #footer-buttons div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  footer #footer-wrapper #footer-buttons a {
+    color: #000;
   }
 }
