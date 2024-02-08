@@ -1,5 +1,5 @@
 <nav id="page-menu">
-        <div v-if="screenWidth > 432" class="nav nav-tabs" role="tablist">
+        <div v-if="screenWidth > 767" class="nav nav-tabs" role="tablist">
                 <button class="nav-link active"
                         id="nav-diarios-tab"
                         data-bs-toggle="tab"
@@ -8,7 +8,7 @@
                         role="tab"
                         aria-controls="nav-diarios"
                         aria-selected="true"
-                        @click="toggleBar('diarios')">Meus diários</button>
+                        >Meus diários</button>
                 <button class="nav-link"
                         id="nav-coordenacoes-tab"
                         data-bs-toggle="tab"
@@ -17,8 +17,8 @@
                         role="tab"
                         aria-controls="nav-coordenacoes"
                         aria-selected="false"
-                        @click="toggleBar('coordenacoes')">Coordenações</button>
-                <button class="nav-link"
+                        >Coordenações</button>
+                <!-- <button class="nav-link"
                         id="nav-praticas-tab"
                         data-bs-toggle="tab"
                         data-bs-target="#nav-praticas"
@@ -37,14 +37,13 @@
                         aria-controls="nav-reutilizaveis"
                         aria-selected="false"
                         v-if="reutilizaveis.length!=0"
-                        @click="toggleBar('reutilizaveis')">Reutilizar</button>
+                        @click="toggleBar('reutilizaveis')">Reutilizar</button> -->
         </div>
         <div v-else>
-                <select v-else id="mobileNavSelect" @change="handleSelectChange">
+                <select v-else @change="handleSelectChange">
                         <option value="diarios">Meus diários</option>
                         <option value="coordenacoes">Coordenações</option>
-                        <option v-if="praticas.length != 0" value="praticas">Práticas</option>
-                        <option v-if="reutilizaveis.length != 0" value="reutilizaveis">Reutilizar</option>
+                        
                 </select>
                 <div id="search-mobile" >                        
                         <form>
@@ -53,7 +52,11 @@
                                         <i class="icon icon-search" aria-hidden="true"></i>
                                 </button>
                         </form>                        
-                        <button id="btn-filter"> <i class="icon icon-search" aria-hidden="true"></i> Filtros</button>
+                        <button id="btn-filter" @click="openPopup"> <i class="icon icon-search" aria-hidden="true"></i> Filtros</button>
+                        <div v-if="isPopupOpen" id="popupFilter">
+                                <span @click="closePopup" class="close">&times;</span>
+                                {% include "painel/dashboard/partials/sidebar-filters.html" %}
+                        </div>
                 </div>
         </div>
 

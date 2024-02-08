@@ -4,6 +4,9 @@ export default {
     },
     data() {
         return {
+            TAB_DIARIO: 0,
+            TAB_COORDENACAO: 1,
+            tabAberta: 0,
             destaque: null,
             semestres: [],
             situacoes: [
@@ -43,7 +46,7 @@ export default {
             contentClosed: localStorage.contentClosed || "true",
             selectedBar: null,
             screenWidth: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
-            isIconUp: false,
+            isPopupOpen:false,
         };
     },
 
@@ -81,9 +84,42 @@ export default {
                 localStorage.contentClosed = "true";
             }
         },
+        handleSelectChange(event) {
+            // Captura o valor selecionado
+            const selectedValue = event.target.value;
 
-        toggleBar(bar) {
-            this.selectedBar = bar;
+
+            if (selectedValue === 'diarios') {
+                apiValue = "/painel/api/v1/diarios/"
+            } else if (selectedValue === 'coordenacoes') {
+                apiValue = "/painel/api/v1/diarios/"
+            }
+
+            axios
+                .get(apiValue, {
+                    params: {
+                        ava: card.ambiente.titulo,
+                        courseid: card.id,
+                        favourite: new_status,
+                    },
+                })
+                .then((response) => {
+                    card.isfavourite = new_status == 1;
+                })
+                .catch((error) => {
+                    console.debug(error);
+                });
+
+          
+            // Exibe um alerta com o valor selecionado
+            console.log(`Opção selecionada: ${selectedValue}`);
+        },
+
+        openPopup() {
+            this.isPopupOpen = true;
+        },
+        closePopup() {
+            this.isPopupOpen = false;
         },
 
         // clearFilter() {
@@ -355,24 +391,15 @@ export default {
 
         cardActionsToggler(event) {
             let item = $(event.srcElement).parent().parent().parent().parent();
-            //console.log(item)
-            if ($(item).hasClass("showActions")) {
-                
+            if ($(item).hasClass("showActions")) {                
                 $(item).removeClass("showActions");
                 $(event.srcElement).removeClass("favorited");
-                
-
-
-            } else {
-                
+            } else {               
                 $(item).addClass("showActions ");
-                $(event.srcElement).addClass(" favorited");
-                
+                $(event.srcElement).addClass(" favorited");                
             }
         },
-        toggleIcon() {
-            this.isIconUp = !this.isIconUp;
-        },
+       
 
         clearFilter() {
             this["q"] = "";
@@ -495,17 +522,7 @@ export default {
             this.screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
   
         },
-        handleSelectChange(event) {
-            console.log('teste');
-            var selectedValue = event.target.value;
-            // Adicione a lógica necessária com base na opção selecionada
-            this.toggleBar(selectedValue);
-            },
-            // Se necessário, adicione a lógica do método toggleBar
-            toggleBar(selectedValue) {
-            // Lógica para manipular o estado com base na opção selecionada
-            //console.log('Toggle bar:', selectedValue);
-        }
+        
     },
 
     watch: 

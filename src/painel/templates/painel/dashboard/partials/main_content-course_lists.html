@@ -1,4 +1,15 @@
 {% load static %}
+<ul>
+    <li v-on:click="tabAberta=TAB_DIARIO">Diário</li>
+    <li v-on:click="tabAberta=TAB_COORDENACAO">Coordenação</li>
+</ul>
+
+<ul>
+    <li v-show="tabAberta==TAB_DIARIO">Conteúdo do diário</li>
+    <li v-show="tabAberta==TAB_COORDENACAO">Conteúdo do Coordenação</li>
+</ul>
+
+
 <div
     class="tab-pane fade {{ extra_class }}"
     id="nav-{{ list_name }}"
@@ -33,12 +44,12 @@
                             <span v-if="card.turma">
                                 <span class="course-turma">[[ card.turma ]]</span>
                                 <span class="course-componente">[[ card.componente ]]</span>
-                                <span v-if="screenWidth > 432"class="course-id_diario">[[ card.id_diario ]]</span>
+                                <span v-if="screenWidth > 767"class="course-id_diario">[[ card.id_diario ]]</span>
                             </span>
                             <span v-else class="course-shortname">[[ card.shortname ]]</span>
                         </div>
                         <div class="course-disciplina"><a v-bind:href="[[ card.viewurl ]]">[[ card.fullname ]]</a></div>
-                        <div class="course-curso" v-if="card.curso && screenWidth > 432">[[ card.curso.nome ]]</div>
+                        <div class="course-curso" v-if="card.curso && screenWidth > 767">[[ card.curso.nome ]]</div>
                         <div class="course-progressbar" v-if="card.showcompletionconditions">
                             <div><span :style="{ width: card.progress + '%'}"></span></div>
                             <div>[[card.progress]]% concluído</div>

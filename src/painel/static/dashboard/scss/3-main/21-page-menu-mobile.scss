@@ -1,4 +1,4 @@
-@media only screen and (max-width: 432px)  {
+@media only screen and (max-width: 767px)  {
     #page-menu {
         margin: 15px;
         border-bottom: none;
@@ -9,15 +9,14 @@
             width: 100%;
             line-height: 80px;
             padding: 5px;
-            font:menu;
+            font: size 12px;
             border:1px solid #338f73;
             
         }
         
     }
     #search-mobile{
-        margin-top: 10px;
-       
+        margin-top: 10px;      
         display: grid;
         grid-template-columns: 1fr 80px;
         gap: 8px;
