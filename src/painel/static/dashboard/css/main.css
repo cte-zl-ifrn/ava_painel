@@ -1216,10 +1216,6 @@ main #maincontent #course-list .course-listitem.showActions .course-actions {
   display: block;
 }
 
-.favorited {
-    color: #198754; /* Cor quando favoritado */
-  }
-
 footer {
   background-color: var(--header-color);
   padding: 20px 0px;
