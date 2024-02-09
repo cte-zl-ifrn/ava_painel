@@ -39,24 +39,33 @@
                         v-if="reutilizaveis.length!=0"
                         @click="toggleBar('reutilizaveis')">Reutilizar</button> -->
         </div>
-        <div v-else>
+        <div v-else>               
                 <select v-else @change="handleSelectChange">
                         <option value="diarios">Meus diários</option>
-                        <option value="coordenacoes">Coordenações</option>
-                        
+                        <option value="coordenacoes">Coordenações</option>     
                 </select>
                 <div id="search-mobile" >                        
                         <form>
-                                <input type="text" placeholder="Busque por nomes, códigos, #id...">
+                                <input type="text" placeholder="Busque por nomes, códigos, #id..."
+                                name="q"
+                                id="q"
+                                v-model="q"
+                                @keydown.enter="filterCards($event)">
                                 <button type="submit" id="btn-search" >
                                         <i class="icon icon-search" aria-hidden="true"></i>
                                 </button>
                         </form>                        
-                        <button id="btn-filter" @click="openPopup"> <i class="icon icon-search" aria-hidden="true"></i> Filtros</button>
+                        <button id="btn-filter" @click="openPopup"> 
+                                <i class="icon icon-search" aria-hidden="true"></i> Filtros
+                        </button>
+
+                        <div class="teste"></div>
+                        
                         <div v-if="isPopupOpen" id="popupFilter">
                                 <span @click="closePopup" class="close">&times;</span>
                                 {% include "painel/dashboard/partials/sidebar-filters.html" %}
                         </div>
+           
                 </div>
         </div>
 

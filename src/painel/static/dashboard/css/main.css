@@ -1695,6 +1695,65 @@ main #course-list .favorited {
   color: var(--verde-botao);
 }
 
+main #popupFilter {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  position: fixed;
+  z-index: 1001;
+}
+
+main #popupFilter #input-filter {
+  display: none;
+}
+
+main #popupFilter #situacao, main #popupFilter #semestre, main #popupFilter #disciplina, main #popupFilter #curso, main #popupFilter #ambiente {
+  margin-bottom: 10px;
+}
+
+main #popupFilter .close {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  font-size: 45px;
+  line-height: 1;
+  z-index: 2;
+  cursor: pointer;
+}
+
+main #popupFilter .buttonsFilters {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 5px;
+}
+
+main #popupFilter button {
+  width: 48%;
+}
+
+main #popupFilter :first-child {
+  margin-right: 10px;
+  color: #1D2125;
+}
+
+main .open .teste {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  backdrop-filter: blur(10px);
+}
+
+.open .teste {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  backdrop-filter: blur(10px);
+}
+
 footer {
   background-color: var(--header-color);
   padding: 20px 0px;

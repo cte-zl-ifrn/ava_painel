@@ -20,4 +20,16 @@ main {
     @import "3-main/52-maincontent-dashboard_cards-mobile";
     @import "3-main/51-maincontent-dashboard_cards";
     @import "3-main/60-mobile";
+    @import "3-main/70-popupFIlter-mobile";
+}
+
+.open{
+    .teste{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        backdrop-filter: blur(10px);
+    }
 }

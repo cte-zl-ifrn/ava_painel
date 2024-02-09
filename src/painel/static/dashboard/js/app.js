@@ -85,41 +85,42 @@ export default {
             }
         },
         handleSelectChange(event) {
-            // Captura o valor selecionado
-            const selectedValue = event.target.value;
+            let selectedValue = event.target.value;
+            let courseList = document.getElementById("course-list");
+            let navDiario = document.getElementById("nav-diarios");
+            let navCoordenacoes = document.getElementById("nav-coordenacoes");
 
+            
+            if(selectedValue == "diarios"){
 
-            if (selectedValue === 'diarios') {
-                apiValue = "/painel/api/v1/diarios/"
-            } else if (selectedValue === 'coordenacoes') {
-                apiValue = "/painel/api/v1/diarios/"
+                navCoordenacoes.classList.remove("show", "active");
+                navDiario.classList.add("show", "active");
+
+            }else if(selectedValue == "coordenacoes"){
+                var courseShortnames = document.getElementsByClassName("course-shortname");
+                for (var i = 0; i < courseShortnames.length; i++) {
+                    courseShortnames[i].style.paddingLeft = "10px";
+                }
+
+                navDiario.classList.remove("show", "active");
+                navCoordenacoes.classList.add("show", "active");
             }
-
-            axios
-                .get(apiValue, {
-                    params: {
-                        ava: card.ambiente.titulo,
-                        courseid: card.id,
-                        favourite: new_status,
-                    },
-                })
-                .then((response) => {
-                    card.isfavourite = new_status == 1;
-                })
-                .catch((error) => {
-                    console.debug(error);
-                });
-
-          
-            // Exibe um alerta com o valor selecionado
-            console.log(`Opção selecionada: ${selectedValue}`);
         },
 
         openPopup() {
             this.isPopupOpen = true;
+            document.body.style.overflow="hidden";
+            document.body.classList.add('open');
+            //document.body.style.filter="blur(1em)";
+            //document.getElementByc("teste").style.backdropFilter="blur(0.5em)";
+            
+           
         },
         closePopup() {
             this.isPopupOpen = false;
+            document.body.style.overflow="auto";
+            document.body.classList.remove('open');
+
         },
 
         // clearFilter() {
