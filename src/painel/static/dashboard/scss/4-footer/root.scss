@@ -12,7 +12,8 @@ footer {
         text-align: center;
         margin: auto;
 
-        a.btn.btn-primary {
+        a {
+
             border-radius: var(--default-border-radius);
             border-color: var(--branco-primario);
             font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-600) var(--unnamed-font-size-14) /
@@ -21,7 +22,8 @@ footer {
             color: var(--branco-primario);
             text-align: center;
             border-radius: 4px;
-            min-width: 155px;
+            padding: 5px 15px;
+
 
             &:hover {
                 background: var(--verde-secundario) 0% 0% no-repeat padding-box;
@@ -70,33 +72,37 @@ footer {
 
         #footer-buttons {
             display: flex !important;
-            margin-top: 20px;
+            margin-top: 10px;
             justify-content: center;
-            gap: 10px;         
-            display: contents !important;
-            width: 167px;
+            gap: 10px;
 
-            :hover {
-                transform: none !important;
-                transition: none !important;
-            }
-
-            a {
-                border: none !important;
-                background-color: var(--verde-botao);
-                color: var(--branco-primario) !important;
+            p {
+                display: contents !important;
+                width: 167px;
 
                 &:hover {
                     transform: none !important;
-                    background-color: var(--verde-secundario);
+                    transition: none !important;
                 }
 
-                svg {
-                    vertical-align: baseline;
-                    margin-right: 9px;
+                a {
+                    border: none !important;
+                    background-color: var(--verde-botao);
+                    color: var(--branco-primario) !important;
+                    
+                    border-radius: 3px;
+
+                    &:hover {
+                        transform: none !important;
+                        background-color: var(--verde-secundario);
+                    }
+
+                    svg {
+                        vertical-align: baseline;
+                        margin-right: 5px;
+                    }
                 }
             }
-            
         }
 
         hr {

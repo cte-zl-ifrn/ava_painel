@@ -71,6 +71,12 @@ export default {
     beforeDestroy() {
          window.removeEventListener('resize', this.handleResize);
     },
+    created() {
+        window.addEventListener('resize', this.handleResize);
+    },
+    destroyed() {
+        window.removeEventListener('resize', this.handleResize);
+    },
     methods: {
         toggleNavBar(e) {
             if (e) {
@@ -523,6 +529,7 @@ export default {
             this.screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
   
         },
+
         
     },
 

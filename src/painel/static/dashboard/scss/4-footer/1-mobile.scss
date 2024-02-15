@@ -37,12 +37,8 @@
 }
 @media only screen and (max-width: 374px) {
     footer {
-        //display: none;
-        background-color: rgb(117, 168, 168);
+
         padding: 10px 20px;
-
-       
-
         // .madeby {
         //     margin: 10px;
         //     text-align: center;
@@ -61,15 +57,22 @@
         //     }
         // }
         #footer-wrapper{
-            #footer-buttons {
-                div{
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: space-around;
-                }a{
-                    color: #000;
+            font-size: 14px;
+            #footer-buttons {       
+                p {
+                    a {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 12px;
+                       
+                        svg {
+                           // vertical-align: baseline;
+                            margin-right: 5px;
+                        }
+                    }
+            
                 }
-
             }
 
         }

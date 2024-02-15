@@ -55,7 +55,8 @@
                     <option v-for="row in ambientes" :data-color="row.color" v-bind:value="row.id">[[ row.label ]]</option>
                 </select>
             </div>
-            <div class="grid-item position-relative content-center hide-close" id="buttonsFilters">
+
+            <div id="buttonsFilters">
                 <button type="button" class="btn btn-outline-success" v-on:click="clearFilter()">
                     <i class="fa fa-trash" aria-hidden="true"></i> Limpar filtros
                 </button>

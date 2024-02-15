@@ -1008,6 +1008,7 @@ main #menu-separator {
   main #search-mobile #btn-search {
     position: absolute;
     color: #777;
+    top: 0px;
     right: 0px;
     background-color: #DFF4EE;
   }
@@ -1109,7 +1110,11 @@ main #sidebar button.btn-outline-success {
   border-radius: 4px;
   color: var(--escuro-primario);
   width: calc(50% - 2px);
-  margin-left: 4px;
+  margin-right: 4px;
+}
+
+main #sidebar #buttonsFilters {
+  margin-top: 15px;
 }
 
 main #maincontent {
@@ -1736,22 +1741,14 @@ main #popupFilter :first-child {
   color: #1D2125;
 }
 
-main .open .teste {
+.open .divBackdop-filter {
   position: absolute;
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
   backdrop-filter: blur(10px);
-}
-
-.open .teste {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  backdrop-filter: blur(10px);
+  z-index: 1000;
 }
 
 footer {
@@ -1769,7 +1766,7 @@ footer #footer-wrapper {
   margin: auto;
 }
 
-footer #footer-wrapper a.btn.btn-primary {
+footer #footer-wrapper a {
   border-radius: var(--default-border-radius);
   border-color: var(--branco-primario);
   font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-600) var(--unnamed-font-size-14)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
@@ -1777,10 +1774,10 @@ footer #footer-wrapper a.btn.btn-primary {
   color: var(--branco-primario);
   text-align: center;
   border-radius: 4px;
-  min-width: 155px;
+  padding: 5px 15px;
 }
 
-footer #footer-wrapper a.btn.btn-primary:hover {
+footer #footer-wrapper a:hover {
   background: var(--verde-secundario) 0% 0% no-repeat padding-box;
 }
 
@@ -1827,32 +1824,36 @@ footer #footer-wrapper .contact i.fa:hover {
 
 footer #footer-wrapper #footer-buttons {
   display: flex !important;
-  margin-top: 20px;
+  margin-top: 10px;
   justify-content: center;
   gap: 10px;
+}
+
+footer #footer-wrapper #footer-buttons p {
   display: contents !important;
   width: 167px;
 }
 
-footer #footer-wrapper #footer-buttons :hover {
+footer #footer-wrapper #footer-buttons p:hover {
   transform: none !important;
   transition: none !important;
 }
 
-footer #footer-wrapper #footer-buttons a {
+footer #footer-wrapper #footer-buttons p a {
   border: none !important;
   background-color: var(--verde-botao);
   color: var(--branco-primario) !important;
+  border-radius: 3px;
 }
 
-footer #footer-wrapper #footer-buttons a:hover {
+footer #footer-wrapper #footer-buttons p a:hover {
   transform: none !important;
   background-color: var(--verde-secundario);
 }
 
-footer #footer-wrapper #footer-buttons a svg {
+footer #footer-wrapper #footer-buttons p a svg {
   vertical-align: baseline;
-  margin-right: 9px;
+  margin-right: 5px;
 }
 
 footer #footer-wrapper hr {
@@ -1900,15 +1901,18 @@ footer .madeby br {
 
 @media only screen and (max-width: 374px) {
   footer {
-    background-color: #75a8a8;
     padding: 10px 20px;
   }
-  footer #footer-wrapper #footer-buttons div {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+  footer #footer-wrapper {
+    font-size: 14px;
   }
-  footer #footer-wrapper #footer-buttons a {
-    color: #000;
+  footer #footer-wrapper #footer-buttons p a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+  }
+  footer #footer-wrapper #footer-buttons p a svg {
+    margin-right: 5px;
   }
 }
