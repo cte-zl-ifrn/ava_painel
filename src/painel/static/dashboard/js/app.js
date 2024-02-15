@@ -164,7 +164,8 @@ export default {
             //     },
             // });
             $("#semestre").select2({
-                placeholder: "<i class='icon icon-calendario-semestre'></i> Semestres...",
+                // placeholder: "<i class='icon icon-calendario-semestre'></i> Semestres...",
+                placeholder: "Semestres...",
                 templateSelection: function (data) {
                     const style = 'style="color: #1D2125; "';
                     
@@ -172,7 +173,8 @@ export default {
                 },
             });
              $("#disciplina").select2({
-                placeholder: "<i class='icon icon-disciplina'></i> Disciplinas...",
+                //placeholder: "<i class='icon icon-disciplina'></i> Disciplinas...",
+                placeholder: "Disciplinas...",
                 templateSelection: function (data) {
                     const style = 'style="color: #1D2125; "';
                     
@@ -180,7 +182,8 @@ export default {
                 },
             });
              $("#curso").select2({
-                placeholder: "<i class='icon icon-icone-ava'></i> Cursos...",
+                //placeholder: "<i class='icon icon-icone-ava'></i> Cursos...",
+                placeholder: "Cursos...",
                 templateSelection: function (data) {
                     const style = 'style="color: #1D2125; "';
                     
@@ -188,7 +191,8 @@ export default {
                 },
             });
             $("#ambiente").select2({
-                placeholder: "<i class='icon icon-moodle'></i> Ambientes...",
+                //placeholder: "<i class='icon icon-moodle'></i> Ambientes...",
+                placeholder: "Ambientes...",
                 templateSelection: function (data) {
                     const style = 'style="color: #1D2125; "';
                     
