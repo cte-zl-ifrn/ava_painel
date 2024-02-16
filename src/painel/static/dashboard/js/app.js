@@ -164,44 +164,44 @@ export default {
             //     },
             // });
             $("#semestre").select2({
-                // placeholder: "<i class='icon icon-calendario-semestre'></i> Semestres...",
-                placeholder: "Semestres...",
+                placeholder: "<i class='icon icon-calendario-semestre'></i> Semestres...",
+                //placeholder: "Semestres...",
                 templateSelection: function (data) {
-                    const style = 'style="color: #1D2125; "';
+                    const style = 'style="color: #7D848B; "';
                     
                     return $("<span " + style + ">" + data.text + "</span> ");
                 },
             });
              $("#disciplina").select2({
-                //placeholder: "<i class='icon icon-disciplina'></i> Disciplinas...",
-                placeholder: "Disciplinas...",
+                placeholder: "<i class='icon icon-disciplina' ></i> Disciplinas...",
+                //placeholder: "Disciplinas...",
                 templateSelection: function (data) {
-                    const style = 'style="color: #1D2125; "';
+                    const style = 'style="color: #7D848B; "';
                     
                     return $("<span " + style + ">" + data.text + "</span> ");
                 },
             });
              $("#curso").select2({
-                //placeholder: "<i class='icon icon-icone-ava'></i> Cursos...",
-                placeholder: "Cursos...",
+                placeholder: "<i class='icon icon-icone-ava'></i> Cursos...",
+                //placeholder: "Cursos...",
                 templateSelection: function (data) {
-                    const style = 'style="color: #1D2125; "';
+                    const style = 'style="color: #7D848B; "';
                     
                     return $("<span " + style + ">" + data.text + "</span> ");
                 },
             });
             $("#ambiente").select2({
-                //placeholder: "<i class='icon icon-moodle'></i> Ambientes...",
-                placeholder: "Ambientes...",
+                placeholder: "<i class='icon icon-moodle'></i> Ambientes...",
+                //placeholder: "Ambientes...",
                 templateSelection: function (data) {
-                    const style = 'style="color: #1D2125; "';
+                    const style = 'style="color: #7D848B; "';
                     
                     return $("<span " + style + ">" + data.text + "</span> ");
                 },
             });
             $("#situacao").select2({
                 templateSelection: function (data) {
-                    const style = 'style="padding: 0 5px 0 0px; color: #1D2125; "';
+                    const style = 'style="padding: 0 5px 0 0px; color: #7D848B; "';
                     return $("<span " + style + ">" + data.text + "</span> ");
                 },
             });
@@ -401,13 +401,13 @@ export default {
         },
 
         cardActionsToggler(event) {
-            let item = $(event.srcElement).parent().parent().parent().parent();
+            let item = $(event.currentTarget).parent().parent().parent();
             if ($(item).hasClass("showActions")) {                
-                $(item).removeClass("showActions");
                 $(event.srcElement).removeClass("favorited");
+                $(item).removeClass("showActions");
             } else {               
-                $(item).addClass("showActions ");
                 $(event.srcElement).addClass(" favorited");                
+                $(item).addClass("showActions ");
             }
         },
        
