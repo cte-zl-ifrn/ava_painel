@@ -1,6 +1,7 @@
 #course-list {
-    margin: 25px;
+    margin: 15px;
     padding: 5px;
+    
 
     #course-toolbar {
         display: block;
@@ -67,7 +68,7 @@
 
                     > span {
                         margin-top: 3px;
-                        position: absolute;
+                        
 
                         > span {
                             margin-left: 15px;
@@ -140,6 +141,7 @@
                 border-radius: 0 4px 4px 0;
 
                 > label {
+                    font-size: 22px;
                     display: block;
                     height: 50%;
                     width: 100%;
@@ -152,6 +154,7 @@
                     }
 
                     i {
+                        
                         top: calc(50% - 15px);
                         position: relative;
                     }
@@ -175,6 +178,10 @@
 
             span {
                 display: block;
+                padding: 10px 10px 0px 0px;
+            }span > a{
+                margin-left: 8px;
+                
             }
         }
         &.showActions .course-actions {
@@ -186,4 +193,9 @@
     }
     .empty-search {
     }
+
+    .favorited{
+        color:var(--verde-botao);
+    }
 }
+

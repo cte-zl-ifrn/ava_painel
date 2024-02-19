@@ -1,4 +1,15 @@
 {% load static %}
+<!-- <ul>
+    <li v-on:click="tabAberta=TAB_DIARIO">Diário</li>
+    <li v-on:click="tabAberta=TAB_COORDENACAO">Coordenação</li>
+</ul>
+
+<ul>
+    <li v-show="tabAberta==TAB_DIARIO">Conteúdo do diário</li>
+    <li v-show="tabAberta==TAB_COORDENACAO">Conteúdo do Coordenação</li>
+</ul> -->
+
+
 <div
     class="tab-pane fade {{ extra_class }}"
     id="nav-{{ list_name }}"
@@ -33,12 +44,12 @@
                             <span v-if="card.turma">
                                 <span class="course-turma">[[ card.turma ]]</span>
                                 <span class="course-componente">[[ card.componente ]]</span>
-                                <span class="course-id_diario">[[ card.id_diario ]]</span>
+                                <span v-if="screenWidth > 767"class="course-id_diario">[[ card.id_diario ]]</span>
                             </span>
                             <span v-else class="course-shortname">[[ card.shortname ]]</span>
                         </div>
                         <div class="course-disciplina"><a v-bind:href="[[ card.viewurl ]]">[[ card.fullname ]]</a></div>
-                        <div class="course-curso" v-if="card.curso">[[ card.curso.nome ]]</div>
+                        <div class="course-curso" v-if="card.curso && screenWidth > 767">[[ card.curso.nome ]]</div>
                         <div class="course-progressbar" v-if="card.showcompletionconditions">
                             <div><span :style="{ width: card.progress + '%'}"></span></div>
                             <div>[[card.progress]]% concluído</div>
@@ -50,6 +61,7 @@
                             v-on:click="favourite(card)"
                             type="button"
                             title="Favoritar este diário para mim"
+                            :class="{ 'favorited': card.isfavourite}"
                             ><i class="fa fa-star"></i
                         ></label>
                         <label
@@ -60,31 +72,32 @@
                             ><i class="fa fa-star-o"></i
                         ></label>
                         <label v-on:click.capture="cardActionsToggler" title="Mais opções"
-                            ><i class="icon icon-chevron-down"></i
-                        ></label>
+                        
+                            ><i class="icon icon-chevron-down"></i>
+                        </label>
                     </div>
                 </div>
                 <div class="course-actions">
                     <span v-if="card.suapsurl">
-                        <a v-bind:href="[[ card.suapsurl ]]">Ver diario no SUAP</a>
+                        <i class='icon icon-suap-vazado'></i><a v-bind:href="[[ card.suapsurl ]]">Ver diario no SUAP</a>
                     </span>
                     <span v-if="card.mensagemurl">
-                        <a v-bind:href="[[ card.mensagemurl ]]">Enviar mensagem via SUAP</a>
+                        <i class='icon icon-suap-vazado'></i><a v-bind:href="[[ card.mensagemurl ]]">Enviar mensagem via SUAP</a>
                     </span>
                     <span v-if="card.coordenacaourl">
-                        <a v-bind:href="[[ card.coordenacaourl ]]">Ver sala de coordenação no AVA</a>
+                        <i class='icon icon-suap-vazado'></i><a v-bind:href="[[ card.coordenacaourl ]]">Ver sala de coordenação no AVA</a>
                     </span>
                     <span v-if="card.gradesurl">
-                        <a v-bind:href="[[ card.gradesurl ]]">Ver quadro de notas no AVA</a>
+                        <i class='icon icon-suap-vazado'></i><a v-bind:href="[[ card.gradesurl ]]">Ver quadro de notas no AVA</a>
                     </span>
                     <span v-if="card.checkgradesurl">
-                        <a v-bind:href="[[ card.checkgradesurl ]]">Visualizar prévia das notas</a>
+                        <i class='icon icon-suap-vazado'></i><a v-bind:href="[[ card.checkgradesurl ]]">Visualizar prévia das notas</a>
                     </span>
                     <span v-if="card.syncsurl">
-                        <a v-bind:href="[[ card.syncsurl ]]">Visualizar histórico de integrações</a>
+                        <i class='icon icon-suap-vazado'></i><a v-bind:href="[[ card.syncsurl ]]">Visualizar histórico de integrações</a>
                     </span>
                 </div>
             </div>
         </div>
-    </div>
+    </div> 
 </div>

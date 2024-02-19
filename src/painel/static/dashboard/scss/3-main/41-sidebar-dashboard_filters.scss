@@ -37,6 +37,8 @@ button.btn-success {
     border-radius: 4px;
     color: var(--branco-primario);
     width: calc(50% - 2px);
+   
+    
 }
 
 button.btn-outline-success {
@@ -45,5 +47,10 @@ button.btn-outline-success {
     border-radius: 4px;
     color: var(--escuro-primario);
     width: calc(50% - 2px);
-    margin-left: 4px;
+    margin-right: 4px;
+}
+
+#buttonsFilters{
+    margin-top: 15px;
+
 }

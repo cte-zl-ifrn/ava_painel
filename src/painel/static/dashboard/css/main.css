@@ -56,8 +56,6 @@
 }
 
 body {
-  min-height: 100%;
-  background: #f8f8f8 0% 0% no-repeat padding-box;
   color: var(--escuro-primario) !important;
 }
 
@@ -851,10 +849,9 @@ main {
   display: none;
   max-width: 1312px;
   background: var(--branco-primario) 0% 0% no-repeat padding-box;
-  box-shadow: -2px 3px 5px #00000033;
   border: 1px solid #36394033;
   border-radius: 0px 4px 4px 0px;
-  margin: 0 auto 137px auto;
+  margin: 0 auto 0px auto;
 }
 
 main #page-title {
@@ -888,8 +885,40 @@ main #page-title img:last-child {
   height: 172px;
 }
 
+@media only screen and (max-width: 767px) {
+  main #page-title {
+    padding: 10px 0 0 10px;
+    height: 60px;
+    background: transparent linear-gradient(270deg, #f8f8f8 0%, #6298a7 46%, #27726b 74%, #1f6552 100%) 0% 0% no-repeat padding-box;
+  }
+  main #page-title img:first-child {
+    float: left;
+    width: 35px;
+    height: 35px;
+  }
+  main #page-title h1 {
+    margin-left: 40px;
+    font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-bold) var(--unnamed-font-size-40)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--branco-primario);
+    text-align: left;
+    font: normal normal bold 40px Noto Sans;
+    letter-spacing: 0px;
+    color: #ffffff;
+    opacity: 1;
+    line-height: 40px;
+  }
+  main #page-title img:last-child {
+    float: right;
+    margin-top: -75px;
+    width: 80px;
+    height: 90px;
+  }
+}
+
 main #page-menu {
   margin-top: -40px;
+  border-bottom: 3px solid var(--verde-secundario);
   margin-right: 3px;
 }
 
@@ -938,6 +967,57 @@ main #menu-separator {
   border-radius: 0px 4px 0px 0px;
 }
 
+@media only screen and (max-width: 767px) {
+  main #page-menu {
+    margin: 15px;
+    border-bottom: none;
+  }
+  main #page-menu select {
+    background-color: #fff;
+    border-radius: 5px;
+    width: 100%;
+    line-height: 80px;
+    padding: 5px;
+    font: size 12px;
+    border: 1px solid #338f73;
+  }
+  main #search-mobile {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 80px;
+    gap: 8px;
+  }
+  main #search-mobile form {
+    position: relative;
+  }
+  main #search-mobile input {
+    width: 100%;
+    border: 1px solid #338f73;
+    line-height: 30px;
+    border-radius: 5px;
+    margin-right: 10px;
+    padding-left: 10px;
+    outline: none;
+  }
+  main #search-mobile button {
+    border: 1px solid #338f73;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: smaller;
+  }
+  main #search-mobile #btn-search {
+    position: absolute;
+    color: #777;
+    top: 0px;
+    right: 0px;
+    background-color: #DFF4EE;
+  }
+  main #search-mobile #btn-filter {
+    color: #fff;
+    background-color: var(--verde-botao);
+  }
+}
+
 main #page-areas {
   display: grid;
   grid-template-columns: 340px 1fr;
@@ -962,6 +1042,15 @@ main #page-areas #toggle-filter p {
 
 main #page-areas #toggle-filter .fa::before {
   font-weight: 600;
+}
+
+@media only screen and (max-width: 767px) {
+  main #page-areas {
+    grid-template-columns: 1fr;
+  }
+  main #page-areas section:first-child {
+    display: none;
+  }
 }
 
 main #sidebar {
@@ -1021,7 +1110,11 @@ main #sidebar button.btn-outline-success {
   border-radius: 4px;
   color: var(--escuro-primario);
   width: calc(50% - 2px);
-  margin-left: 4px;
+  margin-right: 4px;
+}
+
+main #sidebar #buttonsFilters {
+  margin-top: 15px;
 }
 
 main #maincontent {
@@ -1032,7 +1125,7 @@ main #maincontent {
 }
 
 main #maincontent #course-list {
-  margin: 25px;
+  margin: 15px;
   padding: 5px;
 }
 
@@ -1106,7 +1199,6 @@ main #maincontent #course-list .course-listitem .course-body .course-info .cours
 
 main #maincontent #course-list .course-listitem .course-body .course-info .course-identification > span {
   margin-top: 3px;
-  position: absolute;
 }
 
 main #maincontent #course-list .course-listitem .course-body .course-info .course-identification > span > span {
@@ -1178,6 +1270,7 @@ main #maincontent #course-list .course-listitem .course-body .course-quickaction
 }
 
 main #maincontent #course-list .course-listitem .course-body .course-quickactions > label {
+  font-size: 22px;
   display: block;
   height: 50%;
   width: 100%;
@@ -1210,10 +1303,452 @@ main #maincontent #course-list .course-listitem .course-actions {
 
 main #maincontent #course-list .course-listitem .course-actions span {
   display: block;
+  padding: 10px 10px 0px 0px;
+}
+
+main #maincontent #course-list .course-listitem .course-actions span > a {
+  margin-left: 8px;
 }
 
 main #maincontent #course-list .course-listitem.showActions .course-actions {
   display: block;
+}
+
+main #maincontent #course-list .favorited {
+  color: var(--verde-botao);
+}
+
+@media only screen and (max-width: 432px) {
+  main #maincontent {
+    background: none;
+    box-shadow: none;
+    border: none;
+  }
+  main #maincontent #course-list {
+    margin: 15px;
+    padding: 5px;
+  }
+  main #maincontent #course-list #course-toolbar {
+    display: block;
+    height: 50px;
+  }
+  main #maincontent #course-list #course-toolbar > div {
+    float: right;
+  }
+  main #maincontent #course-list #course-toolbar > div label:first-child {
+    background-color: transparent !important;
+    font-size: 28px;
+    padding: 0;
+    margin: -4px 20px 0 0;
+    float: left;
+  }
+  main #maincontent #course-list #course-toolbar > div label {
+    width: 27px;
+    height: 25px;
+    background: var(--background-color) 0% 0% no-repeat padding-box;
+    border-radius: 4px;
+    padding: 0;
+    margin-left: 4px;
+  }
+  main #maincontent #course-list #course-toolbar > div label .fa {
+    color: var(--cinza-secundario);
+  }
+  main #maincontent #course-list #course-toolbar > div .btn-check:checked + .btn {
+    border: 1px solid var(--verde-botao);
+  }
+  main #maincontent #course-list #course-toolbar > div .btn-check:checked + .btn .fa {
+    color: var(--verde-botao);
+  }
+  main #maincontent #course-list .course-listitem {
+    margin-bottom: 20px;
+  }
+  main #maincontent #course-list .course-listitem .course-body {
+    background: var(--branco-primario) 0% 0% no-repeat padding-box;
+    border-radius: 4px;
+    box-shadow: 0px 2px 5px #00000080;
+    min-height: 99px;
+    display: grid;
+    grid-template-columns: 1fr 37px;
+  }
+  main #maincontent #course-list .course-listitem .course-body .course-info {
+    padding: 15px;
+  }
+  main #maincontent #course-list .course-listitem .course-body .course-info .course-identification {
+    margin-bottom: 5px;
+  }
+  main #maincontent #course-list .course-listitem .course-body .course-info .course-identification label {
+    border-radius: 50%;
+    width: 29px;
+    height: 29px;
+    text-align: center;
+    padding: 5px;
+    color: var(--branco-primario);
+  }
+  main #maincontent #course-list .course-listitem .course-body .course-info .course-identification > span {
+    margin-top: 3px;
+  }
+  main #maincontent #course-list .course-listitem .course-body .course-info .course-identification > span > span {
+    margin-left: 15px;
+    font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-16)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--escuro-primario);
+    text-align: left;
+  }
+  main #maincontent #course-list .course-listitem .course-body .course-info .course-disciplina a,
+main #maincontent #course-list .course-listitem .course-body .course-info .course-disciplina a:hover,
+main #maincontent #course-list .course-listitem .course-body .course-info .course-disciplina a:visited,
+main #maincontent #course-list .course-listitem .course-body .course-info .course-disciplina a:active {
+    font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-24)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--escuro-primario);
+    text-align: left;
+    letter-spacing: 0px;
+    text-decoration: none;
+  }
+  main #maincontent #course-list .course-listitem .course-body .course-info .course-curso {
+    font: var(--unnamed-font-style-normal) normal 400 var(--unnamed-font-size-16)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--escuro-primario);
+    padding-bottom: 5px;
+  }
+  main #maincontent #course-list .course-listitem .course-body .course-info .course-progressbar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 12px;
+    margin-top: 5px;
+  }
+  main #maincontent #course-list .course-listitem .course-body .course-info .course-progressbar > div:first-child {
+    background: #cfcfcf 0% 0% no-repeat padding-box;
+    border-radius: 50px;
+    height: 12px;
+  }
+  main #maincontent #course-list .course-listitem .course-body .course-info .course-progressbar > div:first-child span {
+    display: block;
+    background: #5f92d1 0% 0% no-repeat padding-box;
+    border-radius: 50px;
+    height: 12px;
+  }
+  main #maincontent #course-list .course-listitem .course-body .course-info .course-progressbar > div:last-child {
+    font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-12)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--cinza-primario);
+    text-align: left;
+    font: normal normal 600 12px/22px Noto Sans;
+    letter-spacing: 0px;
+    color: #7d848b;
+    height: 12px;
+    margin: -6px 0 0 20px;
+  }
+  main #maincontent #course-list .course-listitem .course-body .course-quickactions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: -1px 0px 2px #00000026;
+    border-radius: 0 4px 4px 0;
+  }
+  main #maincontent #course-list .course-listitem .course-body .course-quickactions > label {
+    font-size: 22px;
+    display: block;
+    height: 50%;
+    width: 100%;
+    text-align: center;
+  }
+  main #maincontent #course-list .course-listitem .course-body .course-quickactions > label:last-child {
+    border-top: 1px solid var(--cinza-terciario);
+  }
+  main #maincontent #course-list .course-listitem .course-body .course-quickactions > label i {
+    top: calc(50% - 15px);
+    position: relative;
+  }
+  main #maincontent #course-list .course-listitem .course-actions {
+    display: none;
+    background: #f5e8e8 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 3px #00000080;
+    border-radius: 0 0 4px 4px;
+    font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-14)/16px var(--unnamed-font-family-noto-sans);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    text-align: left;
+    font: normal normal normal 14px/16px Noto Sans;
+    letter-spacing: 0px;
+    color: #464646;
+    padding: 15px;
+    margin: 1px 8px;
+  }
+  main #maincontent #course-list .course-listitem .course-actions span {
+    display: block;
+    padding: 10px 10px 0px 0px;
+  }
+  main #maincontent #course-list .course-listitem .course-actions span > a {
+    margin-left: 8px;
+  }
+  main #maincontent #course-list .course-listitem.showActions .course-actions {
+    display: block;
+  }
+  main #maincontent #course-list .favorited {
+    color: var(--verde-botao);
+  }
+}
+
+@media only screen and (max-width: 366px) {
+  main #maincontent #course-list .course-listitem .course-body {
+    width: 100%;
+  }
+  main #maincontent #course-list .course-listitem .course-body .course-info .course-identification > span > span {
+    font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-12)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+    margin-left: 8px;
+  }
+  main #maincontent #course-list .course-listitem .course-body .course-info .course-disciplina a,
+main #maincontent #course-list .course-listitem .course-body .course-info .course-disciplina a:hover,
+main #maincontent #course-list .course-listitem .course-body .course-info .course-disciplina a:visited,
+main #maincontent #course-list .course-listitem .course-body .course-info .course-disciplina a:active {
+    font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-16)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+  }
+}
+
+main #course-list {
+  margin: 15px;
+  padding: 5px;
+}
+
+main #course-list #course-toolbar {
+  display: block;
+  height: 50px;
+}
+
+main #course-list #course-toolbar > div {
+  float: right;
+}
+
+main #course-list #course-toolbar > div label:first-child {
+  background-color: transparent !important;
+  font-size: 28px;
+  padding: 0;
+  margin: -4px 20px 0 0;
+  float: left;
+}
+
+main #course-list #course-toolbar > div label {
+  width: 27px;
+  height: 25px;
+  background: var(--background-color) 0% 0% no-repeat padding-box;
+  border-radius: 4px;
+  padding: 0;
+  margin-left: 4px;
+}
+
+main #course-list #course-toolbar > div label .fa {
+  color: var(--cinza-secundario);
+}
+
+main #course-list #course-toolbar > div .btn-check:checked + .btn {
+  border: 1px solid var(--verde-botao);
+}
+
+main #course-list #course-toolbar > div .btn-check:checked + .btn .fa {
+  color: var(--verde-botao);
+}
+
+main #course-list .course-listitem {
+  margin-bottom: 20px;
+}
+
+main #course-list .course-listitem .course-body {
+  background: var(--branco-primario) 0% 0% no-repeat padding-box;
+  border-radius: 4px;
+  box-shadow: 0px 2px 5px #00000080;
+  min-height: 99px;
+  display: grid;
+  grid-template-columns: 1fr 37px;
+}
+
+main #course-list .course-listitem .course-body .course-info {
+  padding: 15px;
+}
+
+main #course-list .course-listitem .course-body .course-info .course-identification {
+  margin-bottom: 5px;
+}
+
+main #course-list .course-listitem .course-body .course-info .course-identification label {
+  border-radius: 50%;
+  width: 29px;
+  height: 29px;
+  text-align: center;
+  padding: 5px;
+  color: var(--branco-primario);
+}
+
+main #course-list .course-listitem .course-body .course-info .course-identification > span {
+  margin-top: 3px;
+}
+
+main #course-list .course-listitem .course-body .course-info .course-identification > span > span {
+  margin-left: 15px;
+  font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-16)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  color: var(--escuro-primario);
+  text-align: left;
+}
+
+main #course-list .course-listitem .course-body .course-info .course-disciplina a,
+main #course-list .course-listitem .course-body .course-info .course-disciplina a:hover,
+main #course-list .course-listitem .course-body .course-info .course-disciplina a:visited,
+main #course-list .course-listitem .course-body .course-info .course-disciplina a:active {
+  font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-24)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  color: var(--escuro-primario);
+  text-align: left;
+  letter-spacing: 0px;
+  text-decoration: none;
+}
+
+main #course-list .course-listitem .course-body .course-info .course-curso {
+  font: var(--unnamed-font-style-normal) normal 400 var(--unnamed-font-size-16)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  color: var(--escuro-primario);
+  padding-bottom: 5px;
+}
+
+main #course-list .course-listitem .course-body .course-info .course-progressbar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 12px;
+  margin-top: 5px;
+}
+
+main #course-list .course-listitem .course-body .course-info .course-progressbar > div:first-child {
+  background: #cfcfcf 0% 0% no-repeat padding-box;
+  border-radius: 50px;
+  height: 12px;
+}
+
+main #course-list .course-listitem .course-body .course-info .course-progressbar > div:first-child span {
+  display: block;
+  background: #5f92d1 0% 0% no-repeat padding-box;
+  border-radius: 50px;
+  height: 12px;
+}
+
+main #course-list .course-listitem .course-body .course-info .course-progressbar > div:last-child {
+  font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-12)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  color: var(--cinza-primario);
+  text-align: left;
+  font: normal normal 600 12px/22px Noto Sans;
+  letter-spacing: 0px;
+  color: #7d848b;
+  height: 12px;
+  margin: -6px 0 0 20px;
+}
+
+main #course-list .course-listitem .course-body .course-quickactions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: -1px 0px 2px #00000026;
+  border-radius: 0 4px 4px 0;
+}
+
+main #course-list .course-listitem .course-body .course-quickactions > label {
+  font-size: 22px;
+  display: block;
+  height: 50%;
+  width: 100%;
+  text-align: center;
+}
+
+main #course-list .course-listitem .course-body .course-quickactions > label:last-child {
+  border-top: 1px solid var(--cinza-terciario);
+}
+
+main #course-list .course-listitem .course-body .course-quickactions > label i {
+  top: calc(50% - 15px);
+  position: relative;
+}
+
+main #course-list .course-listitem .course-actions {
+  display: none;
+  background: #f5e8e8 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 3px #00000080;
+  border-radius: 0 0 4px 4px;
+  font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-normal) var(--unnamed-font-size-14)/16px var(--unnamed-font-family-noto-sans);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  text-align: left;
+  font: normal normal normal 14px/16px Noto Sans;
+  letter-spacing: 0px;
+  color: #464646;
+  padding: 15px;
+  margin: 1px 8px;
+}
+
+main #course-list .course-listitem .course-actions span {
+  display: block;
+  padding: 10px 10px 0px 0px;
+}
+
+main #course-list .course-listitem .course-actions span > a {
+  margin-left: 8px;
+}
+
+main #course-list .course-listitem.showActions .course-actions {
+  display: block;
+}
+
+main #course-list .favorited {
+  color: var(--verde-botao);
+}
+
+main #popupFilter {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  position: fixed;
+  z-index: 1001;
+}
+
+main #popupFilter #input-filter {
+  display: none;
+}
+
+main #popupFilter #situacao, main #popupFilter #semestre, main #popupFilter #disciplina, main #popupFilter #curso, main #popupFilter #ambiente {
+  margin-bottom: 10px;
+}
+
+main #popupFilter .close {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  font-size: 45px;
+  line-height: 1;
+  z-index: 2;
+  cursor: pointer;
+}
+
+main #popupFilter .buttonsFilters {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 5px;
+}
+
+main #popupFilter button {
+  width: 48%;
+}
+
+main #popupFilter :first-child {
+  margin-right: 10px;
+  color: #1D2125;
+}
+
+.open .divBackdop-filter {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  backdrop-filter: blur(10px);
+  z-index: 1000;
 }
 
 footer {
@@ -1231,7 +1766,7 @@ footer #footer-wrapper {
   margin: auto;
 }
 
-footer #footer-wrapper a.btn.btn-primary {
+footer #footer-wrapper a {
   border-radius: var(--default-border-radius);
   border-color: var(--branco-primario);
   font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-600) var(--unnamed-font-size-14)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
@@ -1239,10 +1774,10 @@ footer #footer-wrapper a.btn.btn-primary {
   color: var(--branco-primario);
   text-align: center;
   border-radius: 4px;
-  min-width: 155px;
+  padding: 5px 15px;
 }
 
-footer #footer-wrapper a.btn.btn-primary:hover {
+footer #footer-wrapper a:hover {
   background: var(--verde-secundario) 0% 0% no-repeat padding-box;
 }
 
@@ -1308,6 +1843,7 @@ footer #footer-wrapper #footer-buttons p a {
   border: none !important;
   background-color: var(--verde-botao);
   color: var(--branco-primario) !important;
+  border-radius: 3px;
 }
 
 footer #footer-wrapper #footer-buttons p a:hover {
@@ -1317,7 +1853,7 @@ footer #footer-wrapper #footer-buttons p a:hover {
 
 footer #footer-wrapper #footer-buttons p a svg {
   vertical-align: baseline;
-  margin-right: 9px;
+  margin-right: 5px;
 }
 
 footer #footer-wrapper hr {
@@ -1360,5 +1896,23 @@ footer .madeby {
   footer p br,
 footer .madeby br {
     display: none;
+  }
+}
+
+@media only screen and (max-width: 374px) {
+  footer {
+    padding: 10px 20px;
+  }
+  footer #footer-wrapper {
+    font-size: 14px;
+  }
+  footer #footer-wrapper #footer-buttons p a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+  }
+  footer #footer-wrapper #footer-buttons p a svg {
+    margin-right: 5px;
   }
 }

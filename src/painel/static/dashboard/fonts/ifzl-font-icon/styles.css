@@ -2,11 +2,11 @@
 
 @font-face {
   font-family: "ifzl-font-icon";
-  src:url("fonts/ifzl-font-icon.eot");
-  src:url("fonts/ifzl-font-icon.eot?#iefix") format("embedded-opentype"),
-    url("fonts/ifzl-font-icon.woff") format("woff"),
-    url("fonts/ifzl-font-icon.ttf") format("truetype"),
-    url("fonts/ifzl-font-icon.svg#ifzl-font-icon") format("svg");
+  src:url("fonts/ifzl-font-icon.eot?a=1");
+  src:url("fonts/ifzl-font-icon.eot?#iefix&a=1") format("embedded-opentype"),
+    url("fonts/ifzl-font-icon.woff?a=1") format("woff"),
+    url("fonts/ifzl-font-icon.ttf?a=1") format("truetype"),
+    url("fonts/ifzl-font-icon.svg#ifzl-font-icon?a=1") format("svg");
   font-weight: normal;
   font-style: normal;
 
@@ -86,9 +86,6 @@
 .icon-info:before {
   content: "\70";
 }
-.icon-info-circle:before {
-  content: "\71";
-}
 .icon-chevron-down:before {
   content: "\72";
 }
@@ -148,4 +145,115 @@
 }
 .icon-suap-vazado:before {
   content: "\4a";
+}
+.icon-comment-o:before {
+  content: "\4c";
+}
+.icon-comment:before {
+  content: "\4b";
+}
+.icon-bell:before {
+  content: "\4d";
+}
+.icon-bell-o:before {
+  content: "\4e";
+}
+.icon-table:before {
+  content: "\4f";
+}
+.icon-moodle:before {
+  content: "\50";
+}
+.icon-calendario-semestre:before {
+  content: "\51";
+}
+.icon-calendario-periodo:before {
+  content: "\52";
+}
+.icon-calendario-modulo:before {
+  content: "\53";
+}
+.icon-diario:before {
+  content: "\54";
+}
+.icon-disciplina:before {
+  content: "\56";
+}
+.icon-icone-ava:before {
+  content: "\57";
+}
+.icon-playlist:before {
+  content: "\58";
+}
+.icon-ca-ambiente-virtual-de-aprendizagem-moodle:before {
+  content: "\59";
+}
+.icon-ca-central-de-servicos:before {
+  content: "\5a";
+}
+.icon-ca-comunicacao-eventos-e-redes-sociais:before {
+  content: "\30";
+}
+.icon-ca-estrutura-administrativa-e-contatos:before {
+  content: "\31";
+}
+.icon-ca-gestao-de-pessoas:before {
+  content: "\32";
+}
+.icon-ca-portal-ead-ifrn:before {
+  content: "\33";
+}
+.icon-ca-producao-de-materiais-audiovisuais:before {
+  content: "\34";
+}
+.icon-ca-producao-de-materiais-didaticos-e-graficos:before {
+  content: "\35";
+}
+.icon-ca-secretaria-academica:before {
+  content: "\36";
+}
+.icon-ca-sistema-de-processo-seletivo:before {
+  content: "\37";
+}
+.icon-ca-suap:before {
+  content: "\38";
+}
+.icon-ca-transmissoes-ao-vivo-e-webconferencias:before {
+  content: "\39";
+}
+.icon-ca-tutoriais-em-video:before {
+  content: "\21";
+}
+.icon-filtro:before {
+  content: "\22";
+}
+.icon-cpa:before {
+  content: "\71";
+}
+.icon-edu-prisional:before {
+  content: "\23";
+}
+.icon-proitec:before {
+  content: "\24";
+}
+.icon-semad:before {
+  content: "\25";
+}
+.icon-webstories:before {
+  content: "\26";
+}
+.icon-historico-integracoes:before {
+  content: "\27";
+}
+.icon-preview-notas:before {
+  content: "\28";
+}
+.icon-mensagem-suap:before {
+  content: "\29";
+}
+.icon-acessibilidade:before {
+  content: "\2a";
+}
+.icon-libras:before {
+  content: "\2b";
 }

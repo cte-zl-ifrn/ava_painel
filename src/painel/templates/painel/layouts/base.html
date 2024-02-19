@@ -36,21 +36,20 @@
 
             
             {% block page_areas %}
-                <div id="page-areas">
+                <div  id="page-areas">
                     <section id="sidebar">
-                        <a data-toggle="offcanvas" @click="toggleNavBar($event)">
+                        <!-- <a data-toggle="offcanvas" @click="toggleNavBar($event)">
                             <div id="toggle-filter">
                                 <p><i class="fa fa-angle-left"></i><i class="fa fa-angle-right"></i></p>
                             </div>
-                        </a>
+                        </a> -->
 
                         {% block sidebar %}
                         {% endblock sidebar %}
                     </section>
-
-                    <section id="maincontent">
+                    <section  id="maincontent">
                         {% block main_content %} {% endblock main_content %}
-                    </section>
+                    </section>  
                 </div>
             {% endblock page_areas %}
         </main>

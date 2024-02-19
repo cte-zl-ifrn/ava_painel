@@ -4,6 +4,9 @@ export default {
     },
     data() {
         return {
+            TAB_DIARIO: 0,
+            TAB_COORDENACAO: 1,
+            tabAberta: 0,
             destaque: null,
             semestres: [],
             situacoes: [
@@ -42,6 +45,8 @@ export default {
             ambiente: localStorage.ambiente || "",
             contentClosed: localStorage.contentClosed || "true",
             selectedBar: null,
+            screenWidth: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+            isPopupOpen:false,
         };
     },
 
@@ -57,6 +62,20 @@ export default {
         $("#pre-loading").css("display", "none");
         // this.startTour001();
         this.popup();
+
+        // Adiciona um ouvinte de evento para verificar a largura da tela quando a janela é redimensionada
+        window.addEventListener('resize', this.handleResize);
+
+
+    },
+    beforeDestroy() {
+         window.removeEventListener('resize', this.handleResize);
+    },
+    created() {
+        window.addEventListener('resize', this.handleResize);
+    },
+    destroyed() {
+        window.removeEventListener('resize', this.handleResize);
     },
     methods: {
         toggleNavBar(e) {
@@ -71,9 +90,43 @@ export default {
                 localStorage.contentClosed = "true";
             }
         },
+        handleSelectChange(event) {
+            let selectedValue = event.target.value;
+            let courseList = document.getElementById("course-list");
+            let navDiario = document.getElementById("nav-diarios");
+            let navCoordenacoes = document.getElementById("nav-coordenacoes");
 
-        toggleBar(bar) {
-            this.selectedBar = bar;
+            
+            if(selectedValue == "diarios"){
+
+                navCoordenacoes.classList.remove("show", "active");
+                navDiario.classList.add("show", "active");
+
+            }else if(selectedValue == "coordenacoes"){
+                var courseShortnames = document.getElementsByClassName("course-shortname");
+                for (var i = 0; i < courseShortnames.length; i++) {
+                    courseShortnames[i].style.paddingLeft = "10px";
+                }
+
+                navDiario.classList.remove("show", "active");
+                navCoordenacoes.classList.add("show", "active");
+            }
+        },
+
+        openPopup() {
+            this.isPopupOpen = true;
+            document.body.style.overflow="hidden";
+            document.body.classList.add('open');
+            //document.body.style.filter="blur(1em)";
+            //document.getElementByc("teste").style.backdropFilter="blur(0.5em)";
+            
+           
+        },
+        closePopup() {
+            this.isPopupOpen = false;
+            document.body.style.overflow="auto";
+            document.body.classList.remove('open');
+
         },
 
         // clearFilter() {
@@ -104,9 +157,45 @@ export default {
         },
 
         customizeAmbiente() {
-            $("#ambiente, #curso, #disciplina, #semestre").select2({
+            // $("#ambiente, #curso, #disciplina, #semestre").select2({
+            //     templateSelection: function (data) {
+            //         const style = 'style="padding: 0 5px 0 30px; color: #1D2125; "';
+            //         return $("<span " + style + ">" + data.text + "</span> ");
+            //     },
+            // });
+            $("#semestre").select2({
+                // placeholder: "<i class='icon icon-calendario-semestre'></i> Semestres...",
+                placeholder: "Semestres...",
                 templateSelection: function (data) {
-                    const style = 'style="padding: 0 5px 0 30px; color: #1D2125; "';
+                    const style = 'style="color: #1D2125; "';
+                    
+                    return $("<span " + style + ">" + data.text + "</span> ");
+                },
+            });
+             $("#disciplina").select2({
+                //placeholder: "<i class='icon icon-disciplina'></i> Disciplinas...",
+                placeholder: "Disciplinas...",
+                templateSelection: function (data) {
+                    const style = 'style="color: #1D2125; "';
+                    
+                    return $("<span " + style + ">" + data.text + "</span> ");
+                },
+            });
+             $("#curso").select2({
+                //placeholder: "<i class='icon icon-icone-ava'></i> Cursos...",
+                placeholder: "Cursos...",
+                templateSelection: function (data) {
+                    const style = 'style="color: #1D2125; "';
+                    
+                    return $("<span " + style + ">" + data.text + "</span> ");
+                },
+            });
+            $("#ambiente").select2({
+                //placeholder: "<i class='icon icon-moodle'></i> Ambientes...",
+                placeholder: "Ambientes...",
+                templateSelection: function (data) {
+                    const style = 'style="color: #1D2125; "';
+                    
                     return $("<span " + style + ">" + data.text + "</span> ");
                 },
             });
@@ -116,6 +205,7 @@ export default {
                     return $("<span " + style + ">" + data.text + "</span> ");
                 },
             });
+            
             setTimeout(function () {
                 $("#ambiente").val($("#ambiente option:eq(0)").val()).trigger("change");
                 $("#curso").val($("#curso option:eq(0)").val()).trigger("change");
@@ -312,12 +402,15 @@ export default {
 
         cardActionsToggler(event) {
             let item = $(event.srcElement).parent().parent().parent().parent();
-            if ($(item).hasClass("showActions")) {
+            if ($(item).hasClass("showActions")) {                
                 $(item).removeClass("showActions");
-            } else {
-                $(item).addClass("showActions");
+                $(event.srcElement).removeClass("favorited");
+            } else {               
+                $(item).addClass("showActions ");
+                $(event.srcElement).addClass(" favorited");                
             }
         },
+       
 
         clearFilter() {
             this["q"] = "";
@@ -436,9 +529,16 @@ export default {
         isFromSUAP(diario) {
             return diario != null && Object.hasOwn(diario, "id_diario_clean");
         },
+        handleResize() {
+            this.screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  
+        },
+
+        
     },
 
-    watch: {
+    watch: 
+    {
         q(newValue) {
             localStorage.q = newValue || "";
         },
@@ -461,4 +561,12 @@ export default {
             localStorage.ambiente = newValue || "";
         },
     },
+    
+
+
+
+
+
 };
+
+

@@ -1,0 +1,35 @@
+#popupFilter{
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    position: fixed;
+    z-index: 1001; 
+
+    #input-filter{
+        display: none;
+    }
+
+    #situacao,#semestre,#disciplina,#curso,#ambiente {
+        margin-bottom: 10px ;
+    }
+    .close{
+        position:absolute;
+        top: 0;
+        right: 20px;
+        font-size: 45px;
+        line-height: 1;
+        z-index: 2;
+        cursor: pointer;
+    }
+
+    .buttonsFilters{
+        display: flex;
+        justify-content: space-around;
+        margin-top: 5px;
+    } button{
+        width: 48%;
+    }:first-child{
+        margin-right: 10px;
+        color:#1D2125;
+    }
+}

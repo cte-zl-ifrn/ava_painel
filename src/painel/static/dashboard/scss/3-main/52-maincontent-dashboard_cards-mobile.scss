@@ -1,0 +1,68 @@
+// @media only screen and (max-width: 321px)  {
+
+//     #maincontent{
+//         #course-list {       
+//             .course-listitem {
+//                 //background-color: brown;
+
+//                 .course-body {           
+//                     width: 100%;
+
+//                     .course-info{
+//                         .course-identification{
+//                             > span{
+//                                 > span{
+//                                     font: var(--unnamed-font-style-normal) normal 400 var(--unnamed-font-size-12) /
+//                                     var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+                                    
+//                                     margin-left: 8px;
+//                                 }
+//                             }
+//                         }
+
+//                         .course-disciplina a,
+//                         .course-disciplina a:hover,
+//                         .course-disciplina a:visited,
+//                         .course-disciplina a:active {
+//                              font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-16) /
+//                                 var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
+@media only screen and (max-width: 366px)  {
+    #maincontent{
+        #course-list {        
+            .course-listitem {
+                //background-color: brown;
+
+                .course-body {           
+                    width: 100%;
+
+                    .course-info{
+                        .course-identification{
+                            > span{
+                                > span{
+                                    font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-12) /
+                                    var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+                                    margin-left: 8px;
+                                }
+                            }
+                        }
+
+                        .course-disciplina a,
+                        .course-disciplina a:hover,
+                        .course-disciplina a:visited,
+                        .course-disciplina a:active {
+                             font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-16) /
+                                var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

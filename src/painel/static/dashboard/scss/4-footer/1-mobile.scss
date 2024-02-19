@@ -35,3 +35,56 @@
         }
     }
 }
+@media only screen and (max-width: 374px) {
+    footer {
+
+        padding: 10px 20px;
+        // .madeby {
+        //     margin: 10px;
+        //     text-align: center;
+        // }
+
+        // .contact ul {
+        //     display: block;
+        //     width: 280px;
+
+        //     span {
+        //         display: none;
+        //     }
+
+        //     li:hover {
+        //         background: none;
+        //     }
+        // }
+        #footer-wrapper{
+            font-size: 14px;
+            #footer-buttons {       
+                p {
+                    a {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 12px;
+                       
+                        svg {
+                           // vertical-align: baseline;
+                            margin-right: 5px;
+                        }
+                    }
+            
+                }
+            }
+
+        }
+
+        // p,
+        // .madeby {
+        //     line-height: 22px !important;
+        //     text-align: center;
+
+        //     br {
+        //         display: none;
+        //     }
+        // }
+    }
+}

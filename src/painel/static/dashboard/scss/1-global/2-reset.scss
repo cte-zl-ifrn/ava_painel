@@ -3,7 +3,6 @@
     padding: 0;
     text-align: left;
     font-family: var(--unnamed-font-family-noto-sans);
-
     -moz-transition: all 100ms ease-in;
     -webkit-transition: all 100ms ease-in;
     -o-transition: all 100ms ease-in;
@@ -11,8 +10,8 @@
 }
 
 body {
-    min-height: 100%;
-    background: #f8f8f8 0% 0% no-repeat padding-box;
+    //height: 100vw;
+    //background: #f8f8f8 0% 0% no-repeat padding-box;
     color: var(--escuro-primario) !important;
 }
 

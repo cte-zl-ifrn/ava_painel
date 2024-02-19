@@ -12,7 +12,8 @@ footer {
         text-align: center;
         margin: auto;
 
-        a.btn.btn-primary {
+        a {
+
             border-radius: var(--default-border-radius);
             border-color: var(--branco-primario);
             font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-600) var(--unnamed-font-size-14) /
@@ -21,7 +22,8 @@ footer {
             color: var(--branco-primario);
             text-align: center;
             border-radius: 4px;
-            min-width: 155px;
+            padding: 5px 15px;
+
 
             &:hover {
                 background: var(--verde-secundario) 0% 0% no-repeat padding-box;
@@ -87,6 +89,8 @@ footer {
                     border: none !important;
                     background-color: var(--verde-botao);
                     color: var(--branco-primario) !important;
+                    
+                    border-radius: 3px;
 
                     &:hover {
                         transform: none !important;
@@ -95,7 +99,7 @@ footer {
 
                     svg {
                         vertical-align: baseline;
-                        margin-right: 9px;
+                        margin-right: 5px;
                     }
                 }
             }
