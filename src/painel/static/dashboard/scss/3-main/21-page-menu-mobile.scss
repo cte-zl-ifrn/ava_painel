@@ -38,6 +38,16 @@
             border-radius: 5px;
             padding: 5px 10px;
             font-size:smaller;
+            div{
+                display: inline-flex;
+                i{
+                    margin-top: 3px;
+                    margin-right: 5px;
+                }
+            }
+        }
+        #btnClearFilter:hover{
+            background-color: #fff !important;
         }
  
         #btn-search {
@@ -51,6 +61,7 @@
         #btn-filter{
             color: #fff;
             background-color: var(--verde-botao);
+            padding: 0px 10px;
         }
     }
 }

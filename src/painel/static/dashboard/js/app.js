@@ -117,9 +117,7 @@ export default {
             this.isPopupOpen = true;
             document.body.style.overflow="hidden";
             document.body.classList.add('open');
-            //document.body.style.filter="blur(1em)";
-            //document.getElementByc("teste").style.backdropFilter="blur(0.5em)";
-            
+        
            
         },
         closePopup() {
@@ -128,15 +126,6 @@ export default {
             document.body.classList.remove('open');
 
         },
-
-        // clearFilter() {
-        //     $("#q").val('');
-        //     $("#situacao").val('');
-        //     $("#semestre").val('');
-        //     $("#disciplina").val('');
-        //     $("#curso").val('');
-        //     $("#ambiente").val('');
-        // },
 
         restoreState() {
             let grid_filter = document.getElementById("grid-filter");
@@ -402,9 +391,12 @@ export default {
 
         cardActionsToggler(event) {
             let item = $(event.currentTarget).parent().parent().parent();
+            console.log(event.srcElement);
             if ($(item).hasClass("showActions")) {                
                 $(event.srcElement).removeClass("favorited");
+                $(event.srcElement).removeClass("icon-chevron-down");
                 $(item).removeClass("showActions");
+                
             } else {               
                 $(event.srcElement).addClass(" favorited");                
                 $(item).addClass("showActions ");
@@ -422,6 +414,7 @@ export default {
             $("#ambiente").val("").trigger("change");
             // setTimeout(this.filterCards, 500);
             $(".select2-selection").removeClass("bgcolor-select2");
+            
         },
 
         clearFilterSeeAll() {

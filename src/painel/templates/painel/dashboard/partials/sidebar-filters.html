@@ -57,10 +57,10 @@
             </div>
 
             <div id="buttonsFilters">
-                <button type="button" class="btn btn-outline-success" v-on:click="clearFilter()">
+                <button type="button" id="btnClearFilter" class="btn btn-outline-success" v-on:click="clearFilter()" >
                     <i v-if="screenWidth > 335"class="fa fa-trash" aria-hidden="true"></i> Limpar filtros
                 </button>
-                <button type="button" class="btn btn-success" v-on:click="filterCards($event)">Filtrar</button>
+                <button type="button" class="btn btn-success" v-on:click="filterCards($event)" @click="closePopup">Filtrar</button>
             </div>
     </div>
 </div> 

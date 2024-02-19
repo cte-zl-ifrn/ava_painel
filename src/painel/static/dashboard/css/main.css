@@ -1004,6 +1004,16 @@ main #menu-separator {
     padding: 5px 10px;
     font-size: smaller;
   }
+  main #search-mobile button div {
+    display: inline-flex;
+  }
+  main #search-mobile button div i {
+    margin-top: 3px;
+    margin-right: 5px;
+  }
+  main #search-mobile #btnClearFilter:hover {
+    background-color: #fff !important;
+  }
   main #search-mobile #btn-search {
     position: absolute;
     color: #777;
@@ -1014,6 +1024,7 @@ main #menu-separator {
   main #search-mobile #btn-filter {
     color: #fff;
     background-color: var(--verde-botao);
+    padding: 0px 10px;
   }
 }
 
