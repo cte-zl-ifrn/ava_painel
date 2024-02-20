@@ -1287,8 +1287,8 @@ main #maincontent #course-list .course-listitem .course-body .course-quickaction
   text-align: center;
 }
 
-main #maincontent #course-list .course-listitem .course-body .course-quickactions > label:last-child {
-  border-top: 1px solid var(--cinza-terciario);
+main #maincontent #course-list .course-listitem .course-body .course-quickactions > label:first-child {
+  border-bottom: 1px solid var(--cinza-terciario);
 }
 
 main #maincontent #course-list .course-listitem .course-body .course-quickactions > label i {
@@ -1326,6 +1326,11 @@ main #maincontent #course-list .course-listitem.showActions .course-actions {
 
 main #maincontent #course-list .favorited {
   color: var(--verde-botao);
+}
+
+main #maincontent #course-list .seta {
+  transition: transform 0.3s ease !important;
+  transform: rotate(180deg) !important;
 }
 
 @media only screen and (max-width: 432px) {
@@ -1464,8 +1469,8 @@ main #maincontent #course-list .course-listitem .course-body .course-info .cours
     width: 100%;
     text-align: center;
   }
-  main #maincontent #course-list .course-listitem .course-body .course-quickactions > label:last-child {
-    border-top: 1px solid var(--cinza-terciario);
+  main #maincontent #course-list .course-listitem .course-body .course-quickactions > label:first-child {
+    border-bottom: 1px solid var(--cinza-terciario);
   }
   main #maincontent #course-list .course-listitem .course-body .course-quickactions > label i {
     top: calc(50% - 15px);
@@ -1497,6 +1502,10 @@ main #maincontent #course-list .course-listitem .course-body .course-info .cours
   }
   main #maincontent #course-list .favorited {
     color: var(--verde-botao);
+  }
+  main #maincontent #course-list .seta {
+    transition: transform 0.3s ease !important;
+    transform: rotate(180deg) !important;
   }
 }
 
@@ -1669,8 +1678,8 @@ main #course-list .course-listitem .course-body .course-quickactions > label {
   text-align: center;
 }
 
-main #course-list .course-listitem .course-body .course-quickactions > label:last-child {
-  border-top: 1px solid var(--cinza-terciario);
+main #course-list .course-listitem .course-body .course-quickactions > label:first-child {
+  border-bottom: 1px solid var(--cinza-terciario);
 }
 
 main #course-list .course-listitem .course-body .course-quickactions > label i {
@@ -1708,6 +1717,11 @@ main #course-list .course-listitem.showActions .course-actions {
 
 main #course-list .favorited {
   color: var(--verde-botao);
+}
+
+main #course-list .seta {
+  transition: transform 0.3s ease !important;
+  transform: rotate(180deg) !important;
 }
 
 main #popupFilter {

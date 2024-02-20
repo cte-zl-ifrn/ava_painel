@@ -59,6 +59,7 @@
                         <label
                             v-if="card.isfavourite"
                             v-on:click="favourite(card)"
+
                             type="button"
                             title="Favoritar este diário para mim"
                             :class="{ 'favorited': card.isfavourite}"
@@ -73,7 +74,7 @@
                         ></label>
                         <label v-on:click.capture="cardActionsToggler" title="Mais opções"
                         
-                            ><i class="icon icon-chevron-down"></i>
+                            ><i  class="icon icon-chevron-down "></i>
                         </label>
                     </div>
                 </div>

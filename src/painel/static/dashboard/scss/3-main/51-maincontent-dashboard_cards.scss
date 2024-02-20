@@ -148,9 +148,9 @@
                     text-align: center;
 
                     &:first-child {
+                        border-bottom: 1px solid var(--cinza-terciario);
                     }
                     &:last-child {
-                        border-top: 1px solid var(--cinza-terciario);
                     }
 
                     i {
@@ -197,5 +197,12 @@
     .favorited{
         color:var(--verde-botao);
     }
+
+    .seta {
+        
+        transition: transform 0.3s ease !important; 
+        transform: rotate(180deg) !important;
+    }
+
 }
 

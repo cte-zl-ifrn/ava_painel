@@ -47,6 +47,7 @@ export default {
             selectedBar: null,
             screenWidth: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
             isPopupOpen:false,
+            isIconUp: false,
         };
     },
 
@@ -390,16 +391,30 @@ export default {
         },
 
         cardActionsToggler(event) {
+            this.isIconUp = !this.isIconUp;
+ 
             let item = $(event.currentTarget).parent().parent().parent();
-            console.log(event.srcElement);
-            if ($(item).hasClass("showActions")) {                
-                $(event.srcElement).removeClass("favorited");
-                $(event.srcElement).removeClass("icon-chevron-down");
+            let icon = event.srcElement;
+            console.log(icon);
+
+
+
+            //console.log(event.currentTarget.children);
+            if ($(item).hasClass("showActions") ) {          
+                console.log('fechou');      
                 $(item).removeClass("showActions");
+                $(icon).removeClass("favorited seta"); 
+                //$(icon).removeClass("icon icon-chevron-up");
+                //$(icon).addClass("icon icon-chevron-down");      
+            
+            } else {     
                 
-            } else {               
-                $(event.srcElement).addClass(" favorited");                
-                $(item).addClass("showActions ");
+                console.log('abriu');          
+                $(item).addClass("showActions");
+                $(icon).addClass("favorited seta "); 
+
+                //$(icon).removeClass("icon icon-chevron-down");
+                //$(icon).addClass("icon icon-chevron-up");
             }
         },
        
