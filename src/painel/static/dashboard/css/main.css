@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,800;1,900&display=swap");
 :root {
   --page-max-width: 1312px;
@@ -1297,7 +1298,9 @@ main #maincontent #course-list .course-listitem .course-body .course-quickaction
 }
 
 main #maincontent #course-list .course-listitem .course-actions {
-  display: none;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
   background: #f5e8e8 0% 0% no-repeat padding-box;
   box-shadow: 0px 0px 3px #00000080;
   border-radius: 0 0 4px 4px;
@@ -1309,6 +1312,7 @@ main #maincontent #course-list .course-listitem .course-actions {
   color: #464646;
   padding: 15px;
   margin: 1px 8px;
+  transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
 }
 
 main #maincontent #course-list .course-listitem .course-actions span {
@@ -1321,7 +1325,10 @@ main #maincontent #course-list .course-listitem .course-actions span > a {
 }
 
 main #maincontent #course-list .course-listitem.showActions .course-actions {
-  display: block;
+  opacity: 1;
+  max-height: 500px;
+  /* Ajuste conforme necessário */
+  transition: opacity 0.9s ease-in-out, max-height 0.9s ease-in-out;
 }
 
 main #maincontent #course-list .favorited {
@@ -1329,8 +1336,15 @@ main #maincontent #course-list .favorited {
 }
 
 main #maincontent #course-list .seta {
-  transition: transform 0.3s ease !important;
+  transition: transform 0.5s ease-in-out !important;
+}
+
+main #maincontent #course-list .seta-up {
   transform: rotate(180deg) !important;
+}
+
+main #maincontent #course-list .seta-down {
+  transform: rotate(0deg) !important;
 }
 
 @media only screen and (max-width: 432px) {
@@ -1477,7 +1491,9 @@ main #maincontent #course-list .course-listitem .course-body .course-info .cours
     position: relative;
   }
   main #maincontent #course-list .course-listitem .course-actions {
-    display: none;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
     background: #f5e8e8 0% 0% no-repeat padding-box;
     box-shadow: 0px 0px 3px #00000080;
     border-radius: 0 0 4px 4px;
@@ -1489,6 +1505,7 @@ main #maincontent #course-list .course-listitem .course-body .course-info .cours
     color: #464646;
     padding: 15px;
     margin: 1px 8px;
+    transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
   }
   main #maincontent #course-list .course-listitem .course-actions span {
     display: block;
@@ -1498,14 +1515,22 @@ main #maincontent #course-list .course-listitem .course-body .course-info .cours
     margin-left: 8px;
   }
   main #maincontent #course-list .course-listitem.showActions .course-actions {
-    display: block;
+    opacity: 1;
+    max-height: 500px;
+    /* Ajuste conforme necessário */
+    transition: opacity 0.9s ease-in-out, max-height 0.9s ease-in-out;
   }
   main #maincontent #course-list .favorited {
     color: var(--verde-botao);
   }
   main #maincontent #course-list .seta {
-    transition: transform 0.3s ease !important;
+    transition: transform 0.5s ease-in-out !important;
+  }
+  main #maincontent #course-list .seta-up {
     transform: rotate(180deg) !important;
+  }
+  main #maincontent #course-list .seta-down {
+    transform: rotate(0deg) !important;
   }
 }
 
@@ -1688,7 +1713,9 @@ main #course-list .course-listitem .course-body .course-quickactions > label i {
 }
 
 main #course-list .course-listitem .course-actions {
-  display: none;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
   background: #f5e8e8 0% 0% no-repeat padding-box;
   box-shadow: 0px 0px 3px #00000080;
   border-radius: 0 0 4px 4px;
@@ -1700,6 +1727,7 @@ main #course-list .course-listitem .course-actions {
   color: #464646;
   padding: 15px;
   margin: 1px 8px;
+  transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
 }
 
 main #course-list .course-listitem .course-actions span {
@@ -1712,7 +1740,10 @@ main #course-list .course-listitem .course-actions span > a {
 }
 
 main #course-list .course-listitem.showActions .course-actions {
-  display: block;
+  opacity: 1;
+  max-height: 500px;
+  /* Ajuste conforme necessário */
+  transition: opacity 0.9s ease-in-out, max-height 0.9s ease-in-out;
 }
 
 main #course-list .favorited {
@@ -1720,8 +1751,15 @@ main #course-list .favorited {
 }
 
 main #course-list .seta {
-  transition: transform 0.3s ease !important;
+  transition: transform 0.5s ease-in-out !important;
+}
+
+main #course-list .seta-up {
   transform: rotate(180deg) !important;
+}
+
+main #course-list .seta-down {
+  transform: rotate(0deg) !important;
 }
 
 main #popupFilter {

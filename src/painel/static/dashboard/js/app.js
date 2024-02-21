@@ -391,30 +391,21 @@ export default {
         },
 
         cardActionsToggler(event) {
-            this.isIconUp = !this.isIconUp;
- 
-            let item = $(event.currentTarget).parent().parent().parent();
-            let icon = event.srcElement;
-            console.log(icon);
-
-
+           
+            let item = $(event.currentTarget).parent().parent().parent();       
+            let icon = $(event.currentTarget).find('i');
+            let label = icon.closest('label');
 
             //console.log(event.currentTarget.children);
-            if ($(item).hasClass("showActions") ) {          
-                console.log('fechou');      
+            if ($(item).hasClass("showActions") ) {                     
                 $(item).removeClass("showActions");
-                $(icon).removeClass("favorited seta"); 
-                //$(icon).removeClass("icon icon-chevron-up");
-                //$(icon).addClass("icon icon-chevron-down");      
-            
+                $(label).removeClass("favorited seta seta-up").addClass("seta seta-down"); 
+                             
             } else {     
-                
-                console.log('abriu');          
+       
                 $(item).addClass("showActions");
-                $(icon).addClass("favorited seta "); 
+                $(label).removeClass("seta seta-down").addClass("favorited seta seta-up"); 
 
-                //$(icon).removeClass("icon icon-chevron-down");
-                //$(icon).addClass("icon icon-chevron-up");
             }
         },
        
