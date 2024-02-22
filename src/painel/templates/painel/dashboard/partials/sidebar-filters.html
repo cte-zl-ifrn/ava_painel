@@ -28,7 +28,7 @@
                 >
                     <option v-for="row in situacoes" v-bind:value="row.id">[[ row.label ]]</option>
                 </select>
-                <!-- {% comment %} <i class="fa fa-book icon-filter-color icon-fild-position"></i> {% endcomment %} -->
+                {% comment %} <i class="fa fa-book icon-filter-color icon-fild-position"></i> {% endcomment %}
             </div>
              <!-- <div class="grid-item">
                 <select name="ordenacao" id="ordenacao" @change="filterCards($event)" v-model="ordenacao">
@@ -57,10 +57,10 @@
             </div>
 
             <div id="buttonsFilters">
-                <button type="button" class="btn btn-outline-success" v-on:click="clearFilter()">
-                    <i class="fa fa-trash" aria-hidden="true"></i> Limpar filtros
+                <button type="button" id="btnClearFilter" class="btn btn-outline-success" v-on:click="clearFilter()" >
+                    <i v-if="screenWidth > 335"class="fa fa-trash" aria-hidden="true"></i> Limpar filtros
                 </button>
-                <button type="button" class="btn btn-success" v-on:click="filterCards($event)">Filtrar</button>
+                <button type="button" class="btn btn-success" v-on:click="filterCards($event)" @click="closePopup">Filtrar</button>
             </div>
     </div>
 </div> 

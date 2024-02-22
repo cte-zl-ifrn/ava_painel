@@ -56,14 +56,17 @@
                                 </button>
                         </form>                        
                         <button id="btn-filter" @click="openPopup"> 
-                                <!-- <i class="icon icon-search" aria-hidden="true"></i>  -->
-                                <span style="padding-left: 10px;">Filtros</span>
+                                <div>
+                                        <i class="icon icon-filtro" aria-hidden="true"></i> 
+                                        <span >Filtros</span>
+                                </div>
+
                         </button>
 
                         <!-- div para aplicar o backdrop-filter -->
-                        <div class="divBackdop-filter"></div>
+                        <div @click="closePopup" class="divBackdop-filter"></div>
                         
-                        <div v-if="isPopupOpen" id="popupFilter">
+                        <div v-if="isPopupOpen" id="popupFilter"  >
                                 <span @click="closePopup" class="close">&times;</span>
                                 {% include "painel/dashboard/partials/sidebar-filters.html" %}
                         </div>

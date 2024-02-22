@@ -59,6 +59,7 @@
                         <label
                             v-if="card.isfavourite"
                             v-on:click="favourite(card)"
+
                             type="button"
                             title="Favoritar este diário para mim"
                             :class="{ 'favorited': card.isfavourite}"
@@ -73,7 +74,7 @@
                         ></label>
                         <label v-on:click.capture="cardActionsToggler" title="Mais opções"
                         
-                            ><i class="icon icon-chevron-down"></i>
+                            ><i  class="icon icon-chevron-down "></i>
                         </label>
                     </div>
                 </div>
@@ -82,19 +83,19 @@
                         <i class='icon icon-suap-vazado'></i><a v-bind:href="[[ card.suapsurl ]]">Ver diario no SUAP</a>
                     </span>
                     <span v-if="card.mensagemurl">
-                        <i class='icon icon-suap-vazado'></i><a v-bind:href="[[ card.mensagemurl ]]">Enviar mensagem via SUAP</a>
+                        <i class='icon icon-mensagem-suap'></i><a v-bind:href="[[ card.mensagemurl ]]">Enviar mensagem via SUAP</a>
                     </span>
                     <span v-if="card.coordenacaourl">
-                        <i class='icon icon-suap-vazado'></i><a v-bind:href="[[ card.coordenacaourl ]]">Ver sala de coordenação no AVA</a>
+                        <i class='icon icon-table'></i><a v-bind:href="[[ card.coordenacaourl ]]">Ver sala de coordenação no AVA</a>
                     </span>
                     <span v-if="card.gradesurl">
-                        <i class='icon icon-suap-vazado'></i><a v-bind:href="[[ card.gradesurl ]]">Ver quadro de notas no AVA</a>
+                        <i class='icon icon-table'></i><a v-bind:href="[[ card.gradesurl ]]">Ver quadro de notas no AVA</a>
                     </span>
                     <span v-if="card.checkgradesurl">
-                        <i class='icon icon-suap-vazado'></i><a v-bind:href="[[ card.checkgradesurl ]]">Visualizar prévia das notas</a>
+                        <i class='icon icon-preview-notas'></i><a v-bind:href="[[ card.checkgradesurl ]]">Visualizar prévia das notas</a>
                     </span>
                     <span v-if="card.syncsurl">
-                        <i class='icon icon-suap-vazado'></i><a v-bind:href="[[ card.syncsurl ]]">Visualizar histórico de integrações</a>
+                        <i class='icon icon-historico-integracoes'></i><a v-bind:href="[[ card.syncsurl ]]">Visualizar histórico de integrações</a>
                     </span>
                 </div>
             </div>

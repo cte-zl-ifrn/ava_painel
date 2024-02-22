@@ -47,6 +47,7 @@ export default {
             selectedBar: null,
             screenWidth: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
             isPopupOpen:false,
+            isIconUp: false,
         };
     },
 
@@ -117,9 +118,7 @@ export default {
             this.isPopupOpen = true;
             document.body.style.overflow="hidden";
             document.body.classList.add('open');
-            //document.body.style.filter="blur(1em)";
-            //document.getElementByc("teste").style.backdropFilter="blur(0.5em)";
-            
+        
            
         },
         closePopup() {
@@ -128,15 +127,6 @@ export default {
             document.body.classList.remove('open');
 
         },
-
-        // clearFilter() {
-        //     $("#q").val('');
-        //     $("#situacao").val('');
-        //     $("#semestre").val('');
-        //     $("#disciplina").val('');
-        //     $("#curso").val('');
-        //     $("#ambiente").val('');
-        // },
 
         restoreState() {
             let grid_filter = document.getElementById("grid-filter");
@@ -164,44 +154,44 @@ export default {
             //     },
             // });
             $("#semestre").select2({
-                // placeholder: "<i class='icon icon-calendario-semestre'></i> Semestres...",
-                placeholder: "Semestres...",
+                placeholder: "<i class='icon icon-calendario-semestre'></i> Semestres...",
+                //placeholder: "Semestres...",
                 templateSelection: function (data) {
-                    const style = 'style="color: #1D2125; "';
+                    const style = 'style="color: #7D848B; "';
                     
                     return $("<span " + style + ">" + data.text + "</span> ");
                 },
             });
              $("#disciplina").select2({
-                //placeholder: "<i class='icon icon-disciplina'></i> Disciplinas...",
-                placeholder: "Disciplinas...",
+                placeholder: "<i class='icon icon-disciplina' ></i> Disciplinas...",
+                //placeholder: "Disciplinas...",
                 templateSelection: function (data) {
-                    const style = 'style="color: #1D2125; "';
+                    const style = 'style="color: #7D848B; "';
                     
                     return $("<span " + style + ">" + data.text + "</span> ");
                 },
             });
              $("#curso").select2({
-                //placeholder: "<i class='icon icon-icone-ava'></i> Cursos...",
-                placeholder: "Cursos...",
+                placeholder: "<i class='icon icon-icone-ava'></i> Cursos...",
+                //placeholder: "Cursos...",
                 templateSelection: function (data) {
-                    const style = 'style="color: #1D2125; "';
+                    const style = 'style="color: #7D848B; "';
                     
                     return $("<span " + style + ">" + data.text + "</span> ");
                 },
             });
             $("#ambiente").select2({
-                //placeholder: "<i class='icon icon-moodle'></i> Ambientes...",
-                placeholder: "Ambientes...",
+                placeholder: "<i class='icon icon-moodle'></i> Ambientes...",
+                //placeholder: "Ambientes...",
                 templateSelection: function (data) {
-                    const style = 'style="color: #1D2125; "';
+                    const style = 'style="color: #7D848B; "';
                     
                     return $("<span " + style + ">" + data.text + "</span> ");
                 },
             });
             $("#situacao").select2({
                 templateSelection: function (data) {
-                    const style = 'style="padding: 0 5px 0 0px; color: #1D2125; "';
+                    const style = 'style="padding: 0 5px 0 0px; color: #7D848B; "';
                     return $("<span " + style + ">" + data.text + "</span> ");
                 },
             });
@@ -401,13 +391,21 @@ export default {
         },
 
         cardActionsToggler(event) {
-            let item = $(event.srcElement).parent().parent().parent().parent();
-            if ($(item).hasClass("showActions")) {                
+           
+            let item = $(event.currentTarget).parent().parent().parent();       
+            let icon = $(event.currentTarget).find('i');
+            let label = icon.closest('label');
+
+            //console.log(event.currentTarget.children);
+            if ($(item).hasClass("showActions") ) {                     
                 $(item).removeClass("showActions");
-                $(event.srcElement).removeClass("favorited");
-            } else {               
-                $(item).addClass("showActions ");
-                $(event.srcElement).addClass(" favorited");                
+                $(label).removeClass("favorited seta seta-up").addClass("seta seta-down"); 
+                             
+            } else {     
+       
+                $(item).addClass("showActions");
+                $(label).removeClass("seta seta-down").addClass("favorited seta seta-up"); 
+
             }
         },
        
@@ -422,6 +420,7 @@ export default {
             $("#ambiente").val("").trigger("change");
             // setTimeout(this.filterCards, 500);
             $(".select2-selection").removeClass("bgcolor-select2");
+            
         },
 
         clearFilterSeeAll() {
