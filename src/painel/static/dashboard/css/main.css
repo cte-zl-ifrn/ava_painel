@@ -57,6 +57,8 @@
 }
 
 body {
+  height: 100vw;
+  background: #F8F8F8 0% 0% no-repeat padding-box;
   color: var(--escuro-primario) !important;
 }
 
@@ -236,7 +238,7 @@ h6 {
 
 .dropdown-item:focus,
 .dropdown-item:hover {
-  background-color: var(--background-hover) !important;
+  background-color: var(--cinza-terciario);
 }
 
 a {
@@ -322,6 +324,8 @@ a {
   box-shadow: 0px 3px 6px #00000029;
   opacity: 1;
   color: var(--header-color);
+  position: relative;
+  z-index: 2;
 }
 
 #header #header-wrapper {
@@ -918,8 +922,7 @@ main #page-title img:last-child {
 
 main #page-menu {
   margin-top: -40px;
-  border-bottom: 3px solid var(--verde-secundario);
-  margin-right: 3px;
+  border-bottom: 3px solid #338f74;
 }
 
 main #page-menu .nav-tabs {
@@ -1130,9 +1133,8 @@ main #sidebar #buttonsFilters {
 
 main #maincontent {
   background: var(--branco-primario) 0% 0% no-repeat padding-box;
-  box-shadow: -2px 3px 5px #00000033;
-  border: 1px solid #36394033;
-  border-radius: 0px 4px 4px 0px;
+  box-shadow: 0px 3px 5px #00000033;
+  border-right: none;
 }
 
 main #maincontent #course-list {
@@ -1328,7 +1330,7 @@ main #maincontent #course-list .course-listitem.showActions .course-actions {
   opacity: 1;
   max-height: 500px;
   /* Ajuste conforme necessário */
-  transition: opacity 0.9s ease-in-out, max-height 0.9s ease-in-out;
+  transition: opacity 0.2s ease-in-out, max-height 0.2s ease-in-out;
 }
 
 main #maincontent #course-list .favorited {
@@ -1518,7 +1520,7 @@ main #maincontent #course-list .course-listitem .course-body .course-info .cours
     opacity: 1;
     max-height: 500px;
     /* Ajuste conforme necessário */
-    transition: opacity 0.9s ease-in-out, max-height 0.9s ease-in-out;
+    transition: opacity 0.2s ease-in-out, max-height 0.2s ease-in-out;
   }
   main #maincontent #course-list .favorited {
     color: var(--verde-botao);
@@ -1743,7 +1745,7 @@ main #course-list .course-listitem.showActions .course-actions {
   opacity: 1;
   max-height: 500px;
   /* Ajuste conforme necessário */
-  transition: opacity 0.9s ease-in-out, max-height 0.9s ease-in-out;
+  transition: opacity 0.2s ease-in-out, max-height 0.2s ease-in-out;
 }
 
 main #course-list .favorited {
@@ -1840,7 +1842,7 @@ footer #footer-wrapper a {
 }
 
 footer #footer-wrapper a:hover {
-  background: var(--verde-secundario) 0% 0% no-repeat padding-box;
+  color: var(--verde-secundario) 0% 0% no-repeat padding-box;
 }
 
 footer #footer-wrapper p {
@@ -1925,8 +1927,13 @@ footer #footer-wrapper hr {
 }
 
 footer #footer-wrapper .desktop-only a {
-  color: var(--verde-primario);
+  color: var(--branco-primario);
   text-decoration: none;
+  padding: 0px;
+}
+
+footer #footer-wrapper .desktop-only a:hover {
+  color: var(--verde-secundario);
 }
 
 @media only screen and (max-width: 600px) {

@@ -1,8 +1,10 @@
 #maincontent {
     background: var(--branco-primario) 0% 0% no-repeat padding-box;
-    box-shadow: -2px 3px 5px #00000033;
-    border: 1px solid #36394033;
-    border-radius: 0px 4px 4px 0px;
+    //background: #00000232;
+    box-shadow: 0px 3px 5px #00000033;
+    border-right: none;
+    
+   
 
     @import "3-main/51-maincontent-dashboard_cards";
 }

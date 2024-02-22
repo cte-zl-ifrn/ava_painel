@@ -179,6 +179,7 @@
             padding: 15px;
             margin: 1px 8px;
             transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
+            
             span {
                 display: block;
                 padding: 10px 10px 0px 0px;
@@ -188,11 +189,14 @@
             }
         }
         &.showActions .course-actions {
-           // display:grid;
+           
             opacity: 1;
             max-height: 500px; /* Ajuste conforme necessário */
-            transition: opacity 0.9s ease-in-out, max-height 0.9s ease-in-out;
+            transition: opacity 0.2s ease-in-out, max-height 0.2s ease-in-out;
+            
+
         }
+        
     }
     .empty-search {
     }
