@@ -8,7 +8,7 @@ from datetime import datetime
 from django.core.exceptions import DisallowedHost
 
 
-PAINEL_VERSION = "1.0.69"
+PAINEL_VERSION = "1.0.71"
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -303,7 +303,7 @@ if env("SENTRY_DNS", None):
         environment=env("SENTRY_ENVIRONMENT", "local"),
         max_breadcrumbs=env_as_int("SENTRY_MAX_BREADCRUMBS", 100),
         with_locals=env_as_bool("SENTRY_WITH_LOCALS", True),
-        ignore_errors=[DisallowedHost]
+        ignore_errors=[DisallowedHost],
         # release=env('SENTRY_RELEASE', '1.0.0'),
         # attach_stacktrace=env('SENTRY_ATTACH_STACKTRACE', 'off'),
         # server_name=env('SENTRY_SERVER_NAME', 'off'),
