@@ -520,11 +520,9 @@ a {
   background: var(--branco-primario) 0% 0% no-repeat padding-box;
   border: 1px solid var(--cinza-terciario);
   opacity: 1;
-  border-radius: inherit;
   padding: 0;
   margin-top: 24px !important;
   margin-right: -16px !important;
-  transform: translate3d(-14em, 21px, 0px) !important;
   display: block;
 }
 
@@ -539,6 +537,11 @@ a {
   background-color: var(--branco-primario);
   color: var(--verde-secundario);
   text-align: center;
+  border-radius: 5%;
+}
+
+#header #region-messages #messages-count:hover {
+  background: var(--cinza-terciario) 0% 0% no-repeat padding-box;
 }
 
 #header #region-messages .fa-comment-o {
@@ -567,8 +570,6 @@ a {
   font-size: 0.8rem;
   text-align: end;
   padding: 5px;
-  border-top-right-radius: var(--default-border-radius);
-  border-top-left-radius: var(--default-border-radius);
 }
 
 #header #region-notifications {
@@ -684,10 +685,13 @@ a {
   background: var(--branco-primario) 0% 0% no-repeat padding-box;
   border: 1px solid var(--cinza-terciario);
   opacity: 1;
-  border-radius: inherit;
   margin-top: 24px !important;
   padding: 0;
   transform: translate3d(-14em, 21px, 0px) !important;
+}
+
+#header #region-notifications #notifications-count:hover {
+  background: var(--cinza-terciario) 0% 0% no-repeat padding-box;
 }
 
 #header #region-notifications .fa-bell-o {
@@ -807,15 +811,63 @@ a {
   content: "\f078" !important;
 }
 
-@media only screen and (max-width: 432px) {
+@media only screen and (max-width: 344px) {
   #header #header-brand {
     width: 32px;
   }
   #header #header-ajuda {
     display: none;
   }
+  #header #menu-notifications.show {
+    transform: translate3d(-3em, 45px, 0px) !important;
+  }
   #header #menu-messages.show {
-    transform: translate3d(-1em, 21px, 0px) !important;
+    transform: translate3d(-10em, 21px, 0px) !important;
+  }
+}
+
+@media only screen and (min-width: 345px) and (max-width: 353px) {
+  #header #header-brand {
+    width: 32px;
+  }
+  #header #header-ajuda {
+    display: none;
+  }
+  #header #menu-notifications.show {
+    transform: translate3d(2em, 45px, 0px) !important;
+  }
+  #header #menu-messages.show {
+    transform: translate3d(-9em, 21px, 0px) !important;
+  }
+}
+
+@media only screen and (min-width: 354px) and (max-width: 399px) {
+  #header #header-brand {
+    width: 32px;
+  }
+  #header #header-ajuda {
+    display: none;
+  }
+  #header #menu-notifications.show {
+    transform: translate3d(0em, 45px, 0px) !important;
+  }
+  #header #menu-messages.show {
+    transform: translate3d(4em, 20px, 0px) !important;
+  }
+}
+
+@media only screen and (min-width: 400px) and (max-width: 432px) {
+  #header #header-brand {
+    width: 32px;
+  }
+  #header #header-ajuda {
+    display: none;
+  }
+  #header #menu-notifications.show {
+    transform: translate3d(0em, 45px, 0px) !important;
+  }
+  #header #menu-messages.show {
+    transform: translate3d(-1em, 22px, 0px) !important;
   }
 }
 
@@ -824,28 +876,34 @@ a {
     display: none;
   }
   #header #menu-notifications.show {
-    transform: translate3d(0em, 21px, 0px) !important;
+    transform: translate3d(0em, 45px, 0px) !important;
   }
   #header #menu-messages.show {
     transform: translate3d(-1em, 21px, 0px) !important;
   }
 }
 
-@media only screen and (min-width: 630px) and (max-width: 1445px) {
+@media only screen and (min-width: 630px) and (max-width: 1373px) {
   #header #menu-notifications.show {
-    transform: translate3d(0em, 21px, 0px) !important;
+    transform: translate3d(0em, 45px, 0px) !important;
+  }
+  #header #menu-messages.show {
+    transform: translate3d(-1em, 21px, 0px) !important;
+  }
+}
+
+@media only screen and (min-width: 1374px) {
+  #header #menu-notifications.show {
+    transform: translate3d(-8em, 45px, 0px) !important;
+  }
+  #header #menu-messages.show {
+    transform: translate3d(-1em, 21px, 0px) !important;
   }
 }
 
 @media only screen and (max-width: 1312px) {
   #header #header-wrapper {
     padding: 0 20px;
-  }
-}
-
-@media only screen and (min-width: 630px) and (max-width: 1445px) {
-  #header #menu-messages.show {
-    transform: translate3d(-1em, 21px, 0px) !important;
   }
 }
 
