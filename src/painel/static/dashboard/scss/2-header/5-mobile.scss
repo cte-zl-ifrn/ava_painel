@@ -113,6 +113,7 @@
         transform: translate3d(-1em, 21px, 0px) !important;
     }
 }
+
 @media only screen and (min-width: 1359px) and (max-width: 1527px){
      #menu-notifications.show {
         transform: translate3d(-8em, 45px, 0px) !important;
@@ -121,12 +122,10 @@
         transform: translate3d(-1em, 21px, 0px) !important;
     }
 }
+
 @media only screen and (min-width: 1527px) {
      #menu-notifications.show {
         transform: translate3d(-8em, 45px, 0px) !important;
-    }
-    #menu-messages.show {
-        transform: translate3d(-1em, 21px, 0px) !important;
     }
 }
 

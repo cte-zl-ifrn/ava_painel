@@ -905,9 +905,6 @@ a {
   #header #menu-notifications.show {
     transform: translate3d(-8em, 45px, 0px) !important;
   }
-  #header #menu-messages.show {
-    transform: translate3d(-1em, 21px, 0px) !important;
-  }
 }
 
 @media only screen and (max-width: 1312px) {
