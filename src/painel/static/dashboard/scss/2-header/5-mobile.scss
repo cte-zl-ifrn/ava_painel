@@ -105,7 +105,7 @@
     }
 }//OK
 
-@media only screen and (min-width: 630px) and (max-width: 1373px) {
+@media only screen and (min-width: 630px) and (max-width: 1358px) {
     #menu-notifications.show {
         transform: translate3d(0em, 45px, 0px) !important;
     }
@@ -113,7 +113,15 @@
         transform: translate3d(-1em, 21px, 0px) !important;
     }
 }
-@media only screen and (min-width: 1374px) {
+@media only screen and (min-width: 1359px) and (max-width: 1527px){
+     #menu-notifications.show {
+        transform: translate3d(-8em, 45px, 0px) !important;
+    }
+    #menu-messages.show {
+        transform: translate3d(-1em, 21px, 0px) !important;
+    }
+}
+@media only screen and (min-width: 1527px) {
      #menu-notifications.show {
         transform: translate3d(-8em, 45px, 0px) !important;
     }
