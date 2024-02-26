@@ -520,11 +520,9 @@ a {
   background: var(--branco-primario) 0% 0% no-repeat padding-box;
   border: 1px solid var(--cinza-terciario);
   opacity: 1;
-  border-radius: inherit;
   padding: 0;
   margin-top: 24px !important;
   margin-right: -16px !important;
-  transform: translate3d(-14em, 21px, 0px) !important;
   display: block;
 }
 
@@ -539,6 +537,11 @@ a {
   background-color: var(--branco-primario);
   color: var(--verde-secundario);
   text-align: center;
+  border-radius: 5%;
+}
+
+#header #region-messages #messages-count:hover {
+  background: var(--cinza-terciario) 0% 0% no-repeat padding-box;
 }
 
 #header #region-messages .fa-comment-o {
@@ -567,8 +570,6 @@ a {
   font-size: 0.8rem;
   text-align: end;
   padding: 5px;
-  border-top-right-radius: var(--default-border-radius);
-  border-top-left-radius: var(--default-border-radius);
 }
 
 #header #region-notifications {
@@ -684,10 +685,13 @@ a {
   background: var(--branco-primario) 0% 0% no-repeat padding-box;
   border: 1px solid var(--cinza-terciario);
   opacity: 1;
-  border-radius: inherit;
   margin-top: 24px !important;
   padding: 0;
   transform: translate3d(-14em, 21px, 0px) !important;
+}
+
+#header #region-notifications #notifications-count:hover {
+  background: var(--cinza-terciario) 0% 0% no-repeat padding-box;
 }
 
 #header #region-notifications .fa-bell-o {
@@ -807,15 +811,63 @@ a {
   content: "\f078" !important;
 }
 
-@media only screen and (max-width: 432px) {
+@media only screen and (max-width: 344px) {
   #header #header-brand {
     width: 32px;
   }
   #header #header-ajuda {
     display: none;
   }
+  #header #menu-notifications.show {
+    transform: translate3d(-3em, 45px, 0px) !important;
+  }
   #header #menu-messages.show {
-    transform: translate3d(-1em, 21px, 0px) !important;
+    transform: translate3d(-10em, 21px, 0px) !important;
+  }
+}
+
+@media only screen and (min-width: 345px) and (max-width: 353px) {
+  #header #header-brand {
+    width: 32px;
+  }
+  #header #header-ajuda {
+    display: none;
+  }
+  #header #menu-notifications.show {
+    transform: translate3d(2em, 45px, 0px) !important;
+  }
+  #header #menu-messages.show {
+    transform: translate3d(-9em, 21px, 0px) !important;
+  }
+}
+
+@media only screen and (min-width: 354px) and (max-width: 399px) {
+  #header #header-brand {
+    width: 32px;
+  }
+  #header #header-ajuda {
+    display: none;
+  }
+  #header #menu-notifications.show {
+    transform: translate3d(0em, 45px, 0px) !important;
+  }
+  #header #menu-messages.show {
+    transform: translate3d(4em, 20px, 0px) !important;
+  }
+}
+
+@media only screen and (min-width: 400px) and (max-width: 432px) {
+  #header #header-brand {
+    width: 32px;
+  }
+  #header #header-ajuda {
+    display: none;
+  }
+  #header #menu-notifications.show {
+    transform: translate3d(0em, 45px, 0px) !important;
+  }
+  #header #menu-messages.show {
+    transform: translate3d(-1em, 22px, 0px) !important;
   }
 }
 
@@ -824,28 +876,43 @@ a {
     display: none;
   }
   #header #menu-notifications.show {
-    transform: translate3d(0em, 21px, 0px) !important;
+    transform: translate3d(0em, 45px, 0px) !important;
   }
   #header #menu-messages.show {
     transform: translate3d(-1em, 21px, 0px) !important;
   }
 }
 
-@media only screen and (min-width: 630px) and (max-width: 1445px) {
+@media only screen and (min-width: 630px) and (max-width: 1358px) {
   #header #menu-notifications.show {
-    transform: translate3d(0em, 21px, 0px) !important;
+    transform: translate3d(0em, 45px, 0px) !important;
+  }
+  #header #menu-messages.show {
+    transform: translate3d(-1em, 21px, 0px) !important;
+  }
+}
+
+@media only screen and (min-width: 1359px) and (max-width: 1527px) {
+  #header #menu-notifications.show {
+    transform: translate3d(-8em, 45px, 0px) !important;
+  }
+  #header #menu-messages.show {
+    transform: translate3d(-1em, 21px, 0px) !important;
+  }
+}
+
+@media only screen and (min-width: 1527px) {
+  #header #menu-notifications.show {
+    transform: translate3d(-8em, 45px, 0px) !important;
+  }
+  #header #menu-messages.show {
+    transform: translate3d(-1em, 21px, 0px) !important;
   }
 }
 
 @media only screen and (max-width: 1312px) {
   #header #header-wrapper {
     padding: 0 20px;
-  }
-}
-
-@media only screen and (min-width: 630px) and (max-width: 1445px) {
-  #header #menu-messages.show {
-    transform: translate3d(-1em, 21px, 0px) !important;
   }
 }
 
@@ -1314,7 +1381,7 @@ main #maincontent #course-list .course-listitem .course-actions {
   color: #464646;
   padding: 15px;
   margin: 1px 8px;
-  transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
+  transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
 }
 
 main #maincontent #course-list .course-listitem .course-actions span {
@@ -1507,7 +1574,7 @@ main #maincontent #course-list .course-listitem .course-body .course-info .cours
     color: #464646;
     padding: 15px;
     margin: 1px 8px;
-    transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
+    transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
   }
   main #maincontent #course-list .course-listitem .course-actions span {
     display: block;
@@ -1729,7 +1796,7 @@ main #course-list .course-listitem .course-actions {
   color: #464646;
   padding: 15px;
   margin: 1px 8px;
-  transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
+  transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
 }
 
 main #course-list .course-listitem .course-actions span {
@@ -1770,6 +1837,10 @@ main #popupFilter {
   padding: 10px;
   position: fixed;
   z-index: 1001;
+  min-width: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 main #popupFilter #input-filter {
@@ -1792,7 +1863,7 @@ main #popupFilter .close {
 
 main #popupFilter .buttonsFilters {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-top: 5px;
 }
 
@@ -1800,9 +1871,9 @@ main #popupFilter button {
   width: 48%;
 }
 
-main #popupFilter :first-child {
+main #popupFilter #btnClearFilter {
+  color: var(--escuro-primario);
   margin-right: 10px;
-  color: #1D2125;
 }
 
 .open .divBackdop-filter {
