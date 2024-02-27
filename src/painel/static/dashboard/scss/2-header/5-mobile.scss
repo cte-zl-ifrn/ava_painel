@@ -1,4 +1,4 @@
-@media only screen and (max-width: 432px) {
+@media only screen and (max-width: 344px) {
     #header-brand {
         width: 32px;
     }
@@ -7,10 +7,89 @@
         display: none;
     }
 
-    #menu-messages.show {
-        transform: translate3d(-1em, 21px, 0px) !important;
+    #menu-notifications.show {
+        transform: translate3d(-3em, 45px, 0px) !important;
     }
+
+    #menu-messages.show {
+        transform: translate3d(-10em, 21px, 0px) !important;
+    }
+
 }
+@media only screen and (min-width: 345px) and (max-width: 353px) {
+    #header-brand {
+        width: 32px;
+    }
+
+    #header-ajuda {
+        display: none;
+    }
+
+    #menu-notifications.show {
+        transform: translate3d(2em, 45px, 0px) !important;
+    }
+
+    #menu-messages.show {
+        transform: translate3d(-9em, 21px, 0px) !important;
+    }
+
+}
+@media only screen and (min-width: 354px) and (max-width: 399px) {
+    #header-brand {
+        width: 32px;
+    }
+
+    #header-ajuda {
+        display: none;
+    }
+
+    #menu-notifications.show {
+        transform: translate3d(0em, 45px, 0px) !important;
+    }
+
+    #menu-messages.show {
+        transform: translate3d(4em, 20px, 0px) !important;
+    }
+
+}
+
+@media only screen and (min-width: 400px) and (max-width: 432px) {
+    #header-brand {
+        width: 32px;
+    }
+
+    #header-ajuda {
+        display: none;
+    }
+
+    #menu-notifications.show {
+        transform: translate3d(0em, 45px, 0px) !important;
+    }
+
+    #menu-messages.show {
+        transform: translate3d(-1em, 22px, 0px) !important;
+    }
+
+}
+// @media only screen and (max-width: 432px) {
+//     #header-brand {
+//         width: 32px;
+//     }
+
+//     #header-ajuda {
+//         display: none;
+//     }
+
+//     #menu-notifications.show {
+//         transform: translate3d(0em, 45px, 0px) !important;
+//     }
+
+//     #menu-messages.show {
+//         transform: translate3d(-1em, 20px, 0px) !important;
+//     }
+
+// }
+//OK
 
 @media only screen and (min-width: 433px) and (max-width: 629px) {
     #header-ajuda {
@@ -18,19 +97,38 @@
     }
 
     #menu-notifications.show {
-        transform: translate3d(-0em, 21px, 0px) !important;
+        transform: translate3d(0em, 45px, 0px) !important;
     }
 
     #menu-messages.show {
         transform: translate3d(-1em, 21px, 0px) !important;
     }
-}
+}//OK
 
-@media only screen and (min-width: 630px) and (max-width: 1445px) {
+@media only screen and (min-width: 630px) and (max-width: 1358px) {
     #menu-notifications.show {
-        transform: translate3d(-0em, 21px, 0px) !important;
+        transform: translate3d(0em, 45px, 0px) !important;
+    }
+    #menu-messages.show {
+        transform: translate3d(-1em, 21px, 0px) !important;
     }
 }
+
+@media only screen and (min-width: 1359px) and (max-width: 1527px){
+     #menu-notifications.show {
+        transform: translate3d(-8em, 45px, 0px) !important;
+    }
+    #menu-messages.show {
+        transform: translate3d(-1em, 21px, 0px) !important;
+    }
+}
+
+@media only screen and (min-width: 1527px) {
+     #menu-notifications.show {
+        transform: translate3d(-8em, 45px, 0px) !important;
+    }
+}
+
 
 @media only screen and (max-width: 1312px) {
     #header-wrapper {
@@ -38,8 +136,4 @@
     }
 }
 
-@media only screen and (min-width: 630px) and (max-width: 1445px) {
-    #menu-messages.show {
-        transform: translate3d(-1em, 21px, 0px) !important;
-    }
-}
+

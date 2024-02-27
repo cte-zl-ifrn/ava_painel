@@ -26,7 +26,7 @@ footer {
 
 
             &:hover {
-                background: var(--verde-secundario) 0% 0% no-repeat padding-box;
+                color: var(--verde-secundario) 0% 0% no-repeat padding-box;
             }
         }
 
@@ -112,8 +112,12 @@ footer {
         }
 
         .desktop-only a {
-            color: var(--verde-primario);
+            color: var(--branco-primario);
             text-decoration: none;
+            padding: 0px;
+            &:hover {                   
+                color: var(--verde-secundario);
+            }
         }
     }
 }

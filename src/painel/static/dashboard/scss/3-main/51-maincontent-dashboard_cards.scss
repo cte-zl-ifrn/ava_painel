@@ -162,8 +162,6 @@
             }
         }
         .course-actions {
-            //display: none;
-            opacity: 0;
             max-height: 0;
             overflow:hidden;
             background: #f5e8e8 0% 0% no-repeat padding-box;
@@ -176,9 +174,10 @@
             font: normal normal normal 14px/16px Noto Sans;
             letter-spacing: 0px;
             color: #464646;
-            padding: 15px;
             margin: 1px 8px;
-            transition: opacity 0.5s ease-in-out, max-height 0.5s ease-in-out;
+            padding-left: 15px;
+            transition: max-height .3s ease-in-out;
+            
             span {
                 display: block;
                 padding: 10px 10px 0px 0px;
@@ -188,13 +187,13 @@
             }
         }
         &.showActions .course-actions {
-           // display:grid;
-            opacity: 1;
-            max-height: 500px; /* Ajuste conforme necessário */
-            transition: opacity 0.9s ease-in-out, max-height 0.9s ease-in-out;
+            max-height: 200px; /* Ajuste conforme necessário */
+            span:last-child {
+                padding-bottom: 15px;
+            }
+
         }
-    }
-    .empty-search {
+        
     }
 
     .favorited{
@@ -202,7 +201,7 @@
     }
 
     .seta {  
-        transition: transform 0.5s ease-in-out !important;         
+        transition: transform 0.3s ease-in-out !important;         
     }
     .seta-up {
         transform: rotate(180deg) !important;

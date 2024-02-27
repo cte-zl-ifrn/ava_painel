@@ -4,6 +4,10 @@
     padding: 10px;
     position: fixed;
     z-index: 1001; 
+    min-width: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
     #input-filter{
         display: none;
@@ -24,12 +28,15 @@
 
     .buttonsFilters{
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         margin-top: 5px;
     } button{
         width: 48%;
-    }:first-child{
+        
+    }
+
+    #btnClearFilter{
+        color: var(--escuro-primario);
         margin-right: 10px;
-        color:#1D2125;
     }
 }
