@@ -284,21 +284,6 @@ def get_atualizacoes_counts(username: str) -> dict:
             ava = params["ava"]
 
             counts = get_json_api(ava, "get_atualizacoes_counts", username=params["username"])
-            # counts["ambiente"] = {
-            #     "titulo": re.subn("🟥 |🟦 |🟧 |🟨 |🟩 |🟪 ", "", ava.nome)[0],
-            #     "cor_mestra": ava.cor_mestra,
-            #     "cor_degrade": ava.cor_degrade,
-            #     "cor_progresso": ava.cor_progresso,
-            #     "notifications_url": f"{ava.base_url}/message/output/popup/notifications.php",
-            #     "conversations_url": f"{ava.base_url}/message/",
-            # }
-            # params["results"]["atualizacoes"].append(counts)
-            # params["results"]["unread_notification_total"] = sum(
-            #     [c["unread_popup_notification_count"] for c in params["results"]["atualizacoes"]]
-            # )
-            # params["results"]["unread_conversations_total"] = sum(
-            #     [c["unread_conversations_count"] for c in params["results"]["atualizacoes"]]
-            # )
 
         except Exception as e:
             logging.error(e)
