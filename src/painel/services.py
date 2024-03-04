@@ -275,10 +275,6 @@ def get_diarios(
             c["label"] = f"Curso [{c['id']}], favor solicitar o cadastro"
     results["cursos"] = [{"id": "", "label": "Cursos..."}] + deduplicate_and_sort(results["cursos"])
 
-    # results["situacoes"] = Situacao.kv
-    # results["ordenacoes"] = Ordenacao.kv
-    # results["visualizacoes"] = Visualizacao.kv
-
     return results
 
 

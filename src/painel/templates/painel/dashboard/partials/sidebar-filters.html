@@ -28,13 +28,7 @@
                 >
                     <option v-for="row in situacoes" v-bind:value="row.id">[[ row.label ]]</option>
                 </select>
-                {% comment %} <i class="fa fa-book icon-filter-color icon-fild-position"></i> {% endcomment %}
             </div>
-             <!-- <div class="grid-item">
-                <select name="ordenacao" id="ordenacao" @change="filterCards($event)" v-model="ordenacao">
-                    <option v-for="row in ordenacoes" v-bind:value="row.id">[[ row.label ]]</option>
-                </select>
-            </div>  -->
             <div class="grid-item position-relative filter-field" v-show="selectedBar == 'diarios' || selectedBar == null">
                 <select name="semestre" id="semestre" v-model="semestre" required>
                     <option v-for="row in semestres" v-bind:value="row.id">[[ row.label ]]</option>

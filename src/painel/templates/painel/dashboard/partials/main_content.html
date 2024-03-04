@@ -1,36 +1,5 @@
 {% load static %}
 <div id="course-list">
-    <!-- <div v-if="screenWidth > 767" id="course-toolbar">
-            <div>
-                <label title="Informações">
-                    <i class="icon icon-info-circle"></i>
-                </label>
-                <input type="radio"
-                        class="btn-check view-toggler"
-                        name="view-toggler"
-                        id="toggler-default"
-                        autocomplete="off"
-                        value='default'>
-                <label class="btn btn-outline-primary"
-                        for="toggler-default"
-                        id="toggler-default-label"
-                        title="Visão padrão">
-                    <i class="fa fa-list"></i>
-                </label>
-                <input type="radio"
-                        class="btn-check view-toggler"
-                        name="view-toggler"
-                        id="toggler-compact"
-                        autocomplete="off"
-                        value='compact'>
-                <label class="btn btn-outline-primary"
-                        for="toggler-compact"
-                        id="toggler-compact-label"
-                        title="Visão compacta">
-                    <i class="fa fa-compress"></i>
-                </label>
-            </div>
-    </div> -->
     <div class="tab-content courses">
         {% include "painel/dashboard/partials/main_content-course_lists.html" with list_name="diarios" extra_class="show active" list_alias="diários" list_genero="o" %}
         {% include "painel/dashboard/partials/main_content-course_lists.html" with list_name="coordenacoes" list_alias="salas das coordenações" list_genero="a" %}

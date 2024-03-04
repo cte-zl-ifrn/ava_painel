@@ -4,10 +4,6 @@ export default {
     },
     data() {
         return {
-            TAB_DIARIO: 0,
-            TAB_COORDENACAO: 1,
-            tabAberta: 0,
-            destaque: null,
             semestres: [],
             situacoes: [
                 { label: "✳️ Diários em andamento", id: "inprogress" },
@@ -15,11 +11,6 @@ export default {
                 { label: "📕 Encerrados pelo professor", id: "past" },
                 { label: "⭐ Meus diários favoritos", id: "favourites" },
                 { label: "♾️ Todos os diários (lento)", id: "allincludinghidden" },
-            ],
-            ordenacoes: [
-                { label: "📗 Ordenado por nome da disciplina", id: "fullname" },
-                { label: "🔢 Ordenado por código do diário", id: "shortname" },
-                // { "label": "🕓 Ordenado pelo último acessado", "id": "ul.timeaccess desc" },
             ],
             visualizacoes: [
                 { label: "Ver como linhas", id: "list" },
@@ -46,7 +37,7 @@ export default {
             contentClosed: localStorage.contentClosed || "true",
             selectedBar: null,
             screenWidth: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
-            isPopupOpen:false,
+            isPopupOpen: false,
             isIconUp: false,
         };
     },
@@ -55,7 +46,6 @@ export default {
         if (localStorage.contentClosed == "true") {
             $(".filter-wrapper").addClass("closed");
         }
-        $(".view-toggler").change(this.viewToggle);
         $(document).ready(this.customizeAmbiente);
         this.restoreState();
         this.filterCards();
@@ -65,18 +55,16 @@ export default {
         this.popup();
 
         // Adiciona um ouvinte de evento para verificar a largura da tela quando a janela é redimensionada
-        window.addEventListener('resize', this.handleResize);
-
-
+        window.addEventListener("resize", this.handleResize);
     },
     beforeDestroy() {
-         window.removeEventListener('resize', this.handleResize);
+        window.removeEventListener("resize", this.handleResize);
     },
     created() {
-        window.addEventListener('resize', this.handleResize);
+        window.addEventListener("resize", this.handleResize);
     },
     destroyed() {
-        window.removeEventListener('resize', this.handleResize);
+        window.removeEventListener("resize", this.handleResize);
     },
     methods: {
         toggleNavBar(e) {
@@ -97,13 +85,10 @@ export default {
             let navDiario = document.getElementById("nav-diarios");
             let navCoordenacoes = document.getElementById("nav-coordenacoes");
 
-            
-            if(selectedValue == "diarios"){
-
+            if (selectedValue == "diarios") {
                 navCoordenacoes.classList.remove("show", "active");
                 navDiario.classList.add("show", "active");
-
-            }else if(selectedValue == "coordenacoes"){
+            } else if (selectedValue == "coordenacoes") {
                 var courseShortnames = document.getElementsByClassName("course-shortname");
                 for (var i = 0; i < courseShortnames.length; i++) {
                     courseShortnames[i].style.paddingLeft = "10px";
@@ -116,34 +101,20 @@ export default {
 
         openPopup() {
             this.isPopupOpen = true;
-            document.body.style.overflow="hidden";
-            document.body.classList.add('open');
-        
-           
+            document.body.style.overflow = "hidden";
+            document.body.classList.add("open");
         },
         closePopup() {
             this.isPopupOpen = false;
-            document.body.style.overflow="auto";
-            document.body.classList.remove('open');
-
+            document.body.style.overflow = "auto";
+            document.body.classList.remove("open");
         },
 
         restoreState() {
             let grid_filter = document.getElementById("grid-filter");
             if (grid_filter) {
                 grid_filter.classList.remove("hide_this");
-                if (!$(".view-toggler").is(":checked")) {
-                    const lastView = ["default", "compact"].includes(localStorage.view_toggler)
-                        ? localStorage.view_toggler
-                        : "default";
-                    $("#toggler-" + lastView).prop("checked", true);
-                }
             }
-        },
-
-        viewToggle() {
-            localStorage.view_toggler = $(".view-toggler:checked").val();
-            $(".courses").removeClass("default compact").addClass(localStorage.view_toggler);
         },
 
         customizeAmbiente() {
@@ -157,31 +128,40 @@ export default {
                 placeholder: "Semestres...",
                 templateSelection: function (data) {
                     const style = 'style="color: #7D848B; "';
-                    
-                    return $("<span " + style + ">"+ "<i class='icon icon-calendario-semestre'></i> " + data.text + "</span> ");
+
+                    return $(
+                        "<span " +
+                            style +
+                            ">" +
+                            "<i class='icon icon-calendario-semestre'></i> " +
+                            data.text +
+                            "</span> "
+                    );
                 },
             });
-             $("#disciplina").select2({
+            $("#disciplina").select2({
                 placeholder: "Disciplinas...",
                 templateSelection: function (data) {
                     const style = 'style="color: #7D848B; "';
-                    
-                    return $("<span " + style + ">"+ "<i class='icon icon-disciplina' ></i> " + data.text + "</span> ");
+
+                    return $(
+                        "<span " + style + ">" + "<i class='icon icon-disciplina' ></i> " + data.text + "</span> "
+                    );
                 },
             });
-             $("#curso").select2({
+            $("#curso").select2({
                 placeholder: " Cursos...",
                 templateSelection: function (data) {
                     const style = 'style="color: #7D848B; "';
-                    
-                    return $("<span " + style + ">" + "<i class='icon icon-icone-ava'></i> "+data.text + "</span> ");
+
+                    return $("<span " + style + ">" + "<i class='icon icon-icone-ava'></i> " + data.text + "</span> ");
                 },
             });
             $("#ambiente").select2({
                 placeholder: "Ambientes...",
                 templateSelection: function (data) {
                     const style = 'style="color: #7D848B; "';
-                    
+
                     return $("<span " + style + ">" + "<i class='icon icon-moodle'></i> " + data.text + "</span> ");
                 },
             });
@@ -191,7 +171,7 @@ export default {
                     return $("<span " + style + ">" + data.text + "</span> ");
                 },
             });
-            
+
             setTimeout(function () {
                 $("#ambiente").val($("#ambiente option:eq(0)").val()).trigger("change");
                 $("#curso").val($("#curso option:eq(0)").val()).trigger("change");
@@ -300,17 +280,6 @@ export default {
                         content: "Acesse seu perfil no SUAP ou saia do Painel AVA de forma segura.",
                         placement: "left",
                     },
-                    {
-                        element: "#sidebar",
-                        title: "Filtros",
-                        content:
-                            "<p>Aqui você pode filtrar diários por semestre, curso, turma, disciplina, código/id do diário, curso, ambiente (AVA) ou situação, além de poder ordenar como será visto.</p><p>Você pode começar digitando o nome da disciplina e pressionando [ENTER] como uma primeira procura.</p>",
-                        placement: "right",
-                        onNext: function () {
-                            $("#toggler-default").prop("checked", true);
-                            geral.viewToggle();
-                        },
-                    },
                 ]);
                 wt.start();
                 localStorage.setItem("completouTour001", true);
@@ -329,7 +298,7 @@ export default {
                     return;
                 }
 
-                // O oopup nunca foi visto ou se passaram 12h desde a última visualização sem responder
+                // O popup nunca foi visto ou se passaram 12h desde a última visualização sem responder
                 if ((new Date() - lastOccurrence) / (1000 * 3600 * 12) > 1) {
                     new bootstrap.Modal(document.getElementById(popupModalName)).toggle();
                 }
@@ -387,24 +356,19 @@ export default {
         },
 
         cardActionsToggler(event) {
-           
-            let item = $(event.currentTarget).parent().parent().parent();       
-            let icon = $(event.currentTarget).find('i');
-            let label = icon.closest('label');
+            let item = $(event.currentTarget).parent().parent().parent();
+            let icon = $(event.currentTarget).find("i");
+            let label = icon.closest("label");
 
             //console.log(event.currentTarget.children);
-            if ($(item).hasClass("showActions") ) {                     
+            if ($(item).hasClass("showActions")) {
                 $(item).removeClass("showActions");
-                $(label).removeClass("favorited seta seta-up").addClass("seta seta-down"); 
-                             
-            } else {     
-       
+                $(label).removeClass("favorited seta seta-up").addClass("seta seta-down");
+            } else {
                 $(item).addClass("showActions");
-                $(label).removeClass("seta seta-down").addClass("favorited seta seta-up"); 
-
+                $(label).removeClass("seta seta-down").addClass("favorited seta seta-up");
             }
         },
-       
 
         clearFilter() {
             this["q"] = "";
@@ -416,7 +380,6 @@ export default {
             $("#ambiente").val("").trigger("change");
             // setTimeout(this.filterCards, 500);
             $(".select2-selection").removeClass("bgcolor-select2");
-            
         },
 
         clearFilterSeeAll() {
@@ -473,24 +436,8 @@ export default {
         },
 
         filtered() {
-            this.viewToggle();
             this.restoreState();
             this.is_filtering = false;
-            var tab = "";
-            if (this.diarios.length > 0) {
-                tab = "#nav-diarios-tab";
-            } else if (this.coordenacoes.length > 0) {
-                tab = "#nav-coordenacoes-tab";
-            } else if (this.praticas.length > 0) {
-                tab = "#nav-praticas-tab";
-            } else if (this.reutilizaveis.length > 0) {
-                tab = "#nav-reutilizaveis-tab";
-            }
-            if (tab != "") {
-                setTimeout(() => {
-                    jQuery(tab).click();
-                }, 500);
-            }
         },
 
         get_situacao_desc() {
@@ -526,14 +473,10 @@ export default {
         },
         handleResize() {
             this.screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-  
         },
-
-        
     },
 
-    watch: 
-    {
+    watch: {
         q(newValue) {
             localStorage.q = newValue || "";
         },
@@ -556,12 +499,4 @@ export default {
             localStorage.ambiente = newValue || "";
         },
     },
-    
-
-
-
-
-
 };
-
-
