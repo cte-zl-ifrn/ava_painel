@@ -57,7 +57,6 @@
 }
 
 body {
-  height: 100vw;
   background: #F8F8F8 0% 0% no-repeat padding-box;
   color: var(--escuro-primario) !important;
 }
@@ -267,7 +266,7 @@ a {
 #select2-ambiente-results .select2-results__option,
 #select2-ambiente-results .select2-selection__rendered {
   margin: 0;
-  padding: 0;
+  padding: 6px;
 }
 
 #select2-ambiente_id-container {
@@ -871,7 +870,7 @@ a {
   }
 }
 
-@media only screen and (min-width: 433px) and (max-width: 629px) {
+@media only screen and (min-width: 433px) and (max-width: 1358px) {
   #header #header-ajuda {
     display: none;
   }
@@ -883,16 +882,16 @@ a {
   }
 }
 
-@media only screen and (min-width: 630px) and (max-width: 1358px) {
+@media only screen and (min-width: 1359px) and (max-width: 1417px) {
   #header #menu-notifications.show {
-    transform: translate3d(0em, 45px, 0px) !important;
+    transform: translate3d(-9em, 45px, 0px) !important;
   }
   #header #menu-messages.show {
     transform: translate3d(-1em, 21px, 0px) !important;
   }
 }
 
-@media only screen and (min-width: 1359px) and (max-width: 1527px) {
+@media only screen and (min-width: 1418px) and (max-width: 1611px) {
   #header #menu-notifications.show {
     transform: translate3d(-8em, 45px, 0px) !important;
   }
@@ -901,9 +900,12 @@ a {
   }
 }
 
-@media only screen and (min-width: 1527px) {
+@media only screen and (min-width: 1612px) {
   #header #menu-notifications.show {
-    transform: translate3d(-8em, 45px, 0px) !important;
+    transform: translate3d(-9em, 45px, 0px) !important;
+  }
+  #header #menu-messages.show {
+    transform: translate3d(-13em, 21px, 0px) !important;
   }
 }
 

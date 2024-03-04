@@ -154,39 +154,35 @@ export default {
             //     },
             // });
             $("#semestre").select2({
-                placeholder: "<i class='icon icon-calendario-semestre'></i> Semestres...",
-                //placeholder: "Semestres...",
+                placeholder: "Semestres...",
                 templateSelection: function (data) {
                     const style = 'style="color: #7D848B; "';
                     
-                    return $("<span " + style + ">" + data.text + "</span> ");
+                    return $("<span " + style + ">"+ "<i class='icon icon-calendario-semestre'></i> " + data.text + "</span> ");
                 },
             });
              $("#disciplina").select2({
-                placeholder: "<i class='icon icon-disciplina' ></i> Disciplinas...",
-                //placeholder: "Disciplinas...",
+                placeholder: "Disciplinas...",
                 templateSelection: function (data) {
                     const style = 'style="color: #7D848B; "';
                     
-                    return $("<span " + style + ">" + data.text + "</span> ");
+                    return $("<span " + style + ">"+ "<i class='icon icon-disciplina' ></i> " + data.text + "</span> ");
                 },
             });
              $("#curso").select2({
-                placeholder: "<i class='icon icon-icone-ava'></i> Cursos...",
-                //placeholder: "Cursos...",
+                placeholder: " Cursos...",
                 templateSelection: function (data) {
                     const style = 'style="color: #7D848B; "';
                     
-                    return $("<span " + style + ">" + data.text + "</span> ");
+                    return $("<span " + style + ">" + "<i class='icon icon-icone-ava'></i> "+data.text + "</span> ");
                 },
             });
             $("#ambiente").select2({
-                placeholder: "<i class='icon icon-moodle'></i> Ambientes...",
-                //placeholder: "Ambientes...",
+                placeholder: "Ambientes...",
                 templateSelection: function (data) {
                     const style = 'style="color: #7D848B; "';
                     
-                    return $("<span " + style + ">" + data.text + "</span> ");
+                    return $("<span " + style + ">" + "<i class='icon icon-moodle'></i> " + data.text + "</span> ");
                 },
             });
             $("#situacao").select2({
