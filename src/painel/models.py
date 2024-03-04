@@ -76,9 +76,6 @@ Situacao.kv = [{"id": p, "label": p.display} for p in Situacao.values()]
 class Ordenacao(Choices):
     CURSO = Choices.Value(_("📗 Ordenado por nome da disciplina"), value="fullname")
     CODIGO = Choices.Value(_("🔢 Ordenado por código do diário"), value="shortname")
-    # ULTIMO_ACESSO = Choices.Value(
-    #     _("🕓 Ordenado pelo último acessado"), value="ul.timeaccess desc"
-    # )
 
 
 Ordenacao.kv = [{"id": p, "label": p.display} for p in Ordenacao.values()]

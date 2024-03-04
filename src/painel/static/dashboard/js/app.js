@@ -29,7 +29,6 @@ export default {
             activeParagraph: null,
             q: localStorage.q || "",
             situacao: localStorage.situacao || "inprogress",
-            ordenacao: localStorage.ordenacao || "fullname",
             semestre: localStorage.semestre || "",
             disciplina: localStorage.disciplina || "",
             curso: localStorage.curso || "",
@@ -118,12 +117,6 @@ export default {
         },
 
         customizeAmbiente() {
-            // $("#ambiente, #curso, #disciplina, #semestre").select2({
-            //     templateSelection: function (data) {
-            //         const style = 'style="padding: 0 5px 0 30px; color: #1D2125; "';
-            //         return $("<span " + style + ">" + data.text + "</span> ");
-            //     },
-            // });
             $("#semestre").select2({
                 placeholder: "Semestres...",
                 templateSelection: function (data) {
@@ -175,7 +168,6 @@ export default {
             setTimeout(function () {
                 $("#ambiente").val($("#ambiente option:eq(0)").val()).trigger("change");
                 $("#curso").val($("#curso option:eq(0)").val()).trigger("change");
-                // $('#situacao').val($('#situacao option:eq(0)').val()).trigger('change');
                 $("#disciplina").val($("#disciplina option:eq(0)").val()).trigger("change");
                 $("#semestre").val($("#semestre option:eq(0)").val()).trigger("change");
 
@@ -360,7 +352,6 @@ export default {
             let icon = $(event.currentTarget).find("i");
             let label = icon.closest("label");
 
-            //console.log(event.currentTarget.children);
             if ($(item).hasClass("showActions")) {
                 $(item).removeClass("showActions");
                 $(label).removeClass("favorited seta seta-up").addClass("seta seta-down");
@@ -373,12 +364,10 @@ export default {
         clearFilter() {
             this["q"] = "";
             $("#situacao").val("inprogress").trigger("change");
-            $("#ordenacao").val("fullname").trigger("change");
             $("#semestre").val("").trigger("change");
             $("#disciplina").val("").trigger("change");
             $("#curso").val("").trigger("change");
             $("#ambiente").val("").trigger("change");
-            // setTimeout(this.filterCards, 500);
             $(".select2-selection").removeClass("bgcolor-select2");
         },
 
@@ -386,12 +375,10 @@ export default {
             console.log(this.$watch);
             this["q"] = "";
             this["situacao"] = "allincludinghidden";
-            this["ordenacao"] = "fullname";
             this["semestre"] = "";
             this["disciplina"] = "";
             this["curso"] = "";
             this["ambiente"] = "";
-            // setTimeout(this.filterCards, 500);
             $(".select2-selection").removeClass("bgcolor-select2");
         },
 
@@ -403,11 +390,10 @@ export default {
                         params: {
                             q: $(self.q).val() || localStorage.q || "",
                             situacao: $("#situacao").val() || localStorage.situacao || "inprogress",
-                            ordenacao: $(self.ordenacao).val() || localStorage.ordenacao || "fullname",
-                            semestre: $(self.semestre).val() || localStorage.semestre || "",
-                            disciplina: $(self.disciplina).val() || localStorage.disciplina || "",
-                            curso: $(self.curso).val() || localStorage.curso || "",
-                            ambiente: $(self.ambiente).val() || localStorage.ambiente || "",
+                            semestre: $("#semestre").val() || localStorage.semestre || "",
+                            disciplina: $("#disciplina").val() || localStorage.disciplina || "",
+                            curso: $("#curso").val() || localStorage.curso || "",
+                            ambiente: $("#ambiente").val() || localStorage.ambiente || "",
                         },
                     })
                     .then((response) => {
@@ -444,10 +430,6 @@ export default {
             return $("#situacao option:selected").text();
         },
 
-        get_ordenacao_desc() {
-            return $("#ordenacao option:selected").text();
-        },
-
         go_to_suap() {
             $("#syncs").modal("show");
         },
@@ -482,9 +464,6 @@ export default {
         },
         situacao(newValue) {
             localStorage.situacao = newValue || "inprogress";
-        },
-        ordenacao(newValue) {
-            localStorage.ordenacao = newValue || "fullname";
         },
         semestre(newValue) {
             localStorage.semestre = newValue || "";
