@@ -266,7 +266,7 @@ a {
 #select2-ambiente-results .select2-results__option,
 #select2-ambiente-results .select2-selection__rendered {
   margin: 0;
-  padding: 0;
+  padding: 6px;
 }
 
 #select2-ambiente_id-container {
