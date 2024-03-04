@@ -59,6 +59,7 @@
 body {
   background: #F8F8F8 0% 0% no-repeat padding-box;
   color: var(--escuro-primario) !important;
+  overflow-x: hidden;
 }
 
 h1,
