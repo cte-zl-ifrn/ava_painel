@@ -128,8 +128,9 @@
             </div>
         </section>
 
-        {% block foot_pre %} {% include 'painel/layouts/partials/foot_pre.html' %} {% endblock foot_pre %} {% block
-        foot_custom %}
+        {% block foot_pre %}{% include 'painel/layouts/partials/foot_pre.html' %}{% endblock foot_pre %}
+
+        {% block foot_custom %}
         <script>
             var screensize = document.documentElement.clientWidth;
             if (screensize >= 320 && screensize <= 740) {
@@ -151,8 +152,8 @@
                 }
             });
         </script>
-
-        {% endblock foot_custom %} {% block foot_pos %} {% include 'painel/layouts/partials/foot_pos.html' %} {%
-        endblock foot_pos %}
+        {% endblock foot_custom %}
+        
+        {% block foot_pos %} {% include 'painel/layouts/partials/foot_pos.html' %} {% endblock foot_pos %}
     </body>
 </html>
