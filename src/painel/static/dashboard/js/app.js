@@ -110,10 +110,14 @@ export default {
         },
 
         restoreState() {
+            // console.log('semestre ' + $("#semestre").val() || localStorage.semestre || "");
+            // console.log('disciplina ' + $("#disciplina").val() || localStorage.disciplina || "");
+            // console.log('curso ' + $("#curso").val() || localStorage.curso || "");
             let grid_filter = document.getElementById("grid-filter");
             if (grid_filter) {
                 grid_filter.classList.remove("hide_this");
             }
+            //console.log(localStorage.situacao);
         },
 
         customizeAmbiente() {
@@ -361,29 +365,51 @@ export default {
             }
         },
 
-        clearFilter() {
-            this["q"] = "";
-            $("#situacao").val("inprogress").trigger("change");
+        async clearFilter() {
+            await this.updateFilterValues("inprogress");
+
+            this.filterCards();
+        },
+
+        async clearFilterSeeAll() {
+            //console.log(this.$watch);
+            await this.updateFilterValues("allincludinghidden");
+
+            this.filterCards();
+        },
+
+        async updateFilterValues(situacao) {
+            //resetar os valores tanto visualmente como no localStorage
+            $("#q").val("").trigger("change");
+            $("#situacao").val(situacao).trigger("change");
             $("#semestre").val("").trigger("change");
             $("#disciplina").val("").trigger("change");
             $("#curso").val("").trigger("change");
             $("#ambiente").val("").trigger("change");
-            $(".select2-selection").removeClass("bgcolor-select2");
-        },
 
-        clearFilterSeeAll() {
-            console.log(this.$watch);
+            $(".select2-selection").removeClass("bgcolor-select2");
+
             this["q"] = "";
-            this["situacao"] = "allincludinghidden";
+            this["situacao"] = situacao;
             this["semestre"] = "";
             this["disciplina"] = "";
             this["curso"] = "";
             this["ambiente"] = "";
-            $(".select2-selection").removeClass("bgcolor-select2");
+        },
+
+        setValueFields() {
+            //para setar os valores escolhidos no localStorage
+            //this["q"] = $(self.q).val() || localStorage.q || "";
+            this["situacao"] = $("#situacao").val() || localStorage.situacao || "inprogress";
+            this["semestre"] = $("#semestre").val() || localStorage.semestre || "";
+            this["disciplina"] = $("#disciplina").val() || localStorage.disciplina || "";
+            this["curso"] = $("#curso").val() || localStorage.curso || "";
+            this["ambiente"] = $("#ambiente").val() || localStorage.ambiente || "";
         },
 
         filterCards() {
             this.filtering();
+                                   
             try {
                 axios
                     .get("/painel/api/v1/diarios/", {
@@ -410,6 +436,7 @@ export default {
                 this.has_error = true;
                 this.filtered();
             }
+            this.setValueFields();
         },
 
         filtering() {
@@ -461,21 +488,27 @@ export default {
     watch: {
         q(newValue) {
             localStorage.q = newValue || "";
+            // console.log('O valor de Q mudou para:', newValue);
         },
         situacao(newValue) {
             localStorage.situacao = newValue || "inprogress";
+            // console.log('O valor de Situação mudou para:', newValue);
         },
         semestre(newValue) {
             localStorage.semestre = newValue || "";
+            // console.log('O valor de Semestre mudou para:', newValue);
         },
         disciplina(newValue) {
             localStorage.disciplina = newValue || "";
+            // console.log('O valor de Disciplina mudou para:', newValue);
         },
         curso(newValue) {
             localStorage.curso = newValue || "";
+            // console.log('O valor de Curso mudou para:', newValue);
         },
         ambiente(newValue) {
             localStorage.ambiente = newValue || "";
+            // console.log('O valor de Ambiente mudou para:', newValue);
         },
     },
 };
