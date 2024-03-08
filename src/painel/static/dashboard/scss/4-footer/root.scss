@@ -122,4 +122,9 @@ footer {
     }
 }
 
+div[vw].enabled {
+    right: -3px !important;
+    transform: translateY(calc(-50% - -40px)) !important;
+}
+
 @import "4-footer/1-mobile";

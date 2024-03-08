@@ -2032,6 +2032,11 @@ footer #footer-wrapper .desktop-only a:hover {
   color: var(--verde-secundario);
 }
 
+div[vw].enabled {
+  right: -3px !important;
+  transform: translateY(calc(-50% - -40px)) !important;
+}
+
 @media only screen and (max-width: 600px) {
   footer {
     padding: 10px 20px;
