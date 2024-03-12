@@ -318,6 +318,7 @@ export default {
 
         favourite(card) {
             const new_status = card.isfavourite ? 0 : 1;
+            let situacao = ($("#situacao").val())
             axios
                 .get("/painel/api/v1/set_favourite/", {
                     params: {
@@ -327,11 +328,24 @@ export default {
                     },
                 })
                 .then((response) => {
+                    
                     card.isfavourite = new_status == 1;
+                    setTimeout(() => {
+                        if (situacao == "favourites") {
+                            this.filterCards();
+                        }
+                    }, 1000); 
                 })
+
+                
                 .catch((error) => {
                     console.debug(error);
                 });
+            // if(situacao == "favourites"){
+            //     card.isfavourite = new_status == 0;
+            //     this.filterCards();
+            //     // console.log("precisa atualizar a pagina")
+            // }
         },
 
         visible(card) {
@@ -358,16 +372,24 @@ export default {
             let item = $(event.currentTarget).parent().parent().parent();
             let icon = $(event.currentTarget).find("i");
             let label = icon.closest("label");
+            let situacao = $("#situacao").val();  // Certifique-se de que situacao está acessível aqui
+              // Certifique-se de que new_status está acessível aqui
 
+            // Toggle classes for changing color
             if ($(item).hasClass("showActions")) {
                 $(item).removeClass("showActions");
                 $(label).removeClass("favorited seta seta-up").addClass("seta seta-down");
             } else {
                 $(item).addClass("showActions");
                 $(label).removeClass("seta seta-down").addClass("favorited seta seta-up");
+                
+                // Execute a lógica após a mudança de cor
+                if (situacao == "favourites" ) {
+                    
+                    this.filterCards();
+                }
             }
         },
-
         async clearFilter() {
             await this.updateFilterValues("inprogress");
 
@@ -429,7 +451,7 @@ export default {
         },
 
         filterCards() {
-            this.filtering();            
+            this.filtering();                                 
             try {
                 axios
                     .get("/painel/api/v1/diarios/", {
@@ -508,27 +530,27 @@ export default {
     watch: {
         q(newValue) {
             localStorage.q = newValue || "";
-            // console.log('O valor de Q mudou para:', newValue);
+            console.log('O valor de Q mudou para:', newValue);
         },
         situacao(newValue) {
             localStorage.situacao = newValue || "inprogress";
-            // console.log('O valor de Situação mudou para:', newValue);
+            console.log('O valor de Situação mudou para:', newValue);
         },
         semestre(newValue) {
             localStorage.semestre = newValue || "";
-            // console.log('O valor de Semestre mudou para:', newValue);
+            console.log('O valor de Semestre mudou para:', newValue);
         },
         disciplina(newValue) {
             localStorage.disciplina = newValue || "";
-            // console.log('O valor de Disciplina mudou para:', newValue);
+            console.log('O valor de Disciplina mudou para:', newValue);
         },
         curso(newValue) {
             localStorage.curso = newValue || "";
-            // console.log('O valor de Curso mudou para:', newValue);
+            console.log('O valor de Curso mudou para:', newValue);
         },
         ambiente(newValue) {
             localStorage.ambiente = newValue || "";
-            // console.log('O valor de Ambiente mudou para:', newValue);
+            console.log('O valor de Ambiente mudou para:', newValue);
         },
     },
 };
