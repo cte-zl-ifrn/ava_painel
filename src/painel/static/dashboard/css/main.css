@@ -2034,9 +2034,9 @@ footer #footer-wrapper .desktop-only a:hover {
 
 #UserWayDiv {
   position: fixed;
-  right: 44px;
-  top: 37%;
-  transform: translateY(calc(-38% + -25px));
+  right: 1px;
+  top: 32%;
+  transform: translateY(calc(-38% + -15px));
   padding: 6px;
   background-color: #2873de;
   border-radius: 10px;
@@ -2046,9 +2046,9 @@ footer #footer-wrapper .desktop-only a:hover {
 }
 
 div[vw].enabled {
-  right: -10px !important;
-  top: 37% !important;
-  transform: translateY(calc(-38% - 35px)) !important;
+  right: -8px !important;
+  top: 32% !important;
+  transform: translateY(calc(-38% - -20px)) !important;
   z-index: 21474836 !important;
 }
 
