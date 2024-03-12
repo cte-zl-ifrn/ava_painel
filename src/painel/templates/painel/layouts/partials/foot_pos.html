@@ -14,6 +14,7 @@
     <script>
         (function (e) {
             var el = document.createElement('script');
+            el.setAttribute("data-position", 2);
             el.setAttribute('data-account', '{{userway_account}}');
             el.setAttribute('src', 'https://cdn.userway.org/widget.js');
             document.body.appendChild(el);
