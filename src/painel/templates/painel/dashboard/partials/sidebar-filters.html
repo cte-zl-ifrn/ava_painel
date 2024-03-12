@@ -55,5 +55,12 @@
                 </button>
                 <button type="button" class="btn btn-success" v-on:click="filterCards($event)" @click="closePopup">Filtrar</button>
             </div>
+
+            <div class="selectedFilters">
+                <div v-if="semestre" v-on:click="clearOneValue('semestre')">Semestre</div>
+                <div v-if="disciplina" v-on:click="clearOneValue('disciplina')">Disciplina</div>
+                <div v-if="curso" v-on:click="clearOneValue('curso')">Curso</div>
+                <div v-if="ambiente" v-on:click="clearOneValue('ambiente')">Ambiente</div>
+            </div>
     </div>
 </div> 

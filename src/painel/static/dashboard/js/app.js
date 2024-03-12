@@ -41,12 +41,15 @@ export default {
         };
     },
 
-    mounted() {
+    async mounted() {
         if (localStorage.contentClosed == "true") {
             $(".filter-wrapper").addClass("closed");
         }
         $(document).ready(this.customizeAmbiente);
         this.restoreState();
+
+        await this.clearFilter();
+
         this.filterCards();
         $("#app").css("display", "block");
         $("#pre-loading").css("display", "none");
@@ -407,9 +410,26 @@ export default {
             this["ambiente"] = $("#ambiente").val() || localStorage.ambiente || "";
         },
 
+        clearOneValue(campo) {
+            if (campo === "semestre") {
+                localStorage.semestre = '';
+                $("#semestre").val("").trigger("change");
+            } else if (campo === "disciplina") {
+                localStorage.disciplina = '';
+                $("#disciplina").val("").trigger("change");
+            } else if (campo === "curso") {
+                localStorage.curso = '';
+                $("#curso").val("").trigger("change");
+            } else if (campo === "ambiente") {
+                localStorage.ambiente = '';
+                $("#ambiente").val("").trigger("change");
+            }
+            
+            this.filterCards();
+        },
+
         filterCards() {
-            this.filtering();
-                                   
+            this.filtering();            
             try {
                 axios
                     .get("/painel/api/v1/diarios/", {
