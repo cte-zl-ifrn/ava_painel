@@ -1901,6 +1901,29 @@ main #popupFilter #btnClearFilter {
   margin-right: 10px;
 }
 
+main #popupFilter .selectedFilters {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+main #popupFilter .selectedFilters div {
+  padding: 4px 12px;
+  background-color: var(--verde-terciario);
+  border-radius: 5px;
+  display: inline-block;
+  font-weight: 600;
+  color: var(--cinza-secundario);
+  cursor: pointer;
+}
+
+main #popupFilter .selectedFilters div::before {
+  content: 'X';
+  font-weight: bold;
+  margin-right: 8px;
+}
+
 .open .divBackdop-filter {
   position: absolute;
   top: 0;
