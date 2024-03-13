@@ -530,27 +530,27 @@ export default {
     watch: {
         q(newValue) {
             localStorage.q = newValue || "";
-            console.log('O valor de Q mudou para:', newValue);
+            //console.log('O valor de Q mudou para:', newValue);
         },
         situacao(newValue) {
             localStorage.situacao = newValue || "inprogress";
-            console.log('O valor de Situação mudou para:', newValue);
+            //console.log('O valor de Situação mudou para:', newValue);
         },
         semestre(newValue) {
             localStorage.semestre = newValue || "";
-            console.log('O valor de Semestre mudou para:', newValue);
+            //console.log('O valor de Semestre mudou para:', newValue);
         },
         disciplina(newValue) {
             localStorage.disciplina = newValue || "";
-            console.log('O valor de Disciplina mudou para:', newValue);
+            //console.log('O valor de Disciplina mudou para:', newValue);
         },
         curso(newValue) {
             localStorage.curso = newValue || "";
-            console.log('O valor de Curso mudou para:', newValue);
+            //console.log('O valor de Curso mudou para:', newValue);
         },
         ambiente(newValue) {
             localStorage.ambiente = newValue || "";
-            console.log('O valor de Ambiente mudou para:', newValue);
+            //console.log('O valor de Ambiente mudou para:', newValue);
         },
     },
 };
