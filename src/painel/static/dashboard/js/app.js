@@ -317,6 +317,7 @@ export default {
         },
 
         favourite(card) {
+            console.log(card);
             const new_status = card.isfavourite ? 0 : 1;
             let situacao = ($("#situacao").val())
             axios
@@ -370,6 +371,7 @@ export default {
 
         cardActionsToggler(event) {
             let item = $(event.currentTarget).parent().parent().parent();
+            
             let icon = $(event.currentTarget).find("i");
             let label = icon.closest("label");
             let situacao = $("#situacao").val();  // Certifique-se de que situacao está acessível aqui
