@@ -122,9 +122,25 @@ footer {
     }
 }
 
+#UserWayDiv{
+    position: fixed;
+    right: 1px;
+    top: 32%;
+    transform: translateY(calc(-38% + -15px));
+    padding: 6px;
+    background-color: #2873de;
+    border-radius: 10px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 99;
+}
+
+
 div[vw].enabled {
-    right: -3px !important;
-    transform: translateY(calc(-50% - -40px)) !important;
+    right: -8px !important;
+    top: 32% !important;
+    transform: translateY(calc(-38% - -20px)) !important;
+    z-index: 21474836 !important;
 }
 
 @import "4-footer/1-mobile";
