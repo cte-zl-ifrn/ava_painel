@@ -317,7 +317,6 @@ export default {
         },
 
         favourite(card) {
-            console.log(card);
             const new_status = card.isfavourite ? 0 : 1;
             let situacao = ($("#situacao").val())
             axios
@@ -335,18 +334,13 @@ export default {
                         if (situacao == "favourites") {
                             this.filterCards();
                         }
-                    }, 1000); 
+                    }, 500); 
                 })
 
                 
                 .catch((error) => {
                     console.debug(error);
                 });
-            // if(situacao == "favourites"){
-            //     card.isfavourite = new_status == 0;
-            //     this.filterCards();
-            //     // console.log("precisa atualizar a pagina")
-            // }
         },
 
         visible(card) {
@@ -375,7 +369,7 @@ export default {
             let icon = $(event.currentTarget).find("i");
             let label = icon.closest("label");
             let situacao = $("#situacao").val();  // Certifique-se de que situacao está acessível aqui
-              // Certifique-se de que new_status está acessível aqui
+            
 
             // Toggle classes for changing color
             if ($(item).hasClass("showActions")) {
@@ -384,12 +378,7 @@ export default {
             } else {
                 $(item).addClass("showActions");
                 $(label).removeClass("seta seta-down").addClass("favorited seta seta-up");
-                
-                // Execute a lógica após a mudança de cor
-                if (situacao == "favourites" ) {
-                    
-                    this.filterCards();
-                }
+
             }
         },
         async clearFilter() {
