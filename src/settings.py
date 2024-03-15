@@ -8,7 +8,7 @@ from datetime import datetime
 from django.core.exceptions import DisallowedHost
 
 
-PAINEL_VERSION = "1.1.9"
+PAINEL_VERSION = "1.1.10"
 
 
 BASE_DIR = Path(__file__).resolve().parent
