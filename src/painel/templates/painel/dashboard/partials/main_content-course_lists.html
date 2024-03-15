@@ -61,13 +61,18 @@
                             title="Desfavoritar este diário para mim"
                             ><i class="fa fa-star-o"></i
                         ></label>
-                        <label v-on:click.capture="cardActionsToggler" type="button" title="Mais opções"
+                        <label v-if="card.idnumber && card.id_diario" v-on:click.capture="cardActionsToggler" type="button" title="Mais opções"
                         
                             ><i  class="icon icon-chevron-down "></i>
                         </label>
+                        <label v-else id="disable-chevron" type="button" title="Sem mais opções"
+                        
+                            ><i  class="icon icon-chevron-down "></i>
+                        </label>
+
                     </div>
                 </div>
-                <div class="course-actions">
+                <div  class="course-actions">
                     <span v-if="card.suapsurl">
                         <i class='icon icon-suap-vazado'></i><a v-bind:href="[[ card.suapsurl ]]">Ver diario no SUAP</a>
                     </span>
