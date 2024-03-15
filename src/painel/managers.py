@@ -75,7 +75,7 @@ class DiarioManager(Manager):
             campus, pkg = self._validate_campus(recebido)
             curso = Curso.objects.filter(codigo=pkg["curso"]["codigo"]).first()
             solicitacao.campus = campus
-            solicitacao.enviado = dict(*pkg, *{"coortes": curso.coortes}) if curso else solicitacao.recebido
+            solicitacao.enviado = dict(*pkg, *{"coortes": curso.coortes}) if curso else pkg
             solicitacao.save()
 
             retorno = requests.post(
@@ -84,20 +84,27 @@ class DiarioManager(Manager):
                 headers={"Authentication": f"Token {campus.ambiente.token}"},
             )
 
-            solicitacao.respondido = json.loads(retorno.text)
+            try:
+                solicitacao.respondido = json.loads(retorno.text)
+            except Exception as e:
+                solicitacao.respondido = {"error": f"{e}"}
+
             solicitacao.status = Solicitacao.Status.SUCESSO
             solicitacao.status_code = retorno.status_code
             solicitacao.save()
 
             # self._make(campus, pkg)
 
-            return solicitacao.respondido
+            return solicitacao
         except Exception as e:
             error_message = getattr(retorno, "text", "-")
-            error_text = f"""Erro na integração. O AVA retornou um erro.
-                    Contacte um administrador.
-                    Erro: {e}.
-                    Cause: {error_message}"""
+            error_text = f"""
+                Erro na integração. O AVA retornou um erro.
+                Contacte um administrador.
+                Erro: {e}.
+                Cause: {error_message}
+            """
+            solicitacao.respondido = {"error": {"error_message": f"{e}", "error": f"{error_message}"}}
             solicitacao.status = Solicitacao.Status.FALHA
             solicitacao.status_code = getattr(e, "code", 500)
             solicitacao.save()
