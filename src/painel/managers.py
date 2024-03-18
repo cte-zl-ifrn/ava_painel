@@ -74,6 +74,7 @@ class DiarioManager(Manager):
         try:
             campus, pkg = self._validate_campus(recebido)
             curso = Curso.objects.filter(codigo=pkg["curso"]["codigo"]).first()
+            
             solicitacao.campus = campus
             solicitacao.enviado = dict(**pkg, **{"coortes": curso.coortes}) if curso else recebido
             solicitacao.save()

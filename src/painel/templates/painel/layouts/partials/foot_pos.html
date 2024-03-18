@@ -1,5 +1,5 @@
 {% load static %}
-{% comment %} {% if show_vlibras %} {% endcomment %}
+{% if show_vlibras %}
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
         <div vw-plugin-wrapper>
@@ -8,11 +8,10 @@
     </div>
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
     <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
-{% comment %} {% endif %} {% endcomment %}
-{% comment %} {% if show_userway %} {% endcomment %}
+{% endif %}
+{% if show_userway %}
     <script>function expand(e) { e.style.display = "none" == e.style.display ? "block" : "none" } function wpex_toggle(e, n, l) { el = document.getElementById("wpexlink" + e), el.innerHTML = el.innerHTML == n ? l : n, expand(document.getElementById("wpex" + e)) }</script>
-    <div id="UserWayDiv">
- 
+    <div id="UserWayDiv"> 
         <img src="{% static 'dashboard/img/icon-acessibilty.svg'  %}" alt="">
     </div>
     <script>
@@ -25,4 +24,4 @@
             document.body.appendChild(el);
         })();
     </script>
-{% comment %} {% endif %} {% endcomment %}
+{% endif %}

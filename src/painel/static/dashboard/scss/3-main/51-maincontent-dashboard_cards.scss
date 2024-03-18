@@ -68,16 +68,20 @@
 
                     > span {
                         margin-top: 3px;
+                        margin-left: 10px;
                         
 
                         > span {
-                            margin-left: 15px;
+                            
                             font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-16) /
                                 var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
                             letter-spacing: var(--unnamed-character-spacing-0);
                             color: var(--escuro-primario);
                             text-align: left;
                         }
+                    }
+                    .icon-moodle{
+                        font-size: large;
                     }
                 }
                 .course-disciplina a,

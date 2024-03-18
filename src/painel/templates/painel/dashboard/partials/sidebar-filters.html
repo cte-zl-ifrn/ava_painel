@@ -45,7 +45,9 @@
             </div>
             <div class="grid-item position-relative filter-field">
                 <select name="ambiente" id="ambiente" v-model="ambiente" required>
-                    <option v-for="row in ambientes" :data-color="row.color" v-bind:value="row.id"> [[ row.label ]]</option>
+                    <option v-for="row in ambientes"  v-bind:value="row.id" v-bind:data-icon="getIcon(row.label)"> 
+                        <span class="cor-ambiente">[[ getIcon(row.label) ]]</span> [[ row.label ]]
+                    </option>
                 </select>
             </div>
 
