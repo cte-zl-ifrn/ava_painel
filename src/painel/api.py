@@ -43,6 +43,7 @@ def diarios(
 
 @api.get("/atualizacoes_counts/")
 def atualizacoes_counts(request: HttpRequest):
+    print("get_atualizacoes:",get_atualizacoes_counts(logged_user(request).username))
     return get_atualizacoes_counts(logged_user(request).username)
 
 

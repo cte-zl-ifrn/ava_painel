@@ -108,7 +108,7 @@ export default {
                 "Presencial": "🟦",
                 "Projetos": "🟥"
             };
-            return iconMapping[label] || "";
+            return iconMapping[label] || "⬜";
         },
         handleSelectChange(event) {
             let selectedValue = event.target.value;
