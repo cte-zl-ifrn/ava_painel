@@ -1444,6 +1444,10 @@ main #maincontent #course-list .seta-down {
   transform: rotate(0deg) !important;
 }
 
+main #maincontent #course-list #disable-chevron {
+  color: #7d848b;
+}
+
 @media only screen and (max-width: 432px) {
   main #maincontent {
     background: none;
@@ -1631,6 +1635,9 @@ main #maincontent #course-list .course-listitem .course-body .course-info .cours
   }
   main #maincontent #course-list .seta-down {
     transform: rotate(0deg) !important;
+  }
+  main #maincontent #course-list #disable-chevron {
+    color: #7d848b;
   }
 }
 
@@ -1865,6 +1872,10 @@ main #course-list .seta-up {
 
 main #course-list .seta-down {
   transform: rotate(0deg) !important;
+}
+
+main #course-list #disable-chevron {
+  color: #7d848b;
 }
 
 main #popupFilter {

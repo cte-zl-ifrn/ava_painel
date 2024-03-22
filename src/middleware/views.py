@@ -25,8 +25,8 @@ def sync_up_enrolments(request: HttpRequest):
     except Exception as e1:
         return SyncError(f"Erro ao converter para JSON ({e1}).", 407)
 
-    response = Diario.objects.sync(message_string)
-    return JsonResponse(response, safe=False)
+    solicitacao = Diario.objects.sync(message_string)
+    return JsonResponse(solicitacao.respondido, safe=False)
 
 
 @csrf_exempt

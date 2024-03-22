@@ -1,6 +1,6 @@
 import json
 from functools import update_wrapper
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.http import HttpResponse
 from django.utils.html import format_html
 from django.db import transaction
@@ -98,6 +98,7 @@ class SolicitacaoAdmin(BaseModelAdmin):
     def sync_moodle_view(self, request, object_id, form_url="", extra_context=None):
         s = get_object_or_404(Solicitacao, pk=object_id)
         try:
-            return HttpResponse(Diario.objects.sync(s.recebido))
+            solicitacao = Diario.objects.sync(json.dumps(s.recebido))
+            return redirect("admin:middleware_solicitacao_view", object_id=solicitacao.id)
         except Exception as e:
             return HttpResponse(f"{e}")

@@ -192,7 +192,6 @@
             span:last-child {
                 padding-bottom: 15px;
             }
-
         }
         
     }
@@ -210,6 +209,10 @@
 
     .seta-down {
         transform: rotate(0deg) !important;
+    }
+
+    #disable-chevron{
+        color: #7d848b;
     }
 
 }
