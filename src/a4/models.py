@@ -108,9 +108,7 @@ class Usuario(SafeDeleteModel, AbstractUser):
     @property
     def foto_url(self):
         return (
-            f"{settings.SUAP_OAUTH_BASE_URL}{self.foto}"
-            if self.foto
-            else f"{settings.STATIC_URL}dashboard/img/user.png"
+            f"{settings.OAUTH['BASE_URL']}{self.foto}" if self.foto else f"{settings.STATIC_URL}dashboard/img/user.png"
         )
 
 

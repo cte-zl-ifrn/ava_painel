@@ -10,7 +10,7 @@ admin.site.site_header = admin.site.site_title
 
 urlpatterns = [
     path(
-        f"{settings.ROOT_URL_PATH}",
+        f"{settings.ROOT_URL_PATH}/",
         include(
             [
                 path("admin/login/", RedirectView.as_view(url="/login/")),
