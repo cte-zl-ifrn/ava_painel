@@ -3,29 +3,26 @@ from django.db.models import Model
 from django.contrib.admin import register, display, StackedInline, TabularInline
 from django.utils.safestring import mark_safe
 from base.admin import BaseModelAdmin
-from .models import (
+from painel.models import (
     Ambiente,
-    Polo,
-    Componente,
-    Diario,
     Campus,
-    Curso,
-    Turma,
-    Inscricao,
-    Popup,
     Papel,
-    VinculoPolo,
-    VinculoCurso,
+    Curso,
+    Polo,
     CursoPolo,
+    VinculoCurso,
+    VinculoPolo,
+    Popup,
 )
-from .resources import (
+from painel.resources import (
     AmbienteResource,
     CampusResource,
-    CursoResource,
     PapelResource,
-    VinculoPoloResource,
-    VinculoCursoResource,
-    CursoPoloResource,
+    CursoResource,
+    CursoVinculoResource,
+    PoloResource,
+    PoloCursoResource,
+    PoloVinculoResource,
 )
 
 
@@ -69,11 +66,7 @@ class AmbienteAdmin(BaseModelAdmin):
         "active",
     ] + BaseModelAdmin.list_filter
     fieldsets = [
-        (_("Identificação"), {"fields": ["nome"]}),
-        (
-            _("Cores do ambiente"),
-            {"fields": ["cor_mestra", "cor_degrade", "cor_progresso"]},
-        ),
+        (_("Identificação"), {"fields": ["nome", "cor_mestra"]}),
         (_("Integração"), {"fields": ["active", "url", "token"]}),
     ]
     inlines = [CampusInline]
@@ -81,20 +74,16 @@ class AmbienteAdmin(BaseModelAdmin):
 
     @display(description="Cores")
     def cores(self, obj):
-        return mark_safe(
-            f"<span style='background: {obj.cor_mestra};'>&nbsp;&nbsp;&nbsp;</span>"
-            + f"<span style='background: {obj.cor_degrade};'>&nbsp;&nbsp;&nbsp;</span>"
-            + f"<span style='background: {obj.cor_progresso};'>&nbsp;&nbsp;&nbsp;</span>"
-        )
+        return mark_safe(f"<span style='background: {obj.cor_mestra};'>&nbsp;&nbsp;&nbsp;</span>")
 
 
 @register(Campus)
 class CampusAdmin(BaseModelAdmin):
-    list_display = ["sigla", "descricao", "ambiente", "active"]
+    list_display = ["sigla", "ambiente", "active"]
     history_list_display = list_display
     field_to_highlight = list_display[0]
     list_filter = ["active", "ambiente"] + BaseModelAdmin.list_filter
-    search_fields = ["sigla", "descricao", "suap_id"]
+    search_fields = ["sigla", "suap_id"]
     resource_classes = [CampusResource]
 
 
@@ -108,51 +97,12 @@ class CursoAdmin(BaseModelAdmin):
     inlines = [CursoPoloInline, VinculoCursoInline]
 
 
-@register(Turma)
-class TurmaAdmin(BaseModelAdmin):
-    list_display = ["codigo", "campus", "ano_mes", "periodo", "curso", "sigla", "turno"]
-    list_filter = [
-        "turno",
-        "ano_mes",
-        "periodo",
-        "campus",
-        "curso",
-    ] + BaseModelAdmin.list_filter
-    readonly_fields = ["ano_mes", "periodo", "curso", "sigla", "turno"]
-    search_fields = ["codigo"]
-
-
-@register(Componente)
-class ComponenteAdmin(BaseModelAdmin):
-    list_display = ["sigla", "descricao", "periodo"]
-    list_filter = [
-        "optativo",
-        "qtd_avaliacoes",
-        "periodo",
-        "tipo",
-    ] + BaseModelAdmin.list_filter
-    search_fields = ["sigla", "suap_id", "descricao", "descricao_historico"]
-
-
-@register(Diario)
-class DiarioAdmin(BaseModelAdmin):
-    list_display = ["codigo", "situacao", "descricao", "turma", "componente"]
-    list_filter = ["situacao"] + BaseModelAdmin.list_filter
-    search_fields = ["codigo", "suap_id", "descricao", "descricao_historico", "sigla"]
-
-
 @register(Polo)
 class PoloAdmin(BaseModelAdmin):
     list_display = ["nome"]
     search_fields = ["nome", "suap_id"]
+    resource_classes = [PoloResource]
     inlines = [VinculoPoloInline]
-
-
-@register(Inscricao)
-class InscricaoAdmin(BaseModelAdmin):
-    list_display = ["diario", "usuario", "papel", "polo", "active"]
-    list_filter = ["active", "papel", "polo"] + BaseModelAdmin.list_filter
-    search_fields = ["diario__codigo", "usuario__username"]
 
 
 @register(Popup)
@@ -176,22 +126,22 @@ class PapelAdmin(BaseModelAdmin):
     resource_classes = [PapelResource]
 
 
-@register(VinculoPolo)
-class VinculoPoloAdmin(BaseModelAdmin):
-    list_display = ["papel", "polo", "colaborador", "active"]
-    list_filter = ["active", "papel", "papel"] + BaseModelAdmin.list_filter
-    search_fields = ["colaborador__nome_social", "colaborador__nome_civil"]
-    autocomplete_fields = ["polo", "colaborador"]
-    resource_classes = [VinculoPoloResource]
-
-
 @register(VinculoCurso)
 class VinculoCursoAdmin(BaseModelAdmin):
     list_display = ["papel", "curso", "colaborador", "active"]
     list_filter = ["active", "papel"] + BaseModelAdmin.list_filter
     search_fields = ["colaborador__nome_social", "colaborador__nome_civil"]
     autocomplete_fields = ["curso", "colaborador"]
-    resource_classes = [VinculoCursoResource]
+    resource_classes = [CursoVinculoResource]
+
+
+@register(VinculoPolo)
+class VinculoPoloAdmin(BaseModelAdmin):
+    list_display = ["papel", "polo", "colaborador", "active"]
+    list_filter = ["active", "papel", "papel"] + BaseModelAdmin.list_filter
+    search_fields = ["colaborador__nome_social", "colaborador__nome_civil"]
+    autocomplete_fields = ["polo", "colaborador"]
+    resource_classes = [PoloVinculoResource]
 
 
 @register(CursoPolo)
@@ -199,4 +149,4 @@ class CursoPoloResourceAdmin(BaseModelAdmin):
     list_display = ["curso", "polo", "active"]
     list_filter = ["active"] + BaseModelAdmin.list_filter
     autocomplete_fields = ["curso", "polo"]
-    resource_classes = [CursoPoloResource]
+    resource_classes = [PoloCursoResource]

@@ -46,12 +46,10 @@ MY_APPS = env_as_list(
     [
         "painel",
         "health",
-        "middleware",
         "base",
     ],
 )
 
-MY_APPS += ["suapfake"] if env_as_bool("SUAPFAKE", True) else []
 
 THIRD_APPS = env_as_list(
     "THIRD_APPS",

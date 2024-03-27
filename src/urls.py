@@ -18,12 +18,10 @@ urlpatterns = [
                 path("admin/", admin.site.urls),
                 path("", include("a4.urls")),
                 path("", include("health.urls")),
-                # path("", include("middleware.urls")),
                 path("", include("painel.urls")),
             ]
         ),
     ),
-    path("", include("middleware.urls")),
     path("", RedirectView.as_view(url=settings.ROOT_URL_PATH)),
 ]
 
