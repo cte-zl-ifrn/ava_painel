@@ -30,6 +30,9 @@ def authenticate(request: HttpRequest) -> HttpResponse:
 
     OAUTH = settings.OAUTH
 
+    if request.GET.get("error") == "access_denied":
+        return render(request, "a4/not_authorized.html")
+
     if "code" not in request.GET:
         raise Exception(_("O código de autenticação não foi informado."))
 
