@@ -8,7 +8,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.utils.timezone import now
 from django.core.exceptions import ValidationError
 from django.http import HttpRequest, HttpResponse
-from .models import Usuario
+from a4.models import Usuario
 
 
 def register(request: HttpRequest) -> HttpResponse:
@@ -42,19 +42,16 @@ def authenticate(request: HttpRequest) -> HttpResponse:
     }
 
     request_data = json.loads(
-        requests.post(
-            f"{OAUTH['BASE_URL']}/o/token/",
-            data=access_token_request_data,
-            verify=OAUTH["VERIFY_SSL"],
-        ).text
+        requests.post(f"{OAUTH['BASE_URL']}/o/token/", data=access_token_request_data, verify=OAUTH["VERIFY_SSL"]).text
     )
+
     headers = {
-        "Authorization": "Bearer {}".format(request_data.get("access_token")),
+        "Authorization": f"Bearer {request_data.get('access_token')}",
         "x-api-key": OAUTH["CLIENT_SECRET"],
     }
-    # response_data = json.loads(requests.get(f"{OAUTH['BASE_URL']}/api/eu/", data={'scope': request_data.get('scope')}, headers=headers, verify=OAUTH['VERIFY_SSL']).text )
+
     response = requests.get(
-        f"{OAUTH['BASE_URL']}/api/eu/?scope={request_data.get('scope')}",
+        f"{OAUTH['BASE_URL']}/api/v1/userinfo/?scope={request_data.get('scope')}",
         headers=headers,
         verify=OAUTH["VERIFY_SSL"],
     )
@@ -101,7 +98,7 @@ def authenticate(request: HttpRequest) -> HttpResponse:
 
 def logout(request: HttpRequest) -> HttpResponse:
     auth.logout(request)
-    return render(request, "a4/logout.html")
+    return redirect(settings.LOGOUT_REDIRECT_URL)
 
 
 def personificar(request: HttpRequest, username: str):
