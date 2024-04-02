@@ -107,6 +107,8 @@ class Usuario(SafeDeleteModel, AbstractUser):
 
     @property
     def foto_url(self):
+        if self.foto.startswith("http"):
+            return self.foto
         return (
             f"{settings.OAUTH['BASE_URL']}{self.foto}" if self.foto else f"{settings.STATIC_URL}dashboard/img/user.png"
         )
