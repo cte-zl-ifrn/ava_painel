@@ -1,5 +1,5 @@
 # Core
-Django==5.0.2
+Django==5.0.3
 sc4py==0.1.4
 sc4net==0.1.3
 
