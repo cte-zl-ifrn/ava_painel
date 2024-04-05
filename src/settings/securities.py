@@ -13,11 +13,11 @@ AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
 AUTH_PASSWORD_VALIDATORS = []
 
 OAUTH = {
-    "REDIRECT_URI": env("SUAP_OAUTH_REDIRECT_URI", "http://painel/painel/authenticate/"),
-    "CLIENTE_ID": env("SUAP_OAUTH_CLIENT_ID", "changeme on docker-compose.yml"),
-    "CLIENT_SECRET": env("SUAP_OAUTH_CLIENT_SECRET", "changeme on docker-compose.yml"),
-    "BASE_URL": env("SUAP_OAUTH_BASE_URL", "https://suap.ifrn.edu.br"),
-    "VERIFY_SSL": env("SUAP_OAUTH_VERIFY_SSL", False),
+    "BASE_URL": env("OAUTH_BASE_URL", "http://login"),
+    "REDIRECT_URI": env("OAUTH_REDIRECT_URI", "http://painel/painel/authenticate/"),
+    "CLIENT_ID": env("OAUTH_CLIENT_ID", "changeme"),
+    "CLIENT_SECRET": env("OAUTH_CLIENT_SECRET", "changeme"),
+    "VERIFY_SSL": env("OAUTH_VERIFY_SSL", False),
 }
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
 

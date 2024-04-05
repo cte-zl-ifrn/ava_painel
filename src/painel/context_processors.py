@@ -20,7 +20,6 @@ def layout_settings(request: HttpRequest) -> dict:
         "layout_term_of_use_url_name": "painel:term_of_use",
         "layout_site_name": "Painel AVA",
         "logged_user": logged_user(request),
-        "suap_oauth_base_url": settings.OAUTH["BASE_URL"],
         "show_vlibras": settings.SHOW_VLIBRAS,
         "show_userway": settings.SHOW_USERWAY,
         "userway_account": settings.USERWAY_ACCOUNT,

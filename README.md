@@ -71,10 +71,10 @@ services:
             # SENTRY_DNS=https://key@id.ingest.sentry.io/id
 
             # 3. Crie uma "Aplicações OAUTH2" no SUAP e pegue o client_id e o client_secret
-            - SUAP_OAUTH_CLIENT_ID=changeme
-            - SUAP_OAUTH_CLIENT_SECRET=changeme
-            - SUAP_OAUTH_BASE_URL=https://suap.yourhost.edu.br
-            - SUAP_OAUTH_REDIRECT_URI=https://ava.yourhost.edu.br/painel/authenticate/
+            - OAUTH_CLIENT_ID=changeme
+            - OAUTH_CLIENT_SECRET=changeme
+            - OAUTH_BASE_URL=https://suap.yourhost.edu.br
+            - OAUTH_REDIRECT_URI=https://ava.yourhost.edu.br/painel/authenticate/
 
             # 4. Atribua o token de integração do SUAP
             - SUAP_INTEGRADOR_KEY=changeme
