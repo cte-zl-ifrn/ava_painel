@@ -7,9 +7,10 @@ DATABASES = {
         "ENGINE": env("POSTGRES_ENGINE", "django.db.backends.postgresql"),
         "HOST": env("POSTGRES_HOST", "db"),
         "PORT": env("POSTGRES_PORT", "5432"),
-        "NAME": env("POSTGRES_DATABASE", "postgres"),
+        "NAME": env("POSTGRES_DATABASE", "painel"),
         "USER": env("POSTGRES_USER", "ava_user"),
         "PASSWORD": env("POSTGRES_PASSWORD", "ava_pass"),
+        "OPTIONS": {"options": env("POSTGRES_OPTIONS", "")},
     }
 }
 
