@@ -2,8 +2,8 @@
 from sc4py.env import env, env_as_bool, env_as_list
 
 SECRET_KEY = env("DJANGO_SECRET_KEY", "changeme")
-LOGIN_URL = env("DJANGO_LOGIN_URL", "login/")
-LOGIN_REDIRECT_URL = env("DJANGO_LOGIN_REDIRECT_URL", "/")
+LOGIN_URL = env("DJANGO_LOGIN_URL", "http://painel/painel/login/")
+LOGIN_REDIRECT_URL = env("DJANGO_LOGIN_REDIRECT_URL", "http://painel/painel/")
 LOGOUT_REDIRECT_URL = env("DJANGO_LOGOUT_REDIRECT_URL", "http://login/logout/")
 AUTH_USER_MODEL = env("DJANGO_AUTH_USER_MODEL", "a4.Usuario")
 GO_TO_HTTPS = env_as_bool("GO_TO_HTTPS", False)
@@ -13,11 +13,11 @@ AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
 AUTH_PASSWORD_VALIDATORS = []
 
 OAUTH = {
-    "REDIRECT_URI": env("SUAP_OAUTH_REDIRECT_URI", "http://painel/painel/authenticate/"),
-    "CLIENTE_ID": env("SUAP_OAUTH_CLIENT_ID", "changeme on docker-compose.yml"),
-    "CLIENT_SECRET": env("SUAP_OAUTH_CLIENT_SECRET", "changeme on docker-compose.yml"),
-    "BASE_URL": env("SUAP_OAUTH_BASE_URL", "https://suap.ifrn.edu.br"),
-    "VERIFY_SSL": env("SUAP_OAUTH_VERIFY_SSL", False),
+    "BASE_URL": env("OAUTH_BASE_URL", "http://login"),
+    "REDIRECT_URI": env("OAUTH_REDIRECT_URI", "http://painel/painel/authenticate/"),
+    "CLIENT_ID": env("OAUTH_CLIENT_ID", "changeme"),
+    "CLIENT_SECRET": env("OAUTH_CLIENT_SECRET", "changeme"),
+    "VERIFY_SSL": env("OAUTH_VERIFY_SSL", False),
 }
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
 

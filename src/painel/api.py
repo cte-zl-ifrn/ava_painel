@@ -4,7 +4,6 @@ from django.http import HttpRequest
 from django.shortcuts import get_object_or_404
 from a4.models import logged_user
 from .services import get_diarios, get_atualizacoes_counts, set_favourite_course, set_visible_course
-from painel.models import Curso
 
 
 api = NinjaAPI(docs_decorator=staff_member_required)
@@ -49,8 +48,3 @@ def set_favourite(request: HttpRequest, ava: str, courseid: int, favourite: int)
 @api.get("/set_visible/")
 def set_visible(request: HttpRequest, ava: str, courseid: int, visible: int):
     return set_visible_course(logged_user(request).username, ava, courseid, visible)
-
-
-@api.get("/coortes/{curso_codigo}/")
-def coortes(request: HttpRequest, curso_codigo: str):
-    return get_object_or_404(Curso, codigo=curso_codigo).coortes

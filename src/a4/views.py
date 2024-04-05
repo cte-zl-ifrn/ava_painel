@@ -18,16 +18,15 @@ def register(request: HttpRequest) -> HttpResponse:
 
 def login(request: HttpRequest) -> HttpResponse:
     OAUTH = settings.OAUTH
-    next = urllib.parse.quote_plus(request.GET["next"] if "next" in request.GET else "/", safe="")
-    redirect_uri = f"{OAUTH['REDIRECT_URI']}?next={next}"
-    redirect_uri = OAUTH["REDIRECT_URI"]
-    suap_url = f"{OAUTH['BASE_URL']}/o/authorize/?response_type=code&client_id={OAUTH['CLIENTE_ID']}&redirect_uri={redirect_uri}"
+    # next = f"?next={urllib.parse.quote_plus(request.GET.get('next', '/'), safe='')}"
+    # TODO: tem um erro aqui, quando informo o ?next ocorre um erro de Mismatching redirect URI.
+    next = ""
+    redirect_uri = f"{OAUTH["REDIRECT_URI"]}{next}"
+    suap_url = f"{OAUTH["BASE_URL"]}/o/authorize/?response_type=code&client_id={OAUTH["CLIENT_ID"]}&redirect_uri={redirect_uri}"
     return redirect(suap_url)
 
 
 def authenticate(request: HttpRequest) -> HttpResponse:
-    from painel.models import Campus, Polo
-
     OAUTH = settings.OAUTH
 
     if request.GET.get("error") == "access_denied":
@@ -40,13 +39,15 @@ def authenticate(request: HttpRequest) -> HttpResponse:
         "grant_type": "authorization_code",
         "code": request.GET.get("code"),
         "redirect_uri": OAUTH["REDIRECT_URI"],
-        "client_id": OAUTH["CLIENTE_ID"],
+        "client_id": OAUTH["CLIENT_ID"],
         "client_secret": OAUTH["CLIENT_SECRET"],
     }
 
-    request_data = json.loads(
-        requests.post(f"{OAUTH['BASE_URL']}/o/token/", data=access_token_request_data, verify=OAUTH["VERIFY_SSL"]).text
-    )
+    token_str = requests.post(f"{OAUTH['BASE_URL']}/o/token/", data=access_token_request_data, verify=OAUTH["VERIFY_SSL"]).text
+    request_data = json.loads(token_str)
+    
+    if request_data.get("error_description") == "Mismatching redirect URI.":
+        return render(request, "a4/mismatching_redirect_uri.html", {"error": request_data})
 
     headers = {
         "Authorization": f"Bearer {request_data.get('access_token')}",
@@ -74,8 +75,6 @@ def authenticate(request: HttpRequest) -> HttpResponse:
         "email_google_classroom": response_data.get("email_google_classroom"),
         "email_academico": response_data.get("email_academico"),
         "email_secundario": response_data.get("email_secundario"),
-        "campus": Campus.objects.filter(sigla=response_data.get("campus")).first(),
-        "polo": Polo.objects.filter(suap_id=response_data.get("polo")).first(),
         "foto": response_data.get("foto"),
         "tipo_usuario": response_data.get("tipo_usuario"),
         "last_json": response.text,
