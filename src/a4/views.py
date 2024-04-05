@@ -26,8 +26,6 @@ def login(request: HttpRequest) -> HttpResponse:
 
 
 def authenticate(request: HttpRequest) -> HttpResponse:
-    from painel.models import Campus, Polo
-
     OAUTH = settings.OAUTH
 
     if request.GET.get("error") == "access_denied":
@@ -74,8 +72,6 @@ def authenticate(request: HttpRequest) -> HttpResponse:
         "email_google_classroom": response_data.get("email_google_classroom"),
         "email_academico": response_data.get("email_academico"),
         "email_secundario": response_data.get("email_secundario"),
-        "campus": Campus.objects.filter(sigla=response_data.get("campus")).first(),
-        "polo": Polo.objects.filter(suap_id=response_data.get("polo")).first(),
         "foto": response_data.get("foto"),
         "tipo_usuario": response_data.get("tipo_usuario"),
         "last_json": response.text,

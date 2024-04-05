@@ -2,8 +2,8 @@
 from sc4py.env import env, env_as_bool, env_as_list
 
 SECRET_KEY = env("DJANGO_SECRET_KEY", "changeme")
-LOGIN_URL = env("DJANGO_LOGIN_URL", "login/")
-LOGIN_REDIRECT_URL = env("DJANGO_LOGIN_REDIRECT_URL", "/")
+LOGIN_URL = env("DJANGO_LOGIN_URL", "http://painel/painel/login/")
+LOGIN_REDIRECT_URL = env("DJANGO_LOGIN_REDIRECT_URL", "http://painel/painel/")
 LOGOUT_REDIRECT_URL = env("DJANGO_LOGOUT_REDIRECT_URL", "http://login/logout/")
 AUTH_USER_MODEL = env("DJANGO_AUTH_USER_MODEL", "a4.Usuario")
 GO_TO_HTTPS = env_as_bool("GO_TO_HTTPS", False)
