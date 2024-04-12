@@ -1,15 +1,21 @@
 # # -*- coding: utf-8 -*-
-from sc4py.env import env, env_as_bool, env_as_int
+import logging
 import sentry_sdk
+from sc4py.env import env, env_as_bool, env_as_int
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.redis import RedisIntegration
+from sentry_sdk.integrations.logging import LoggingIntegration
 from django.core.exceptions import DisallowedHost
 from .apps import APP_VERSION
 
 if env("SENTRY_DNS", None):
     sentry_sdk.init(
         dsn=env("SENTRY_DNS"),
-        integrations=[DjangoIntegration(), RedisIntegration()],
+        integrations=[
+            DjangoIntegration(),
+            RedisIntegration(),
+            LoggingIntegration(level=logging.INFO, event_level=logging.INFO),
+        ],
         default_integrations=env_as_bool("SENTRY_DEFAULT_INTEGRATIONS", True),
         # Informe em porcentual, ou seja, 50 significa que 100% de erros serão reportados.
         sample_rate=env_as_int("SENTRY_SAMPLE_RATE", 100) / 100.0,
