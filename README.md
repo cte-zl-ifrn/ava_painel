@@ -121,10 +121,10 @@ Este docker-compose assume que você não tenha aplicações rodando na porta 80
 ```bash
 # Baixe o projeto na pasta de exemplo (se for outra, basta que altere os scripts)
 mkdir -p ~/projetos/IFRN/ava/integracao
-git clone git@github.com:cte-zl-ifrn/painel__ava.git ~/projetos/IFRN/ava/integracao/painel-ava
+git clone git@github.com:cte-zl-ifrn/painel__ava.git ~/projetos/IFRN/ava/integracao/painel_ava
 
 
-cd ~/projetos/IFRN/ava/integracao/painel-ava
+cd ~/projetos/IFRN/ava/integracao/painel_ava
 
 # Configura o teu /etc/hosts para atender por http://ava
 ./painel env setup
@@ -151,14 +151,14 @@ Caso você deseje fazer debug do Painel AVA, tente:
 #### No bash
 
 ```bash
-echo 'PATH=$PATH:~/projetos/IFRN/ava/integracao/painel-ava' >> ~/.bashrc
+echo 'PATH=$PATH:~/projetos/IFRN/ava/integracao/painel_ava' >> ~/.bashrc
 source ~/.bashrc
 ```
 
 #### No zsh
 
 ```bash
-echo 'PATH=$PATH:~/projetos/IFRN/ava/integracao/painel-ava' >> ~/.zshrc
+echo 'PATH=$PATH:~/projetos/IFRN/ava/integracao/painel_ava' >> ~/.zshrc
 source ~/.zshrc
 ```
 
