@@ -40,5 +40,5 @@ setuptools>=69.0.2 # not directly required, pinned by Snyk to avoid a vulnerabil
 
 # Production
 sentry-sdk[django]==1.38.0
-gunicorn==21.2.0
+gunicorn==22.0.0
 supervisor==4.2.5
