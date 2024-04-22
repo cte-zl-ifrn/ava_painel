@@ -5,8 +5,8 @@ export default {
     data() {
         return {
             atualizacoes: [],
-            unread_notification_total: 0,
-            unread_conversations_total: 0,
+            unread_notification_total:0,
+            unread_conversations_total:0,
         };
     },
     mounted() {
@@ -17,6 +17,7 @@ export default {
             $(".icon-count").css("display", "inline-block");
             axios.get("/painel/api/v1/atualizacoes_counts/", { params: {} }).then((response) => {
                 Object.assign(this, response.data);
+                console.log(this,response.data)
             });
         },
     },
