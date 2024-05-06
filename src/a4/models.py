@@ -44,24 +44,26 @@ class UsuarioManager(SafeDeleteManager, UserManager):
 class Usuario(SafeDeleteModel, AbstractUser):
     username = CharField(
         _("IFRN-id"),
-        max_length=150,
+        max_length=2560,
         unique=True,
         validators=[AbstractUser.username_validator],
         error_messages={
             "unique": _("A user with that IFRN-id already exists."),
         },
     )
-    nome_registro = CharField(_("nome civil"), max_length=255, blank=True)
-    nome_social = CharField(_("nome social"), max_length=255, null=True, blank=True)
-    nome_usual = CharField(_("nome de apresentação"), max_length=255, null=True, blank=True)
-    nome = CharField(_("nome no SUAP"), max_length=255, null=True, blank=True)
-    tipo_usuario = CharField(_("tipo"), max_length=255, choices=TipoUsuario, null=True, blank=True)
-    foto = CharField(_("URL da foto"), max_length=255, null=True, blank=True)
-    email = EmailField(_("e-Mail preferêncial"), null=True, blank=False)
-    email_secundario = EmailField(_("e-Mail pessoal"), null=True, blank=True)
-    email_corporativo = EmailField(_("e-Mail corporativo"), null=True, blank=True)
-    email_google_classroom = EmailField(_("e-Mail Gogole Classroom"), null=True, blank=True)
-    email_academico = EmailField(_("e-Mail academico"), null=True, blank=True)
+    first_name = CharField(_("primeiro nome"), max_length=2560, null=True, blank=True)
+    last_name = CharField(_("último nome"), max_length=2560, null=True, blank=True)
+    nome_registro = CharField(_("nome civil"), max_length=2560, null=True, blank=True)
+    nome_social = CharField(_("nome social"), max_length=2560, null=True, blank=True)
+    nome_usual = CharField(_("nome de apresentação"), max_length=2560, null=True, blank=True)
+    nome = CharField(_("nome no SUAP"), max_length=2560, null=True, blank=True)
+    tipo_usuario = CharField(_("tipo"), max_length=2560, choices=TipoUsuario, null=True, blank=True)
+    foto = CharField(_("URL da foto"), max_length=2560, null=True, blank=True)
+    email = EmailField(_("e-Mail preferêncial"), max_length=2560, null=True, blank=False)
+    email_secundario = EmailField(_("e-Mail pessoal"), max_length=2560, null=True, blank=True)
+    email_corporativo = EmailField(_("e-Mail corporativo"), max_length=2560, null=True, blank=True)
+    email_google_classroom = EmailField(_("e-Mail Gogole Classroom"), max_length=2560, null=True, blank=True)
+    email_academico = EmailField(_("e-Mail academico"), max_length=2560, null=True, blank=True)
     first_login = DateTimeField(_("first login"), null=True, blank=True)
     last_json = TextField(_("último JSON"), null=True, blank=True)
 
