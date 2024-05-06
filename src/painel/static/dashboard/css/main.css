@@ -1302,14 +1302,18 @@ main #maincontent #course-list .course-listitem .course-body .course-info .cours
 
 main #maincontent #course-list .course-listitem .course-body .course-info .course-identification > span {
   margin-top: 3px;
+  margin-left: 10px;
 }
 
 main #maincontent #course-list .course-listitem .course-body .course-info .course-identification > span > span {
-  margin-left: 15px;
   font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-16)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
   letter-spacing: var(--unnamed-character-spacing-0);
   color: var(--escuro-primario);
   text-align: left;
+}
+
+main #maincontent #course-list .course-listitem .course-body .course-info .course-identification .icon-moodle {
+  font-size: large;
 }
 
 main #maincontent #course-list .course-listitem .course-body .course-info .course-disciplina a,
@@ -1512,13 +1516,16 @@ main #maincontent #course-list #disable-chevron {
   }
   main #maincontent #course-list .course-listitem .course-body .course-info .course-identification > span {
     margin-top: 3px;
+    margin-left: 10px;
   }
   main #maincontent #course-list .course-listitem .course-body .course-info .course-identification > span > span {
-    margin-left: 15px;
     font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-16)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
     letter-spacing: var(--unnamed-character-spacing-0);
     color: var(--escuro-primario);
     text-align: left;
+  }
+  main #maincontent #course-list .course-listitem .course-body .course-info .course-identification .icon-moodle {
+    font-size: large;
   }
   main #maincontent #course-list .course-listitem .course-body .course-info .course-disciplina a,
 main #maincontent #course-list .course-listitem .course-body .course-info .course-disciplina a:hover,
@@ -1725,14 +1732,18 @@ main #course-list .course-listitem .course-body .course-info .course-identificat
 
 main #course-list .course-listitem .course-body .course-info .course-identification > span {
   margin-top: 3px;
+  margin-left: 10px;
 }
 
 main #course-list .course-listitem .course-body .course-info .course-identification > span > span {
-  margin-left: 15px;
   font: var(--unnamed-font-style-normal) normal 600 var(--unnamed-font-size-16)/var(--unnamed-line-spacing-22) var(--unnamed-font-family-noto-sans);
   letter-spacing: var(--unnamed-character-spacing-0);
   color: var(--escuro-primario);
   text-align: left;
+}
+
+main #course-list .course-listitem .course-body .course-info .course-identification .icon-moodle {
+  font-size: large;
 }
 
 main #course-list .course-listitem .course-body .course-info .course-disciplina a,

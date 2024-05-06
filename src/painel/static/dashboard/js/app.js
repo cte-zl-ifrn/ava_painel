@@ -58,6 +58,23 @@ export default {
 
         // Adiciona um ouvinte de evento para verificar a largura da tela quando a janela é redimensionada
         window.addEventListener("resize", this.handleResize);
+
+        const options = document.querySelectorAll('#ambiente option');
+            // Itera sobre cada elemento <option>
+            options.forEach(option => {
+                // Obtém o valor do atributo de dados "data-label"
+                const label = option.getAttribute('data-label');
+                console.log(label)
+                // Obtém o ícone correspondente ao label
+                const icon = this.getIcon(label);
+                
+                // Cria um elemento <span> para o ícone
+                const iconSpan = document.createElement('span');
+                iconSpan.textContent = icon;
+                
+                // Insere o elemento <span> antes do texto do <option>
+                option.prepend(iconSpan);
+            });
     },
     beforeDestroy() {
         window.removeEventListener("resize", this.handleResize);
@@ -68,6 +85,8 @@ export default {
     destroyed() {
         window.removeEventListener("resize", this.handleResize);
     },
+
+    
     methods: {
         toggleNavBar(e) {
             if (e) {
@@ -80,6 +99,16 @@ export default {
                 $(".filter-wrapper").addClass("closed");
                 localStorage.contentClosed = "true";
             }
+        },
+        getIcon(label) {
+            const iconMapping = {
+                "Aberto": "🟧",
+                "Acadêmico (desde 2023)": "🟩",
+                "EaD (até 2022)": "🟪",
+                "Presencial": "🟦",
+                "Projetos": "🟥"
+            };
+            return iconMapping[label] || "⬜";
         },
         handleSelectChange(event) {
             let selectedValue = event.target.value;
@@ -123,7 +152,10 @@ export default {
             //console.log(localStorage.situacao);
         },
 
+
+
         customizeAmbiente() {
+            
             $("#semestre").select2({
                 placeholder: "Semestres...",
                 templateSelection: function (data) {
@@ -171,6 +203,7 @@ export default {
                     return $("<span " + style + ">" + data.text + "</span> ");
                 },
             });
+
 
             setTimeout(function () {
                 $("#ambiente").val($("#ambiente option:eq(0)").val()).trigger("change");

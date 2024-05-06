@@ -134,7 +134,6 @@ def get_diarios(
 
                     diario["mensagemurl"] = f"{settings.OAUTH["BASE_URL"]}/edu/enviar_mensagem/?diario={id_diario}"
 
-                print("id_diario:", id_diario)
                 if id_diario:
                     diario["suapsurl"] = f"{settings.OAUTH["BASE_URL"]}/edu/meu_diario/{id_diario}/1/"
                     if diario.get("can_set_visibility"):
@@ -143,7 +142,7 @@ def get_diarios(
                         diario["gradesurl"] = re.sub("/course/view", "/grade/report/overview/index", diario["viewurl"])
 
                     # try:
-                    #     # TODO: Melhor a performance aqui
+                    #     # TODO: Foi removido pois a sincronização foi separada do painel
                     #     ultima = Solicitacao.objects.ultima_do_diario(id_diario)
 
                     #     if ultima is not None:
@@ -300,6 +299,7 @@ def get_atualizacoes_counts(username: str) -> dict:
         executor.map(_callback, requests)
 
     results["atualizacoes"] = sorted(results["atualizacoes"], key=lambda e: e["ambiente"]["titulo"])
+    # print("counts:",counts)
     return results
 
 
