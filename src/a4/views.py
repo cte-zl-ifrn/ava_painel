@@ -11,18 +11,9 @@ from django.http import HttpRequest, HttpResponse
 from a4.models import Usuario
 
 
-def register(request: HttpRequest) -> HttpResponse:
-    if request.user.is_authenticated:
-        raise ValidationError("Você já tem um registro")
-
-
 def login(request: HttpRequest) -> HttpResponse:
-    OAUTH = settings.OAUTH
-    # next = f"?next={urllib.parse.quote_plus(request.GET.get('next', '/'), safe='')}"
-    # TODO: tem um erro aqui, quando informo o ?next ocorre um erro de Mismatching redirect URI.
-    next = ""
-    redirect_uri = f"{OAUTH["REDIRECT_URI"]}{next}"
-    suap_url = f"{OAUTH["BASE_URL"]}/o/authorize/?response_type=code&client_id={OAUTH["CLIENT_ID"]}&redirect_uri={redirect_uri}"
+    o = settings.OAUTH
+    suap_url = f"{o["BASE_URL"]}/o/authorize/?response_type=code&client_id={o["CLIENT_ID"]}&redirect_uri={o['REDIRECT_URI']}"
     return redirect(suap_url)
 
 
@@ -45,7 +36,7 @@ def authenticate(request: HttpRequest) -> HttpResponse:
 
     token_str = requests.post(f"{OAUTH['BASE_URL']}/o/token/", data=access_token_request_data, verify=OAUTH["VERIFY_SSL"]).text
     request_data = json.loads(token_str)
-    
+
     if request_data.get("error_description") == "Mismatching redirect URI.":
         return render(request, "a4/mismatching_redirect_uri.html", {"error": request_data})
 
@@ -101,7 +92,7 @@ def authenticate(request: HttpRequest) -> HttpResponse:
 
 def logout(request: HttpRequest) -> HttpResponse:
     auth.logout(request)
-    return redirect(settings.LOGOUT_REDIRECT_URL)
+    return redirect(f"{settings.LOGOUT_REDIRECT_URL}?next={urllib.parse.quote_plus(settings.LOGIN_REDIRECT_URL)}")
 
 
 def personificar(request: HttpRequest, username: str):
