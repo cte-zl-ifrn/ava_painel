@@ -2,23 +2,28 @@ FROM python:3.12.1-slim-bookworm
 
 ENV PYTHONUNBUFFERED 1
 
-RUN apt update && apt upgrade -y && apt -y install curl vim
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get -y install --no-install-recommends curl=7.88.1-10+deb12u5 vim=2:9.0.1378-2 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-ADD requirements.txt /
+COPY requirements.txt /
 
-RUN pip install --upgrade pip && \
-    pip install -r /requirements.txt
+RUN pip install --upgrade --no-cache-dir 'pip>=24.0' && \
+    pip install --no-cache-dir -r /requirements.txt
 
-
-ADD requirements-dev.txt /apps/req/requirements-dev.txt
+COPY requirements-dev.txt /apps/req/requirements-dev.txt
 WORKDIR /apps/req
-# COPY --from=django-adminlte3 / /apps/django-adminlte3
-RUN pip install -r requirements-dev.txt
+
+RUN pip install --no-cache-dir -r requirements-dev.txt
 
 # FIX: bug on corsheaders
 # RUN echo 'import django.dispatch;check_request_enabled = django.dispatch.Signal()' > /usr/local/lib/python3.10/site-packages/corsheaders/signals.py
 
-ADD src /apps/app
+COPY src /apps/app
+WORKDIR /apps/app
+RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
 # ENTRYPOINT [ "executable" ]
