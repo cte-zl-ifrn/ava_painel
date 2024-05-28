@@ -4,10 +4,6 @@ export default {
     },
     data() {
         return {
-            TAB_DIARIO: 0,
-            TAB_COORDENACAO: 1,
-            tabAberta: 0,
-            destaque: null,
             semestres: [],
             situacoes: [
                 { label: "✳️ Diários em andamento", id: "inprogress" },
@@ -15,11 +11,6 @@ export default {
                 { label: "📕 Encerrados pelo professor", id: "past" },
                 { label: "⭐ Meus diários favoritos", id: "favourites" },
                 { label: "♾️ Todos os diários (lento)", id: "allincludinghidden" },
-            ],
-            ordenacoes: [
-                { label: "📗 Ordenado por nome da disciplina", id: "fullname" },
-                { label: "🔢 Ordenado por código do diário", id: "shortname" },
-                // { "label": "🕓 Ordenado pelo último acessado", "id": "ul.timeaccess desc" },
             ],
             visualizacoes: [
                 { label: "Ver como linhas", id: "list" },
@@ -38,7 +29,6 @@ export default {
             activeParagraph: null,
             q: localStorage.q || "",
             situacao: localStorage.situacao || "inprogress",
-            ordenacao: localStorage.ordenacao || "fullname",
             semestre: localStorage.semestre || "",
             disciplina: localStorage.disciplina || "",
             curso: localStorage.curso || "",
@@ -46,18 +36,20 @@ export default {
             contentClosed: localStorage.contentClosed || "true",
             selectedBar: null,
             screenWidth: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
-            isPopupOpen:false,
+            isPopupOpen: false,
             isIconUp: false,
         };
     },
 
-    mounted() {
+    async mounted() {
         if (localStorage.contentClosed == "true") {
             $(".filter-wrapper").addClass("closed");
         }
-        $(".view-toggler").change(this.viewToggle);
         $(document).ready(this.customizeAmbiente);
         this.restoreState();
+
+        await this.clearFilter();
+
         this.filterCards();
         $("#app").css("display", "block");
         $("#pre-loading").css("display", "none");
@@ -65,19 +57,36 @@ export default {
         this.popup();
 
         // Adiciona um ouvinte de evento para verificar a largura da tela quando a janela é redimensionada
-        window.addEventListener('resize', this.handleResize);
+        window.addEventListener("resize", this.handleResize);
 
-
+        const options = document.querySelectorAll('#ambiente option');
+            // Itera sobre cada elemento <option>
+            options.forEach(option => {
+                // Obtém o valor do atributo de dados "data-label"
+                const label = option.getAttribute('data-label');
+                console.log(label)
+                // Obtém o ícone correspondente ao label
+                const icon = this.getIcon(label);
+                
+                // Cria um elemento <span> para o ícone
+                const iconSpan = document.createElement('span');
+                iconSpan.textContent = icon;
+                
+                // Insere o elemento <span> antes do texto do <option>
+                option.prepend(iconSpan);
+            });
     },
     beforeDestroy() {
-         window.removeEventListener('resize', this.handleResize);
+        window.removeEventListener("resize", this.handleResize);
     },
     created() {
-        window.addEventListener('resize', this.handleResize);
+        window.addEventListener("resize", this.handleResize);
     },
     destroyed() {
-        window.removeEventListener('resize', this.handleResize);
+        window.removeEventListener("resize", this.handleResize);
     },
+
+    
     methods: {
         toggleNavBar(e) {
             if (e) {
@@ -91,19 +100,26 @@ export default {
                 localStorage.contentClosed = "true";
             }
         },
+        getIcon(label) {
+            const iconMapping = {
+                "Aberto": "🟧",
+                "Acadêmico (desde 2023)": "🟩",
+                "EaD (até 2022)": "🟪",
+                "Presencial": "🟦",
+                "Projetos": "🟥"
+            };
+            return iconMapping[label] || "⬜";
+        },
         handleSelectChange(event) {
             let selectedValue = event.target.value;
             let courseList = document.getElementById("course-list");
             let navDiario = document.getElementById("nav-diarios");
             let navCoordenacoes = document.getElementById("nav-coordenacoes");
 
-            
-            if(selectedValue == "diarios"){
-
+            if (selectedValue == "diarios") {
                 navCoordenacoes.classList.remove("show", "active");
                 navDiario.classList.add("show", "active");
-
-            }else if(selectedValue == "coordenacoes"){
+            } else if (selectedValue == "coordenacoes") {
                 var courseShortnames = document.getElementsByClassName("course-shortname");
                 for (var i = 0; i < courseShortnames.length; i++) {
                     courseShortnames[i].style.paddingLeft = "10px";
@@ -116,77 +132,69 @@ export default {
 
         openPopup() {
             this.isPopupOpen = true;
-            document.body.style.overflow="hidden";
-            document.body.classList.add('open');
-        
-           
+            document.body.style.overflow = "hidden";
+            document.body.classList.add("open");
         },
         closePopup() {
             this.isPopupOpen = false;
-            document.body.style.overflow="auto";
-            document.body.classList.remove('open');
-
+            document.body.style.overflow = "auto";
+            document.body.classList.remove("open");
         },
 
         restoreState() {
+            // console.log('semestre ' + $("#semestre").val() || localStorage.semestre || "");
+            // console.log('disciplina ' + $("#disciplina").val() || localStorage.disciplina || "");
+            // console.log('curso ' + $("#curso").val() || localStorage.curso || "");
             let grid_filter = document.getElementById("grid-filter");
             if (grid_filter) {
                 grid_filter.classList.remove("hide_this");
-                if (!$(".view-toggler").is(":checked")) {
-                    const lastView = ["default", "compact"].includes(localStorage.view_toggler)
-                        ? localStorage.view_toggler
-                        : "default";
-                    $("#toggler-" + lastView).prop("checked", true);
-                }
             }
+            //console.log(localStorage.situacao);
         },
 
-        viewToggle() {
-            localStorage.view_toggler = $(".view-toggler:checked").val();
-            $(".courses").removeClass("default compact").addClass(localStorage.view_toggler);
-        },
+
 
         customizeAmbiente() {
-            // $("#ambiente, #curso, #disciplina, #semestre").select2({
-            //     templateSelection: function (data) {
-            //         const style = 'style="padding: 0 5px 0 30px; color: #1D2125; "';
-            //         return $("<span " + style + ">" + data.text + "</span> ");
-            //     },
-            // });
+            
             $("#semestre").select2({
-                placeholder: "<i class='icon icon-calendario-semestre'></i> Semestres...",
-                //placeholder: "Semestres...",
+                placeholder: "Semestres...",
                 templateSelection: function (data) {
                     const style = 'style="color: #7D848B; "';
-                    
-                    return $("<span " + style + ">" + data.text + "</span> ");
+
+                    return $(
+                        "<span " +
+                            style +
+                            ">" +
+                            "<i class='icon icon-calendario-semestre'></i> " +
+                            data.text +
+                            "</span> "
+                    );
                 },
             });
-             $("#disciplina").select2({
-                placeholder: "<i class='icon icon-disciplina' ></i> Disciplinas...",
-                //placeholder: "Disciplinas...",
+            $("#disciplina").select2({
+                placeholder: "Disciplinas...",
                 templateSelection: function (data) {
                     const style = 'style="color: #7D848B; "';
-                    
-                    return $("<span " + style + ">" + data.text + "</span> ");
+
+                    return $(
+                        "<span " + style + ">" + "<i class='icon icon-disciplina' ></i> " + data.text + "</span> "
+                    );
                 },
             });
-             $("#curso").select2({
-                placeholder: "<i class='icon icon-icone-ava'></i> Cursos...",
-                //placeholder: "Cursos...",
+            $("#curso").select2({
+                placeholder: " Cursos...",
                 templateSelection: function (data) {
                     const style = 'style="color: #7D848B; "';
-                    
-                    return $("<span " + style + ">" + data.text + "</span> ");
+
+                    return $("<span " + style + ">" + "<i class='icon icon-icone-ava'></i> " + data.text + "</span> ");
                 },
             });
             $("#ambiente").select2({
-                placeholder: "<i class='icon icon-moodle'></i> Ambientes...",
-                //placeholder: "Ambientes...",
+                placeholder: "Ambientes...",
                 templateSelection: function (data) {
                     const style = 'style="color: #7D848B; "';
-                    
-                    return $("<span " + style + ">" + data.text + "</span> ");
+
+                    return $("<span " + style + ">" + "<i class='icon icon-moodle'></i> " + data.text + "</span> ");
                 },
             });
             $("#situacao").select2({
@@ -195,11 +203,11 @@ export default {
                     return $("<span " + style + ">" + data.text + "</span> ");
                 },
             });
-            
+
+
             setTimeout(function () {
                 $("#ambiente").val($("#ambiente option:eq(0)").val()).trigger("change");
                 $("#curso").val($("#curso option:eq(0)").val()).trigger("change");
-                // $('#situacao').val($('#situacao option:eq(0)').val()).trigger('change');
                 $("#disciplina").val($("#disciplina option:eq(0)").val()).trigger("change");
                 $("#semestre").val($("#semestre option:eq(0)").val()).trigger("change");
 
@@ -304,17 +312,6 @@ export default {
                         content: "Acesse seu perfil no SUAP ou saia do Painel AVA de forma segura.",
                         placement: "left",
                     },
-                    {
-                        element: "#sidebar",
-                        title: "Filtros",
-                        content:
-                            "<p>Aqui você pode filtrar diários por semestre, curso, turma, disciplina, código/id do diário, curso, ambiente (AVA) ou situação, além de poder ordenar como será visto.</p><p>Você pode começar digitando o nome da disciplina e pressionando [ENTER] como uma primeira procura.</p>",
-                        placement: "right",
-                        onNext: function () {
-                            $("#toggler-default").prop("checked", true);
-                            geral.viewToggle();
-                        },
-                    },
                 ]);
                 wt.start();
                 localStorage.setItem("completouTour001", true);
@@ -333,7 +330,7 @@ export default {
                     return;
                 }
 
-                // O oopup nunca foi visto ou se passaram 12h desde a última visualização sem responder
+                // O popup nunca foi visto ou se passaram 12h desde a última visualização sem responder
                 if ((new Date() - lastOccurrence) / (1000 * 3600 * 12) > 1) {
                     new bootstrap.Modal(document.getElementById(popupModalName)).toggle();
                 }
@@ -354,6 +351,7 @@ export default {
 
         favourite(card) {
             const new_status = card.isfavourite ? 0 : 1;
+            let situacao = ($("#situacao").val())
             axios
                 .get("/painel/api/v1/set_favourite/", {
                     params: {
@@ -363,8 +361,16 @@ export default {
                     },
                 })
                 .then((response) => {
+                    
                     card.isfavourite = new_status == 1;
+                    setTimeout(() => {
+                        if (situacao == "favourites") {
+                            this.filterCards();
+                        }
+                    }, 500); 
                 })
+
+                
                 .catch((error) => {
                     console.debug(error);
                 });
@@ -391,64 +397,95 @@ export default {
         },
 
         cardActionsToggler(event) {
-           
-            let item = $(event.currentTarget).parent().parent().parent();       
-            let icon = $(event.currentTarget).find('i');
-            let label = icon.closest('label');
+            let item = $(event.currentTarget).parent().parent().parent();
+            
+            let icon = $(event.currentTarget).find("i");
+            let label = icon.closest("label");
+            let situacao = $("#situacao").val();  // Certifique-se de que situacao está acessível aqui
+            
 
-            //console.log(event.currentTarget.children);
-            if ($(item).hasClass("showActions") ) {                     
+            // Toggle classes for changing color
+            if ($(item).hasClass("showActions")) {
                 $(item).removeClass("showActions");
-                $(label).removeClass("favorited seta seta-up").addClass("seta seta-down"); 
-                             
-            } else {     
-       
+                $(label).removeClass("favorited seta seta-up").addClass("seta seta-down");
+            } else {
                 $(item).addClass("showActions");
-                $(label).removeClass("seta seta-down").addClass("favorited seta seta-up"); 
+                $(label).removeClass("seta seta-down").addClass("favorited seta seta-up");
 
             }
         },
-       
+        async clearFilter() {
+            await this.updateFilterValues("inprogress");
 
-        clearFilter() {
-            this["q"] = "";
-            $("#situacao").val("inprogress").trigger("change");
-            $("#ordenacao").val("fullname").trigger("change");
+            this.filterCards();
+        },
+
+        async clearFilterSeeAll() {
+            //console.log(this.$watch);
+            await this.updateFilterValues("allincludinghidden");
+
+            this.filterCards();
+        },
+
+        async updateFilterValues(situacao) {
+            //resetar os valores tanto visualmente como no localStorage
+            $("#q").val("").trigger("change");
+            $("#situacao").val(situacao).trigger("change");
             $("#semestre").val("").trigger("change");
             $("#disciplina").val("").trigger("change");
             $("#curso").val("").trigger("change");
             $("#ambiente").val("").trigger("change");
-            // setTimeout(this.filterCards, 500);
-            $(".select2-selection").removeClass("bgcolor-select2");
-            
-        },
 
-        clearFilterSeeAll() {
-            console.log(this.$watch);
+            $(".select2-selection").removeClass("bgcolor-select2");
+
             this["q"] = "";
-            this["situacao"] = "allincludinghidden";
-            this["ordenacao"] = "fullname";
+            this["situacao"] = situacao;
             this["semestre"] = "";
             this["disciplina"] = "";
             this["curso"] = "";
             this["ambiente"] = "";
-            // setTimeout(this.filterCards, 500);
-            $(".select2-selection").removeClass("bgcolor-select2");
+        },
+
+        setValueFields() {
+            //para setar os valores escolhidos no localStorage
+            //this["q"] = $(self.q).val() || localStorage.q || "";
+            this["situacao"] = $("#situacao").val() || localStorage.situacao || "inprogress";
+            this["semestre"] = $("#semestre").val() || localStorage.semestre || "";
+            this["disciplina"] = $("#disciplina").val() || localStorage.disciplina || "";
+            this["curso"] = $("#curso").val() || localStorage.curso || "";
+            this["ambiente"] = $("#ambiente").val() || localStorage.ambiente || "";
+        },
+
+        clearOneValue(campo) {
+            if (campo === "semestre") {
+                localStorage.semestre = '';
+                $("#semestre").val("").trigger("change");
+            } else if (campo === "disciplina") {
+                localStorage.disciplina = '';
+                $("#disciplina").val("").trigger("change");
+            } else if (campo === "curso") {
+                localStorage.curso = '';
+                $("#curso").val("").trigger("change");
+            } else if (campo === "ambiente") {
+                localStorage.ambiente = '';
+                $("#ambiente").val("").trigger("change");
+            }
+            
+            this.filterCards();
         },
 
         filterCards() {
-            this.filtering();
+            this.filtering();                                 
             try {
                 axios
                     .get("/painel/api/v1/diarios/", {
                         params: {
                             q: $(self.q).val() || localStorage.q || "",
                             situacao: $("#situacao").val() || localStorage.situacao || "inprogress",
-                            ordenacao: $(self.ordenacao).val() || localStorage.ordenacao || "fullname",
-                            semestre: $(self.semestre).val() || localStorage.semestre || "",
-                            disciplina: $(self.disciplina).val() || localStorage.disciplina || "",
-                            curso: $(self.curso).val() || localStorage.curso || "",
-                            ambiente: $(self.ambiente).val() || localStorage.ambiente || "",
+                            semestre: $("#semestre").val() || localStorage.semestre || "",
+                            disciplina: $("#disciplina").val() || localStorage.disciplina || "",
+                            curso: $("#curso").val() || localStorage.curso || "",
+                            ambiente: $("#ambiente").val() || localStorage.ambiente || "",
                         },
                     })
                     .then((response) => {
@@ -465,6 +502,7 @@ export default {
                 this.has_error = true;
                 this.filtered();
             }
+            this.setValueFields();
         },
 
         filtering() {
@@ -477,32 +515,12 @@ export default {
         },
 
         filtered() {
-            this.viewToggle();
             this.restoreState();
             this.is_filtering = false;
-            var tab = "";
-            if (this.diarios.length > 0) {
-                tab = "#nav-diarios-tab";
-            } else if (this.coordenacoes.length > 0) {
-                tab = "#nav-coordenacoes-tab";
-            } else if (this.praticas.length > 0) {
-                tab = "#nav-praticas-tab";
-            } else if (this.reutilizaveis.length > 0) {
-                tab = "#nav-reutilizaveis-tab";
-            }
-            if (tab != "") {
-                setTimeout(() => {
-                    jQuery(tab).click();
-                }, 500);
-            }
         },
 
         get_situacao_desc() {
             return $("#situacao option:selected").text();
-        },
-
-        get_ordenacao_desc() {
-            return $("#ordenacao option:selected").text();
         },
 
         go_to_suap() {
@@ -530,42 +548,33 @@ export default {
         },
         handleResize() {
             this.screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-  
         },
-
-        
     },
 
-    watch: 
-    {
+    watch: {
         q(newValue) {
             localStorage.q = newValue || "";
+            //console.log('O valor de Q mudou para:', newValue);
         },
         situacao(newValue) {
             localStorage.situacao = newValue || "inprogress";
-        },
-        ordenacao(newValue) {
-            localStorage.ordenacao = newValue || "fullname";
+            //console.log('O valor de Situação mudou para:', newValue);
         },
         semestre(newValue) {
             localStorage.semestre = newValue || "";
+            //console.log('O valor de Semestre mudou para:', newValue);
         },
         disciplina(newValue) {
             localStorage.disciplina = newValue || "";
+            //console.log('O valor de Disciplina mudou para:', newValue);
         },
         curso(newValue) {
             localStorage.curso = newValue || "";
+            //console.log('O valor de Curso mudou para:', newValue);
         },
         ambiente(newValue) {
             localStorage.ambiente = newValue || "";
+            //console.log('O valor de Ambiente mudou para:', newValue);
         },
     },
-    
-
-
-
-
-
 };
-
-

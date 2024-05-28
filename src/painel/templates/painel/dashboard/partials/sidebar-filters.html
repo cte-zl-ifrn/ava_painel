@@ -16,7 +16,6 @@
                     v-model="q"
                     @keydown.enter="filterCards($event)"
                 />
-                 <!-- <i class="fa fa-search icon-filter-color icon-fild-position"></i>  -->
             </div>
             <div class="grid-item position-relative filter-field display-content">
                 <select
@@ -28,13 +27,7 @@
                 >
                     <option v-for="row in situacoes" v-bind:value="row.id">[[ row.label ]]</option>
                 </select>
-                {% comment %} <i class="fa fa-book icon-filter-color icon-fild-position"></i> {% endcomment %}
             </div>
-             <!-- <div class="grid-item">
-                <select name="ordenacao" id="ordenacao" @change="filterCards($event)" v-model="ordenacao">
-                    <option v-for="row in ordenacoes" v-bind:value="row.id">[[ row.label ]]</option>
-                </select>
-            </div>  -->
             <div class="grid-item position-relative filter-field" v-show="selectedBar == 'diarios' || selectedBar == null">
                 <select name="semestre" id="semestre" v-model="semestre" required>
                     <option v-for="row in semestres" v-bind:value="row.id">[[ row.label ]]</option>
@@ -52,7 +45,9 @@
             </div>
             <div class="grid-item position-relative filter-field">
                 <select name="ambiente" id="ambiente" v-model="ambiente" required>
-                    <option v-for="row in ambientes" :data-color="row.color" v-bind:value="row.id">[[ row.label ]]</option>
+                    <option v-for="row in ambientes"  v-bind:value="row.id" v-bind:data-icon="getIcon(row.label)"> 
+                        <span class="cor-ambiente">[[ getIcon(row.label) ]]</span> [[ row.label ]]
+                    </option>
                 </select>
             </div>
 
@@ -61,6 +56,13 @@
                     <i v-if="screenWidth > 335"class="fa fa-trash" aria-hidden="true"></i> Limpar filtros
                 </button>
                 <button type="button" class="btn btn-success" v-on:click="filterCards($event)" @click="closePopup">Filtrar</button>
+            </div>
+
+            <div class="selectedFilters">
+                <div v-if="semestre" v-on:click="clearOneValue('semestre')">Semestre</div>
+                <div v-if="disciplina" v-on:click="clearOneValue('disciplina')">Disciplina</div>
+                <div v-if="curso" v-on:click="clearOneValue('curso')">Curso</div>
+                <div v-if="ambiente" v-on:click="clearOneValue('ambiente')">Ambiente</div>
             </div>
     </div>
 </div> 
