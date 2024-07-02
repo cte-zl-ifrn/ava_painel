@@ -39,4 +39,26 @@
         color: var(--escuro-primario);
         margin-right: 10px;
     }
+
+    //Versão desktop em sidebar-dashboard_filters
+    .selectedFilters {
+        margin-top: 16px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        div {
+            padding: 4px 12px;
+            background-color: var(--verde-terciario);
+            border-radius: 5px;
+            display: inline-block;
+            font-weight: 600;
+            color: var(--cinza-secundario);
+            cursor: pointer;
+            &::before {
+                content: 'X';
+                font-weight: bold;
+                margin-right: 8px;
+            }
+        }
+    }
 }

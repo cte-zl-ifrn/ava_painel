@@ -3,8 +3,8 @@
 <html lang="pt-br">
     <head>
         {% block head %} {% include 'painel/layouts/partials/head.html' %} {% endblock head %}
-    </head>
-    <body>
+    </head> 
+    <body> 
         <header>
             <img alt="Logo do IFRN" src="{% static 'dashboard/img/logo.png' %}" width="132" height="40" />
         </header>
@@ -23,8 +23,10 @@
                 </p>
             </div>
         </main>
-        {% block foot_pre %} {% include 'painel/layouts/partials/foot_pre.html' %} {% endblock foot_pre %} {% block
-        foot_custom %} {% endblock foot_custom %} {% block foot_pos %} {% include
-        'painel/layouts/partials/foot_pos.html' %} {% endblock foot_pos %}
+        {% block foot_pre %} {% include 'painel/layouts/partials/foot_pre.html' %} {% endblock foot_pre %}
+
+        {% block foot_custom %} {% endblock foot_custom %}
+        
+        {% block foot_pos %} {% include 'painel/layouts/partials/foot_pos.html' %} {% endblock foot_pos %}
     </body>
 </html>

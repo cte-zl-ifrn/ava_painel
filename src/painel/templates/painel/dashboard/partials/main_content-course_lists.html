@@ -1,15 +1,4 @@
 {% load static %}
-<!-- <ul>
-    <li v-on:click="tabAberta=TAB_DIARIO">Diário</li>
-    <li v-on:click="tabAberta=TAB_COORDENACAO">Coordenação</li>
-</ul>
-
-<ul>
-    <li v-show="tabAberta==TAB_DIARIO">Conteúdo do diário</li>
-    <li v-show="tabAberta==TAB_COORDENACAO">Conteúdo do Coordenação</li>
-</ul> -->
-
-
 <div
     class="tab-pane fade {{ extra_class }}"
     id="nav-{{ list_name }}"
@@ -39,7 +28,7 @@
                     <div class="course-info">
                         <div class="course-identification">
                             <label :style="{ background: card.ambiente.cor_mestra }"
-                                ><i class="icon icon-external-link"></i
+                                ><i  class="icon icon-moodle"></i
                             ></label>
                             <span v-if="card.turma">
                                 <span class="course-turma">[[ card.turma ]]</span>
@@ -72,13 +61,18 @@
                             title="Desfavoritar este diário para mim"
                             ><i class="fa fa-star-o"></i
                         ></label>
-                        <label v-on:click.capture="cardActionsToggler" type="button" title="Mais opções"
+                        <label v-if="card.idnumber && card.id_diario" v-on:click.capture="cardActionsToggler" type="button" title="Mais opções"
                         
                             ><i  class="icon icon-chevron-down "></i>
                         </label>
+                        <label v-else id="disable-chevron" type="button" title="Sem mais opções"
+                        
+                            ><i  class="icon icon-chevron-down "></i>
+                        </label>
+
                     </div>
                 </div>
-                <div class="course-actions">
+                <div  class="course-actions">
                     <span v-if="card.suapsurl">
                         <i class='icon icon-suap-vazado'></i><a v-bind:href="[[ card.suapsurl ]]">Ver diario no SUAP</a>
                     </span>
@@ -94,9 +88,11 @@
                     <span v-if="card.checkgradesurl">
                         <i class='icon icon-preview-notas'></i><a v-bind:href="[[ card.checkgradesurl ]]">Visualizar prévia das notas</a>
                     </span>
+                    <!--
                     <span v-if="card.syncsurl">
                         <i class='icon icon-historico-integracoes'></i><a v-bind:href="[[ card.syncsurl ]]">Visualizar histórico de integrações</a>
                     </span>
+                    -->
                 </div>
             </div>
         </div>
