@@ -20,7 +20,8 @@
 #select2-ambiente-results .select2-results__option,
 #select2-ambiente-results .select2-selection__rendered {
     margin: 0;
-    padding: 0;
+    padding: 6px;
+  
 }
 
 #select2-ambiente_id-container {
@@ -31,6 +32,7 @@
 #select2-ambiente-container span {
     margin: 0px;
     display: block;
+    
 }
 
 .select2-container {
