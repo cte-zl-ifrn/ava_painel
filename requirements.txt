@@ -41,6 +41,6 @@ pillow==10.3.0
 setuptools>=69.3.0 # not directly required, pinned by Snyk to avoid a vulnerability
 
 # Production
-sentry-sdk[django]==1.45.0
-gunicorn==21.2.0
+sentry-sdk[django]==2.7.1
+gunicorn==22.0.0
 supervisor==4.2.5
